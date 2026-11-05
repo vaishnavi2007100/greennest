@@ -1,0 +1,567 @@
+{% extends "store/base.html" %}
+
+{% load static %}
+
+{% block title %}
+New Arrivals | GreenNest
+{% endblock %}
+
+
+{% block content %}
+
+<style>
+
+.gn-new-page {
+    background: #f8f6ef;
+    min-height: 100vh;
+}
+
+
+/* =====================================================
+   HERO
+===================================================== */
+
+.gn-new-hero {
+
+    background:
+        linear-gradient(
+            135deg,
+            #0b3d2e,
+            #286044
+        );
+
+    color: white;
+
+    padding: 75px 0;
+
+    text-align: center;
+}
+
+.gn-new-label {
+
+    color: #c8a96b;
+
+    font-size: 12px;
+
+    font-weight: 700;
+
+    letter-spacing: 3px;
+}
+
+.gn-new-hero h1 {
+
+    font-family: Georgia, serif;
+
+    font-size: 52px;
+
+    margin: 12px 0 15px;
+}
+
+.gn-new-hero p {
+
+    max-width: 700px;
+
+    margin: auto;
+
+    color: rgba(255,255,255,.82);
+
+    line-height: 1.8;
+}
+
+
+/* =====================================================
+   PRODUCT SECTION
+===================================================== */
+
+.gn-products-section {
+
+    padding: 70px 0;
+}
+
+
+/* =====================================================
+   PRODUCT CARD
+===================================================== */
+
+.gn-product-card {
+
+    background: white;
+
+    border-radius: 18px;
+
+    overflow: hidden;
+
+    border: 1px solid #ebe7dc;
+
+    height: 100%;
+
+    transition: .3s;
+
+    box-shadow: 0 5px 20px rgba(0,0,0,.04);
+}
+
+.gn-product-card:hover {
+
+    transform: translateY(-7px);
+
+    box-shadow: 0 15px 35px rgba(0,0,0,.10);
+}
+
+
+/* =====================================================
+   IMAGE
+===================================================== */
+
+.gn-product-image {
+
+    height: 250px;
+
+    background: #f1f3ed;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    overflow: hidden;
+}
+
+.gn-product-image img {
+
+    width: 100%;
+
+    height: 100%;
+
+    object-fit: cover;
+}
+
+.gn-no-image {
+
+    font-size: 60px;
+
+    color: #8aa495;
+}
+
+
+/* =====================================================
+   BODY
+===================================================== */
+
+.gn-product-body {
+
+    padding: 25px;
+}
+
+.gn-product-category {
+
+    color: #c49d57;
+
+    font-size: 11px;
+
+    font-weight: 700;
+
+    text-transform: uppercase;
+
+    letter-spacing: 1.5px;
+}
+
+.gn-product-name {
+
+    color: #0b3d2e;
+
+    font-family: Georgia, serif;
+
+    font-size: 22px;
+
+    margin: 8px 0;
+}
+
+.gn-product-subcategory {
+
+    color: #737a75;
+
+    font-size: 14px;
+
+    margin-bottom: 15px;
+}
+
+.gn-price-row {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 10px;
+
+    margin-top: 10px;
+}
+
+.gn-price {
+
+    color: #0b3d2e;
+
+    font-size: 21px;
+
+    font-weight: 700;
+}
+
+.gn-old-price {
+
+    color: #999;
+
+    text-decoration: line-through;
+
+    font-size: 14px;
+}
+
+.gn-description {
+
+    color: #6d746f;
+
+    font-size: 14px;
+
+    line-height: 1.6;
+
+    margin-top: 12px;
+}
+
+
+/* =====================================================
+   STOCK
+===================================================== */
+
+.gn-stock {
+
+    margin-top: 12px;
+
+    font-size: 13px;
+
+    font-weight: 600;
+}
+
+.gn-stock.available {
+
+    color: #198754;
+}
+
+.gn-stock.out {
+
+    color: #dc3545;
+}
+
+
+/* =====================================================
+   EMPTY
+===================================================== */
+
+.gn-empty {
+
+    background: white;
+
+    border: 1px solid #ebe7dc;
+
+    border-radius: 20px;
+
+    text-align: center;
+
+    padding: 80px 30px;
+}
+
+.gn-empty i {
+
+    color: #c8a96b;
+
+    font-size: 60px;
+}
+
+.gn-empty h3 {
+
+    color: #0b3d2e;
+
+    font-family: Georgia, serif;
+
+    margin-top: 20px;
+}
+
+
+/* =====================================================
+   RESPONSIVE
+===================================================== */
+
+@media(max-width: 768px) {
+
+    .gn-new-hero h1 {
+
+        font-size: 40px;
+    }
+
+}
+
+</style>
+
+
+<div class="gn-new-page">
+
+
+<!-- =====================================================
+     HERO
+===================================================== -->
+
+<section class="gn-new-hero">
+
+    <div class="container">
+
+        <span class="gn-new-label">
+            GREENNEST COLLECTION
+        </span>
+
+
+        {% if new_arrival %}
+
+            <h1>
+                {{ new_arrival.collection_name }}
+            </h1>
+
+
+            {% if new_arrival.description %}
+
+                <p>
+                    {{ new_arrival.description }}
+                </p>
+
+            {% else %}
+
+                <p>
+                    Discover the latest additions
+                    to GreenNest.
+                </p>
+
+            {% endif %}
+
+
+        {% else %}
+
+            <h1>
+                New Arrivals
+            </h1>
+
+            <p>
+                Discover the latest additions
+                to GreenNest.
+            </p>
+
+        {% endif %}
+
+    </div>
+
+</section>
+
+
+
+<!-- =====================================================
+     PRODUCTS
+===================================================== -->
+
+<section class="gn-products-section">
+
+    <div class="container">
+
+
+        {% if products %}
+
+
+            <div class="row g-4">
+
+
+                {% for product in products %}
+
+
+                <div class="col-xl-3 col-lg-4 col-md-6">
+
+
+                    <div class="gn-product-card">
+
+
+                        <!-- IMAGE -->
+
+                        <div class="gn-product-image">
+
+
+                            {% if product.image %}
+
+                                <img
+                                    src="{{ product.image }}"
+                                    alt="{{ product.name }}"
+                                >
+
+                            {% else %}
+
+                                <i class="bi bi-flower1 gn-no-image"></i>
+
+                            {% endif %}
+
+
+                        </div>
+
+
+
+                        <!-- BODY -->
+
+                        <div class="gn-product-body">
+
+
+                            {% if product.category %}
+
+                                <div class="gn-product-category">
+
+                                    {{ product.category }}
+
+                                </div>
+
+                            {% endif %}
+
+
+
+                            <h3 class="gn-product-name">
+
+                                {{ product.name }}
+
+                            </h3>
+
+
+
+                            {% if product.subcategory %}
+
+                                <div class="gn-product-subcategory">
+
+                                    {{ product.subcategory }}
+
+                                </div>
+
+                            {% endif %}
+
+
+
+                            <!-- PRICE -->
+
+                            <div class="gn-price-row">
+
+
+                                <span class="gn-price">
+
+                                    ₹{{ product.price }}
+
+                                </span>
+
+
+                                {% if product.old_price %}
+
+                                    <span class="gn-old-price">
+
+                                        ₹{{ product.old_price }}
+
+                                    </span>
+
+                                {% endif %}
+
+
+                            </div>
+
+
+
+                            <!-- DESCRIPTION -->
+
+                            {% if product.description %}
+
+                                <div class="gn-description">
+
+                                    {{ product.description|truncatewords:15 }}
+
+                                </div>
+
+                            {% endif %}
+
+
+
+                            <!-- STOCK -->
+
+                            {% if product.stock and product.stock > 0 %}
+
+                                <div class="gn-stock available">
+
+                                    <i class="bi bi-check-circle-fill"></i>
+
+                                    In Stock
+
+                                </div>
+
+                            {% else %}
+
+                                <div class="gn-stock out">
+
+                                    <i class="bi bi-x-circle-fill"></i>
+
+                                    Out of Stock
+
+                                </div>
+
+                            {% endif %}
+
+
+                        </div>
+
+
+                    </div>
+
+
+                </div>
+
+
+                {% endfor %}
+
+
+            </div>
+
+
+        {% else %}
+
+
+            <!-- =================================================
+                 NO PRODUCTS
+            ================================================= -->
+
+            <div class="gn-empty">
+
+
+                <i class="bi bi-stars"></i>
+
+
+                <h3>
+                    No New Arrivals Yet
+                </h3>
+
+
+                <p class="text-muted">
+
+                    Products assigned to the
+                    <strong>New Arrivals</strong>
+                    collection will appear here.
+
+                </p>
+
+
+            </div>
+
+
+        {% endif %}
+
+
+    </div>
+
+</section>
+
+
+</div>
+
+{% endblock %}

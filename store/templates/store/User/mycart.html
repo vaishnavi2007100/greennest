@@ -1,0 +1,702 @@
+{% extends "store/User/usermaster.html" %}
+
+{% load static %}
+
+{% block title %}
+My Cart | GreenNest
+{% endblock %}
+
+{% block content %}
+
+<style>
+
+/* =========================================================
+   CART PAGE
+========================================================= */
+
+.cart-page {
+    padding: 30px 0;
+}
+
+.cart-title {
+    color: #123d2b;
+    font-weight: 700;
+    margin-bottom: 25px;
+}
+
+.cart-box {
+    background: #ffffff;
+    border-radius: 15px;
+    padding: 20px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+}
+
+.cart-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.cart-table th {
+    background: #123d2b;
+    color: white;
+    padding: 15px;
+}
+
+.cart-table td {
+    padding: 15px;
+    border-bottom: 1px solid #eeeeee;
+    vertical-align: middle;
+}
+
+.product-info {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.product-image {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+.product-name {
+    font-weight: 600;
+    color: #123d2b;
+}
+
+.quantity-box {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.quantity-number {
+    min-width: 35px;
+    text-align: center;
+    font-weight: 600;
+}
+
+.item-total {
+    font-weight: 700;
+    color: #123d2b;
+}
+
+.cart-summary {
+    margin-top: 20px;
+    background: #f5f8f4;
+    border-radius: 15px;
+    padding: 25px;
+}
+
+.grand-total {
+    font-size: 24px;
+    font-weight: 700;
+    color: #123d2b;
+}
+
+.empty-cart {
+    text-align: center;
+    padding: 70px 20px;
+}
+
+.empty-cart i {
+    font-size: 60px;
+    color: #123d2b;
+}
+
+
+/* =========================================================
+   PAYMENT METHOD
+========================================================= */
+
+.payment-method-box {
+    background: #ffffff;
+    border: 1px solid #e1e9e1;
+    border-radius: 12px;
+    padding: 15px;
+    max-width: 420px;
+    margin-left: auto;
+}
+
+.payment-title {
+    color: #123d2b;
+    font-size: 14px;
+    font-weight: 700;
+    margin-bottom: 12px;
+}
+
+.payment-title i {
+    color: #c29e50;
+    margin-right: 6px;
+}
+
+.payment-option {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 11px;
+    margin-bottom: 8px;
+    border: 1px solid #e7eee7;
+    border-radius: 9px;
+    cursor: pointer;
+    transition: 0.2s ease;
+}
+
+.payment-option:last-child {
+    margin-bottom: 0;
+}
+
+.payment-option:hover {
+    background: #f7faf6;
+    border-color: #cbdccc;
+}
+
+.payment-option input {
+    accent-color: #123d2b;
+}
+
+.payment-icon {
+    width: 34px;
+    height: 34px;
+    border-radius: 8px;
+    background: #edf5ed;
+    color: #286542;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.payment-text {
+    display: flex;
+    flex-direction: column;
+}
+
+.payment-text strong {
+    color: #123d2b;
+    font-size: 12px;
+}
+
+.payment-text small {
+    color: #89958d;
+    font-size: 10px;
+    margin-top: 2px;
+}
+
+
+/* =========================================================
+   PLACE ORDER BUTTON
+========================================================= */
+
+.place-order-btn {
+    background: #123d2b;
+    border: none;
+    color: white;
+    padding: 12px 28px;
+    border-radius: 8px;
+    font-weight: 600;
+    transition: 0.3s;
+}
+
+.place-order-btn:hover {
+    background: #1f6045;
+    color: white;
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media(max-width: 768px) {
+
+    .cart-table {
+        font-size: 14px;
+    }
+
+    .cart-table th,
+    .cart-table td {
+        padding: 8px;
+    }
+
+    .product-image {
+        width: 60px;
+        height: 60px;
+    }
+
+    .grand-total {
+        font-size: 20px;
+        margin-top: 20px;
+    }
+
+    .payment-method-box {
+        max-width: 100%;
+        margin-left: 0;
+        margin-top: 20px;
+    }
+
+    .place-order-btn {
+        width: 100%;
+        margin-top: 12px;
+    }
+
+}
+
+</style>
+
+
+<div class="container cart-page">
+
+
+    <!-- =====================================================
+         PAGE TITLE
+    ====================================================== -->
+
+    <h2 class="cart-title">
+
+        <i class="bi bi-cart3"></i>
+
+        My Cart
+
+    </h2>
+
+
+    {% if cart_items %}
+
+
+    <!-- =====================================================
+         CART BOX
+    ====================================================== -->
+
+    <div class="cart-box">
+
+        <div class="table-responsive">
+
+            <table class="cart-table">
+
+                <!-- TABLE HEADER -->
+
+                <thead>
+
+                    <tr>
+
+                        <th>
+                            Product
+                        </th>
+
+                        <th>
+                            Price
+                        </th>
+
+                        <th>
+                            Quantity
+                        </th>
+
+                        <th>
+                            Total
+                        </th>
+
+                        <th>
+                            Action
+                        </th>
+
+                    </tr>
+
+                </thead>
+
+
+                <!-- TABLE BODY -->
+
+                <tbody>
+
+                    {% for item in cart_items %}
+
+                    <tr>
+
+
+                        <!-- =================================================
+                             PRODUCT
+                        ================================================== -->
+
+                        <td>
+
+                            <div class="product-info">
+
+                                <img
+                                    src="{% static 'product_images/' %}{{ item.image }}"
+                                    alt="{{ item.product_name }}"
+                                    class="product-image"
+                                >
+
+                                <div class="product-name">
+
+                                    {{ item.product_name }}
+
+                                </div>
+
+                            </div>
+
+                        </td>
+
+
+                        <!-- =================================================
+                             PRICE
+                        ================================================== -->
+
+                        <td>
+
+                            ₹{{ item.price|floatformat:2 }}
+
+                        </td>
+
+
+                        <!-- =================================================
+                             QUANTITY
+                        ================================================== -->
+
+                        <td>
+
+                            <div class="quantity-box">
+
+
+                                <!-- DECREASE -->
+
+                                <form method="POST">
+
+                                    {% csrf_token %}
+
+                                    <input
+                                        type="hidden"
+                                        name="action"
+                                        value="decrease"
+                                    >
+
+                                    <input
+                                        type="hidden"
+                                        name="cart_id"
+                                        value="{{ item.id }}"
+                                    >
+
+                                    <button
+                                        type="submit"
+                                        class="btn btn-sm btn-outline-secondary"
+                                    >
+
+                                        −
+
+                                    </button>
+
+                                </form>
+
+
+                                <!-- QUANTITY -->
+
+                                <span class="quantity-number">
+
+                                    {{ item.quantity }}
+
+                                </span>
+
+
+                                <!-- INCREASE -->
+
+                                <form method="POST">
+
+                                    {% csrf_token %}
+
+                                    <input
+                                        type="hidden"
+                                        name="action"
+                                        value="increase"
+                                    >
+
+                                    <input
+                                        type="hidden"
+                                        name="cart_id"
+                                        value="{{ item.id }}"
+                                    >
+
+                                    <button
+                                        type="submit"
+                                        class="btn btn-sm btn-outline-secondary"
+                                    >
+
+                                        +
+
+                                    </button>
+
+                                </form>
+
+
+                            </div>
+
+                        </td>
+
+
+                        <!-- =================================================
+                             ITEM TOTAL
+                        ================================================== -->
+
+                        <td>
+
+                            <span class="item-total">
+
+                                ₹{{ item.total|floatformat:2 }}
+
+                            </span>
+
+                        </td>
+
+
+                        <!-- =================================================
+                             REMOVE
+                        ================================================== -->
+
+                        <td>
+
+                            <form method="POST">
+
+                                {% csrf_token %}
+
+                                <input
+                                    type="hidden"
+                                    name="action"
+                                    value="remove"
+                                >
+
+                                <input
+                                    type="hidden"
+                                    name="cart_id"
+                                    value="{{ item.id }}"
+                                >
+
+                                <button
+                                    type="submit"
+                                    class="btn btn-danger btn-sm"
+                                >
+
+                                    <i class="bi bi-trash"></i>
+
+                                    Remove
+
+                                </button>
+
+                            </form>
+
+                        </td>
+
+
+                    </tr>
+
+                    {% endfor %}
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+
+        <!-- =====================================================
+             CART SUMMARY
+        ====================================================== -->
+
+        <div class="cart-summary">
+
+            <div class="row align-items-center">
+
+
+                <!-- LEFT SIDE -->
+
+                <div class="col-md-6">
+
+                    <h5>
+
+                        Cart Summary
+
+                    </h5>
+
+                    <p class="text-muted mb-0">
+
+                        Total Products:
+                        {{ cart_items|length }}
+
+                    </p>
+
+                </div>
+
+
+                <!-- RIGHT SIDE -->
+
+                <div class="col-md-6 text-md-end">
+
+                    <div class="grand-total">
+
+                        Grand Total:
+                        ₹{{ total|floatformat:2 }}
+
+                    </div>
+
+
+                    <!-- =================================================
+                         PAYMENT METHOD
+                    ================================================== -->
+
+                    <div class="payment-method-box mt-3">
+
+                        <div class="payment-title">
+
+                            <i class="bi bi-credit-card"></i>
+
+                            Payment Method
+
+                        </div>
+
+
+                        <!-- CASH ON DELIVERY -->
+
+                        <label class="payment-option">
+
+                            <input
+                                type="radio"
+                                name="payment_method"
+                                value="Cash on Delivery"
+                                checked
+                                form="placeOrderForm"
+                            >
+
+                            <span class="payment-icon">
+
+                                <i class="bi bi-cash-stack"></i>
+
+                            </span>
+
+                            <span class="payment-text">
+
+                                <strong>
+                                    Cash on Delivery
+                                </strong>
+
+                                <small>
+                                    Pay when your order is delivered
+                                </small>
+
+                            </span>
+
+                        </label>
+
+
+                        <!-- ONLINE PAYMENT -->
+
+                        <label class="payment-option">
+
+                            <input
+                                type="radio"
+                                name="payment_method"
+                                value="Online Payment"
+                                form="placeOrderForm"
+                            >
+
+                            <span class="payment-icon">
+
+                                <i class="bi bi-credit-card-fill"></i>
+
+                            </span>
+
+                            <span class="payment-text">
+
+                                <strong>
+                                    Online Payment
+                                </strong>
+
+                                <small>
+                                    Pay online
+                                </small>
+
+                            </span>
+
+                        </label>
+
+                    </div>
+
+
+                    <!-- =================================================
+                         PLACE ORDER
+                    ================================================== -->
+
+                    <form
+                        method="POST"
+                        action="{% url 'placeorder' %}"
+                        id="placeOrderForm"
+                        class="mt-3"
+                    >
+
+                        {% csrf_token %}
+
+                        <button
+                            type="submit"
+                            class="place-order-btn"
+                        >
+
+                            <i class="bi bi-bag-check-fill me-2"></i>
+
+                            Place Order
+
+                        </button>
+
+                    </form>
+
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    {% else %}
+
+
+    <!-- =====================================================
+         EMPTY CART
+    ====================================================== -->
+
+    <div class="cart-box empty-cart">
+
+        <i class="bi bi-cart-x"></i>
+
+        <h3 class="mt-3">
+
+            Your Cart is Empty
+
+        </h3>
+
+        <p class="text-muted">
+
+            You haven't added any products to your cart yet.
+
+        </p>
+
+        <a
+            href="/plant/"
+            class="btn btn-success"
+        >
+
+            <i class="bi bi-shop"></i>
+
+            Continue Shopping
+
+        </a>
+
+    </div>
+
+    {% endif %}
+
+
+</div>
+
+{% endblock %}

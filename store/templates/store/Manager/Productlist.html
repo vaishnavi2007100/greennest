@@ -1,0 +1,833 @@
+{% extends "store/Manager/ManagerMaster.html" %}
+{% load static %}
+
+{% block title %}
+Products | GreenNest Manager
+{% endblock %}
+
+{% block page_heading %}
+Products
+{% endblock %}
+
+{% block content %}
+
+<style>
+
+/* =========================================================
+   PRODUCT LIST PAGE
+========================================================= */
+
+.product-list-page {
+    width: 100%;
+}
+
+
+/* =========================================================
+   HEADER
+========================================================= */
+
+.product-list-header {
+    margin-bottom: 25px;
+}
+
+.product-list-header h3 {
+    color: #173d2b;
+    font-weight: 700;
+    margin-bottom: 5px;
+}
+
+.product-list-header p {
+    color: #8a958e;
+    font-size: 13px;
+    margin-bottom: 0;
+}
+
+
+/* =========================================================
+   TABLE CARD
+========================================================= */
+
+.product-table-card {
+    background: #ffffff;
+    border: 1px solid #e5ece6;
+    border-radius: 18px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(25, 70, 45, 0.06);
+}
+
+
+/* =========================================================
+   TABLE RESPONSIVE
+========================================================= */
+
+.product-table-wrapper {
+    width: 100%;
+    overflow-x: auto;
+    overflow-y: hidden;
+}
+
+.product-table-wrapper::-webkit-scrollbar {
+    height: 8px;
+}
+
+.product-table-wrapper::-webkit-scrollbar-track {
+    background: #edf2ee;
+}
+
+.product-table-wrapper::-webkit-scrollbar-thumb {
+    background: #9baa9f;
+    border-radius: 10px;
+}
+
+
+/* =========================================================
+   TABLE
+========================================================= */
+
+.product-table {
+    width: 100%;
+    min-width: 1450px;
+    margin-bottom: 0;
+    border-collapse: separate;
+    border-spacing: 0;
+}
+
+
+/* =========================================================
+   TABLE HEADER
+========================================================= */
+
+.product-table thead th {
+    background: #edf5ef;
+    color: #173d2b;
+    font-size: 12px;
+    font-weight: 700;
+    padding: 15px 13px;
+    white-space: nowrap;
+    border-bottom: 1px solid #dce8df;
+    vertical-align: middle;
+}
+
+
+/* =========================================================
+   TABLE BODY
+========================================================= */
+
+.product-table tbody td {
+    color: #44524a;
+    font-size: 13px;
+    padding: 15px 13px;
+    vertical-align: middle;
+    border-color: #edf1ee;
+    white-space: nowrap;
+}
+
+.product-table tbody tr:hover {
+    background: #fbfdfb;
+}
+
+
+/* =========================================================
+   IMAGE
+========================================================= */
+
+.product-image {
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+    border-radius: 10px;
+    border: 1px solid #e2ebe4;
+    background: #f5f8f5;
+}
+
+
+/* =========================================================
+   PRODUCT NAME
+========================================================= */
+
+.product-name {
+    color: #173d2b;
+    font-weight: 700;
+}
+
+
+/* =========================================================
+   VENDOR
+========================================================= */
+
+.vendor-email {
+    display: block;
+    color: #286044;
+    font-size: 12px;
+    max-width: 180px;
+    white-space: normal;
+    word-break: break-word;
+}
+
+
+/* =========================================================
+   CATEGORY
+========================================================= */
+
+.product-category {
+    color: #44524a;
+    font-weight: 600;
+}
+
+
+/* =========================================================
+   SUBCATEGORY
+========================================================= */
+
+.product-subcategory {
+    color: #7d8982;
+}
+
+
+/* =========================================================
+   PRICE
+========================================================= */
+
+.product-price {
+    color: #173d2b;
+    font-weight: 700;
+}
+
+
+/* =========================================================
+   OLD PRICE
+========================================================= */
+
+.product-old-price {
+    color: #9aa39e;
+    text-decoration: line-through;
+    font-size: 12px;
+}
+
+
+/* =========================================================
+   DESCRIPTION
+========================================================= */
+
+.product-description {
+    max-width: 180px;
+    color: #6f7b74;
+    line-height: 1.5;
+
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+
+    overflow: hidden;
+    white-space: normal;
+}
+
+
+/* =========================================================
+   STOCK
+========================================================= */
+
+.stock-badge {
+    display: inline-block;
+    min-width: 38px;
+    text-align: center;
+    padding: 6px 10px;
+    border-radius: 7px;
+    background: #edf5ef;
+    color: #24613f;
+    font-size: 11px;
+    font-weight: 700;
+}
+
+.low-stock {
+    background: #fff3cd;
+    color: #856404;
+}
+
+.out-stock {
+    background: #f8d7da;
+    color: #842029;
+}
+
+
+/* =========================================================
+   STATUS
+========================================================= */
+
+.status-badge {
+    display: inline-block;
+    padding: 6px 11px;
+    border-radius: 20px;
+    background: #edf5ef;
+    color: #24613f;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: capitalize;
+}
+
+
+/* =========================================================
+   CREATED DATE
+========================================================= */
+
+.product-date {
+    color: #7d8982;
+    font-size: 11px;
+    white-space: nowrap;
+}
+
+
+/* =========================================================
+   EMPTY VALUE
+========================================================= */
+
+.empty-value {
+    color: #a3aaa6;
+    font-style: italic;
+    font-size: 12px;
+}
+
+
+/* =========================================================
+   ACTION BUTTONS
+========================================================= */
+
+.product-actions {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    white-space: nowrap;
+}
+
+
+/* =========================================================
+   COMMON ACTION BUTTON
+========================================================= */
+
+.product-action-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+
+    border: none;
+    border-radius: 7px;
+
+    padding: 7px 11px;
+
+    font-size: 12px;
+    font-weight: 600;
+
+    text-decoration: none;
+
+    transition: all 0.2s ease;
+}
+
+
+/* =========================================================
+   VIEW BUTTON
+========================================================= */
+
+.product-view-btn {
+    background: #173d2b;
+    color: #ffffff;
+}
+
+.product-view-btn:hover {
+    background: #286044;
+    color: #ffffff;
+    transform: translateY(-1px);
+}
+
+
+/* =========================================================
+   EDIT BUTTON
+========================================================= */
+
+.product-edit-btn {
+    background: #fff4dc;
+    color: #8a651f;
+}
+
+.product-edit-btn:hover {
+    background: #f5e2b7;
+    color: #65480f;
+    transform: translateY(-1px);
+}
+
+
+/* =========================================================
+   DELETE BUTTON
+========================================================= */
+
+.product-delete-btn {
+    background: #fdeaea;
+    color: #b42318;
+}
+
+.product-delete-btn:hover {
+    background: #f8d0d0;
+    color: #8f1710;
+    transform: translateY(-1px);
+}
+
+
+/* =========================================================
+   NO PRODUCTS
+========================================================= */
+
+.no-products {
+    text-align: center;
+    padding: 50px 20px !important;
+    color: #8a958e;
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 768px) {
+
+    .product-table-card {
+        border-radius: 14px;
+    }
+
+    .product-table {
+        min-width: 1450px;
+    }
+
+}
+
+</style>
+
+
+<div class="product-list-page">
+
+
+    <!-- =====================================================
+         PAGE HEADER
+    ====================================================== -->
+
+    <div class="product-list-header">
+
+        <h3>
+            Products
+        </h3>
+
+        <p>
+            View and manage all vendor products.
+        </p>
+
+    </div>
+
+
+    <!-- =====================================================
+         PRODUCT TABLE CARD
+    ====================================================== -->
+
+    <div class="product-table-card">
+
+        <div class="product-table-wrapper">
+
+            <table class="table table-hover product-table">
+
+
+                <!-- =================================================
+                     TABLE HEADER
+                ================================================== -->
+
+                <thead>
+
+                    <tr>
+
+                        <th>
+                            #
+                        </th>
+
+                        <th>
+                            Image
+                        </th>
+
+                        <th>
+                            Product
+                        </th>
+
+                        <th>
+                            Vendor
+                        </th>
+
+                        <th>
+                            Category
+                        </th>
+
+                        <th>
+                            Subcategory
+                        </th>
+
+                        <th>
+                            Price
+                        </th>
+
+                        <th>
+                            Old Price
+                        </th>
+
+                        <th>
+                            Description
+                        </th>
+
+                        <th>
+                            Stock
+                        </th>
+
+                        <th>
+                            Status
+                        </th>
+
+                        <th>
+                            Created
+                        </th>
+
+                        <th>
+                            Action
+                        </th>
+
+                    </tr>
+
+                </thead>
+
+
+                <!-- =================================================
+                     TABLE BODY
+                ================================================== -->
+
+                <tbody>
+
+                    {% for product in products %}
+
+                    <tr>
+
+
+                        <!-- =========================================
+                             ID
+                        ========================================== -->
+
+                        <td>
+                            {{ product.id }}
+                        </td>
+
+
+                        <!-- =========================================
+                             IMAGE
+                        ========================================== -->
+
+                        <td>
+
+                            {% if product.image %}
+
+                                <img
+                                    src="{% static 'product_images/' %}{{ product.image }}"
+                                    class="product-image"
+                                    alt="{{ product.name }}"
+                                >
+
+                            {% else %}
+
+                                <span class="empty-value">
+                                    No Image
+                                </span>
+
+                            {% endif %}
+
+                        </td>
+
+
+                        <!-- =========================================
+                             PRODUCT NAME
+                        ========================================== -->
+
+                        <td>
+
+                            <span class="product-name">
+                                {{ product.name }}
+                            </span>
+
+                        </td>
+
+
+                        <!-- =========================================
+                             VENDOR
+                        ========================================== -->
+
+                        <td>
+
+                            <span class="vendor-email">
+                                {{ product.vendor_email }}
+                            </span>
+
+                        </td>
+
+
+                        <!-- =========================================
+                             CATEGORY
+                        ========================================== -->
+
+                        <td>
+
+                            <span class="product-category">
+                                {{ product.category }}
+                            </span>
+
+                        </td>
+
+
+                        <!-- =========================================
+                             SUBCATEGORY
+                        ========================================== -->
+
+                        <td>
+
+                            {% if product.subcategory %}
+
+                                <span class="product-subcategory">
+                                    {{ product.subcategory }}
+                                </span>
+
+                            {% else %}
+
+                                <span class="empty-value">
+                                    -
+                                </span>
+
+                            {% endif %}
+
+                        </td>
+
+
+                        <!-- =========================================
+                             PRICE
+                        ========================================== -->
+
+                        <td>
+
+                            <span class="product-price">
+                                ₹{{ product.price }}
+                            </span>
+
+                        </td>
+
+
+                        <!-- =========================================
+                             OLD PRICE
+                        ========================================== -->
+
+                        <td>
+
+                            {% if product.old_price %}
+
+                                <span class="product-old-price">
+                                    ₹{{ product.old_price }}
+                                </span>
+
+                            {% else %}
+
+                                <span class="empty-value">
+                                    -
+                                </span>
+
+                            {% endif %}
+
+                        </td>
+
+
+                        <!-- =========================================
+                             DESCRIPTION
+                        ========================================== -->
+
+                        <td>
+
+                            {% if product.description %}
+
+                                <div class="product-description">
+                                    {{ product.description }}
+                                </div>
+
+                            {% else %}
+
+                                <span class="empty-value">
+                                    No Description
+                                </span>
+
+                            {% endif %}
+
+                        </td>
+
+
+                        <!-- =========================================
+                             STOCK
+                        ========================================== -->
+
+                        <td>
+
+                            {% if product.stock == 0 %}
+
+                                <span class="stock-badge out-stock">
+                                    Out of Stock
+                                </span>
+
+                            {% elif product.stock <= 10 %}
+
+                                <span class="stock-badge low-stock">
+                                    {{ product.stock }}
+                                </span>
+
+                            {% else %}
+
+                                <span class="stock-badge">
+                                    {{ product.stock }}
+                                </span>
+
+                            {% endif %}
+
+                        </td>
+
+
+                        <!-- =========================================
+                             STATUS
+                        ========================================== -->
+
+                        <td>
+
+                            <span class="status-badge">
+                                {{ product.status }}
+                            </span>
+
+                        </td>
+
+
+                        <!-- =========================================
+                             CREATED AT
+                        ========================================== -->
+
+                        <td>
+
+                            {% if product.created_at %}
+
+                                <span class="product-date">
+                                    {{ product.created_at|date:"d M Y, h:i A" }}
+                                </span>
+
+                            {% else %}
+
+                                <span class="empty-value">
+                                    -
+                                </span>
+
+                            {% endif %}
+
+                        </td>
+
+
+                        <!-- =========================================
+                             ACTION
+                        ========================================== -->
+
+                        <td>
+
+                            <div class="product-actions">
+
+
+                                <!-- VIEW -->
+
+                                <a
+                                    href="{% url 'Productdetail' product.id %}"
+                                    class="product-action-btn product-view-btn"
+                                >
+
+                                    <i class="bi bi-eye"></i>
+
+                                    View
+
+                                </a>
+
+
+                                <!-- EDIT -->
+
+                                <a
+                                    href="{% url 'EditProduct' product.id %}"
+                                    class="product-action-btn product-edit-btn"
+                                >
+
+                                    <i class="bi bi-pencil-square"></i>
+
+                                    Edit
+
+                                </a>
+
+
+                                <!-- DELETE -->
+
+                                <a
+                                    href="{% url 'DeleteProduct' product.id %}"
+                                    class="product-action-btn product-delete-btn"
+                                    onclick="return confirm('Are you sure you want to delete this product?');"
+                                >
+
+                                    <i class="bi bi-trash3"></i>
+
+                                    Delete
+
+                                </a>
+
+
+                            </div>
+
+                        </td>
+
+
+                    </tr>
+
+
+                    {% empty %}
+
+
+                    <!-- =================================================
+                         NO PRODUCTS
+                    ================================================== -->
+
+                    <tr>
+
+                        <td
+                            colspan="13"
+                            class="no-products"
+                        >
+
+                            <i
+                                class="bi bi-box-seam"
+                                style="font-size: 32px;"
+                            ></i>
+
+                            <div class="mt-2">
+                                No Products Found
+                            </div>
+
+                        </td>
+
+                    </tr>
+
+
+                    {% endfor %}
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+{% endblock %}

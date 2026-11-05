@@ -1,0 +1,146 @@
+{% extends "store/Admin/AdminMaster.html" %}
+
+{% block title %}
+Edit Category | GreenNest Admin
+{% endblock %}
+
+{% block page_heading %}
+Edit Category
+{% endblock %}
+
+{% block content %}
+
+<div class="container-fluid">
+
+    <div class="card border-0 shadow-sm">
+
+        <div class="card-header bg-success text-white">
+
+            <h5 class="mb-0">
+                <i class="bi bi-pencil-square"></i>
+                Edit Category
+            </h5>
+
+        </div>
+
+
+        <div class="card-body">
+
+            {% if error %}
+
+            <div class="alert alert-danger">
+                {{ error }}
+            </div>
+
+            {% endif %}
+
+
+            <form method="POST">
+
+                {% csrf_token %}
+
+
+                <div class="mb-3">
+
+                    <label class="form-label">
+                        Category Name
+                    </label>
+
+                    <input
+                        type="text"
+                        name="category_name"
+                        class="form-control"
+                        value="{{ category.category_name }}"
+                        required>
+
+                </div>
+
+
+                <div class="mb-3">
+
+                    <label class="form-label">
+                        Category Type
+                    </label>
+
+                    <input
+                        type="text"
+                        name="category_type"
+                        class="form-control"
+                        value="{{ category.category_type|default:'' }}">
+
+                </div>
+
+
+                <div class="mb-3">
+
+                    <label class="form-label">
+                        Description
+                    </label>
+
+                    <textarea
+                        name="description"
+                        class="form-control"
+                        rows="4">{{ category.description|default:'' }}</textarea>
+
+                </div>
+
+
+                <div class="mb-3">
+
+                    <label class="form-label">
+                        Status
+                    </label>
+
+                    <select
+                        name="status"
+                        class="form-select">
+
+                        <option
+                            value="Active"
+                            {% if category.status == "Active" %}
+                            selected
+                            {% endif %}>
+                            Active
+                        </option>
+
+                        <option
+                            value="Inactive"
+                            {% if category.status == "Inactive" %}
+                            selected
+                            {% endif %}>
+                            Inactive
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <button
+                    type="submit"
+                    class="btn btn-success">
+
+                    <i class="bi bi-save"></i>
+
+                    Update Category
+
+                </button>
+
+
+                <a
+                    href="{% url 'AdminCategorylist' %}"
+                    class="btn btn-secondary">
+
+                    Cancel
+
+                </a>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,1783 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>
+        {% block title %}
+        GreenNest Admin
+        {% endblock %}
+    </title>
+
+
+    <!-- =====================================================
+         BOOTSTRAP
+    ====================================================== -->
+
+    <link rel="stylesheet"
+          href="{% static 'css/bootstrap.min.css' %}">
+
+
+    <!-- =====================================================
+         BOOTSTRAP ICONS
+    ====================================================== -->
+
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+
+    <!-- =====================================================
+         GOOGLE FONTS
+    ====================================================== -->
+
+    <link rel="preconnect"
+          href="https://fonts.googleapis.com">
+
+    <link rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Montserrat:wght@400;500;600;700&display=swap"
+          rel="stylesheet">
+
+
+    <style>
+
+        /* =====================================================
+           GLOBAL
+        ====================================================== */
+
+        * {
+            box-sizing: border-box;
+        }
+
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+
+        body {
+            margin: 0;
+
+            background: #f5f7f5;
+
+            font-family:
+                'Montserrat',
+                sans-serif;
+
+            color: #26352d;
+        }
+
+
+        a {
+            text-decoration: none;
+        }
+
+
+        /* =====================================================
+           ADMIN WRAPPER
+        ====================================================== */
+
+        .admin-wrapper {
+            min-height: 100vh;
+
+            display: flex;
+        }
+
+
+        /* =====================================================
+           SIDEBAR
+        ====================================================== */
+
+        .admin-sidebar {
+
+            width: 245px;
+
+            min-height: 100vh;
+
+            background:
+                linear-gradient(
+                    180deg,
+                    #103d2c 0%,
+                    #0c3024 100%
+                );
+
+            color: white;
+
+            position: fixed;
+
+            left: 0;
+            top: 0;
+            bottom: 0;
+
+            overflow-y: auto;
+
+            z-index: 1000;
+
+            box-shadow:
+                5px 0 25px rgba(0, 0, 0, .08);
+        }
+
+
+        /* =====================================================
+           SCROLLBAR
+        ====================================================== */
+
+        .admin-sidebar::-webkit-scrollbar {
+            width: 5px;
+        }
+
+
+        .admin-sidebar::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+
+        .admin-sidebar::-webkit-scrollbar-thumb {
+
+            background:
+                rgba(255, 255, 255, .15);
+
+            border-radius: 10px;
+        }
+
+
+        .admin-sidebar::-webkit-scrollbar-thumb:hover {
+
+            background:
+                rgba(200, 169, 107, .45);
+        }
+
+
+        /* =====================================================
+           LOGO AREA
+        ====================================================== */
+
+        .admin-logo {
+
+            height: 82px;
+
+            display: flex;
+
+            align-items: center;
+
+            padding: 10px 20px 0;
+
+            border-bottom:
+                1px solid rgba(255, 255, 255, .08);
+        }
+
+
+        /* =====================================================
+           GREENNEST LOGO
+        ====================================================== */
+
+        .gn-admin-logo {
+
+            width: 100%;
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 12px;
+        }
+
+
+        /* =====================================================
+           LOGO GOLD BOX
+        ====================================================== */
+
+        .gn-admin-logo-icon {
+
+            width: 45px;
+            height: 45px;
+
+            min-width: 45px;
+
+            background: #e8cf7a;
+
+            border-radius: 12px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            box-shadow:
+                0 3px 10px rgba(0, 0, 0, .08);
+        }
+
+
+        .gn-admin-logo-icon i {
+
+            font-size: 25px;
+
+            color: #0b3d2e;
+
+            line-height: 1;
+        }
+
+
+        /* =====================================================
+           LOGO TEXT
+        ====================================================== */
+
+        .gn-admin-logo-content {
+
+            display: flex;
+
+            flex-direction: column;
+
+            justify-content: center;
+
+            min-width: 0;
+        }
+
+
+        .gn-admin-logo-name {
+
+            font-family:
+                'DM Serif Display',
+                Georgia,
+                serif;
+
+            font-size: 24px;
+
+            font-weight: 700;
+
+            color: #f4e4b2;
+
+            line-height: 1;
+
+            white-space: nowrap;
+        }
+
+
+        .gn-admin-logo-panel {
+
+            margin-top: 7px;
+
+            font-family:
+                'Montserrat',
+                sans-serif;
+
+            font-size: 8px;
+
+            font-weight: 600;
+
+            letter-spacing: 1.45px;
+
+            color: #bfcfc6;
+
+            line-height: 1;
+
+            white-space: nowrap;
+        }
+
+
+        /* =====================================================
+           SIDEBAR CONTENT
+        ====================================================== */
+
+        .sidebar-content {
+
+            padding:
+                18px 10px 25px;
+        }
+
+
+        /* =====================================================
+           SECTION TITLE
+        ====================================================== */
+
+        .sidebar-section-title {
+
+            font-size: 9px;
+
+            font-weight: 700;
+
+            letter-spacing: 1.8px;
+
+            color: #71877d;
+
+            padding:
+                15px 16px 8px;
+
+            text-transform: uppercase;
+        }
+
+
+        /* =====================================================
+           NORMAL SIDEBAR LINK
+        ====================================================== */
+
+        .sidebar-link {
+
+            display: flex;
+
+            align-items: center;
+
+            width: 100%;
+
+            min-height: 48px;
+
+            padding: 0 13px;
+
+            margin-bottom: 4px;
+
+            color: #c9d5cf;
+
+            border-radius: 10px;
+
+            font-size: 12px;
+
+            font-weight: 500;
+
+            transition:
+                all .25s ease;
+        }
+
+
+        .sidebar-link i {
+
+            width: 28px;
+
+            flex-shrink: 0;
+
+            font-size: 17px;
+
+            color: #c8a96b;
+
+            margin-right: 8px;
+
+            transition:
+                all .25s ease;
+        }
+
+
+        .sidebar-link span {
+
+            white-space: nowrap;
+        }
+
+
+        .sidebar-link:hover {
+
+            background:
+                rgba(255, 255, 255, .07);
+
+            color: white;
+
+            transform:
+                translateX(2px);
+        }
+
+
+        .sidebar-link:hover i {
+
+            color:
+                #e0c58b;
+        }
+
+
+        .sidebar-link.active {
+
+            background:
+                rgba(200, 169, 107, .14);
+
+            color: white;
+        }
+
+
+        .sidebar-link.active i {
+
+            color:
+                #d8ba7a;
+        }
+
+
+        /* =====================================================
+           STORE MANAGEMENT BOX
+        ====================================================== */
+
+        .store-menu-box {
+
+            margin:
+                5px 0 8px;
+
+            padding:
+                7px;
+
+            border-radius:
+                12px;
+
+            background:
+                rgba(255, 255, 255, .025);
+
+            border:
+                1px solid rgba(255, 255, 255, .045);
+        }
+
+
+        /* =====================================================
+           CATEGORY HEADING
+        ====================================================== */
+
+        .store-menu-heading {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 8px;
+
+            padding:
+                9px 10px 8px;
+
+            color:
+                #d3ddd8;
+
+            font-size:
+                9px;
+
+            font-weight:
+                700;
+
+            letter-spacing:
+                1px;
+
+            text-transform:
+                uppercase;
+        }
+
+
+        .store-menu-heading i {
+
+            font-size:
+                12px;
+
+            color:
+                #c8a96b;
+        }
+
+
+        .store-menu-heading.sub-heading {
+
+            margin-top:
+                12px;
+
+            padding-top:
+                13px;
+
+            border-top:
+                1px solid rgba(255, 255, 255, .07);
+        }
+
+
+        /* =====================================================
+           STORE ACTION LINKS
+        ====================================================== */
+
+        .store-action-link {
+
+            display: flex;
+
+            align-items: center;
+
+            width: 100%;
+
+            height: 45px;
+
+            padding:
+                0 10px;
+
+            margin-bottom:
+                5px;
+
+            border-radius:
+                9px;
+
+            color:
+                #c9d5cf;
+
+            background:
+                rgba(255, 255, 255, .018);
+
+            font-size:
+                11px;
+
+            font-weight:
+                500;
+
+            transition:
+                all .25s ease;
+        }
+
+
+        .store-action-icon {
+
+            width:
+                32px;
+
+            height:
+                32px;
+
+            min-width:
+                32px;
+
+            display:
+                flex;
+
+            align-items:
+                center;
+
+            justify-content:
+                center;
+
+            border-radius:
+                8px;
+
+            margin-right:
+                9px;
+
+            background:
+                rgba(200, 169, 107, .08);
+
+            color:
+                #c8a96b;
+
+            font-size:
+                15px;
+
+            transition:
+                all .25s ease;
+        }
+
+
+        .store-action-text {
+
+            white-space:
+                nowrap;
+
+            line-height:
+                1;
+        }
+
+
+        .store-action-link:hover {
+
+            background:
+                rgba(255, 255, 255, .075);
+
+            color:
+                white;
+
+            transform:
+                translateX(2px);
+        }
+
+
+        .store-action-link:hover
+        .store-action-icon {
+
+            background:
+                rgba(200, 169, 107, .16);
+
+            color:
+                #e0c58b;
+
+            transform:
+                scale(1.05);
+        }
+
+
+        .store-action-link.active {
+
+            background:
+                rgba(200, 169, 107, .14);
+
+            color:
+                white;
+        }
+
+
+        .store-action-link.active
+        .store-action-icon {
+
+            background:
+                rgba(200, 169, 107, .18);
+
+            color:
+                #e0c58b;
+        }
+
+
+        /* =====================================================
+           DIVIDER
+        ====================================================== */
+
+        .sidebar-divider {
+
+            height:
+                1px;
+
+            background:
+                rgba(255, 255, 255, .09);
+
+            margin:
+                18px 6px;
+        }
+
+
+        /* =====================================================
+           LOGOUT
+        ====================================================== */
+
+        .logout-link {
+
+            display:
+                flex;
+
+            align-items:
+                center;
+
+            min-height:
+                50px;
+
+            padding:
+                0 14px;
+
+            color:
+                #c9d5cf;
+
+            border-radius:
+                10px;
+
+            font-size:
+                12px;
+
+            font-weight:
+                500;
+
+            transition:
+                all .25s ease;
+        }
+
+
+        .logout-link i {
+
+            width:
+                28px;
+
+            flex-shrink:
+                0;
+
+            font-size:
+                17px;
+
+            color:
+                #c8a96b;
+
+            margin-right:
+                8px;
+
+            transition:
+                all .25s ease;
+        }
+
+
+        .logout-link:hover {
+
+            background:
+                rgba(220, 80, 80, .12);
+
+            color:
+                #fff;
+
+            transform:
+                translateX(2px);
+        }
+
+
+        .logout-link:hover i {
+
+            color:
+                #e4a2a2;
+        }
+
+
+        /* =====================================================
+           MAIN
+        ====================================================== */
+
+        .admin-main {
+
+            margin-left:
+                245px;
+
+            width:
+                calc(100% - 245px);
+
+            min-height:
+                100vh;
+        }
+
+
+        /* =====================================================
+           TOPBAR
+        ====================================================== */
+
+        .admin-topbar {
+
+            height:
+                74px;
+
+            background:
+                white;
+
+            border-bottom:
+                1px solid #e8ece9;
+
+            display:
+                flex;
+
+            align-items:
+                center;
+
+            justify-content:
+                space-between;
+
+            padding:
+                0 30px;
+
+            position:
+                sticky;
+
+            top:
+                0;
+
+            z-index:
+                900;
+        }
+
+
+        /* =====================================================
+           PAGE HEADING
+        ====================================================== */
+
+        .page-heading {
+
+            margin:
+                0;
+
+            font-family:
+                'DM Serif Display',
+                serif;
+
+            font-size:
+                25px;
+
+            color:
+                #173d2b;
+        }
+
+
+        /* =====================================================
+           ADMIN BADGE
+        ====================================================== */
+
+        .admin-badge {
+
+            display:
+                flex;
+
+            align-items:
+                center;
+
+            gap:
+                9px;
+
+            color:
+                #526159;
+
+            font-size:
+                11px;
+
+            font-weight:
+                600;
+        }
+
+
+        .admin-badge-icon {
+
+            width:
+                34px;
+
+            height:
+                34px;
+
+            border-radius:
+                50%;
+
+            background:
+                #eef4ef;
+
+            color:
+                #173d2b;
+
+            display:
+                flex;
+
+            align-items:
+                center;
+
+            justify-content:
+                center;
+
+            font-size:
+                16px;
+        }
+
+
+        /* =====================================================
+           CONTENT
+        ====================================================== */
+
+        .admin-content {
+
+            padding:
+                30px;
+
+            min-height:
+                calc(100vh - 74px);
+        }
+
+
+        /* =====================================================
+           TABLET
+        ====================================================== */
+
+        @media (max-width: 900px) {
+
+            .admin-sidebar {
+
+                width:
+                    220px;
+            }
+
+
+            .admin-main {
+
+                margin-left:
+                    220px;
+
+                width:
+                    calc(100% - 220px);
+            }
+
+
+            .admin-topbar {
+
+                padding:
+                    0 22px;
+            }
+
+
+            .admin-content {
+
+                padding:
+                    24px;
+            }
+
+        }
+
+
+        /* =====================================================
+           MOBILE
+        ====================================================== */
+
+        @media (max-width: 700px) {
+
+            .admin-sidebar {
+
+                width:
+                    70px;
+            }
+
+
+            /* -----------------------------------------------
+               LOGO MOBILE
+            ------------------------------------------------ */
+
+            .admin-logo {
+
+                height:
+                    82px;
+
+                display:
+                    flex;
+
+                align-items:
+                    center;
+
+                justify-content:
+                    center;
+
+                padding:
+                    10px 0 0;
+            }
+
+
+            .gn-admin-logo {
+
+                width:
+                    auto;
+
+                justify-content:
+                    center;
+            }
+
+
+            .gn-admin-logo-content {
+
+                display:
+                    none;
+            }
+
+
+            .gn-admin-logo-icon {
+
+                width:
+                    40px;
+
+                height:
+                    40px;
+
+                min-width:
+                    40px;
+
+                border-radius:
+                    11px;
+            }
+
+
+            .gn-admin-logo-icon i {
+
+                font-size:
+                    22px;
+            }
+
+
+            /* -----------------------------------------------
+               HIDE TEXT
+            ------------------------------------------------ */
+
+            .sidebar-section-title,
+            .sidebar-link span,
+            .store-action-text,
+            .store-menu-heading span {
+
+                display:
+                    none;
+            }
+
+
+            /* -----------------------------------------------
+               SIDEBAR CONTENT
+            ------------------------------------------------ */
+
+            .sidebar-content {
+
+                padding:
+                    15px 8px;
+            }
+
+
+            /* -----------------------------------------------
+               SIDEBAR LINKS
+            ------------------------------------------------ */
+
+            .sidebar-link {
+
+                justify-content:
+                    center;
+
+                padding:
+                    0;
+            }
+
+
+            .sidebar-link i {
+
+                margin:
+                    0;
+
+                text-align:
+                    center;
+            }
+
+
+            /* -----------------------------------------------
+               STORE BOX
+            ------------------------------------------------ */
+
+            .store-menu-box {
+
+                padding:
+                    2px;
+
+                border:
+                    none;
+
+                background:
+                    transparent;
+            }
+
+
+            .store-menu-heading {
+
+                justify-content:
+                    center;
+
+                padding:
+                    7px 0;
+            }
+
+
+            .store-menu-heading i {
+
+                font-size:
+                    15px;
+            }
+
+
+            .store-menu-heading.sub-heading {
+
+                margin-top:
+                    8px;
+
+                padding-top:
+                    9px;
+            }
+
+
+            /* -----------------------------------------------
+               STORE ACTION
+            ------------------------------------------------ */
+
+            .store-action-link {
+
+                justify-content:
+                    center;
+
+                height:
+                    44px;
+
+                padding:
+                    0;
+            }
+
+
+            .store-action-icon {
+
+                width:
+                    32px;
+
+                height:
+                    32px;
+
+                margin:
+                    0;
+            }
+
+
+            /* -----------------------------------------------
+               LOGOUT
+            ------------------------------------------------ */
+
+            .logout-link {
+
+                justify-content:
+                    center;
+
+                padding:
+                    0;
+            }
+
+
+            .logout-link i {
+
+                margin:
+                    0;
+            }
+
+
+            /* -----------------------------------------------
+               MAIN
+            ------------------------------------------------ */
+
+            .admin-main {
+
+                margin-left:
+                    70px;
+
+                width:
+                    calc(100% - 70px);
+            }
+
+
+            /* -----------------------------------------------
+               TOPBAR
+            ------------------------------------------------ */
+
+            .admin-topbar {
+
+                height:
+                    68px;
+
+                padding:
+                    0 15px;
+            }
+
+
+            .page-heading {
+
+                font-size:
+                    20px;
+            }
+
+
+            .admin-badge span {
+
+                display:
+                    none;
+            }
+
+
+            .admin-badge-icon {
+
+                width:
+                    32px;
+
+                height:
+                    32px;
+            }
+
+
+            /* -----------------------------------------------
+               CONTENT
+            ------------------------------------------------ */
+
+            .admin-content {
+
+                padding:
+                    18px;
+            }
+
+        }
+
+
+        /* =====================================================
+           VERY SMALL MOBILE
+        ====================================================== */
+
+        @media (max-width: 450px) {
+
+            .admin-sidebar {
+
+                width:
+                    62px;
+            }
+
+
+            .admin-logo {
+
+                height:
+                    78px;
+            }
+
+
+            .gn-admin-logo-icon {
+
+                width:
+                    36px;
+
+                height:
+                    36px;
+
+                min-width:
+                    36px;
+
+                border-radius:
+                    10px;
+            }
+
+
+            .gn-admin-logo-icon i {
+
+                font-size:
+                    20px;
+            }
+
+
+            .admin-main {
+
+                margin-left:
+                    62px;
+
+                width:
+                    calc(100% - 62px);
+            }
+
+
+            .admin-content {
+
+                padding:
+                    14px;
+            }
+
+
+            .admin-topbar {
+
+                padding:
+                    0 12px;
+            }
+
+
+            .page-heading {
+
+                font-size:
+                    18px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<div class="admin-wrapper">
+
+
+    <!-- =====================================================
+         SIDEBAR
+    ====================================================== -->
+
+    <aside class="admin-sidebar">
+
+
+        <!-- =================================================
+             GREENNEST LOGO
+        ================================================== -->
+
+        <div class="admin-logo">
+
+            <div class="gn-admin-logo">
+
+                <div class="gn-admin-logo-icon">
+
+                    <i class="bi bi-flower1"></i>
+
+                </div>
+
+
+                <div class="gn-admin-logo-content">
+
+                    <div class="gn-admin-logo-name">
+                        GreenNest
+                    </div>
+
+                    <div class="gn-admin-logo-panel">
+                        ADMIN PANEL
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- =================================================
+             SIDEBAR CONTENT
+        ================================================== -->
+
+        <div class="sidebar-content">
+
+
+            <!-- =================================================
+                 MAIN
+            ================================================== -->
+
+            <div class="sidebar-section-title">
+                Main
+            </div>
+
+
+            <a href="{% url 'ADashboard' %}"
+               class="sidebar-link">
+
+                <i class="bi bi-speedometer2"></i>
+
+                <span>
+                    Dashboard
+                </span>
+
+            </a>
+
+
+            <!-- =================================================
+                 USER MANAGEMENT
+            ================================================== -->
+
+            <div class="sidebar-section-title">
+                User Management
+            </div>
+
+
+            <a href="{% url 'UserList' %}"
+               class="sidebar-link">
+
+                <i class="bi bi-people"></i>
+
+                <span>
+                    Users
+                </span>
+
+            </a>
+
+
+            <!-- =================================================
+                 STAFF MANAGEMENT
+            ================================================== -->
+
+            <div class="sidebar-section-title">
+                Staff Management
+            </div>
+
+
+            <!-- ADD MANAGER -->
+
+            <a href="{% url 'AddManager' %}"
+               class="sidebar-link">
+
+                <i class="bi bi-person-plus"></i>
+
+                <span>
+                    Add Manager
+                </span>
+
+            </a>
+
+
+            <!-- MANAGER LIST -->
+
+            <a href="{% url 'Managerlist' %}"
+               class="sidebar-link">
+
+                <i class="bi bi-person-vcard"></i>
+
+                <span>
+                    Manager List
+                </span>
+
+            </a>
+
+
+            <!-- ADD VENDOR -->
+
+            <a href="{% url 'Addvender' %}"
+               class="sidebar-link">
+
+                <i class="bi bi-shop"></i>
+
+                <span>
+                    Add Vendor
+                </span>
+
+            </a>
+
+
+            <!-- VENDOR LIST -->
+
+            <a href="{% url 'Vendorlist' %}"
+               class="sidebar-link">
+
+                <i class="bi bi-buildings"></i>
+
+                <span>
+                    Vendor List
+                </span>
+
+            </a>
+
+
+            <!-- =================================================
+                 STORE MANAGEMENT
+            ================================================== -->
+
+            <div class="sidebar-section-title">
+                Store Management
+            </div>
+
+
+            <div class="store-menu-box">
+
+
+                <!-- CATEGORY MANAGEMENT -->
+
+                <div class="store-menu-heading">
+
+                    <i class="bi bi-grid-3x3-gap-fill"></i>
+
+                    <span>
+                        Category Management
+                    </span>
+
+                </div>
+
+
+                <!-- ADD CATEGORY -->
+
+                <a href="{% url 'AdminAddcategory' %}"
+                   class="store-action-link">
+
+                    <span class="store-action-icon">
+
+                        <i class="bi bi-plus-circle"></i>
+
+                    </span>
+
+                    <span class="store-action-text">
+                        Add Category
+                    </span>
+
+                </a>
+
+
+                <!-- VIEW CATEGORY -->
+
+                <a href="{% url 'AdminCategorylist' %}"
+                   class="store-action-link">
+
+                    <span class="store-action-icon">
+
+                        <i class="bi bi-grid"></i>
+
+                    </span>
+
+                    <span class="store-action-text">
+                        View Category
+                    </span>
+
+                </a>
+
+
+                <!-- SUBCATEGORY MANAGEMENT -->
+
+                <div class="store-menu-heading sub-heading">
+
+                    <i class="bi bi-diagram-3-fill"></i>
+
+                    <span>
+                        Subcategory Management
+                    </span>
+
+                </div>
+
+
+                <!-- ADD SUBCATEGORY -->
+
+                <a href="{% url 'AdminAddsubcategory' %}"
+                   class="store-action-link">
+
+                    <span class="store-action-icon">
+
+                        <i class="bi bi-plus-circle"></i>
+
+                    </span>
+
+                    <span class="store-action-text">
+                        Add Subcategory
+                    </span>
+
+                </a>
+
+
+                <!-- VIEW SUBCATEGORY -->
+
+                <a href="{% url 'AdminSubcategorylist' %}"
+                   class="store-action-link">
+
+                    <span class="store-action-icon">
+
+                        <i class="bi bi-diagram-3"></i>
+
+                    </span>
+
+                    <span class="store-action-text">
+                        View Subcategory
+                    </span>
+
+                </a>
+
+            </div>
+
+
+            <!-- =================================================
+                 PRODUCTS
+            ================================================== -->
+
+            <a href="{% url 'AdminProductlist' %}"
+               class="sidebar-link">
+
+                <i class="bi bi-box-seam"></i>
+
+                <span>
+                    Products
+                </span>
+
+            </a>
+
+
+            <!-- =================================================
+                 ORDER MANAGEMENT
+            ================================================== -->
+
+            <div class="sidebar-section-title">
+                Order Management
+            </div>
+
+
+            <a href="{% url 'AdminOrderlist' %}"
+               class="sidebar-link">
+
+                <i class="bi bi-bag-check"></i>
+
+                <span>
+                    Orders
+                </span>
+
+            </a>
+
+
+            <a href="{% url 'AdminOrderlist' %}"
+               class="sidebar-link">
+
+                <i class="bi bi-truck"></i>
+
+                <span>
+                    Delivery
+                </span>
+
+            </a>
+
+
+            <!-- =================================================
+                 CUSTOMER MANAGEMENT
+            ================================================== -->
+
+            <div class="sidebar-section-title">
+                Customer Management
+            </div>
+
+
+            <a href="{% url 'AdminReviews' %}"
+               class="sidebar-link">
+
+                <i class="bi bi-star"></i>
+
+                <span>
+                    Reviews
+                </span>
+
+            </a>
+
+
+            <a href="{% url 'AdminFeedback' %}"
+               class="sidebar-link">
+
+                <i class="bi bi-chat-square-text"></i>
+
+                <span>
+                    Customer Feedback
+                </span>
+
+            </a>
+
+
+            <!-- =================================================
+                 REPORTS
+            ================================================== -->
+
+            <div class="sidebar-section-title">
+                Reports
+            </div>
+
+
+            <a href="{% url 'Reports' %}"
+               class="sidebar-link">
+
+                <i class="bi bi-bar-chart"></i>
+
+                <span>
+                    Reports
+                </span>
+
+            </a>
+
+
+            <a href="{% url 'AdminSalesReport' %}"
+               class="sidebar-link">
+
+                <i class="bi bi-graph-up-arrow"></i>
+
+                <span>
+                    Sales Overview
+                </span>
+
+            </a>
+
+
+            <!-- =================================================
+                 ACCOUNT
+            ================================================== -->
+
+            <div class="sidebar-section-title">
+                Account
+            </div>
+
+
+            <a href="{% url 'AdminProfile' %}"
+               class="sidebar-link">
+
+                <i class="bi bi-person-circle"></i>
+
+                <span>
+                    My Profile
+                </span>
+
+            </a>
+
+
+            <a href="{% url 'AdminChangePassword' %}"
+               class="sidebar-link">
+
+                <i class="bi bi-shield-lock"></i>
+
+                <span>
+                    Change Password
+                </span>
+
+            </a>
+
+
+            
+
+
+            <div class="sidebar-divider"></div>
+
+
+            <!-- =================================================
+                 LOGOUT
+            ================================================== -->
+
+            <a href="{% url 'AdminLogout' %}"
+               class="logout-link">
+
+                <i class="bi bi-box-arrow-right"></i>
+
+                <span>
+                    Logout
+                </span>
+
+            </a>
+
+
+        </div>
+
+    </aside>
+
+
+    <!-- =====================================================
+         MAIN CONTENT
+    ====================================================== -->
+
+    <main class="admin-main">
+
+
+        <!-- =================================================
+             TOP BAR
+        ================================================== -->
+
+        <header class="admin-topbar">
+
+
+            <h1 class="page-heading">
+
+                {% block page_heading %}
+                Dashboard
+                {% endblock %}
+
+            </h1>
+
+
+            <div class="admin-badge">
+
+                <div class="admin-badge-icon">
+
+                    <i class="bi bi-shield-check"></i>
+
+                </div>
+
+                <span>
+                    Administrator
+                </span>
+
+            </div>
+
+        </header>
+
+
+        <!-- =================================================
+             PAGE CONTENT
+        ================================================== -->
+
+        <section class="admin-content">
+
+            {% block content %}
+            {% endblock %}
+
+        </section>
+
+
+    </main>
+
+
+</div>
+
+
+<!-- =========================================================
+     BOOTSTRAP JS
+========================================================= -->
+
+<script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+
+
+</body>
+
+</html>

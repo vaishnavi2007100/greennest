@@ -1,0 +1,865 @@
+{% extends "store/Manager/ManagerMaster.html" %}
+
+{% load static %}
+
+{% block title %}
+Orders | GreenNest
+{% endblock %}
+
+{% block content %}
+
+<style>
+
+.order-page {
+    padding: 30px;
+    background: #faf9f5;
+    min-height: 100vh;
+}
+
+.order-header {
+    margin-bottom: 25px;
+}
+
+.order-header h2 {
+    color: #0b3d2e;
+    font-weight: 700;
+    margin-bottom: 5px;
+}
+
+.order-header p {
+    color: #777;
+    margin: 0;
+}
+
+.order-card {
+    background: #ffffff;
+    border-radius: 15px;
+    padding: 22px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.07);
+    overflow-x: auto;
+}
+
+.order-table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 1000px;
+}
+
+.order-table th {
+    background: #0b3d2e;
+    color: #ffffff;
+    padding: 14px;
+    text-align: left;
+    font-size: 14px;
+}
+
+.order-table td {
+    padding: 14px;
+    border-bottom: 1px solid #eeeeee;
+    vertical-align: middle;
+    color: #333;
+    font-size: 14px;
+}
+
+.order-table tr:hover {
+    background: #fafcf9;
+}
+
+.product-image {
+    width: 55px;
+    height: 55px;
+    object-fit: cover;
+    border-radius: 8px;
+    border: 1px solid #eeeeee;
+}
+
+.no-image {
+    width: 55px;
+    height: 55px;
+    border-radius: 8px;
+    background: #eeeeee;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #999;
+    font-size: 12px;
+}
+
+.status {
+    display: inline-block;
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.status-pending {
+    background: #fff3cd;
+    color: #856404;
+}
+
+.status-confirmed {
+    background: #d1ecf1;
+    color: #0c5460;
+}
+
+.status-shipped {
+    background: #dbeafe;
+    color: #1e40af;
+}
+
+.status-delivered {
+    background: #d4edda;
+    color: #155724;
+}
+
+.status-cancelled {
+    background: #f8d7da;
+    color: #721c24;
+}
+
+.empty-orders {
+    text-align: center;
+    padding: 60px 20px;
+    color: #777;
+}
+
+.empty-orders i {
+    font-size: 50px;
+    color: #c8a96b;
+    margin-bottom: 15px;
+}
+
+</style>
+
+
+<div class="order-page">
+
+    <div class="order-header">
+
+        <h2>
+            <i class="bi bi-cart-check"></i>
+            Orders
+        </h2>
+
+        <p>
+            View all customer orders
+        </p>
+
+    </div>
+
+
+    <div class="order-card">
+
+        {% if orders %}
+
+        <table class="order-table">
+
+            <thead>
+
+                <tr>
+
+                    <th>Order ID</th>
+
+                    <th>Customer</th>
+
+                    <th>Product</th>
+
+                    <th>Image</th>
+
+                    <th>Price</th>
+
+                    <th>Quantity</th>
+
+                    <th>Total</th>
+
+                    <th>Status</th>
+
+                    <th>Date</th>
+
+                    <th>Action</th>
+
+                </tr>
+
+            </thead>
+
+
+            <tbody>
+
+                {% for order in orders %}
+
+                <tr>
+
+                    <!-- ORDER ID -->
+
+                    <td>
+                        #{{ order.id }}
+                    </td>
+
+
+                    <!-- CUSTOMER -->
+
+                    <td>
+                        {{ order.user_email }}
+                    </td>
+
+
+                    <!-- PRODUCT -->
+
+                    <td>
+
+                        <strong>
+                            {{ order.product_name }}
+                        </strong>
+
+                    </td>
+
+
+                    <!-- IMAGE -->
+
+                    <td>
+
+                        {% if order.image %}
+
+                            <img
+                                src="{% static 'product_images/' %}{{ order.image }}"
+                                class="product-image"
+                                alt="{{ order.product_name }}"
+                            >
+
+                        {% else %}
+
+                            <div class="no-image">
+                                No Image
+                            </div>
+
+                        {% endif %}
+
+                    </td>
+
+
+                    <!-- PRICE -->
+
+                    <td>
+                        ₹{{ order.price }}
+                    </td>
+
+
+                    <!-- QUANTITY -->
+
+                    <td>
+                        {{ order.quantity }}
+                    </td>
+
+
+                    <!-- TOTAL -->
+
+                    <td>
+
+                        <strong>
+                            ₹{{ order.total }}
+                        </strong>
+
+                    </td>
+
+
+                    <!-- STATUS -->
+
+                    <td>
+
+                        {% if order.status|lower == "pending" %}
+
+                            <span class="status status-pending">
+                                Pending
+                            </span>
+
+                        {% elif order.status|lower == "approved" %}
+
+                            <span class="status status-confirmed">
+                                Approved
+                            </span>
+
+                        {% elif order.status|lower == "confirmed" %}
+
+                            <span class="status status-confirmed">
+                                Confirmed
+                            </span>
+
+                        {% elif order.status|lower == "shipped" %}
+
+                            <span class="status status-shipped">
+                                Shipped
+                            </span>
+
+                        {% elif order.status|lower == "delivered" %}
+
+                            <span class="status status-delivered">
+                                Delivered
+                            </span>
+
+                        {% elif order.status|lower == "cancelled" %}
+
+                            <span class="status status-cancelled">
+                                Cancelled
+                            </span>
+
+                        {% else %}
+
+                            <span class="status status-pending">
+                                {{ order.status }}
+                            </span>
+
+                        {% endif %}
+
+                    </td>
+
+
+                    <!-- DATE -->
+
+                    <td>
+                        {{ order.created_at|date:"d M Y, h:i A" }}
+                    </td>
+
+
+                    <!-- ACTION -->
+
+                    <td>
+
+                        <button
+                            type="button"
+                            class="btn btn-info btn-sm"
+                            data-bs-toggle="modal"
+                            data-bs-target="#orderView{{ order.id }}"
+                        >
+
+                            <i class="bi bi-eye"></i>
+                            View
+
+                        </button>
+
+                    </td>
+
+                </tr>
+
+                {% endfor %}
+
+            </tbody>
+
+        </table>
+
+
+        <!-- =====================================================
+             ORDER VIEW MODALS
+        ====================================================== -->
+
+        {% for order in orders %}
+
+        <div
+            class="modal fade"
+            id="orderView{{ order.id }}"
+            tabindex="-1"
+            aria-hidden="true"
+        >
+
+            <div class="modal-dialog modal-lg modal-dialog-centered">
+
+                <div class="modal-content">
+
+
+                    <!-- HEADER -->
+
+                    <div class="modal-header bg-dark text-white">
+
+                        <h5 class="modal-title">
+
+                            <i class="bi bi-receipt"></i>
+
+                            Order Details #{{ order.id }}
+
+                        </h5>
+
+                        <button
+                            type="button"
+                            class="btn-close btn-close-white"
+                            data-bs-dismiss="modal"
+                        ></button>
+
+                    </div>
+
+
+                    <!-- BODY -->
+
+                    <div class="modal-body">
+
+                        <div class="row g-3">
+
+
+                            <!-- =================================
+                                 CUSTOMER DETAILS
+                            ================================== -->
+
+                            <div class="col-md-6">
+
+                                <div class="card h-100">
+
+                                    <div class="card-header fw-bold">
+
+                                        <i class="bi bi-person"></i>
+                                        Customer Details
+
+                                    </div>
+
+                                    <div class="card-body">
+
+                                        <p class="mb-2">
+
+                                            <strong>
+                                                Name:
+                                            </strong>
+
+                                            {{ order.customer_name|default:"—" }}
+
+                                        </p>
+
+
+                                        <p class="mb-2">
+
+                                            <strong>
+                                                Email:
+                                            </strong>
+
+                                            {{ order.customer_email|default:order.user_email }}
+
+                                        </p>
+
+
+                                        <p class="mb-0">
+
+                                            <strong>
+                                                Mobile:
+                                            </strong>
+
+                                            {{ order.mobile|default:"—" }}
+
+                                        </p>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+
+                            <!-- =================================
+                                 VENDOR DETAILS
+                            ================================== -->
+
+                            <div class="col-md-6">
+
+                                <div class="card h-100">
+
+                                    <div class="card-header fw-bold">
+
+                                        <i class="bi bi-shop"></i>
+                                        Vendor Details
+
+                                    </div>
+
+                                    <div class="card-body">
+
+                                        <p class="mb-2">
+
+                                            <strong>
+                                                Vendor Name:
+                                            </strong>
+
+                                            {{ order.vendor_name|default:"—" }}
+
+                                        </p>
+
+
+                                        <p class="mb-0">
+
+                                            <strong>
+                                                Vendor Email:
+                                            </strong>
+
+                                            {{ order.vendor_email_display|default:order.vendor_email|default:"—" }}
+
+                                        </p>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+
+                            <!-- =================================
+                                 DELIVERY ADDRESS
+                            ================================== -->
+
+                            <div class="col-md-6">
+
+                                <div class="card h-100">
+
+                                    <div class="card-header fw-bold">
+
+                                        <i class="bi bi-geo-alt"></i>
+                                        Delivery Address
+
+                                    </div>
+
+                                    <div class="card-body">
+
+                                        <p class="mb-2">
+
+                                            <strong>
+                                                Address:
+                                            </strong>
+
+                                            <br>
+
+                                            {{ order.address|default:"—" }}
+
+                                        </p>
+
+
+                                        <p class="mb-2">
+
+                                            <strong>
+                                                City:
+                                            </strong>
+
+                                            {{ order.city|default:"—" }}
+
+                                        </p>
+
+
+                                        <p class="mb-2">
+
+                                            <strong>
+                                                State:
+                                            </strong>
+
+                                            {{ order.state|default:"—" }}
+
+                                        </p>
+
+
+                                        <p class="mb-0">
+
+                                            <strong>
+                                                Pincode:
+                                            </strong>
+
+                                            {{ order.pincode|default:"—" }}
+
+                                        </p>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+
+                            <!-- =================================
+                                 PRODUCT DETAILS
+                            ================================== -->
+
+                            <div class="col-md-6">
+
+                                <div class="card h-100">
+
+                                    <div class="card-header fw-bold">
+
+                                        <i class="bi bi-box-seam"></i>
+                                        Product Details
+
+                                    </div>
+
+                                    <div class="card-body">
+
+
+                                        <div class="d-flex align-items-center gap-3 mb-3">
+
+                                            {% if order.image %}
+
+                                                <img
+                                                    src="{% static 'product_images/' %}{{ order.image }}"
+                                                    width="70"
+                                                    height="70"
+                                                    style="
+                                                        object-fit:cover;
+                                                        border-radius:10px;
+                                                    "
+                                                >
+
+                                            {% endif %}
+
+
+                                            <div>
+
+                                                <strong>
+                                                    {{ order.product_name }}
+                                                </strong>
+
+                                                <div class="text-muted small">
+
+                                                    Product ID:
+                                                    {{ order.product_id }}
+
+                                                </div>
+
+                                            </div>
+
+                                        </div>
+
+
+                                        <p class="mb-2">
+
+                                            <strong>
+                                                Quantity:
+                                            </strong>
+
+                                            {{ order.quantity }}
+
+                                        </p>
+
+
+                                        <p class="mb-2">
+
+                                            <strong>
+                                                Price:
+                                            </strong>
+
+                                            ₹{{ order.price }}
+
+                                        </p>
+
+
+                                        <p class="mb-2">
+
+                                            <strong>
+                                                Total:
+                                            </strong>
+
+                                            ₹{{ order.total }}
+
+                                        </p>
+
+
+                                        <p class="mb-0">
+
+                                            <strong>
+                                                Payment:
+                                            </strong>
+
+                                            {{ order.payment_method }}
+
+                                        </p>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+
+                            <!-- =================================
+                                 ORDER STATUS
+                            ================================== -->
+
+                            <div class="col-md-6">
+
+                                <div class="card h-100">
+
+                                    <div class="card-header fw-bold">
+
+                                        <i class="bi bi-info-circle"></i>
+                                        Order Status
+
+                                    </div>
+
+                                    <div class="card-body">
+
+                                        <p class="mb-2">
+
+                                            <strong>
+                                                Status:
+                                            </strong>
+
+                                            {% if order.status|lower == "pending" %}
+
+                                                <span class="status status-pending">
+                                                    Pending
+                                                </span>
+
+                                            {% elif order.status|lower == "approved" %}
+
+                                                <span class="status status-confirmed">
+                                                    Approved
+                                                </span>
+
+                                            {% elif order.status|lower == "confirmed" %}
+
+                                                <span class="status status-confirmed">
+                                                    Confirmed
+                                                </span>
+
+                                            {% elif order.status|lower == "shipped" %}
+
+                                                <span class="status status-shipped">
+                                                    Shipped
+                                                </span>
+
+                                            {% elif order.status|lower == "delivered" %}
+
+                                                <span class="status status-delivered">
+                                                    Delivered
+                                                </span>
+
+                                            {% elif order.status|lower == "cancelled" %}
+
+                                                <span class="status status-cancelled">
+                                                    Cancelled
+                                                </span>
+
+                                            {% else %}
+
+                                                <span class="status status-pending">
+                                                    {{ order.status }}
+                                                </span>
+
+                                            {% endif %}
+
+                                        </p>
+
+
+                                        <p class="mb-0">
+
+                                            <strong>
+                                                Order Date:
+                                            </strong>
+
+                                            <br>
+
+                                            {{ order.created_at|date:"d M Y, h:i A" }}
+
+                                        </p>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+
+                            <!-- =================================
+                                 CANCELLATION DETAILS
+                            ================================== -->
+
+                            {% if order.status|lower == "cancelled" %}
+
+                            <div class="col-md-6">
+
+                                <div class="card h-100 border-danger">
+
+                                    <div class="card-header fw-bold text-danger">
+
+                                        <i class="bi bi-x-circle"></i>
+                                        Cancellation Details
+
+                                    </div>
+
+                                    <div class="card-body">
+
+                                        <p class="mb-0">
+
+                                            <strong>
+                                                Cancellation Reason:
+                                            </strong>
+
+                                            <br><br>
+
+                                            {% if order.cancel_reason %}
+
+                                                <span class="text-danger">
+                                                    {{ order.cancel_reason }}
+                                                </span>
+
+                                            {% else %}
+
+                                                <span class="text-muted">
+                                                    No cancellation reason provided.
+                                                </span>
+
+                                            {% endif %}
+
+                                        </p>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                            {% endif %}
+
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- FOOTER -->
+
+                    <div class="modal-footer">
+
+                        <button
+                            type="button"
+                            class="btn btn-secondary"
+                            data-bs-dismiss="modal"
+                        >
+
+                            Close
+
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        {% endfor %}
+
+
+        {% else %}
+
+
+        <div class="empty-orders">
+
+            <i class="bi bi-cart-x"></i>
+
+            <h4>
+                No Orders Found
+            </h4>
+
+            <p>
+                No customer orders are available yet.
+            </p>
+
+        </div>
+
+
+        {% endif %}
+
+    </div>
+
+</div>
+
+{% endblock %}

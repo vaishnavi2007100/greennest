@@ -1,0 +1,438 @@
+{% extends "store/Manager/ManagerMaster.html" %}
+
+{% block title %}
+Manager Dashboard | GreenNest
+{% endblock %}
+
+{% block page_heading %}
+Manager Dashboard
+{% endblock %}
+
+{% block content %}
+
+<style>
+
+.manager-welcome {
+
+    background:
+        linear-gradient(
+            135deg,
+            #173d2b,
+            #286044
+        );
+
+    border-radius: 20px;
+
+    padding: 35px;
+
+    color: white;
+
+    margin-bottom: 30px;
+
+    position: relative;
+
+    overflow: hidden;
+}
+
+
+.manager-welcome::after {
+
+    content: "🌿";
+
+    position: absolute;
+
+    right: 40px;
+
+    bottom: -20px;
+
+    font-size: 130px;
+
+    opacity: 0.10;
+}
+
+
+.manager-welcome h2 {
+
+    font-family:
+        'DM Serif Display',
+        serif;
+
+    font-size: 31px;
+
+    margin-bottom: 8px;
+}
+
+
+.manager-welcome p {
+
+    margin: 0;
+
+    color:
+        rgba(255,255,255,0.72);
+
+    font-size: 13px;
+}
+
+
+.manager-card {
+
+    background: white;
+
+    border: 1px solid #e5ece6;
+
+    border-radius: 18px;
+
+    padding: 23px;
+
+    height: 100%;
+
+    transition: 0.3s ease;
+}
+
+
+.manager-card:hover {
+
+    transform:
+        translateY(-5px);
+
+    box-shadow:
+        0 14px 30px
+        rgba(25,70,45,0.08);
+}
+
+
+.manager-card-icon {
+
+    width: 48px;
+    height: 48px;
+
+    border-radius: 13px;
+
+    background: #edf5ef;
+
+    color: #24613f;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    font-size: 21px;
+
+    margin-bottom: 17px;
+}
+
+
+.manager-card h5 {
+
+    font-size: 14px;
+
+    font-weight: 700;
+
+    margin-bottom: 7px;
+}
+
+
+.manager-card h3 {
+
+    font-size: 27px;
+
+    color: #173d2b;
+
+    margin: 0;
+}
+
+
+.manager-card p {
+
+    margin: 5px 0 0;
+
+    color: #8a958e;
+
+    font-size: 11px;
+}
+
+
+.manager-quick {
+
+    margin-top: 30px;
+
+    background: white;
+
+    border: 1px solid #e5ece6;
+
+    border-radius: 18px;
+
+    padding: 25px;
+}
+
+
+.manager-quick h4 {
+
+    font-family:
+        'DM Serif Display',
+        serif;
+
+    color: #173d2b;
+
+    margin-bottom: 20px;
+}
+
+
+.manager-action {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+
+    padding: 15px;
+
+    border-radius: 13px;
+
+    background: #f5f8f5;
+
+    color: #173d2b;
+
+    font-size: 12px;
+
+    font-weight: 600;
+
+    transition: 0.3s ease;
+}
+
+
+.manager-action:hover {
+
+    background: #edf5ef;
+
+    color: #24613f;
+
+    transform: translateY(-2px);
+}
+
+
+.manager-action i {
+
+    font-size: 18px;
+
+    color: #b18b35;
+}
+
+</style>
+
+<!-- =====================================================
+     WELCOME
+====================================================== -->
+
+<div class="manager-welcome">
+
+<h2>
+    Welcome, Manager
+</h2>
+
+<p>
+    Monitor and manage GreenNest operations
+    from your manager dashboard.
+</p>
+
+
+</div>
+
+<!-- =====================================================
+     STATISTICS
+====================================================== -->
+
+<div class="row g-4">
+
+
+<!-- TOTAL USERS -->
+
+<div class="col-lg-3 col-md-6">
+
+    <div class="manager-card">
+
+        <div class="manager-card-icon">
+
+            <i class="bi bi-people-fill"></i>
+
+        </div>
+
+        <h5>
+            Total Users
+        </h5>
+
+        <h3>
+            {{ user_count }}
+        </h3>
+
+        <p>
+            Registered customers
+        </p>
+
+    </div>
+
+</div>
+
+
+
+<!-- TOTAL VENDORS -->
+
+<div class="col-lg-3 col-md-6">
+
+    <div class="manager-card">
+
+        <div class="manager-card-icon">
+
+            <i class="bi bi-shop"></i>
+
+        </div>
+
+        <h5>
+            Vendors
+        </h5>
+
+        <h3>
+            {{ vendor_count }}
+        </h3>
+
+        <p>
+            Registered vendors
+        </p>
+
+    </div>
+
+</div>
+
+
+
+<!-- TOTAL CATEGORIES -->
+
+<div class="col-lg-3 col-md-6">
+
+    <div class="manager-card">
+
+        <div class="manager-card-icon">
+
+            <i class="bi bi-grid-fill"></i>
+
+        </div>
+
+        <h5>
+            Categories
+        </h5>
+
+        <h3>
+            {{ category_count }}
+        </h3>
+
+        <p>
+            Available categories
+        </p>
+
+    </div>
+
+</div>
+
+
+
+<!-- TOTAL SUBCATEGORIES -->
+
+<div class="col-lg-3 col-md-6">
+
+    <div class="manager-card">
+
+        <div class="manager-card-icon">
+
+            <i class="bi bi-diagram-3-fill"></i>
+
+        </div>
+
+        <h5>
+            Subcategories
+        </h5>
+
+        <h3>
+            {{ subcategory_count }}
+        </h3>
+
+        <p>
+            Available subcategories
+        </p>
+
+    </div>
+
+</div>
+
+
+<!-- TOTAL COLLECTIONS -->
+
+
+
+
+</div>
+
+<!-- =====================================================
+     QUICK ACTIONS
+====================================================== -->
+
+<div class="manager-quick">
+
+
+<h4>
+    Quick Actions
+</h4>
+
+
+<div class="row g-3">
+
+
+    <div class="col-md-4">
+
+        <a href="{% url 'mviewprofile' %}"
+           class="manager-action">
+
+            <i class="bi bi-person-circle"></i>
+
+            View My Profile
+
+        </a>
+
+    </div>
+
+
+    <div class="col-md-4">
+
+        <a href="{% url 'mcpassword' %}"
+           class="manager-action">
+
+            <i class="bi bi-shield-lock"></i>
+
+            Change Password
+
+        </a>
+
+    </div>
+
+
+    <div class="col-md-4">
+
+        <a href="{% url 'home' %}"
+           class="manager-action">
+
+            <i class="bi bi-house-fill"></i>
+
+            Visit Website
+
+        </a>
+
+    </div>
+
+
+</div>
+
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,1389 @@
+{% extends "store/User/usermaster.html" %}
+
+{% load static %}
+
+{% block title %}
+Checkout | GreenNest
+{% endblock %}
+
+{% block content %}
+
+<style>
+
+/* =========================================================
+   CHECKOUT PAGE
+========================================================= */
+
+.checkout-page{
+    background:#faf9f5;
+    min-height:100vh;
+    padding:45px 0 70px;
+}
+
+
+/* =========================================================
+   TITLE
+========================================================= */
+
+.checkout-title{
+    text-align:center;
+    margin-bottom:35px;
+}
+
+.checkout-title h1{
+    font-family:'DM Serif Display',serif;
+    color:#123d2b;
+    font-size:40px;
+    margin-bottom:8px;
+}
+
+.checkout-title p{
+    color:#777;
+    margin:0;
+}
+
+
+/* =========================================================
+   CHECKOUT BOX
+========================================================= */
+
+.checkout-box{
+    background:#fff;
+    border:1px solid rgba(18,61,43,.08);
+    border-radius:18px;
+    padding:25px;
+    box-shadow:0 10px 28px rgba(18,61,43,.07);
+}
+
+.checkout-section-title{
+    color:#123d2b;
+    font-family:'DM Serif Display',serif;
+    font-size:24px;
+    margin-bottom:20px;
+}
+
+
+/* =========================================================
+   PRODUCT
+========================================================= */
+
+.checkout-product{
+    display:flex;
+    align-items:center;
+    gap:18px;
+    padding-bottom:22px;
+    margin-bottom:22px;
+    border-bottom:1px solid rgba(18,61,43,.08);
+}
+
+.checkout-product-image{
+    width:100px;
+    height:100px;
+    border-radius:12px;
+    overflow:hidden;
+    background:#f2f5f0;
+    flex-shrink:0;
+}
+
+.checkout-product-image img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+}
+
+.checkout-product-info h3{
+    color:#123d2b;
+    font-size:20px;
+    margin-bottom:7px;
+}
+
+.checkout-product-info p{
+    color:#777;
+    font-size:13px;
+    margin-bottom:5px;
+}
+
+.checkout-product-price{
+    color:#123d2b;
+    font-size:18px;
+    font-weight:800;
+}
+
+
+/* =========================================================
+   ADDRESS
+========================================================= */
+
+.checkout-address-box{
+    background:#f8faf7;
+    border:1px solid rgba(18,61,43,.08);
+    border-radius:12px;
+    padding:18px;
+    margin-bottom:25px;
+}
+
+.checkout-address-box p{
+    color:#555;
+    font-size:14px;
+    line-height:1.7;
+    margin:0;
+}
+
+.checkout-address-box strong{
+    color:#123d2b;
+}
+
+.address-email{
+    font-weight:700;
+    color:#123d2b;
+}
+
+.address-text{
+    color:#555;
+}
+
+.edit-address-link{
+    display:inline-flex;
+    align-items:center;
+    gap:6px;
+    margin-top:12px;
+    color:#123d2b;
+    text-decoration:none;
+    font-size:13px;
+    font-weight:700;
+}
+
+.edit-address-link:hover{
+    color:#c8a96b;
+}
+
+
+/* =========================================================
+   QUANTITY
+========================================================= */
+
+.checkout-label{
+    color:#123d2b;
+    font-size:13px;
+    font-weight:700;
+    margin-bottom:7px;
+}
+
+.checkout-input{
+    width:100%;
+    height:43px;
+    border:1px solid #ddd;
+    border-radius:8px;
+    padding:0 12px;
+    outline:none;
+    font-size:13px;
+    background:#fff;
+}
+
+
+/* =========================================================
+   PAYMENT
+========================================================= */
+
+.payment-section{
+    margin-top:30px;
+    padding-top:25px;
+    border-top:1px solid rgba(18,61,43,.08);
+}
+
+.payment-options{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:12px;
+}
+
+.payment-option{
+    position:relative;
+}
+
+.payment-option input{
+    position:absolute;
+    opacity:0;
+}
+
+.payment-option label{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    min-height:65px;
+    padding:14px 16px;
+    border:1px solid #ddd;
+    border-radius:12px;
+    background:#fff;
+    cursor:pointer;
+    transition:.25s ease;
+}
+
+.payment-option label:hover{
+    border-color:#123d2b;
+    background:#f8faf7;
+}
+
+.payment-option input:checked + label{
+    border-color:#123d2b;
+    background:#f1f6f2;
+    box-shadow:0 0 0 2px rgba(18,61,43,.08);
+}
+
+.payment-icon{
+    width:40px;
+    height:40px;
+    border-radius:10px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:#edf3ee;
+    color:#123d2b;
+    font-size:20px;
+    flex-shrink:0;
+}
+
+.payment-text strong{
+    display:block;
+    color:#123d2b;
+    font-size:14px;
+}
+
+.payment-text span{
+    display:block;
+    color:#888;
+    font-size:11px;
+    margin-top:3px;
+}
+
+
+/* =========================================================
+   PAYMENT DETAILS
+========================================================= */
+
+.payment-details{
+    display:none;
+    margin-top:18px;
+    padding:20px;
+    background:#f8faf7;
+    border:1px solid rgba(18,61,43,.08);
+    border-radius:12px;
+}
+
+.payment-details.active{
+    display:block;
+}
+
+.payment-details-title{
+    color:#123d2b;
+    font-size:15px;
+    font-weight:800;
+    margin-bottom:15px;
+}
+
+.payment-field{
+    margin-bottom:14px;
+}
+
+.payment-field:last-child{
+    margin-bottom:0;
+}
+
+.payment-field label{
+    display:block;
+    color:#123d2b;
+    font-size:12px;
+    font-weight:700;
+    margin-bottom:6px;
+}
+
+.payment-field input,
+.payment-field select{
+    width:100%;
+    height:43px;
+    border:1px solid #ddd;
+    border-radius:8px;
+    padding:0 12px;
+    outline:none;
+    background:#fff;
+    font-size:13px;
+}
+
+.payment-field input:focus,
+.payment-field select:focus{
+    border-color:#123d2b;
+    box-shadow:0 0 0 2px rgba(18,61,43,.08);
+}
+
+
+/* =========================================================
+   CARD ROW
+========================================================= */
+
+.card-row{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:14px;
+}
+
+
+/* =========================================================
+   ORDER SUMMARY
+========================================================= */
+
+.checkout-summary{
+    background:#123d2b;
+    border-radius:18px;
+    padding:25px;
+    color:#fff;
+    position:sticky;
+    top:25px;
+}
+
+.checkout-summary h3{
+    font-family:'DM Serif Display',serif;
+    font-size:25px;
+    margin-bottom:22px;
+}
+
+.summary-row{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:15px;
+    padding:11px 0;
+    color:rgba(255,255,255,.82);
+    font-size:14px;
+}
+
+.summary-row span:last-child{
+    text-align:right;
+}
+
+.summary-total{
+    border-top:1px solid rgba(255,255,255,.2);
+    margin-top:10px;
+    padding-top:17px;
+    display:flex;
+    justify-content:space-between;
+    font-size:20px;
+    font-weight:800;
+}
+
+
+/* =========================================================
+   PLACE ORDER
+========================================================= */
+
+.place-order-btn{
+    width:100%;
+    min-height:48px;
+    margin-top:22px;
+    border:none;
+    border-radius:25px;
+    background:#c8a96b;
+    color:#fff;
+    font-size:14px;
+    font-weight:700;
+    cursor:pointer;
+    transition:.3s ease;
+}
+
+.place-order-btn:hover{
+    background:#b79558;
+    transform:translateY(-2px);
+}
+
+
+/* =========================================================
+   NO ADDRESS
+========================================================= */
+
+.add-address-btn{
+    width:100%;
+    min-height:48px;
+    margin-top:22px;
+    border:none;
+    border-radius:25px;
+    background:#c8a96b;
+    color:#fff;
+    font-size:14px;
+    font-weight:700;
+    transition:.3s ease;
+}
+
+.add-address-btn:hover{
+    background:#b79558;
+    color:#fff;
+    transform:translateY(-2px);
+}
+
+
+/* =========================================================
+   BACK
+========================================================= */
+
+.checkout-back{
+    display:inline-flex;
+    align-items:center;
+    gap:7px;
+    color:#123d2b;
+    text-decoration:none;
+    font-size:13px;
+    font-weight:700;
+    margin-bottom:18px;
+}
+
+.checkout-back:hover{
+    color:#c8a96b;
+}
+
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media(max-width:767px){
+
+    .checkout-page{
+        padding:30px 15px 50px;
+    }
+
+    .checkout-title h1{
+        font-size:32px;
+    }
+
+    .checkout-product-image{
+        width:80px;
+        height:80px;
+    }
+
+    .checkout-product-info h3{
+        font-size:17px;
+    }
+
+    .payment-options{
+        grid-template-columns:1fr;
+    }
+
+    .card-row{
+        grid-template-columns:1fr;
+    }
+
+    .checkout-summary{
+        position:static;
+        margin-top:20px;
+    }
+
+}
+
+</style>
+
+
+<div class="checkout-page">
+
+    <div class="container">
+
+
+        <!-- =================================================
+             TITLE
+        ================================================== -->
+
+        <div class="checkout-title">
+
+            <h1>
+                Checkout
+            </h1>
+
+            <p>
+                Review your order and confirm your purchase.
+            </p>
+
+        </div>
+
+
+        <!-- =================================================
+             BACK
+        ================================================== -->
+
+        <a href="{% url 'product_details' product.id %}"
+           class="checkout-back">
+
+            <i class="bi bi-arrow-left"></i>
+
+            Back to Product
+
+        </a>
+
+
+        <div class="row g-4">
+
+
+            <!-- =================================================
+                 LEFT
+            ================================================== -->
+
+            <div class="col-lg-8">
+
+                <div class="checkout-box">
+
+
+                    <!-- =================================================
+                         ORDER DETAILS
+                    ================================================== -->
+
+                    <div class="checkout-section-title">
+                        Order Details
+                    </div>
+
+
+                    <div class="checkout-product">
+
+                        <div class="checkout-product-image">
+
+                            {% if product.image %}
+
+                                <img
+                                    src="{% static 'product_images/' %}{{ product.image }}"
+                                    alt="{{ product.name }}"
+                                >
+
+                            {% else %}
+
+                                <img
+                                    src="{% static 'images/plant1.jpg' %}"
+                                    alt="{{ product.name }}"
+                                >
+
+                            {% endif %}
+
+                        </div>
+
+
+                        <div class="checkout-product-info">
+
+                            <h3>
+                                {{ product.name }}
+                            </h3>
+
+
+                            {% if product.category %}
+
+                                <p>
+                                    {{ product.category }}
+                                </p>
+
+                            {% endif %}
+
+
+                            <div class="checkout-product-price">
+
+                                ₹{{ product.price }}
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- =================================================
+                         DELIVERY ADDRESS
+                    ================================================== -->
+
+                    <div class="checkout-section-title">
+
+                        Delivery Address
+
+                    </div>
+
+
+                    {% if address %}
+
+                        <div class="checkout-address-box">
+
+                            <p>
+
+                                <span class="address-email">
+                                    {{ user_email }}
+                                </span>
+
+                                <br>
+
+                                <span class="address-text">
+
+                                    {{ address.address }}
+
+                                    <br>
+
+                                    {{ address.city }},
+                                    {{ address.state }}
+
+                                    -
+
+                                    {{ address.pincode }}
+
+                                </span>
+
+                            </p>
+
+
+                            <a
+                                href="{% url 'MyAddress' %}"
+                                class="edit-address-link"
+                            >
+
+                                <i class="bi bi-pencil-square"></i>
+
+                                Edit Address
+
+                            </a>
+
+                        </div>
+
+                    {% else %}
+
+                        <div class="checkout-address-box">
+
+                            <p>
+
+                                <strong>
+                                    No delivery address found.
+                                </strong>
+
+                                <br>
+
+                                Please add your address before placing
+                                the order.
+
+                            </p>
+
+                        </div>
+
+                    {% endif %}
+
+
+                    <!-- =================================================
+                         QUANTITY
+                    ================================================== -->
+
+                    <div class="row">
+
+                        <div class="col-md-5">
+
+                            <label class="checkout-label">
+                                Quantity
+                            </label>
+
+                            <input
+                                type="number"
+                                value="{{ quantity }}"
+                                class="checkout-input"
+                                readonly
+                            >
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- =================================================
+                         PAYMENT
+                    ================================================== -->
+
+                    {% if address %}
+
+                        <div class="payment-section">
+
+                            <div class="checkout-section-title">
+                                Payment Method
+                            </div>
+
+
+                            <form
+                                method="POST"
+                                action="{% url 'BuyNow' product.id %}"
+                                id="checkoutForm"
+                            >
+
+                                {% csrf_token %}
+
+
+                                <input
+                                    type="hidden"
+                                    name="quantity"
+                                    value="{{ quantity }}"
+                                >
+
+
+                                <!-- =================================================
+                                     PAYMENT OPTIONS
+                                ================================================== -->
+
+                                <div class="payment-options">
+
+
+                                    <!-- COD -->
+
+                                    <div class="payment-option">
+
+                                        <input
+                                            type="radio"
+                                            id="cod"
+                                            name="payment_method"
+                                            value="Cash on Delivery"
+                                            checked
+                                        >
+
+                                        <label for="cod">
+
+                                            <div class="payment-icon">
+
+                                                <i class="bi bi-cash-coin"></i>
+
+                                            </div>
+
+                                            <div class="payment-text">
+
+                                                <strong>
+                                                    Cash on Delivery
+                                                </strong>
+
+                                                <span>
+                                                    Pay when your order arrives
+                                                </span>
+
+                                            </div>
+
+                                        </label>
+
+                                    </div>
+
+
+                                    <!-- UPI -->
+
+                                    <div class="payment-option">
+
+                                        <input
+                                            type="radio"
+                                            id="upi"
+                                            name="payment_method"
+                                            value="UPI"
+                                        >
+
+                                        <label for="upi">
+
+                                            <div class="payment-icon">
+
+                                                <i class="bi bi-phone"></i>
+
+                                            </div>
+
+                                            <div class="payment-text">
+
+                                                <strong>
+                                                    UPI
+                                                </strong>
+
+                                                <span>
+                                                    Google Pay, PhonePe, Paytm
+                                                </span>
+
+                                            </div>
+
+                                        </label>
+
+                                    </div>
+
+
+                                    <!-- CARD -->
+
+                                    <div class="payment-option">
+
+                                        <input
+                                            type="radio"
+                                            id="card"
+                                            name="payment_method"
+                                            value="Card"
+                                        >
+
+                                        <label for="card">
+
+                                            <div class="payment-icon">
+
+                                                <i class="bi bi-credit-card"></i>
+
+                                            </div>
+
+                                            <div class="payment-text">
+
+                                                <strong>
+                                                    Credit / Debit Card
+                                                </strong>
+
+                                                <span>
+                                                    Visa, Mastercard, RuPay
+                                                </span>
+
+                                            </div>
+
+                                        </label>
+
+                                    </div>
+
+
+                                    <!-- NET BANKING -->
+
+                                    <div class="payment-option">
+
+                                        <input
+                                            type="radio"
+                                            id="netbanking"
+                                            name="payment_method"
+                                            value="Net Banking"
+                                        >
+
+                                        <label for="netbanking">
+
+                                            <div class="payment-icon">
+
+                                                <i class="bi bi-bank"></i>
+
+                                            </div>
+
+                                            <div class="payment-text">
+
+                                                <strong>
+                                                    Net Banking
+                                                </strong>
+
+                                                <span>
+                                                    Pay using your bank
+                                                </span>
+
+                                            </div>
+
+                                        </label>
+
+                                    </div>
+
+                                </div>
+
+
+                                <!-- =================================================
+                                     UPI DETAILS
+                                ================================================== -->
+
+                                <div
+                                    class="payment-details"
+                                    id="upiDetails"
+                                >
+
+                                    <div class="payment-details-title">
+
+                                        UPI Payment
+
+                                    </div>
+
+
+                                    <div class="payment-field">
+
+                                        <label>
+                                            UPI ID
+                                        </label>
+
+                                        <input
+                                            type="text"
+                                            name="upi_id"
+                                            id="upi_id"
+                                            placeholder="example@upi"
+                                        >
+
+                                    </div>
+
+                                </div>
+
+
+                                <!-- =================================================
+                                     CARD DETAILS
+                                ================================================== -->
+
+                                <div
+                                    class="payment-details"
+                                    id="cardDetails"
+                                >
+
+                                    <div class="payment-details-title">
+
+                                        Card Payment
+
+                                    </div>
+
+
+                                    <div class="payment-field">
+
+                                        <label>
+                                            Card Number
+                                        </label>
+
+                                        <input
+                                            type="text"
+                                            name="card_number"
+                                            id="card_number"
+                                            maxlength="19"
+                                            placeholder="1234 5678 9012 3456"
+                                        >
+
+                                    </div>
+
+
+                                    <div class="payment-field">
+
+                                        <label>
+                                            Card Holder Name
+                                        </label>
+
+                                        <input
+                                            type="text"
+                                            name="card_name"
+                                            id="card_name"
+                                            placeholder="Name on card"
+                                        >
+
+                                    </div>
+
+
+                                    <div class="card-row">
+
+                                        <div class="payment-field">
+
+                                            <label>
+                                                Expiry
+                                            </label>
+
+                                            <input
+                                                type="text"
+                                                name="expiry"
+                                                id="expiry"
+                                                maxlength="5"
+                                                placeholder="MM/YY"
+                                            >
+
+                                        </div>
+
+
+                                        <div class="payment-field">
+
+                                            <label>
+                                                CVV
+                                            </label>
+
+                                            <input
+                                                type="password"
+                                                name="cvv"
+                                                id="cvv"
+                                                maxlength="3"
+                                                placeholder="123"
+                                            >
+
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+
+                                <!-- =================================================
+                                     NET BANKING DETAILS
+                                ================================================== -->
+
+                                <div
+                                    class="payment-details"
+                                    id="netbankingDetails"
+                                >
+
+                                    <div class="payment-details-title">
+
+                                        Net Banking
+
+                                    </div>
+
+
+                                    <div class="payment-field">
+
+                                        <label>
+                                            Select Bank
+                                        </label>
+
+                                        <select
+                                            name="bank_name"
+                                            id="bank_name"
+                                        >
+
+                                            <option value="">
+                                                Select your bank
+                                            </option>
+
+                                            <option value="State Bank of India">
+                                                State Bank of India
+                                            </option>
+
+                                            <option value="HDFC Bank">
+                                                HDFC Bank
+                                            </option>
+
+                                            <option value="ICICI Bank">
+                                                ICICI Bank
+                                            </option>
+
+                                            <option value="Axis Bank">
+                                                Axis Bank
+                                            </option>
+
+                                            <option value="Punjab National Bank">
+                                                Punjab National Bank
+                                            </option>
+
+                                            <option value="Bank of Baroda">
+                                                Bank of Baroda
+                                            </option>
+
+                                        </select>
+
+                                    </div>
+
+                                </div>
+
+
+                            </form>
+
+                        </div>
+
+                    {% endif %}
+
+                </div>
+
+            </div>
+
+
+            <!-- =================================================
+                 RIGHT
+            ================================================== -->
+
+            <div class="col-lg-4">
+
+                <div class="checkout-summary">
+
+
+                    <h3>
+                        Order Summary
+                    </h3>
+
+
+                    <div class="summary-row">
+
+                        <span>
+                            Product
+                        </span>
+
+                        <span>
+                            {{ product.name }}
+                        </span>
+
+                    </div>
+
+
+                    <div class="summary-row">
+
+                        <span>
+                            Price
+                        </span>
+
+                        <span>
+                            ₹{{ product.price }}
+                        </span>
+
+                    </div>
+
+
+                    <div class="summary-row">
+
+                        <span>
+                            Quantity
+                        </span>
+
+                        <span>
+                            {{ quantity }}
+                        </span>
+
+                    </div>
+
+
+                    <div class="summary-row">
+
+                        <span>
+                            Delivery
+                        </span>
+
+                        <span>
+                            FREE
+                        </span>
+
+                    </div>
+
+
+                    <div class="summary-total">
+
+                        <span>
+                            Total
+                        </span>
+
+                        <span>
+                            ₹{{ total }}
+                        </span>
+
+                    </div>
+
+
+                    {% if address %}
+
+                        <button
+                            type="submit"
+                            form="checkoutForm"
+                            class="place-order-btn"
+                        >
+
+                            <i class="bi bi-lock-fill me-1"></i>
+
+                            Place Order
+
+                        </button>
+
+                    {% else %}
+
+                        <a
+                            href="{% url 'MyAddress' %}"
+                            class="add-address-btn d-flex align-items-center justify-content-center text-decoration-none"
+                        >
+
+                            <i class="bi bi-geo-alt me-1"></i>
+
+                            Add Address First
+
+                        </a>
+
+                    {% endif %}
+
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<script>
+
+/* =========================================================
+   PAYMENT METHOD SWITCH
+========================================================= */
+
+document.addEventListener("DOMContentLoaded", function(){
+
+    const paymentRadios =
+        document.querySelectorAll(
+            'input[name="payment_method"]'
+        );
+
+    const upiDetails =
+        document.getElementById(
+            "upiDetails"
+        );
+
+    const cardDetails =
+        document.getElementById(
+            "cardDetails"
+        );
+
+    const netbankingDetails =
+        document.getElementById(
+            "netbankingDetails"
+        );
+
+
+    function updatePaymentDetails(){
+
+        if(
+            !upiDetails ||
+            !cardDetails ||
+            !netbankingDetails
+        ){
+
+            return;
+
+        }
+
+
+        upiDetails.classList.remove("active");
+
+        cardDetails.classList.remove("active");
+
+        netbankingDetails.classList.remove("active");
+
+
+        const selected =
+            document.querySelector(
+                'input[name="payment_method"]:checked'
+            );
+
+
+        if(!selected){
+
+            return;
+
+        }
+
+
+        if(selected.value === "UPI"){
+
+            upiDetails.classList.add("active");
+
+        }
+
+
+        else if(selected.value === "Card"){
+
+            cardDetails.classList.add("active");
+
+        }
+
+
+        else if(selected.value === "Net Banking"){
+
+            netbankingDetails.classList.add("active");
+
+        }
+
+    }
+
+
+    paymentRadios.forEach(function(radio){
+
+        radio.addEventListener(
+            "change",
+            updatePaymentDetails
+        );
+
+    });
+
+
+    updatePaymentDetails();
+
+
+    /* =====================================================
+       CARD NUMBER FORMATTING
+    ===================================================== */
+
+    const cardNumber =
+        document.getElementById(
+            "card_number"
+        );
+
+    if(cardNumber){
+
+        cardNumber.addEventListener(
+            "input",
+            function(){
+
+                let value =
+                    this.value
+                    .replace(/\D/g, "")
+                    .substring(0,16);
+
+                let formatted =
+                    value.match(/.{1,4}/g);
+
+                this.value =
+                    formatted
+                    ? formatted.join(" ")
+                    : "";
+
+            }
+        );
+
+    }
+
+
+    /* =====================================================
+       EXPIRY FORMATTING
+    ===================================================== */
+
+    const expiry =
+        document.getElementById(
+            "expiry"
+        );
+
+    if(expiry){
+
+        expiry.addEventListener(
+            "input",
+            function(){
+
+                let value =
+                    this.value
+                    .replace(/\D/g, "")
+                    .substring(0,4);
+
+
+                if(value.length > 2){
+
+                    value =
+                        value.substring(0,2)
+                        + "/"
+                        + value.substring(2);
+
+                }
+
+
+                this.value = value;
+
+            }
+        );
+
+    }
+
+
+    /* =====================================================
+       CVV ONLY NUMBERS
+    ===================================================== */
+
+    const cvv =
+        document.getElementById(
+            "cvv"
+        );
+
+    if(cvv){
+
+        cvv.addEventListener(
+            "input",
+            function(){
+
+                this.value =
+                    this.value
+                    .replace(/\D/g, "")
+                    .substring(0,3);
+
+            }
+        );
+
+    }
+
+});
+
+</script>
+
+{% endblock %}

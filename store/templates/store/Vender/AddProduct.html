@@ -1,0 +1,589 @@
+{% extends "store/Vender/VenderMaster.html" %}
+{% load static %}
+
+{% block title %}
+Add Product | GreenNest
+{% endblock %}
+
+{% block page_heading %}
+Add New Product
+{% endblock %}
+
+{% block content %}
+
+<style>
+
+    .add-product-wrapper {
+        max-width: 1100px;
+        margin: 0 auto;
+    }
+
+    .product-form-card {
+        background: #ffffff;
+        border: 1px solid #e4ebe5;
+        border-radius: 22px;
+        padding: 35px;
+        box-shadow: 0 10px 35px rgba(35, 74, 48, 0.08);
+    }
+
+    .form-heading {
+        margin-bottom: 30px;
+    }
+
+    .form-heading h3 {
+        color: #234a30;
+        font-family: 'DM Serif Display', serif;
+        font-size: 30px;
+        margin-bottom: 7px;
+    }
+
+    .form-heading p {
+        color: #718078;
+        margin: 0;
+        font-size: 14px;
+    }
+
+    .form-group {
+        margin-bottom: 22px;
+    }
+
+    .form-label {
+        display: block;
+        color: #294c35;
+        font-weight: 600;
+        font-size: 14px;
+        margin-bottom: 8px;
+    }
+
+    .form-label span {
+        color: #c49a4a;
+    }
+
+    .form-control,
+    .form-select {
+        width: 100%;
+        min-height: 48px;
+        border: 1px solid #dce6df;
+        border-radius: 12px;
+        padding: 12px 15px;
+        font-size: 14px;
+        color: #33443a;
+        background: #fbfdfb;
+        outline: none;
+        transition: 0.3s;
+    }
+
+    .form-control:focus,
+    .form-select:focus {
+        border-color: #6f9b7b;
+        box-shadow: 0 0 0 3px rgba(111, 155, 123, 0.12);
+        background: #ffffff;
+    }
+
+    textarea.form-control {
+        min-height: 125px;
+        resize: vertical;
+    }
+
+    .image-upload-box {
+        border: 2px dashed #cbdacf;
+        border-radius: 16px;
+        padding: 25px;
+        text-align: center;
+        background: #f9fcf9;
+        transition: 0.3s;
+    }
+
+    .image-upload-box:hover {
+        border-color: #789c82;
+        background: #f5faf6;
+    }
+
+    .image-upload-icon {
+        width: 55px;
+        height: 55px;
+        margin: 0 auto 12px;
+        border-radius: 50%;
+        background: #eaf3ec;
+        color: #356844;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 24px;
+    }
+
+    .image-upload-box h6 {
+        color: #294c35;
+        font-weight: 600;
+        margin-bottom: 5px;
+    }
+
+    .image-upload-box p {
+        color: #7b8980;
+        font-size: 12px;
+        margin-bottom: 15px;
+    }
+
+    .image-upload-box input {
+        max-width: 100%;
+    }
+
+    .form-section-title {
+        color: #315d3e;
+        font-size: 17px;
+        font-weight: 700;
+        margin: 25px 0 18px;
+        padding-bottom: 10px;
+        border-bottom: 1px solid #e5ece7;
+    }
+
+    .btn-area {
+        display: flex;
+        justify-content: flex-end;
+        gap: 12px;
+        margin-top: 30px;
+        padding-top: 22px;
+        border-top: 1px solid #e5ece7;
+    }
+
+    .btn-cancel {
+        min-width: 120px;
+        padding: 12px 20px;
+        border-radius: 11px;
+        border: 1px solid #d7e1da;
+        background: #ffffff;
+        color: #52635a;
+        text-decoration: none;
+        text-align: center;
+        font-weight: 600;
+        font-size: 14px;
+    }
+
+    .btn-cancel:hover {
+        background: #f5f8f5;
+        color: #294c35;
+    }
+
+    .btn-submit {
+        min-width: 150px;
+        padding: 12px 22px;
+        border-radius: 11px;
+        border: none;
+        background: #315f3d;
+        color: #ffffff;
+        font-weight: 600;
+        font-size: 14px;
+        transition: 0.3s;
+    }
+
+    .btn-submit:hover {
+        background: #234a30;
+        transform: translateY(-1px);
+    }
+
+    .alert {
+        border-radius: 12px;
+        font-size: 14px;
+        border: none;
+    }
+
+    @media (max-width: 768px) {
+
+        .product-form-card {
+            padding: 22px;
+        }
+
+        .form-heading h3 {
+            font-size: 25px;
+        }
+
+        .btn-area {
+            flex-direction: column;
+        }
+
+        .btn-cancel,
+        .btn-submit {
+            width: 100%;
+        }
+    }
+
+</style>
+
+
+<div class="add-product-wrapper">
+
+    <div class="product-form-card">
+
+        <!-- ================= HEADER ================= -->
+
+        <div class="form-heading">
+
+            <h3>
+                <i class="bi bi-plus-circle me-2"></i>
+                Add New Product
+            </h3>
+
+            <p>
+                Add your plant products and make them available in GreenNest.
+            </p>
+
+        </div>
+
+
+        <!-- ================= MESSAGES ================= -->
+
+        {% if messages %}
+
+            {% for message in messages %}
+
+                <div class="alert alert-{{ message.tags }} alert-dismissible fade show"
+                     role="alert">
+
+                    {{ message }}
+
+                    <button type="button"
+                            class="btn-close"
+                            data-bs-dismiss="alert">
+                    </button>
+
+                </div>
+
+            {% endfor %}
+
+        {% endif %}
+
+
+        <!-- ================= FORM ================= -->
+
+        <form method="POST"
+              enctype="multipart/form-data">
+
+            {% csrf_token %}
+
+
+            <!-- ================= PRODUCT INFORMATION ================= -->
+
+            <div class="form-section-title">
+
+                <i class="bi bi-info-circle me-2"></i>
+                Product Information
+
+            </div>
+
+
+            <div class="row">
+
+
+                <!-- PRODUCT NAME -->
+
+                <div class="col-md-6">
+
+                    <div class="form-group">
+
+                        <label class="form-label">
+                            Product Name <span>*</span>
+                        </label>
+
+                        <input type="text"
+                               name="name"
+                               class="form-control"
+                               placeholder="Enter product name"
+                               required>
+
+                    </div>
+
+                </div>
+
+
+                <!-- CATEGORY -->
+
+                <div class="col-md-6">
+
+                    <div class="form-group">
+
+                        <label class="form-label">
+                            Category <span>*</span>
+                        </label>
+
+                        <select name="category"
+                                class="form-select"
+                                required>
+
+                            <option value="">
+                                Select Category
+                            </option>
+
+                            {% for category in categories %}
+
+                                <option value="{{ category.category_name }}">
+                                    {{ category.category_name }}
+                                </option>
+
+                            {% empty %}
+
+                                <option value="">
+                                    No Category Available
+                                </option>
+
+                            {% endfor %}
+
+                        </select>
+
+                    </div>
+
+                </div>
+
+
+                <!-- SUBCATEGORY -->
+
+                <div class="col-md-6">
+
+                    <div class="form-group">
+
+                        <label class="form-label">
+                            Subcategory <span>*</span>
+                        </label>
+
+                        <input type="text"
+                               name="subcategory"
+                               class="form-control"
+                               placeholder="Example: Snake Plant"
+                               required>
+
+                    </div>
+
+                </div>
+
+
+                <!-- COLLECTION -->
+
+                <div class="col-md-6">
+
+                    <div class="form-group">
+
+                        <label class="form-label">
+                            Collection <span>*</span>
+                        </label>
+
+                        <select name="collection_id"
+                                class="form-select"
+                                required>
+
+                            <option value="">
+                                Select Collection
+                            </option>
+
+                            {% for collection in collections %}
+
+                                <option value="{{ collection.id }}">
+                                    {{ collection.collection_name }}
+                                </option>
+
+                            {% empty %}
+
+                                <option value="">
+                                    No collections available
+                                </option>
+
+                            {% endfor %}
+
+                        </select>
+
+                    </div>
+
+                </div>
+
+
+                <!-- STOCK -->
+
+                <div class="col-md-6">
+
+                    <div class="form-group">
+
+                        <label class="form-label">
+                            Stock <span>*</span>
+                        </label>
+
+                        <input type="number"
+                               name="stock"
+                               class="form-control"
+                               placeholder="Enter available stock"
+                               min="0"
+                               required>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- ================= PRICE INFORMATION ================= -->
+
+            <div class="form-section-title">
+
+                <i class="bi bi-currency-rupee me-2"></i>
+                Price Information
+
+            </div>
+
+
+            <div class="row">
+
+
+                <!-- SELLING PRICE -->
+
+                <div class="col-md-6">
+
+                    <div class="form-group">
+
+                        <label class="form-label">
+                            Selling Price <span>*</span>
+                        </label>
+
+                        <div class="input-group">
+
+                            <span class="input-group-text">
+                                ₹
+                            </span>
+
+                            <input type="number"
+                                   name="price"
+                                   class="form-control"
+                                   placeholder="Enter selling price"
+                                   min="0"
+                                   step="0.01"
+                                   required>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- OLD PRICE -->
+
+                <div class="col-md-6">
+
+                    <div class="form-group">
+
+                        <label class="form-label">
+                            Old Price
+                        </label>
+
+                        <div class="input-group">
+
+                            <span class="input-group-text">
+                                ₹
+                            </span>
+
+                            <input type="number"
+                                   name="old_price"
+                                   class="form-control"
+                                   placeholder="Enter original price"
+                                   min="0"
+                                   step="0.01">
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- ================= PRODUCT IMAGE ================= -->
+
+            <div class="form-section-title">
+
+                <i class="bi bi-image me-2"></i>
+                Product Image
+
+            </div>
+
+
+            <div class="form-group">
+
+                <div class="image-upload-box">
+
+                    <div class="image-upload-icon">
+
+                        <i class="bi bi-cloud-arrow-up"></i>
+
+                    </div>
+
+                    <h6>
+                        Upload Product Image
+                    </h6>
+
+                    <p>
+                        JPG, JPEG, PNG or WEBP recommended
+                    </p>
+
+                    <input type="file"
+                           name="image"
+                           class="form-control"
+                           accept="image/*"
+                           required>
+
+                </div>
+
+            </div>
+
+
+            <!-- ================= DESCRIPTION ================= -->
+
+            <div class="form-section-title">
+
+                <i class="bi bi-card-text me-2"></i>
+                Product Description
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label class="form-label">
+                    Description
+                </label>
+
+                <textarea name="description"
+                          class="form-control"
+                          placeholder="Write a short description about this plant..."></textarea>
+
+            </div>
+
+
+            <!-- ================= BUTTONS ================= -->
+
+            <div class="btn-area">
+
+                <a href="{% url 'vproducts' %}"
+                   class="btn-cancel">
+
+                    <i class="bi bi-arrow-left me-1"></i>
+                    Cancel
+
+                </a>
+
+
+                <button type="submit"
+                        class="btn-submit">
+
+                    <i class="bi bi-plus-lg me-1"></i>
+                    Add Product
+
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+
+{% endblock %}

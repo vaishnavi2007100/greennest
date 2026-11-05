@@ -1,0 +1,1703 @@
+{% extends "store/base.html" %}
+{% load static %}
+
+{% block title %}Plant Care | GreenNest{% endblock %}
+
+{% block extra_css %}
+
+<style>
+
+/* =========================================================
+   PLANT CARE PAGE
+========================================================= */
+
+.care-page {
+    background: #fafbf8;
+    color: #24332c;
+}
+
+
+/* =========================================================
+   HERO
+========================================================= */
+
+.care-hero {
+    min-height: 560px;
+    position: relative;
+
+    display: flex;
+    align-items: center;
+
+    background:
+        linear-gradient(
+            90deg,
+            rgba(5,40,30,.96) 0%,
+            rgba(7,53,39,.78) 48%,
+            rgba(7,53,39,.18) 100%
+        ),
+        url("{% static 'images/plant-center.jpg' %}")
+        center center / cover no-repeat;
+
+    overflow: hidden;
+}
+
+
+.care-hero::after {
+    content: "";
+    position: absolute;
+    right: -120px;
+    bottom: -180px;
+
+    width: 500px;
+    height: 500px;
+
+    border-radius: 50%;
+
+    background: rgba(255,255,255,.05);
+}
+
+
+.care-hero-content {
+    position: relative;
+    z-index: 2;
+
+    max-width: 760px;
+
+    padding: 80px 0;
+}
+
+
+.care-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+
+    padding: 9px 15px;
+
+    border: 1px solid rgba(255,255,255,.2);
+    border-radius: 50px;
+
+    background: rgba(255,255,255,.08);
+
+    color: #c9e5d8;
+
+    font-size: 11px;
+    font-weight: 700;
+
+    text-transform: uppercase;
+    letter-spacing: 2.5px;
+
+    backdrop-filter: blur(10px);
+}
+
+
+.care-eyebrow-dot {
+    width: 7px;
+    height: 7px;
+
+    border-radius: 50%;
+
+    background: #b7d7a8;
+
+    box-shadow: 0 0 0 5px rgba(183,215,168,.12);
+}
+
+
+.care-hero h1 {
+    margin: 24px 0 18px;
+
+    color: white;
+
+    font-family: Georgia, "Times New Roman", serif;
+
+    font-size: clamp(48px, 6vw, 78px);
+
+    font-weight: 500;
+
+    letter-spacing: -2px;
+
+    line-height: 1.02;
+}
+
+
+.care-hero h1 span {
+    color: #c8dfb7;
+}
+
+
+.care-hero p {
+    max-width: 650px;
+
+    margin-bottom: 30px;
+
+    color: rgba(255,255,255,.78);
+
+    font-size: 17px;
+
+    line-height: 1.9;
+}
+
+
+.care-hero-actions {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+
+.care-primary-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 14px 24px;
+
+    border-radius: 13px;
+
+    background: #ffffff;
+    color: #0b3d2e;
+
+    font-size: 13px;
+    font-weight: 700;
+
+    transition: .3s ease;
+}
+
+
+.care-primary-btn:hover {
+    color: #0b3d2e;
+
+    transform: translateY(-3px);
+
+    box-shadow: 0 15px 30px rgba(0,0,0,.18);
+}
+
+
+.care-secondary-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 14px 24px;
+
+    border: 1px solid rgba(255,255,255,.25);
+
+    border-radius: 13px;
+
+    background: rgba(255,255,255,.08);
+
+    color: white;
+
+    font-size: 13px;
+    font-weight: 700;
+
+    backdrop-filter: blur(8px);
+
+    transition: .3s ease;
+}
+
+
+.care-secondary-btn:hover {
+    color: white;
+
+    background: rgba(255,255,255,.15);
+
+    transform: translateY(-3px);
+}
+
+
+/* =========================================================
+   INTRO STATS
+========================================================= */
+
+.care-stats-wrap {
+    position: relative;
+    z-index: 5;
+
+    margin-top: -55px;
+}
+
+
+.care-stats {
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, 1fr);
+
+    background: white;
+
+    border: 1px solid #e5ece7;
+
+    border-radius: 22px;
+
+    box-shadow:
+        0 20px 55px rgba(15,58,40,.10);
+
+    overflow: hidden;
+}
+
+
+.care-stat {
+    padding: 28px 30px;
+
+    display: flex;
+    align-items: center;
+    gap: 17px;
+
+    border-right: 1px solid #edf1ee;
+}
+
+
+.care-stat:last-child {
+    border-right: 0;
+}
+
+
+.care-stat-icon {
+    width: 48px;
+    height: 48px;
+
+    flex-shrink: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 14px;
+
+    background: #edf7ef;
+
+    color: #1d6848;
+}
+
+
+.care-stat-icon svg {
+    width: 22px;
+    height: 22px;
+}
+
+
+.care-stat strong {
+    display: block;
+
+    color: #183d30;
+
+    font-family: Georgia, serif;
+
+    font-size: 21px;
+}
+
+
+.care-stat span {
+    display: block;
+
+    margin-top: 3px;
+
+    color: #829088;
+
+    font-size: 12px;
+}
+
+
+/* =========================================================
+   SECTION
+========================================================= */
+
+.care-section {
+    padding: 105px 0 90px;
+}
+
+
+.care-heading {
+    max-width: 720px;
+
+    margin: 0 auto 55px;
+
+    text-align: center;
+}
+
+
+.care-heading-label {
+    color: #27785d;
+
+    font-size: 11px;
+    font-weight: 800;
+
+    text-transform: uppercase;
+    letter-spacing: 2.5px;
+}
+
+
+.care-heading h2 {
+    margin: 12px 0 14px;
+
+    color: #183d30;
+
+    font-family: Georgia, "Times New Roman", serif;
+
+    font-size: clamp(35px, 4vw, 48px);
+
+    font-weight: 500;
+}
+
+
+.care-heading p {
+    color: #788780;
+
+    font-size: 15px;
+
+    line-height: 1.8;
+}
+
+
+/* =========================================================
+   CARE CARDS
+========================================================= */
+
+.care-card {
+    position: relative;
+
+    height: 100%;
+
+    padding: 34px 28px;
+
+    background: white;
+
+    border: 1px solid #e7eee9;
+
+    border-radius: 22px;
+
+    box-shadow:
+        0 8px 30px rgba(20,70,50,.055);
+
+    overflow: hidden;
+
+    transition:
+        transform .35s ease,
+        box-shadow .35s ease,
+        border-color .35s ease;
+}
+
+
+.care-card::before {
+    content: "";
+
+    position: absolute;
+
+    top: 0;
+    left: 0;
+
+    width: 100%;
+    height: 3px;
+
+    background:
+        linear-gradient(
+            90deg,
+            #1d6848,
+            #c8a96b
+        );
+
+    transform: scaleX(0);
+
+    transform-origin: left;
+
+    transition: .35s ease;
+}
+
+
+.care-card:hover {
+    transform: translateY(-10px);
+
+    border-color: #d8e7dd;
+
+    box-shadow:
+        0 25px 55px rgba(20,70,50,.13);
+}
+
+
+.care-card:hover::before {
+    transform: scaleX(1);
+}
+
+
+.care-icon {
+    width: 66px;
+    height: 66px;
+
+    margin-bottom: 24px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 18px;
+
+    background: #edf7ef;
+
+    color: #17664d;
+
+    transition: .35s ease;
+}
+
+
+.care-card:hover .care-icon {
+    transform: rotate(-5deg) scale(1.08);
+
+    background: #dcefe3;
+}
+
+
+.care-icon svg {
+    width: 30px;
+    height: 30px;
+}
+
+
+.care-card h4 {
+    margin-bottom: 11px;
+
+    color: #214638;
+
+    font-size: 19px;
+    font-weight: 700;
+}
+
+
+.care-card p {
+    margin: 0;
+
+    color: #788780;
+
+    font-size: 13px;
+
+    line-height: 1.85;
+}
+
+
+/* =========================================================
+   ROUTINE SECTION
+========================================================= */
+
+.routine-section {
+    padding: 90px 0;
+
+    background: #f1f8f3;
+}
+
+
+.routine-box {
+    position: relative;
+
+    padding: 60px;
+
+    background: white;
+
+    border: 1px solid #e1ebe4;
+
+    border-radius: 28px;
+
+    box-shadow:
+        0 20px 60px rgba(15,58,40,.07);
+
+    overflow: hidden;
+}
+
+
+.routine-box::after {
+    content: "✦";
+
+    position: absolute;
+
+    right: 40px;
+    top: 25px;
+
+    color: #d7c08c;
+
+    font-size: 70px;
+
+    opacity: .25;
+}
+
+
+.routine-title {
+    max-width: 600px;
+
+    margin-bottom: 45px;
+}
+
+
+.routine-title span {
+    color: #27785d;
+
+    font-size: 11px;
+    font-weight: 800;
+
+    text-transform: uppercase;
+    letter-spacing: 2.5px;
+}
+
+
+.routine-title h2 {
+    margin: 12px 0;
+
+    color: #183d30;
+
+    font-family: Georgia, serif;
+
+    font-size: 42px;
+    font-weight: 500;
+}
+
+
+.routine-title p {
+    color: #788780;
+
+    line-height: 1.8;
+}
+
+
+.routine-item {
+    display: flex;
+    gap: 20px;
+
+    padding: 22px 0;
+
+    border-bottom: 1px solid #edf1ee;
+}
+
+
+.routine-item:last-child {
+    border-bottom: 0;
+}
+
+
+.routine-number {
+    width: 45px;
+    height: 45px;
+
+    flex-shrink: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 14px;
+
+    background: #0b3d2e;
+
+    color: white;
+
+    font-size: 14px;
+    font-weight: 800;
+}
+
+
+.routine-item h5 {
+    margin-bottom: 6px;
+
+    color: #214638;
+
+    font-size: 16px;
+    font-weight: 700;
+}
+
+
+.routine-item p {
+    margin: 0;
+
+    color: #7a8981;
+
+    font-size: 13px;
+
+    line-height: 1.7;
+}
+
+
+/* =========================================================
+   TIPS
+========================================================= */
+
+.tips-section {
+    padding: 100px 0;
+}
+
+
+.tip-card {
+    height: 100%;
+
+    padding: 30px;
+
+    border-radius: 21px;
+
+    background:
+        linear-gradient(
+            145deg,
+            #f5faf6,
+            #ffffff
+        );
+
+    border: 1px solid #e2ebe5;
+
+    transition: .3s ease;
+}
+
+
+.tip-card:hover {
+    transform: translateY(-7px);
+
+    box-shadow:
+        0 18px 40px rgba(20,70,50,.09);
+}
+
+
+.tip-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    margin-bottom: 20px;
+}
+
+
+.tip-number {
+    width: 38px;
+    height: 38px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+
+    background: #0b3d2e;
+
+    color: white;
+
+    font-size: 12px;
+    font-weight: 800;
+}
+
+
+.tip-leaf {
+    color: #b4cba9;
+
+    font-size: 24px;
+}
+
+
+.tip-card h5 {
+    margin-bottom: 10px;
+
+    color: #214638;
+
+    font-size: 17px;
+    font-weight: 700;
+}
+
+
+.tip-card p {
+    margin: 0;
+
+    color: #788780;
+
+    font-size: 13px;
+
+    line-height: 1.8;
+}
+
+
+/* =========================================================
+   CTA
+========================================================= */
+
+.care-cta {
+    padding: 85px 0;
+
+    background:
+        linear-gradient(
+            135deg,
+            #073527,
+            #145a43
+        );
+
+    text-align: center;
+
+    position: relative;
+
+    overflow: hidden;
+}
+
+
+.care-cta::before {
+    content: "";
+
+    position: absolute;
+
+    width: 300px;
+    height: 300px;
+
+    left: -120px;
+    top: -120px;
+
+    border-radius: 50%;
+
+    background: rgba(255,255,255,.05);
+}
+
+
+.care-cta::after {
+    content: "";
+
+    position: absolute;
+
+    width: 250px;
+    height: 250px;
+
+    right: -100px;
+    bottom: -130px;
+
+    border-radius: 50%;
+
+    background: rgba(255,255,255,.05);
+}
+
+
+.care-cta-content {
+    position: relative;
+    z-index: 2;
+}
+
+
+.care-cta-label {
+    color: #b9dfce;
+
+    font-size: 11px;
+    font-weight: 800;
+
+    text-transform: uppercase;
+    letter-spacing: 2.5px;
+}
+
+
+.care-cta h2 {
+    margin: 13px 0;
+
+    color: white;
+
+    font-family: Georgia, serif;
+
+    font-size: 44px;
+    font-weight: 500;
+}
+
+
+.care-cta p {
+    max-width: 620px;
+
+    margin: 0 auto 27px;
+
+    color: rgba(255,255,255,.7);
+
+    font-size: 14px;
+
+    line-height: 1.8;
+}
+
+
+.care-cta-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 14px 26px;
+
+    border-radius: 13px;
+
+    background: white;
+
+    color: #0b3d2e;
+
+    font-size: 13px;
+    font-weight: 800;
+
+    transition: .3s ease;
+}
+
+
+.care-cta-btn:hover {
+    color: #0b3d2e;
+
+    transform: translateY(-3px);
+
+    box-shadow:
+        0 15px 35px rgba(0,0,0,.2);
+}
+
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media (max-width: 991px) {
+
+    .care-hero {
+        min-height: 520px;
+    }
+
+    .care-stats {
+        grid-template-columns: 1fr;
+    }
+
+    .care-stat {
+        border-right: 0;
+        border-bottom: 1px solid #edf1ee;
+    }
+
+    .care-stat:last-child {
+        border-bottom: 0;
+    }
+
+    .routine-box {
+        padding: 40px 30px;
+    }
+
+}
+
+
+@media (max-width: 768px) {
+
+    .care-hero {
+        min-height: 510px;
+    }
+
+    .care-hero h1 {
+        letter-spacing: -1px;
+    }
+
+    .care-hero p {
+        font-size: 15px;
+    }
+
+    .care-section,
+    .tips-section {
+        padding: 70px 0;
+    }
+
+    .routine-section {
+        padding: 70px 0;
+    }
+
+    .routine-title h2 {
+        font-size: 34px;
+    }
+
+    .care-cta h2 {
+        font-size: 35px;
+    }
+
+}
+
+
+@media (max-width: 480px) {
+
+    .care-hero-content {
+        padding: 60px 15px;
+    }
+
+    .care-hero-actions {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .care-primary-btn,
+    .care-secondary-btn {
+        width: 100%;
+    }
+
+    .care-stats-wrap {
+        margin-top: -35px;
+    }
+
+    .routine-box {
+        padding: 32px 22px;
+    }
+
+}
+
+</style>
+
+{% endblock %}
+
+
+{% block content %}
+
+<div class="care-page">
+
+
+<!-- =====================================================
+     HERO
+========================================================= -->
+
+<section class="care-hero">
+
+    <div class="container">
+
+        <div class="care-hero-content">
+
+            <div class="care-eyebrow">
+
+                <span class="care-eyebrow-dot"></span>
+
+                GreenNest Plant Guide
+
+            </div>
+
+
+            <h1>
+
+                Care for your plants,
+                <span>naturally.</span>
+
+            </h1>
+
+
+            <p>
+
+                Healthy plants don't need complicated routines.
+                Discover simple, practical and beautiful ways to
+                help your green companions grow stronger every day.
+
+            </p>
+
+
+            <div class="care-hero-actions">
+
+                <a href="#care-guide"
+                   class="care-primary-btn">
+
+                    Explore Care Guide
+
+                </a>
+
+
+                <a href="#routine"
+                   class="care-secondary-btn">
+
+                    Daily Routine
+
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =====================================================
+     STATS
+========================================================= -->
+
+<section class="care-stats-wrap">
+
+    <div class="container">
+
+        <div class="care-stats">
+
+
+            <div class="care-stat">
+
+                <div class="care-stat-icon">
+
+                    <svg viewBox="0 0 24 24"
+                         fill="none"
+                         stroke="currentColor"
+                         stroke-width="1.7">
+
+                        <path d="M12 21V8"/>
+
+                        <path d="M12 13
+                                 C7 13 4 10 4 5
+                                 C9 5 12 8 12 13Z"/>
+
+                        <path d="M12 17
+                                 C17 17 20 14 20 9
+                                 C15 9 12 12 12 17Z"/>
+
+                    </svg>
+
+                </div>
+
+
+                <div>
+
+                    <strong>Simple</strong>
+
+                    <span>
+                        Easy-to-follow care
+                    </span>
+
+                </div>
+
+            </div>
+
+
+
+            <div class="care-stat">
+
+                <div class="care-stat-icon">
+
+                    <svg viewBox="0 0 24 24"
+                         fill="none"
+                         stroke="currentColor"
+                         stroke-width="1.7">
+
+                        <path d="M12 3v18"/>
+                        <path d="M3 12h18"/>
+                        <path d="M5.6 5.6l12.8 12.8"/>
+                        <path d="M18.4 5.6 5.6 18.4"/>
+
+                    </svg>
+
+                </div>
+
+
+                <div>
+
+                    <strong>Healthy</strong>
+
+                    <span>
+                        Better plant growth
+                    </span>
+
+                </div>
+
+            </div>
+
+
+
+            <div class="care-stat">
+
+                <div class="care-stat-icon">
+
+                    <svg viewBox="0 0 24 24"
+                         fill="none"
+                         stroke="currentColor"
+                         stroke-width="1.7">
+
+                        <path d="M20.8 8.8
+                                 C20.8 13.5
+                                 12 19
+                                 12 19
+                                 S3.2 13.5
+                                 3.2 8.8
+                                 A5.1 5.1
+                                 0 0 1 12 6
+                                 a5.1 5.1
+                                 0 0 1 8.8 2.8Z"/>
+
+                    </svg>
+
+                </div>
+
+
+                <div>
+
+                    <strong>Natural</strong>
+
+                    <span>
+                        Care with love
+                    </span>
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =====================================================
+     CARE GUIDE
+========================================================= -->
+
+<section class="care-section"
+         id="care-guide">
+
+    <div class="container">
+
+
+        <div class="care-heading">
+
+            <span class="care-heading-label">
+                Care Essentials
+            </span>
+
+            <h2>
+                Everything your plant needs
+            </h2>
+
+            <p>
+                A few simple habits can make a big difference.
+                Follow these essential care practices to keep
+                your plants fresh, healthy and beautiful.
+            </p>
+
+        </div>
+
+
+
+        <div class="row g-4">
+
+
+            <!-- WATER -->
+
+            <div class="col-lg-3 col-md-6">
+
+                <div class="care-card">
+
+                    <div class="care-icon">
+
+                        <svg viewBox="0 0 24 24"
+                             fill="none"
+                             stroke="currentColor"
+                             stroke-width="1.7">
+
+                            <path d="M12 3
+                                     C12 3 6 10
+                                     6 14
+                                     a6 6 0 0 0 12 0
+                                     c0-4-6-11-6-11Z"/>
+
+                        </svg>
+
+                    </div>
+
+
+                    <h4>
+                        Watering
+                    </h4>
+
+
+                    <p>
+                        Check the soil before watering.
+                        Give enough water to keep the roots
+                        hydrated without leaving the soil soggy.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- SUNLIGHT -->
+
+            <div class="col-lg-3 col-md-6">
+
+                <div class="care-card">
+
+                    <div class="care-icon">
+
+                        <svg viewBox="0 0 24 24"
+                             fill="none"
+                             stroke="currentColor"
+                             stroke-width="1.7">
+
+                            <circle cx="12"
+                                    cy="12"
+                                    r="4"/>
+
+                            <path d="M12 2v2"/>
+                            <path d="M12 20v2"/>
+                            <path d="m4.93 4.93 1.42 1.42"/>
+                            <path d="m17.65 17.65 1.42 1.42"/>
+                            <path d="M2 12h2"/>
+                            <path d="M20 12h2"/>
+                            <path d="m4.93 19.07 1.42-1.42"/>
+                            <path d="m17.65 6.35 1.42-1.42"/>
+
+                        </svg>
+
+                    </div>
+
+
+                    <h4>
+                        Sunlight
+                    </h4>
+
+
+                    <p>
+                        Every plant has different light needs.
+                        Place your plant where it receives the
+                        right amount of bright, indirect or direct light.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- AIR -->
+
+            <div class="col-lg-3 col-md-6">
+
+                <div class="care-card">
+
+                    <div class="care-icon">
+
+                        <svg viewBox="0 0 24 24"
+                             fill="none"
+                             stroke="currentColor"
+                             stroke-width="1.7">
+
+                            <path d="M3 8h11
+                                     a3 3 0 1 0-3-3"/>
+
+                            <path d="M3 12h15
+                                     a3 3 0 1 1-3 3"/>
+
+                            <path d="M3 16h9
+                                     a3 3 0 1 0-3 3"/>
+
+                        </svg>
+
+                    </div>
+
+
+                    <h4>
+                        Fresh Air
+                    </h4>
+
+
+                    <p>
+                        Good air circulation keeps leaves fresh
+                        and helps reduce excess moisture around
+                        your plants.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- LOVE -->
+
+            <div class="col-lg-3 col-md-6">
+
+                <div class="care-card">
+
+                    <div class="care-icon">
+
+                        <svg viewBox="0 0 24 24"
+                             fill="none"
+                             stroke="currentColor"
+                             stroke-width="1.7">
+
+                            <path d="M20.8 8.8
+                                     C20.8 13.5
+                                     12 19
+                                     12 19
+                                     S3.2 13.5
+                                     3.2 8.8
+                                     A5.1 5.1
+                                     0 0 1 12 6
+                                     a5.1 5.1
+                                     0 0 1 8.8 2.8Z"/>
+
+                        </svg>
+
+                    </div>
+
+
+                    <h4>
+                        Love & Care
+                    </h4>
+
+
+                    <p>
+                        Clean dusty leaves, remove dead foliage
+                        and regularly check your plant for changes
+                        in colour, texture or growth.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =====================================================
+     DAILY ROUTINE
+========================================================= -->
+
+<section class="routine-section"
+         id="routine">
+
+    <div class="container">
+
+        <div class="routine-box">
+
+
+            <div class="routine-title">
+
+                <span>
+                    Green Routine
+                </span>
+
+                <h2>
+                    A little care every day
+                </h2>
+
+                <p>
+                    You don't need to spend hours caring for
+                    your plants. A few mindful checks are enough
+                    to keep your indoor garden thriving.
+                </p>
+
+            </div>
+
+
+
+            <div class="row">
+
+                <div class="col-lg-8">
+
+
+                    <!-- STEP 1 -->
+
+                    <div class="routine-item">
+
+                        <div class="routine-number">
+                            01
+                        </div>
+
+                        <div>
+
+                            <h5>
+                                Check the soil
+                            </h5>
+
+                            <p>
+                                Touch the top layer of soil.
+                                If it feels dry, your plant may
+                                be ready for watering.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- STEP 2 -->
+
+                    <div class="routine-item">
+
+                        <div class="routine-number">
+                            02
+                        </div>
+
+                        <div>
+
+                            <h5>
+                                Observe the leaves
+                            </h5>
+
+                            <p>
+                                Look for yellowing, drooping,
+                                spots or dusty leaves and respond
+                                early when something changes.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- STEP 3 -->
+
+                    <div class="routine-item">
+
+                        <div class="routine-number">
+                            03
+                        </div>
+
+                        <div>
+
+                            <h5>
+                                Check the light
+                            </h5>
+
+                            <p>
+                                Make sure your plant is receiving
+                                the amount of light suitable for
+                                its variety.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- STEP 4 -->
+
+                    <div class="routine-item">
+
+                        <div class="routine-number">
+                            04
+                        </div>
+
+                        <div>
+
+                            <h5>
+                                Give it some attention
+                            </h5>
+
+                            <p>
+                                Rotate the pot occasionally,
+                                remove dead leaves and keep
+                                the growing area clean.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =====================================================
+     QUICK TIPS
+========================================================= -->
+
+<section class="tips-section">
+
+    <div class="container">
+
+
+        <div class="care-heading">
+
+            <span class="care-heading-label">
+                Plant Wisdom
+            </span>
+
+            <h2>
+                Small tips, big difference
+            </h2>
+
+            <p>
+                Keep these simple reminders in mind while
+                caring for your GreenNest plants.
+            </p>
+
+        </div>
+
+
+
+        <div class="row g-4">
+
+
+            <div class="col-lg-3 col-md-6">
+
+                <div class="tip-card">
+
+                    <div class="tip-top">
+
+                        <div class="tip-number">
+                            01
+                        </div>
+
+                        <div class="tip-leaf">
+                            ♧
+                        </div>
+
+                    </div>
+
+                    <h5>
+                        Don't overwater
+                    </h5>
+
+                    <p>
+                        More water does not always mean
+                        healthier plants. Let the soil guide you.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+
+            <div class="col-lg-3 col-md-6">
+
+                <div class="tip-card">
+
+                    <div class="tip-top">
+
+                        <div class="tip-number">
+                            02
+                        </div>
+
+                        <div class="tip-leaf">
+                            ♧
+                        </div>
+
+                    </div>
+
+                    <h5>
+                        Clean the leaves
+                    </h5>
+
+                    <p>
+                        Gently wipe dusty leaves to keep
+                        them looking fresh and beautiful.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+
+            <div class="col-lg-3 col-md-6">
+
+                <div class="tip-card">
+
+                    <div class="tip-top">
+
+                        <div class="tip-number">
+                            03
+                        </div>
+
+                        <div class="tip-leaf">
+                            ♧
+                        </div>
+
+                    </div>
+
+                    <h5>
+                        Rotate your plant
+                    </h5>
+
+                    <p>
+                        Rotate your pot occasionally so
+                        different sides receive balanced light.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+
+            <div class="col-lg-3 col-md-6">
+
+                <div class="tip-card">
+
+                    <div class="tip-top">
+
+                        <div class="tip-number">
+                            04
+                        </div>
+
+                        <div class="tip-leaf">
+                            ♧
+                        </div>
+
+                    </div>
+
+                    <h5>
+                        Watch new growth
+                    </h5>
+
+                    <p>
+                        New leaves and shoots are a beautiful
+                        sign that your plant is settling well.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =====================================================
+     CTA
+========================================================= -->
+
+<section class="care-cta">
+
+    <div class="container">
+
+        <div class="care-cta-content">
+
+            <div class="care-cta-label">
+                Keep Growing
+            </div>
+
+
+            <h2>
+                Happy plants. Happier spaces.
+            </h2>
+
+
+            <p>
+                Discover beautiful plants for your home and
+                create a green corner that feels truly yours.
+            </p>
+
+
+            <a href="{% url 'plant' %}"
+               class="care-cta-btn">
+
+                Explore Our Plants
+
+            </a>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+</div>
+
+{% endblock %}

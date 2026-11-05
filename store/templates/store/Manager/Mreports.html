@@ -1,0 +1,308 @@
+{% extends "store/Manager/ManagerMaster.html" %}
+
+{% block title %}
+Manager Reports | GreenNest
+{% endblock %}
+
+{% block page_heading %}
+Reports
+{% endblock %}
+
+{% block content %}
+
+<style>
+
+    .reports-header {
+        background: linear-gradient(
+            135deg,
+            #173d2b,
+            #286044
+        );
+        border-radius: 20px;
+        padding: 30px;
+        color: white;
+        margin-bottom: 30px;
+        box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+    }
+
+    .reports-header h2 {
+        margin: 0;
+        font-weight: 700;
+    }
+
+    .reports-header p {
+        margin: 8px 0 0;
+        opacity: 0.85;
+    }
+
+    .report-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 22px;
+    }
+
+    .report-card {
+        background: #ffffff;
+        border-radius: 18px;
+        padding: 25px;
+        box-shadow: 0 8px 25px rgba(0,0,0,0.07);
+        border: 1px solid #eeeeee;
+        transition: 0.3s;
+    }
+
+    .report-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 12px 30px rgba(0,0,0,0.12);
+    }
+
+    .report-icon {
+        width: 55px;
+        height: 55px;
+        border-radius: 14px;
+        background: #edf6f0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 18px;
+    }
+
+    .report-icon i {
+        font-size: 26px;
+        color: #286044;
+    }
+
+    .report-card h3 {
+        font-size: 32px;
+        font-weight: 700;
+        color: #173d2b;
+        margin: 0;
+    }
+
+    .report-card p {
+        margin: 7px 0 0;
+        color: #777;
+        font-size: 15px;
+    }
+
+    .report-footer {
+        margin-top: 30px;
+        background: #faf9f5;
+        border-radius: 18px;
+        padding: 22px;
+        border: 1px solid #eeeeee;
+    }
+
+    .report-footer h5 {
+        color: #173d2b;
+        font-weight: 700;
+        margin-bottom: 8px;
+    }
+
+    .report-footer p {
+        margin: 0;
+        color: #777;
+    }
+
+
+    @media (max-width: 992px) {
+
+        .report-grid {
+            grid-template-columns: repeat(2, 1fr);
+        }
+
+    }
+
+
+    @media (max-width: 576px) {
+
+        .report-grid {
+            grid-template-columns: 1fr;
+        }
+
+    }
+
+</style>
+
+
+<!-- =====================================================
+     REPORT HEADER
+===================================================== -->
+
+<div class="reports-header">
+
+    <h2>
+        <i class="bi bi-bar-chart-line"></i>
+        Manager Reports
+    </h2>
+
+    <p>
+        Overview of users, vendors, products and management data.
+    </p>
+
+</div>
+
+
+<!-- =====================================================
+     REPORT CARDS
+===================================================== -->
+
+<div class="report-grid">
+
+
+    <!-- USERS -->
+
+    <div class="report-card">
+
+        <div class="report-icon">
+            <i class="bi bi-people"></i>
+        </div>
+
+        <h3>
+            {{ user_count }}
+        </h3>
+
+        <p>
+            Total Users
+        </p>
+
+    </div>
+
+
+    <!-- VENDORS -->
+
+    <div class="report-card">
+
+        <div class="report-icon">
+            <i class="bi bi-shop"></i>
+        </div>
+
+        <h3>
+            {{ vendor_count }}
+        </h3>
+
+        <p>
+            Total Vendors
+        </p>
+
+    </div>
+
+
+    <!-- CATEGORIES -->
+
+    <div class="report-card">
+
+        <div class="report-icon">
+            <i class="bi bi-grid"></i>
+        </div>
+
+        <h3>
+            {{ category_count }}
+        </h3>
+
+        <p>
+            Total Categories
+        </p>
+
+    </div>
+
+
+    <!-- SUBCATEGORIES -->
+
+    <div class="report-card">
+
+        <div class="report-icon">
+            <i class="bi bi-diagram-3"></i>
+        </div>
+
+        <h3>
+            {{ subcategory_count }}
+        </h3>
+
+        <p>
+            Total Subcategories
+        </p>
+
+    </div>
+
+
+    <!-- COLLECTIONS -->
+
+    <div class="report-card">
+
+        <div class="report-icon">
+            <i class="bi bi-collection"></i>
+        </div>
+
+        <h3>
+            {{ collection_count }}
+        </h3>
+
+        <p>
+            Total Collections
+        </p>
+
+    </div>
+
+
+    <!-- PRODUCTS -->
+
+    <div class="report-card">
+
+        <div class="report-icon">
+            <i class="bi bi-flower1"></i>
+        </div>
+
+        <h3>
+            {{ product_count }}
+        </h3>
+
+        <p>
+            Total Products
+        </p>
+
+    </div>
+
+
+    <!-- ORDERS -->
+
+    <div class="report-card">
+
+        <div class="report-icon">
+            <i class="bi bi-cart-check"></i>
+        </div>
+
+        <h3>
+            {{ order_count }}
+        </h3>
+
+        <p>
+            Total Orders
+        </p>
+
+    </div>
+
+
+</div>
+
+
+<!-- =====================================================
+     REPORT INFORMATION
+===================================================== -->
+
+<div class="report-footer">
+
+    <h5>
+        <i class="bi bi-info-circle"></i>
+        Report Summary
+    </h5>
+
+    <p>
+        This report displays the current total count of
+        users, vendors, categories, subcategories,
+        collections, products and orders.
+    </p>
+
+</div>
+
+
+{% endblock %}

@@ -1,0 +1,3426 @@
+{% extends "store/base.html" %}
+{% load static %}
+
+{% block title %}Plants Collection | GreenNest{% endblock %}
+
+{% block content %}
+
+<style>
+
+/* =========================================================
+   GLOBAL
+========================================================= */
+
+:root{
+    --green:#123d2b;
+    --green2:#1f6045;
+    --light:#f5f8f4;
+    --cream:#fbfaf5;
+    --gold:#c9a45c;
+    --dark:#15251e;
+    --muted:#718078;
+    --white:#ffffff;
+}
+
+body{
+    background:#fbfcfa;
+    color:var(--dark);
+}
+
+*{
+    box-sizing:border-box;
+}
+
+.section-space{
+    padding:95px 0;
+}
+
+.section-title{
+    font-family:'Playfair Display',serif;
+    font-size:48px;
+    font-weight:700;
+    color:var(--green);
+}
+
+.section-subtitle{
+    color:var(--muted);
+    max-width:650px;
+    margin:auto;
+    font-size:16px;
+    line-height:1.8;
+}
+
+.gold-line{
+    width:70px;
+    height:3px;
+    background:var(--gold);
+    margin:18px auto 25px;
+    border-radius:50px;
+}
+
+
+/* =========================================================
+   HERO
+========================================================= */
+
+.plants-hero{
+    min-height:650px;
+
+    background:
+        linear-gradient(
+            90deg,
+            rgba(8,38,26,.96),
+            rgba(8,38,26,.82),
+            rgba(8,38,26,.25)
+        ),
+        url("{% static 'images/plant-center.jpg' %}")
+        center/cover no-repeat;
+
+    position:relative;
+    overflow:hidden;
+    display:flex;
+    align-items:center;
+}
+
+.hero-pattern{
+    position:absolute;
+    width:500px;
+    height:500px;
+    border:1px solid rgba(255,255,255,.12);
+    border-radius:50%;
+    right:-180px;
+    top:-100px;
+}
+
+.hero-pattern::before{
+    content:"";
+    position:absolute;
+    inset:45px;
+    border:1px solid rgba(255,255,255,.08);
+    border-radius:50%;
+}
+
+.hero-content{
+    position:relative;
+    z-index:2;
+    max-width:720px;
+}
+
+.hero-label{
+    display:inline-flex;
+    align-items:center;
+    gap:10px;
+    padding:9px 18px;
+    border:1px solid rgba(255,255,255,.25);
+    border-radius:50px;
+    color:#e8d29a;
+    font-size:13px;
+    letter-spacing:2px;
+    text-transform:uppercase;
+    margin-bottom:25px;
+    background:rgba(255,255,255,.05);
+}
+
+.hero-label i{
+    font-size:15px;
+}
+
+.hero-title{
+    color:#fff;
+    font-family:'Playfair Display',serif;
+    font-size:72px;
+    line-height:1.08;
+    font-weight:700;
+    margin-bottom:25px;
+}
+
+.hero-title span{
+    color:#d5b875;
+}
+
+.hero-text{
+    color:rgba(255,255,255,.78);
+    font-size:18px;
+    line-height:1.9;
+    max-width:620px;
+}
+
+.hero-buttons{
+    margin-top:35px;
+    display:flex;
+    gap:15px;
+    flex-wrap:wrap;
+}
+
+.btn-gold{
+    background:var(--gold);
+    color:#fff;
+    padding:14px 28px;
+    border-radius:50px;
+    border:none;
+    font-weight:600;
+    transition:.3s;
+}
+
+.btn-gold:hover{
+    background:#b58d45;
+    color:#fff;
+    transform:translateY(-3px);
+}
+
+.btn-outline-light-custom{
+    border:1px solid rgba(255,255,255,.45);
+    color:#fff;
+    padding:14px 28px;
+    border-radius:50px;
+    font-weight:600;
+    transition:.3s;
+}
+
+.btn-outline-light-custom:hover{
+    background:#fff;
+    color:var(--green);
+}
+
+
+/* =========================================================
+   FLOATING CARDS
+========================================================= */
+
+.hero-floating{
+    position:absolute;
+    right:9%;
+    bottom:60px;
+    z-index:3;
+}
+
+.floating-card{
+    background:rgba(255,255,255,.95);
+    padding:18px 22px;
+    border-radius:18px;
+    box-shadow:0 20px 50px rgba(0,0,0,.25);
+    min-width:190px;
+    margin-bottom:15px;
+}
+
+.floating-card strong{
+    color:var(--green);
+    font-size:24px;
+    display:block;
+}
+
+.floating-card small{
+    color:var(--muted);
+}
+
+
+/* =========================================================
+   STATS
+========================================================= */
+
+.stats-wrapper{
+    margin-top:-55px;
+    position:relative;
+    z-index:10;
+}
+
+.stats-box{
+    background:#fff;
+    border-radius:25px;
+    padding:30px 20px;
+    box-shadow:0 20px 60px rgba(24,55,40,.10);
+}
+
+.stat-item{
+    text-align:center;
+    padding:10px 20px;
+    border-right:1px solid #e8eee9;
+}
+
+.stat-item:last-child{
+    border-right:0;
+}
+
+.stat-icon{
+    width:55px;
+    height:55px;
+    border-radius:50%;
+    background:#edf5ef;
+    color:var(--green);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    margin:0 auto 12px;
+    font-size:22px;
+}
+
+.stat-number{
+    font-size:28px;
+    font-weight:700;
+    color:var(--green);
+}
+
+.stat-label{
+    color:var(--muted);
+    font-size:14px;
+}
+
+
+/* =========================================================
+   FILTER
+========================================================= */
+
+.filter-wrapper{
+    background:#fff;
+    border-radius:25px;
+    padding:25px;
+    box-shadow:0 15px 45px rgba(0,0,0,.06);
+    margin-top:50px;
+}
+
+.filter-title{
+    font-weight:700;
+    color:var(--green);
+}
+
+.browse-plants-btn{
+    border:none;
+    background:transparent;
+    padding:0;
+    cursor:pointer;
+}
+
+.browse-plants-btn:hover{
+    color:var(--green2);
+}
+
+.category-buttons{
+    display:flex;
+    flex-wrap:wrap;
+    gap:10px;
+}
+
+.category-btn{
+    border:1px solid #dce6df;
+    background:#fff;
+    color:var(--green);
+    padding:10px 18px;
+    border-radius:50px;
+    transition:.3s;
+    font-size:14px;
+}
+
+.category-btn:hover,
+.category-btn.active{
+    background:var(--green);
+    color:#fff;
+    border-color:var(--green);
+}
+
+.search-box{
+    position:relative;
+}
+
+.search-box i{
+    position:absolute;
+    left:17px;
+    top:50%;
+    transform:translateY(-50%);
+    color:#809087;
+    z-index:2;
+}
+
+.search-box input{
+    height:48px;
+    padding-left:48px;
+    border-radius:50px;
+    border:1px solid #dce6df;
+}
+
+.search-box input:focus{
+    box-shadow:0 0 0 4px rgba(31,96,69,.08);
+    border-color:var(--green2);
+}
+
+.sort-select{
+    height:48px;
+    border-radius:50px;
+    border:1px solid #dce6df;
+    padding:0 18px;
+}
+
+
+/* =========================================================
+   PRODUCTS
+========================================================= */
+
+.product-section{
+    padding-top:70px;
+}
+
+.product-count{
+    color:var(--muted);
+    font-size:14px;
+}
+
+.product-card{
+    background:#fff;
+    border:1px solid #edf1ed;
+    border-radius:25px;
+    overflow:hidden;
+    height:100%;
+    position:relative;
+    transition:.4s;
+    cursor:pointer;
+}
+
+.product-card:hover{
+    transform:translateY(-10px);
+    box-shadow:0 25px 60px rgba(18,61,43,.13);
+}
+
+.product-image{
+    height:260px;
+    position:relative;
+    overflow:hidden;
+    background:#f1f5f0;
+    z-index:2;
+}
+
+.product-image img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    transition:.6s;
+}
+
+.product-card:hover .product-image img{
+    transform:scale(1.08);
+}
+
+
+
+.wishlist-wrapper{
+    position:absolute;
+    top:15px;
+    right:15px;
+    z-index:20;
+}
+
+.wishlist-btn{
+    width:43px;
+    height:43px;
+    border:0;
+    border-radius:50%;
+    background:#fff;
+    color:#66736c;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:18px;
+    box-shadow:0 8px 20px rgba(0,0,0,.12);
+    transition:.3s;
+}
+
+.wishlist-btn:hover{
+    background:#fff0f1;
+    color:#d94b62;
+}
+
+.product-info{
+    padding:18px;
+    position:relative;
+    z-index:2;
+}
+
+.product-category{
+    color:#a18a55;
+    text-transform:uppercase;
+    letter-spacing:1.5px;
+    font-size:11px;
+    font-weight:700;
+}
+
+.product-name{
+    color:var(--green);
+    font-family:'Playfair Display',serif;
+    font-size:21px;
+    margin:6px 0;
+    cursor:pointer;
+    transition:.3s;
+}
+
+.product-name:hover{
+    color:var(--green2);
+}
+
+.product-description{
+    color:var(--muted);
+    font-size:14px;
+    line-height:1.7;
+    min-height:48px;
+}
+
+.rating{
+    color:#d0a958;
+    font-size:13px;
+}
+
+.rating span{
+    color:#7c8981;
+    margin-left:5px;
+}
+
+.product-bottom{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    margin-top:12px;
+}
+
+.price{
+    font-size:22px;
+    color:var(--green);
+    font-weight:800;
+}
+
+.old-price{
+    font-size:13px;
+    color:#9aa49e;
+    text-decoration:line-through;
+    margin-left:5px;
+}
+
+.product-actions{
+    display:flex;
+    gap:8px;
+    position:relative;
+    z-index:20;
+}
+
+.view-btn{
+    width:42px;
+    height:42px;
+    border-radius:50%;
+    border:1px solid #dce6df;
+    background:#fff;
+    color:var(--green);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    transition:.3s;
+}
+
+.view-btn:hover{
+    background:var(--green);
+    color:#fff;
+}
+
+.cart-btn{
+    height:42px;
+    padding:0 17px;
+    border:0;
+    border-radius:50px;
+    background:var(--green);
+    color:#fff;
+    font-size:13px;
+    font-weight:600;
+    transition:.3s;
+}
+
+.cart-btn:hover{
+    background:var(--green2);
+    color:#fff;
+    transform:translateY(-2px);
+}
+
+
+/* =========================================================
+   NO RESULT
+========================================================= */
+
+.no-result{
+    text-align:center;
+    padding:70px 20px;
+}
+
+.no-result i{
+    font-size:60px;
+    color:#b7c8bd;
+}
+
+.no-result h3{
+    color:var(--green);
+    margin-top:20px;
+}
+
+
+/* =========================================================
+   BENEFITS
+========================================================= */
+
+.benefits-section{
+    background:var(--light);
+}
+
+.benefit-card{
+    background:#fff;
+    border-radius:22px;
+    padding:35px 25px;
+    height:100%;
+    transition:.3s;
+    border:1px solid #e8eee9;
+}
+
+.benefit-card:hover{
+    transform:translateY(-7px);
+    box-shadow:0 20px 40px rgba(18,61,43,.08);
+}
+
+.benefit-icon{
+    width:65px;
+    height:65px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    border-radius:18px;
+    background:#edf5ef;
+    color:var(--green);
+    font-size:26px;
+    margin-bottom:22px;
+}
+
+.benefit-card h5{
+    color:var(--green);
+    font-weight:700;
+}
+
+.benefit-card p{
+    color:var(--muted);
+    line-height:1.7;
+    margin:0;
+}
+
+
+/* =========================================================
+   CARE
+========================================================= */
+
+.care-section{
+    background:#fff;
+}
+
+.care-image{
+    height:550px;
+    border-radius:30px;
+    overflow:hidden;
+    position:relative;
+}
+
+.care-image img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+}
+
+.care-overlay{
+    position:absolute;
+    inset:0;
+    background:linear-gradient(
+        0deg,
+        rgba(8,38,26,.8),
+        transparent 60%
+    );
+}
+
+.care-caption{
+    position:absolute;
+    bottom:35px;
+    left:35px;
+    right:35px;
+    color:#fff;
+}
+
+.care-caption h3{
+    font-family:'Playfair Display',serif;
+    font-size:32px;
+}
+
+.care-list{
+    margin-top:30px;
+}
+
+.care-item{
+    display:flex;
+    gap:18px;
+    margin-bottom:25px;
+}
+
+.care-number{
+    min-width:48px;
+    height:48px;
+    border-radius:50%;
+    background:#edf5ef;
+    color:var(--green);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-weight:700;
+}
+
+.care-item h5{
+    margin:0 0 5px;
+    color:var(--green);
+}
+
+.care-item p{
+    margin:0;
+    color:var(--muted);
+    line-height:1.7;
+}
+
+
+/* =========================================================
+   OFFER
+========================================================= */
+
+.offer-section{
+    padding:0 0 95px;
+}
+
+.offer-box{
+    min-height:390px;
+    border-radius:30px;
+    overflow:hidden;
+    position:relative;
+
+    background:
+        linear-gradient(
+            90deg,
+            rgba(9,47,31,.96),
+            rgba(9,47,31,.75)
+        ),
+        url("{% static 'images/promo.jpg' %}")
+        center/cover;
+
+    display:flex;
+    align-items:center;
+    padding:60px;
+}
+
+.offer-content{
+    max-width:650px;
+    color:#fff;
+}
+
+.offer-small{
+    color:#d5b875;
+    text-transform:uppercase;
+    letter-spacing:3px;
+    font-size:12px;
+    font-weight:700;
+}
+
+.offer-content h2{
+    font-family:'Playfair Display',serif;
+    font-size:48px;
+    margin:15px 0;
+}
+
+.offer-content p{
+    color:rgba(255,255,255,.75);
+    line-height:1.8;
+}
+
+
+/* =========================================================
+   REVIEWS
+========================================================= */
+
+.review-section{
+    background:#f5f8f4;
+}
+
+.review-card{
+    background:#fff;
+    border-radius:25px;
+    padding:32px;
+    height:100%;
+    border:1px solid #e7eee8;
+}
+
+.review-stars{
+    color:#d0a958;
+    margin-bottom:18px;
+}
+
+.review-text{
+    color:#68766e;
+    line-height:1.8;
+    font-size:15px;
+}
+
+.reviewer{
+    display:flex;
+    align-items:center;
+    gap:14px;
+    margin-top:25px;
+}
+
+.reviewer img{
+    width:55px;
+    height:55px;
+    border-radius:50%;
+    object-fit:cover;
+}
+
+.reviewer strong{
+    display:block;
+    color:var(--green);
+}
+
+.reviewer small{
+    color:#8b9891;
+}
+
+
+/* =========================================================
+   CTA
+========================================================= */
+
+.final-cta{
+    padding:100px 0;
+    background:var(--green);
+    text-align:center;
+    color:#fff;
+    position:relative;
+    overflow:hidden;
+}
+
+.final-cta::before{
+    content:"";
+    position:absolute;
+    width:400px;
+    height:400px;
+    border:1px solid rgba(255,255,255,.08);
+    border-radius:50%;
+    left:-180px;
+    top:-160px;
+}
+
+.final-cta h2{
+    font-family:'Playfair Display',serif;
+    font-size:48px;
+}
+
+.final-cta p{
+    color:rgba(255,255,255,.72);
+    max-width:650px;
+    margin:15px auto 30px;
+    line-height:1.8;
+}
+
+
+/* =========================================================
+   QUICK VIEW
+========================================================= */
+
+.quick-modal .modal-content{
+    border:0;
+    border-radius:28px;
+    overflow:hidden;
+}
+
+.modal-image{
+    height:100%;
+    min-height:450px;
+}
+
+.modal-image img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+}
+
+.modal-details{
+    padding:45px;
+}
+
+.modal-category{
+    color:#a18a55;
+    text-transform:uppercase;
+    letter-spacing:2px;
+    font-size:12px;
+    font-weight:700;
+}
+
+.modal-details h2{
+    color:var(--green);
+    font-family:'Playfair Display',serif;
+    font-size:40px;
+    margin:12px 0;
+}
+
+.modal-details p{
+    color:var(--muted);
+    line-height:1.8;
+}
+
+.modal-price{
+    color:var(--green);
+    font-size:30px;
+    font-weight:800;
+    margin:20px 0;
+}
+
+.detail-list{
+    list-style:none;
+    padding:0;
+    margin:25px 0;
+}
+
+.detail-list li{
+    margin-bottom:12px;
+    color:#66746c;
+}
+
+.detail-list i{
+    color:var(--green);
+    margin-right:8px;
+}
+
+
+/* =========================================================
+   CART FLOATING
+========================================================= */
+
+.cart-floating{
+    position:fixed;
+    right:25px;
+    bottom:25px;
+    width:58px;
+    height:58px;
+    border-radius:50%;
+    background:var(--green);
+    color:#fff;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    z-index:999;
+    box-shadow:0 15px 35px rgba(0,0,0,.2);
+    cursor:pointer;
+    text-decoration:none;
+}
+
+.cart-floating:hover{
+    color:#fff;
+    background:var(--green2);
+}
+
+.cart-floating i{
+    font-size:22px;
+}
+
+.cart-count{
+    position:absolute;
+    top:-4px;
+    right:-3px;
+    width:23px;
+    height:23px;
+    background:#d3a957;
+    color:#fff;
+    border-radius:50%;
+    font-size:11px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-weight:700;
+}
+
+
+/* =========================================================
+   BACK TOP
+========================================================= */
+
+.back-top{
+    position:fixed;
+    right:25px;
+    bottom:95px;
+    width:48px;
+    height:48px;
+    border-radius:50%;
+    border:0;
+    background:#fff;
+    color:var(--green);
+    box-shadow:0 10px 30px rgba(0,0,0,.15);
+    z-index:998;
+    display:none;
+}
+
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media(max-width:991px){
+
+    .hero-title{
+        font-size:55px;
+    }
+
+    .hero-floating{
+        display:none;
+    }
+
+    .section-title{
+        font-size:40px;
+    }
+
+    .stat-item{
+        border-right:0;
+        margin-bottom:20px;
+    }
+
+    .offer-box{
+        padding:40px;
+    }
+
+    .offer-content h2{
+        font-size:38px;
+    }
+
+    .care-image{
+        height:400px;
+    }
+}
+
+@media(max-width:767px){
+
+    .plants-hero{
+        min-height:650px;
+    }
+
+    .hero-title{
+        font-size:43px;
+    }
+
+    .hero-text{
+        font-size:16px;
+    }
+
+    .section-space{
+        padding:70px 0;
+    }
+
+    .product-image{
+        height:280px;
+    }
+
+    .offer-box{
+        padding:30px;
+    }
+
+    .offer-content h2{
+        font-size:32px;
+    }
+
+    .modal-details{
+        padding:30px;
+    }
+
+    .modal-details h2{
+        font-size:32px;
+    }
+
+    .product-bottom{
+        align-items:flex-start;
+        gap:10px;
+        flex-direction:column;
+    }
+}
+
+</style>
+
+
+<!-- =========================================================
+     HERO
+========================================================= -->
+
+<section class="plants-hero">
+
+    <div class="hero-pattern"></div>
+
+    <div class="container">
+
+        <div class="hero-content">
+
+            <div class="hero-label">
+                <i class="bi bi-flower1"></i>
+                GreenNest Plant Collection
+            </div>
+
+            <h1 class="hero-title">
+                Bring Nature<br>
+                <span>Closer to Home.</span>
+            </h1>
+
+            <p class="hero-text">
+                Discover beautiful, healthy and carefully nurtured plants
+                designed to make your home greener, calmer and more beautiful.
+            </p>
+
+            <div class="hero-buttons">
+
+                <a href="#collection"
+                   class="btn btn-gold">
+
+                    Explore Collection
+                    <i class="bi bi-arrow-right ms-2"></i>
+
+                </a>
+
+                <a href="{% url 'plantcare' %}"
+                   class="btn btn-outline-light-custom">
+
+                    Plant Care Guide
+
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="hero-floating">
+
+        <div class="floating-card">
+
+            <strong>4.9/5 ⭐</strong>
+
+            <small>
+                Loved by plant parents
+            </small>
+
+        </div>
+
+        <div class="floating-card">
+
+            <strong>100% Fresh</strong>
+
+            <small>
+                Healthy nursery plants
+            </small>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     STATS
+========================================================= -->
+
+<section class="stats-wrapper">
+
+    <div class="container">
+
+        <div class="stats-box">
+
+            <div class="row">
+
+                <div class="col-md-3 col-6">
+
+                    <div class="stat-item">
+
+                        <div class="stat-icon">
+                            <i class="bi bi-flower1"></i>
+                        </div>
+
+                        <div class="stat-number">
+                            50+
+                        </div>
+
+                        <div class="stat-label">
+                            Plant Varieties
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="col-md-3 col-6">
+
+                    <div class="stat-item">
+
+                        <div class="stat-icon">
+                            <i class="bi bi-people"></i>
+                        </div>
+
+                        <div class="stat-number">
+                            5K+
+                        </div>
+
+                        <div class="stat-label">
+                            Happy Customers
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="col-md-3 col-6">
+
+                    <div class="stat-item">
+
+                        <div class="stat-icon">
+                            <i class="bi bi-truck"></i>
+                        </div>
+
+                        <div class="stat-number">
+                            98%
+                        </div>
+
+                        <div class="stat-label">
+                            Safe Delivery
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="col-md-3 col-6">
+
+                    <div class="stat-item">
+
+                        <div class="stat-icon">
+                            <i class="bi bi-heart"></i>
+                        </div>
+
+                        <div class="stat-number">
+                            4.9
+                        </div>
+
+                        <div class="stat-label">
+                            Customer Rating
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     COLLECTION
+========================================================= -->
+
+<section class="section-space product-section"
+         id="collection">
+
+    <div class="container">
+
+        <div class="text-center">
+
+            <span class="text-uppercase"
+                  style="
+                  color:#a18a55;
+                  letter-spacing:3px;
+                  font-size:12px;
+                  font-weight:700;">
+
+                Our Collection
+
+            </span>
+
+            <h2 class="section-title mt-2">
+                Find Your Perfect Plant
+            </h2>
+
+            <div class="gold-line"></div>
+
+            <p class="section-subtitle">
+
+                From easy-care indoor plants to beautiful flowering varieties,
+                find a green companion that perfectly fits your space.
+
+            </p>
+
+        </div>
+
+
+        <!-- =====================================================
+             FILTER
+        ====================================================== -->
+
+        <div class="filter-wrapper">
+
+            <div class="row align-items-center g-3">
+
+                <div class="col-lg-7">
+
+                    <div class="d-flex align-items-center gap-3 mb-3">
+
+                    <button
+    type="button"
+    class="filter-title browse-plants-btn"
+    data-category="all"
+>
+    Browse Plants
+</button>
+
+                        <div class="product-count">
+
+                            <span id="productCount">
+                                {{ products|length }}
+                            </span>
+
+                            plants
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="category-buttons">
+
+                        <button type="button"
+                                class="category-btn active"
+                                data-category="all">
+
+                            All Plants
+
+                        </button>
+
+                        <button type="button"
+                                class="category-btn"
+                                data-category="indoor">
+
+                            Indoor
+
+                        </button>
+
+                        <button type="button"
+                                class="category-btn"
+                                data-category="outdoor">
+
+                            Outdoor
+
+                        </button>
+
+                        <button type="button"
+                                class="category-btn"
+                                data-category="flowering">
+
+                            Flowering
+
+                        </button>
+
+                        <button type="button"
+                                class="category-btn"
+                                data-category="table">
+
+                            Table Plant
+
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+                <!-- SEARCH -->
+
+                <div class="col-lg-3">
+
+                    <div class="search-box">
+
+                        <i class="bi bi-search"></i>
+
+                        <input type="text"
+                               id="plantSearch"
+                               class="form-control"
+                               placeholder="Search plants..."
+                               autocomplete="off">
+
+                    </div>
+
+                </div>
+
+
+                <!-- SORT -->
+
+                <div class="col-lg-2">
+
+                    <select id="sortPlants"
+                            class="form-select sort-select">
+
+                        <option value="featured">
+                            Featured
+                        </option>
+
+                        <option value="low">
+                            Price: Low
+                        </option>
+
+                        <option value="high">
+                            Price: High
+                        </option>
+
+                        <option value="rating">
+                            Top Rated
+                        </option>
+
+                    </select>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- =====================================================
+             PRODUCT GRID
+        ====================================================== -->
+
+        <div class="row g-4 mt-4"
+             id="plantGrid">
+
+
+            {% for product in products %}
+
+            <div class="col-xl-3 col-lg-4 col-md-6 plant-item"
+
+                 data-id="{{ product.id|default:0 }}"
+
+                 data-category="
+                 {{ product.category|default:''|lower }}
+                 {% if product.subcategory %}
+                    {{ product.subcategory|lower }}
+                 {% endif %}
+                 "
+
+                 data-name="{{ product.name|default:''|lower }}"
+
+                 data-price="{{ product.price|default:0 }}"
+
+                 data-rating="{{ product.rating|default:4.8 }}">
+
+
+                <!-- =================================================
+                     CLICKABLE PRODUCT CARD
+                ================================================== -->
+
+                <div class="product-card"
+
+                     data-detail-url="{% url 'product_details' product.id %}"
+
+                     onclick="openProductDetail(event, this)">
+
+
+                    <!-- =================================================
+                         IMAGE
+                    ================================================= -->
+
+                    <div class="product-image">
+
+                        {% if product.image %}
+
+                            <img src="{% static 'product_images/' %}{{ product.image }}"
+
+                                 alt="{{ product.name }}"
+
+                                 loading="lazy"
+
+                                 onerror="
+                                 this.onerror=null;
+                                 this.src='{% static 'images/plant1.jpg' %}';
+                                 ">
+
+                        {% else %}
+
+                            <img src="{% static 'images/plant1.jpg' %}"
+
+                                 alt="{{ product.name }}"
+
+                                 loading="lazy">
+
+                        {% endif %}
+
+
+                    
+
+
+                        <!-- WISHLIST -->
+
+                        <div class="wishlist-wrapper">
+
+                            <form method="POST"
+                                  action="{% url 'AddToWishlist' product.id %}"
+                                  style="margin:0;">
+
+                                {% csrf_token %}
+
+                                <button type="submit"
+                                        class="wishlist-btn"
+                                        title="Add to Wishlist">
+
+                                    <i class="bi bi-heart"></i>
+
+                                </button>
+
+                            </form>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- =================================================
+                         INFORMATION
+                    ================================================== -->
+
+                    <div class="product-info">
+
+
+                        <!-- CATEGORY -->
+
+                        <div class="product-category">
+
+                            {{ product.category|default:"Plant" }}
+
+                            {% if product.subcategory %}
+
+                                · {{ product.subcategory }}
+
+                            {% endif %}
+
+                        </div>
+
+
+                        <!-- NAME -->
+
+                        <h3 class="product-name">
+
+                            {{ product.name }}
+
+                        </h3>
+
+
+                        <!-- DESCRIPTION -->
+
+                        <p class="product-description">
+
+                            {% if product.description %}
+
+                                {{ product.description }}
+
+                            {% else %}
+
+                                Healthy and carefully nurtured plant
+                                for your beautiful home.
+
+                            {% endif %}
+
+                        </p>
+
+
+                        <!-- RATING -->
+
+                        <div class="rating">
+
+                            ★★★★★
+
+                            <span>
+                                {{ product.rating|default:"4.8" }}
+                            </span>
+
+                        </div>
+
+
+                        <!-- PRICE + ACTION -->
+
+                        <div class="product-bottom">
+
+
+                            <div>
+
+                                <span class="price">
+
+                                    ₹{{ product.price }}
+
+                                </span>
+
+
+                                {% if product.old_price %}
+
+                                    <span class="old-price">
+
+                                        ₹{{ product.old_price }}
+
+                                    </span>
+
+                                {% endif %}
+
+                            </div>
+
+
+                            <div class="product-actions">
+
+
+                                <!-- QUICK VIEW -->
+
+                                <button type="button"
+
+                                        class="view-btn"
+
+                                        data-name="{{ product.name|default:''|escapejs }}"
+
+                                        data-category="{{ product.category|default:'Plant'|escapejs }}{% if product.subcategory %} · {{ product.subcategory|escapejs }}{% endif %}"
+
+                                        data-price="₹{{ product.price }}"
+
+                                        data-image="{% if product.image %}{% static 'product_images/' %}{{ product.image }}{% else %}{% static 'images/plant1.jpg' %}{% endif %}"
+
+                                        data-description="{{ product.description|default:'Healthy GreenNest plant for your beautiful home.'|escapejs }}"
+
+                                        data-cart-url="{% url 'AddToCart' product.id %}"
+
+                                        onclick="openQuickView(this)">
+
+                                    <i class="bi bi-eye"></i>
+
+                                </button>
+
+
+                                <!-- ADD CART -->
+
+                                <a href="{% url 'AddToCart' product.id %}"
+
+                                   class="cart-btn text-decoration-none d-flex align-items-center justify-content-center"
+
+                                   onclick="event.stopPropagation();">
+
+                                    <i class="bi bi-cart-plus me-1"></i>
+
+                                    Add
+
+                                </a>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            {% empty %}
+
+
+            <!-- NO DATABASE PRODUCTS -->
+
+            <div class="col-12">
+
+                <div class="no-result"
+                     style="display:block;">
+
+                    <i class="bi bi-flower1"></i>
+
+                    <h3>
+                        No Plants Available
+                    </h3>
+
+                    <p class="text-muted">
+                        Vendor has not added any products yet.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            {% endfor %}
+
+        </div>
+
+
+        <!-- =====================================================
+             FILTER NO RESULT
+        ====================================================== -->
+
+        <div class="no-result"
+             id="noResult"
+             style="display:none;">
+
+            <i class="bi bi-search"></i>
+
+            <h3>
+                No plants found
+            </h3>
+
+            <p class="text-muted">
+                Try another plant name or category.
+            </p>
+
+            <button type="button"
+                    class="btn btn-dark rounded-pill px-4"
+                    onclick="resetFilters()">
+
+                Reset Filters
+
+            </button>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     BENEFITS
+========================================================= -->
+
+<section class="section-space benefits-section">
+
+    <div class="container">
+
+        <div class="text-center">
+
+            <span class="text-uppercase"
+                  style="
+                  color:#a18a55;
+                  letter-spacing:3px;
+                  font-size:12px;
+                  font-weight:700;">
+
+                Why GreenNest
+
+            </span>
+
+            <h2 class="section-title mt-2">
+                More Than Just Plants
+            </h2>
+
+            <div class="gold-line"></div>
+
+            <p class="section-subtitle">
+
+                We don't just send you a plant.
+                We help you build a healthier and greener lifestyle.
+
+            </p>
+
+        </div>
+
+
+        <div class="row g-4 mt-4">
+
+
+            <div class="col-lg-3 col-md-6">
+
+                <div class="benefit-card">
+
+                    <div class="benefit-icon">
+                        <i class="bi bi-flower1"></i>
+                    </div>
+
+                    <h5>
+                        Healthy Plants
+                    </h5>
+
+                    <p>
+                        Every plant is carefully selected and nurtured
+                        before reaching your home.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="col-lg-3 col-md-6">
+
+                <div class="benefit-card">
+
+                    <div class="benefit-icon">
+                        <i class="bi bi-box-seam"></i>
+                    </div>
+
+                    <h5>
+                        Safe Packaging
+                    </h5>
+
+                    <p>
+                        Plants are securely packed to minimize damage
+                        during transportation.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="col-lg-3 col-md-6">
+
+                <div class="benefit-card">
+
+                    <div class="benefit-icon">
+                        <i class="bi bi-headset"></i>
+                    </div>
+
+                    <h5>
+                        Plant Support
+                    </h5>
+
+                    <p>
+                        Get simple guidance and tips whenever your
+                        green friends need attention.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="col-lg-3 col-md-6">
+
+                <div class="benefit-card">
+
+                    <div class="benefit-icon">
+                        <i class="bi bi-arrow-repeat"></i>
+                    </div>
+
+                    <h5>
+                        Quality Promise
+                    </h5>
+
+                    <p>
+                        We focus on delivering beautiful and
+                        healthy plants to every customer.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     PLANT CARE
+========================================================= -->
+
+<section class="section-space care-section">
+
+    <div class="container">
+
+        <div class="row align-items-center g-5">
+
+
+            <div class="col-lg-6">
+
+                <div class="care-image">
+
+                    <img src="{% static 'images/plant3.png' %}"
+                         alt="Plant Care">
+
+                    <div class="care-overlay"></div>
+
+                    <div class="care-caption">
+
+                        <h3>
+                            A little care goes a long way.
+                        </h3>
+
+                        <p class="mb-0">
+                            Follow simple routines and watch your plants thrive.
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="col-lg-6">
+
+                <span class="text-uppercase"
+                      style="
+                      color:#a18a55;
+                      letter-spacing:3px;
+                      font-size:12px;
+                      font-weight:700;">
+
+                    Plant Care
+
+                </span>
+
+                <h2 class="section-title mt-2">
+                    Keep Your Plants Happy
+                </h2>
+
+                <div class="gold-line"
+                     style="margin-left:0;">
+                </div>
+
+                <p style="color:#718078;line-height:1.8;">
+
+                    Beautiful plants need simple but consistent care.
+                    Follow these four basic steps to keep your plants
+                    healthy and fresh.
+
+                </p>
+
+
+                <div class="care-list">
+
+
+                    <div class="care-item">
+
+                        <div class="care-number">
+                            01
+                        </div>
+
+                        <div>
+
+                            <h5>
+                                Right Light
+                            </h5>
+
+                            <p>
+                                Place your plant according to its
+                                sunlight requirement.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="care-item">
+
+                        <div class="care-number">
+                            02
+                        </div>
+
+                        <div>
+
+                            <h5>
+                                Balanced Watering
+                            </h5>
+
+                            <p>
+                                Avoid overwatering and check the soil
+                                before watering.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="care-item">
+
+                        <div class="care-number">
+                            03
+                        </div>
+
+                        <div>
+
+                            <h5>
+                                Healthy Soil
+                            </h5>
+
+                            <p>
+                                Use good quality soil with proper
+                                drainage.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="care-item">
+
+                        <div class="care-number">
+                            04
+                        </div>
+
+                        <div>
+
+                            <h5>
+                                Regular Cleaning
+                            </h5>
+
+                            <p>
+                                Clean dusty leaves gently to help
+                                plants stay fresh.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <a href="{% url 'plantcare' %}"
+                   class="btn btn-dark rounded-pill px-4 py-3 mt-2">
+
+                    Explore Plant Care
+
+                    <i class="bi bi-arrow-right ms-2"></i>
+
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     OFFER
+========================================================= -->
+
+<section class="offer-section">
+
+    <div class="container">
+
+        <div class="offer-box">
+
+            <div class="offer-content">
+
+                <div class="offer-small">
+                    GreenNest Special
+                </div>
+
+                <h2>
+                    Make Your Space<br>
+                    More Beautiful.
+                </h2>
+
+                <p>
+
+                    Bring home a fresh plant today and create a
+                    peaceful green corner you'll love every day.
+
+                </p>
+
+                <a href="#collection"
+                   class="btn btn-gold mt-2">
+
+                    Shop Plants
+
+                    <i class="bi bi-arrow-right ms-2"></i>
+
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     REVIEWS
+========================================================= -->
+
+<section class="section-space review-section">
+
+    <div class="container">
+
+        <div class="text-center">
+
+            <span class="text-uppercase"
+                  style="
+                  color:#a18a55;
+                  letter-spacing:3px;
+                  font-size:12px;
+                  font-weight:700;">
+
+                Customer Love
+
+            </span>
+
+            <h2 class="section-title mt-2">
+
+                Loved by Plant Parents
+
+            </h2>
+
+            <div class="gold-line"></div>
+
+            <p class="section-subtitle">
+
+                Real feedback from customers who brought
+                GreenNest plants into their homes.
+
+            </p>
+
+        </div>
+
+
+        <!-- =====================================================
+             BACKEND REVIEWS
+        ====================================================== -->
+
+        <div class="row g-4 mt-4">
+
+            {% for review in reviews %}
+
+            <div class="col-lg-4 col-md-6">
+
+                <div class="review-card">
+
+                    <!-- RATING -->
+
+                    <div class="review-stars">
+
+                        {% for star in review.stars %}
+
+                            ★
+
+                        {% endfor %}
+
+                        <span style="
+                            color:#7c8981;
+                            font-size:13px;
+                            margin-left:6px;">
+
+                            {{ review.rating }}/5
+
+                        </span>
+
+                    </div>
+
+
+                    <!-- REVIEW TEXT -->
+
+                    <p class="review-text">
+
+                        "{{ review.review_text }}"
+
+                    </p>
+
+
+                    <!-- CUSTOMER -->
+
+                    <div class="reviewer">
+
+                        <div style="
+                            width:55px;
+                            height:55px;
+                            border-radius:50%;
+                            background:#edf5ef;
+                            color:#123d2b;
+                            display:flex;
+                            align-items:center;
+                            justify-content:center;
+                            font-size:22px;
+                            flex-shrink:0;">
+
+                            <i class="bi bi-person"></i>
+
+                        </div>
+
+
+                        <div>
+
+                            <strong>
+
+                                {{ review.user_name }}
+
+                            </strong>
+
+                            <small>
+
+                                Verified Buyer
+
+                            </small>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            {% empty %}
+
+            <!-- =================================================
+                 NO REVIEWS
+            ================================================== -->
+
+            <div class="col-12">
+
+                <div class="review-card text-center">
+
+                    <div style="
+                        width:70px;
+                        height:70px;
+                        border-radius:50%;
+                        background:#edf5ef;
+                        color:#123d2b;
+                        display:flex;
+                        align-items:center;
+                        justify-content:center;
+                        font-size:28px;
+                        margin:0 auto 20px;">
+
+                        <i class="bi bi-chat-heart"></i>
+
+                    </div>
+
+                    <h4 style="
+                        color:#123d2b;
+                        font-family:'Playfair Display',serif;">
+
+                        No Reviews Yet
+
+                    </h4>
+
+                    <p class="review-text mb-0">
+
+                        Be the first customer to share your
+                        GreenNest experience.
+
+                    </p>
+
+                </div>
+
+            </div>
+
+            {% endfor %}
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     FINAL CTA
+========================================================= -->
+
+<section class="final-cta">
+
+    <div class="container">
+
+        <div>
+
+            <span style="
+                color:#d5b875;
+                text-transform:uppercase;
+                letter-spacing:3px;
+                font-size:12px;
+                font-weight:700;">
+
+                Start Your Green Journey
+
+            </span>
+
+            <h2 class="mt-3">
+
+                Your Perfect Plant<br>
+                Is Waiting.
+
+            </h2>
+
+            <p>
+
+                Choose a plant that matches your lifestyle,
+                space and personality.
+
+            </p>
+
+            <a href="#collection"
+               class="btn btn-gold">
+
+                Explore Plants
+
+                <i class="bi bi-arrow-right ms-2"></i>
+
+            </a>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     QUICK VIEW MODAL
+========================================================= -->
+
+<div class="modal fade quick-modal"
+     id="quickViewModal"
+     tabindex="-1"
+     aria-hidden="true">
+
+    <div class="modal-dialog modal-xl modal-dialog-centered">
+
+        <div class="modal-content">
+
+            <div class="row g-0">
+
+
+                <!-- IMAGE -->
+
+                <div class="col-lg-6">
+
+                    <div class="modal-image">
+
+                        <img id="modalImage"
+                             src=""
+                             alt="Plant">
+
+                    </div>
+
+                </div>
+
+
+                <!-- DETAILS -->
+
+                <div class="col-lg-6">
+
+                    <div class="modal-details">
+
+                        <div class="modal-category"
+                             id="modalCategory">
+                        </div>
+
+                        <h2 id="modalName">
+                        </h2>
+
+                        <div class="rating">
+
+                            ★★★★★
+
+                            <span>
+                                Highly Rated
+                            </span>
+
+                        </div>
+
+                        <div class="modal-price"
+                             id="modalPrice">
+                        </div>
+
+                        <p id="modalDescription">
+                        </p>
+
+
+                        <ul class="detail-list">
+
+                            <li>
+                                <i class="bi bi-check-circle-fill"></i>
+                                Healthy nursery plant
+                            </li>
+
+                            <li>
+                                <i class="bi bi-check-circle-fill"></i>
+                                Secure packaging
+                            </li>
+
+                            <li>
+                                <i class="bi bi-check-circle-fill"></i>
+                                Easy plant-care guidance
+                            </li>
+
+                            <li>
+                                <i class="bi bi-check-circle-fill"></i>
+                                Freshly prepared for delivery
+                            </li>
+
+                        </ul>
+
+
+                        <button type="button"
+                                class="btn btn-dark rounded-pill px-4 py-3"
+                                id="modalCartButton">
+
+                            <i class="bi bi-cart-plus me-2"></i>
+
+                            Add to Cart
+
+                        </button>
+
+
+                        <button type="button"
+                                class="btn btn-light rounded-pill px-4 py-3 ms-2"
+                                data-bs-dismiss="modal">
+
+                            Close
+
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- =========================================================
+     FLOATING CART
+========================================================= -->
+
+<a href="{% url 'mycart' %}"
+   class="cart-floating"
+   title="View Cart">
+
+    <i class="bi bi-bag-heart"></i>
+
+    <span class="cart-count"
+          id="cartCount">
+
+        {{ cart_count|default:"0" }}
+
+    </span>
+
+</a>
+
+
+<!-- =========================================================
+     BACK TO TOP
+========================================================= -->
+
+<button type="button"
+        class="back-top"
+        id="backTop"
+        onclick="window.scrollTo({top:0,behavior:'smooth'})">
+
+    <i class="bi bi-arrow-up"></i>
+
+</button>
+<!-- =========================================================
+     JAVASCRIPT
+========================================================= -->
+
+<script>
+
+document.addEventListener("DOMContentLoaded", function(){
+
+    /* =====================================================
+       ELEMENTS
+    ===================================================== */
+
+    const buttons =
+        document.querySelectorAll(".category-btn");
+
+    const browseButton =
+        document.querySelector(".browse-plants-btn");
+
+    const plants =
+        document.querySelectorAll(".plant-item");
+
+    const search =
+        document.getElementById("plantSearch");
+
+    const sort =
+        document.getElementById("sortPlants");
+
+    const count =
+        document.getElementById("productCount");
+
+    const noResult =
+        document.getElementById("noResult");
+
+    const grid =
+        document.getElementById("plantGrid");
+
+    const backTop =
+        document.getElementById("backTop");
+
+
+    /* =====================================================
+       CURRENT CATEGORY
+    ===================================================== */
+
+    let currentCategory = "all";
+
+
+    /* =====================================================
+       CATEGORY MAPPING
+    ===================================================== */
+
+    const categoryMap = {
+
+        all: "",
+
+        indoor: "indoor",
+
+        outdoor: "outdoor",
+
+        flowering: "flower",
+
+        table: "table"
+
+    };
+
+
+    /* =====================================================
+       READ CATEGORY FROM URL
+    ===================================================== */
+
+    const urlParams =
+        new URLSearchParams(
+            window.location.search
+        );
+
+
+    const urlCategory =
+        (
+            urlParams.get("category") || ""
+        )
+        .toLowerCase()
+        .trim();
+
+
+    /* =====================================================
+       SET CATEGORY FROM URL
+    ===================================================== */
+
+    if(urlCategory.includes("indoor")){
+
+        currentCategory = "indoor";
+
+    }
+
+    else if(urlCategory.includes("outdoor")){
+
+        currentCategory = "outdoor";
+
+    }
+
+    else if(
+        urlCategory.includes("flower") ||
+        urlCategory.includes("flowering")
+    ){
+
+        currentCategory = "flowering";
+
+    }
+
+    else if(urlCategory.includes("table")){
+
+        currentCategory = "table";
+
+    }
+
+    else{
+
+        currentCategory = "all";
+
+    }
+
+
+    /* =====================================================
+       ACTIVE BUTTON
+    ===================================================== */
+
+    function setActiveButton(){
+
+        buttons.forEach(function(button){
+
+            button.classList.remove("active");
+
+        });
+
+
+        const activeButton =
+            document.querySelector(
+                '.category-btn[data-category="' +
+                currentCategory +
+                '"]'
+            );
+
+
+        if(activeButton){
+
+            activeButton.classList.add("active");
+
+        }
+
+    }
+
+
+    /* =====================================================
+       FILTER PLANTS
+    ===================================================== */
+
+    function filterPlants(){
+
+        const searchText =
+            search
+            ? search.value.toLowerCase().trim()
+            : "";
+
+
+        const selectedCategory =
+            categoryMap[currentCategory] || "";
+
+
+        let visiblePlants = 0;
+
+
+        plants.forEach(function(plant){
+
+            /* =============================================
+               PRODUCT CATEGORY
+            ============================================= */
+
+            const category =
+                (
+                    plant.dataset.category || ""
+                )
+                .toLowerCase()
+                .trim();
+
+
+            /* =============================================
+               PRODUCT NAME
+            ============================================= */
+
+            const name =
+                (
+                    plant.dataset.name || ""
+                )
+                .toLowerCase()
+                .trim();
+
+
+            /* =============================================
+               PRODUCT DESCRIPTION
+            ============================================= */
+
+            const description =
+                (
+                    plant.querySelector(
+                        ".product-description"
+                    )?.innerText || ""
+                )
+                .toLowerCase()
+                .trim();
+
+
+            /* =============================================
+               CATEGORY MATCH
+            ============================================= */
+
+            let categoryMatch = true;
+
+
+            if(currentCategory !== "all"){
+
+                categoryMatch =
+                    category.includes(
+                        selectedCategory
+                    );
+
+            }
+
+
+            /* =============================================
+               SEARCH MATCH
+            ============================================= */
+
+            const searchMatch =
+                searchText === "" ||
+
+                name.includes(
+                    searchText
+                ) ||
+
+                category.includes(
+                    searchText
+                ) ||
+
+                description.includes(
+                    searchText
+                );
+
+
+            /* =============================================
+               FINAL MATCH
+            ============================================= */
+
+            if(
+                categoryMatch &&
+                searchMatch
+            ){
+
+                plant.style.display = "";
+
+                visiblePlants++;
+
+            }
+
+            else{
+
+                plant.style.display = "none";
+
+            }
+
+        });
+
+
+        /* =================================================
+           UPDATE COUNT
+        ================================================= */
+
+        if(count){
+
+            count.innerText =
+                visiblePlants;
+
+        }
+
+
+        /* =================================================
+           NO RESULT
+        ================================================= */
+
+        if(noResult){
+
+            noResult.style.display =
+                visiblePlants === 0
+                ? "block"
+                : "none";
+
+        }
+
+    }
+
+
+    /* =====================================================
+       CATEGORY BUTTONS
+    ===================================================== */
+
+    buttons.forEach(function(button){
+
+        button.addEventListener(
+            "click",
+            function(event){
+
+                event.preventDefault();
+
+
+                /* =============================================
+                   SET CATEGORY
+                ============================================= */
+
+                currentCategory =
+                    this.dataset.category || "all";
+
+
+                /* =============================================
+                   ACTIVE BUTTON
+                ============================================= */
+
+                setActiveButton();
+
+
+                /* =============================================
+                   APPLY FILTER
+                ============================================= */
+
+                filterPlants();
+
+            }
+        );
+
+    });
+
+
+    /* =====================================================
+       BROWSE PLANTS
+    ===================================================== */
+
+    if(browseButton){
+
+        browseButton.addEventListener(
+            "click",
+            function(event){
+
+                event.preventDefault();
+
+
+                /* =============================================
+                   SET ALL
+                ============================================= */
+
+                currentCategory = "all";
+
+
+                /* =============================================
+                   ACTIVE ALL BUTTON
+                ============================================= */
+
+                setActiveButton();
+
+
+                /* =============================================
+                   APPLY FILTER
+                ============================================= */
+
+                filterPlants();
+
+            }
+        );
+
+    }
+
+
+    /* =====================================================
+       SEARCH
+    ===================================================== */
+
+    if(search){
+
+        search.addEventListener(
+            "input",
+            function(){
+
+                filterPlants();
+
+            }
+        );
+
+    }
+
+
+    /* =====================================================
+       SORT
+    ===================================================== */
+
+    if(sort && grid){
+
+        sort.addEventListener(
+            "change",
+            function(){
+
+                const cards =
+                    Array.from(
+                        grid.querySelectorAll(
+                            ".plant-item"
+                        )
+                    );
+
+
+                /* =============================================
+                   LOW PRICE
+                ============================================= */
+
+                if(this.value === "low"){
+
+                    cards.sort(function(a,b){
+
+                        return (
+
+                            parseFloat(
+                                a.dataset.price || 0
+                            )
+
+                            -
+
+                            parseFloat(
+                                b.dataset.price || 0
+                            )
+
+                        );
+
+                    });
+
+                }
+
+
+                /* =============================================
+                   HIGH PRICE
+                ============================================= */
+
+                else if(this.value === "high"){
+
+                    cards.sort(function(a,b){
+
+                        return (
+
+                            parseFloat(
+                                b.dataset.price || 0
+                            )
+
+                            -
+
+                            parseFloat(
+                                a.dataset.price || 0
+                            )
+
+                        );
+
+                    });
+
+                }
+
+
+                /* =============================================
+                   TOP RATED
+                ============================================= */
+
+                else if(this.value === "rating"){
+
+                    cards.sort(function(a,b){
+
+                        return (
+
+                            parseFloat(
+                                b.dataset.rating || 0
+                            )
+
+                            -
+
+                            parseFloat(
+                                a.dataset.rating || 0
+                            )
+
+                        );
+
+                    });
+
+                }
+
+
+                /* =============================================
+                   FEATURED
+                ============================================= */
+
+                else{
+
+                    cards.sort(function(a,b){
+
+                        return (
+
+                            parseInt(
+                                b.dataset.id || 0
+                            )
+
+                            -
+
+                            parseInt(
+                                a.dataset.id || 0
+                            )
+
+                        );
+
+                    });
+
+                }
+
+
+                /* =============================================
+                   PUT SORTED CARDS BACK
+                ============================================= */
+
+                cards.forEach(function(card){
+
+                    grid.appendChild(card);
+
+                });
+
+
+                /* =============================================
+                   FILTER AGAIN
+                ============================================= */
+
+                filterPlants();
+
+            }
+        );
+
+    }
+
+
+    /* =====================================================
+       BACK TO TOP
+    ===================================================== */
+
+    window.addEventListener(
+        "scroll",
+        function(){
+
+            if(!backTop){
+
+                return;
+
+            }
+
+
+            if(window.scrollY > 500){
+
+                backTop.style.display = "flex";
+
+                backTop.style.alignItems = "center";
+
+                backTop.style.justifyContent = "center";
+
+            }
+
+            else{
+
+                backTop.style.display = "none";
+
+            }
+
+        }
+    );
+
+
+    /* =====================================================
+       INITIAL STATE
+    ===================================================== */
+
+    setActiveButton();
+
+    filterPlants();
+
+});
+
+
+
+/* =========================================================
+   PRODUCT DETAIL
+========================================================= */
+
+function openProductDetail(event, card){
+
+    if(
+
+        event.target.closest(
+            ".wishlist-wrapper"
+        )
+
+        ||
+
+        event.target.closest(
+            ".product-actions"
+        )
+
+        ||
+
+        event.target.closest(
+            "button"
+        )
+
+        ||
+
+        event.target.closest(
+            "form"
+        )
+
+        ||
+
+        event.target.closest(
+            "a"
+        )
+
+    ){
+
+        return;
+
+    }
+
+
+    const detailUrl =
+        card.dataset.detailUrl || "";
+
+
+    if(detailUrl){
+
+        window.location.href =
+            detailUrl;
+
+    }
+
+}
+
+
+
+/* =========================================================
+   QUICK VIEW
+========================================================= */
+
+function openQuickView(button){
+
+    const name =
+        button.dataset.name || "";
+
+
+    const category =
+        button.dataset.category || "Plant";
+
+
+    const price =
+        button.dataset.price || "";
+
+
+    const image =
+        button.dataset.image || "";
+
+
+    const description =
+        button.dataset.description ||
+
+        "Healthy GreenNest plant for your beautiful home.";
+
+
+    const cartUrl =
+        button.dataset.cartUrl || "";
+
+
+    /* =====================================================
+       NAME
+    ===================================================== */
+
+    const modalName =
+        document.getElementById(
+            "modalName"
+        );
+
+
+    if(modalName){
+
+        modalName.innerText =
+            name;
+
+    }
+
+
+    /* =====================================================
+       CATEGORY
+    ===================================================== */
+
+    const modalCategory =
+        document.getElementById(
+            "modalCategory"
+        );
+
+
+    if(modalCategory){
+
+        modalCategory.innerText =
+            category;
+
+    }
+
+
+    /* =====================================================
+       PRICE
+    ===================================================== */
+
+    const modalPrice =
+        document.getElementById(
+            "modalPrice"
+        );
+
+
+    if(modalPrice){
+
+        modalPrice.innerText =
+            price;
+
+    }
+
+
+    /* =====================================================
+       IMAGE
+    ===================================================== */
+
+    const modalImage =
+        document.getElementById(
+            "modalImage"
+        );
+
+
+    if(modalImage){
+
+        modalImage.src =
+            image;
+
+    }
+
+
+    /* =====================================================
+       DESCRIPTION
+    ===================================================== */
+
+    const modalDescription =
+        document.getElementById(
+            "modalDescription"
+        );
+
+
+    if(modalDescription){
+
+        modalDescription.innerText =
+            description;
+
+    }
+
+
+    /* =====================================================
+       CART BUTTON
+    ===================================================== */
+
+    const modalButton =
+        document.getElementById(
+            "modalCartButton"
+        );
+
+
+    if(modalButton){
+
+        modalButton.onclick =
+            function(){
+
+                if(cartUrl){
+
+                    window.location.href =
+                        cartUrl;
+
+                }
+
+            };
+
+    }
+
+
+    /* =====================================================
+       MODAL
+    ===================================================== */
+
+    const modalElement =
+        document.getElementById(
+            "quickViewModal"
+        );
+
+
+    if(!modalElement){
+
+        return;
+
+    }
+
+
+    const modal =
+        bootstrap.Modal.getOrCreateInstance(
+            modalElement
+        );
+
+
+    modal.show();
+
+}
+
+
+
+/* =========================================================
+   RESET FILTERS
+========================================================= */
+
+function resetFilters(){
+
+    const search =
+        document.getElementById(
+            "plantSearch"
+        );
+
+
+    const sort =
+        document.getElementById(
+            "sortPlants"
+        );
+
+
+    const count =
+        document.getElementById(
+            "productCount"
+        );
+
+
+    const noResult =
+        document.getElementById(
+            "noResult"
+        );
+
+
+    /* =====================================================
+       CLEAR SEARCH
+    ===================================================== */
+
+    if(search){
+
+        search.value = "";
+
+    }
+
+
+    /* =====================================================
+       ALL CATEGORY
+    ===================================================== */
+
+    currentCategory = "all";
+
+
+    document.querySelectorAll(
+        ".category-btn"
+    ).forEach(function(btn){
+
+        btn.classList.remove("active");
+
+    });
+
+
+    const allButton =
+        document.querySelector(
+            '.category-btn[data-category="all"]'
+        );
+
+
+    if(allButton){
+
+        allButton.classList.add("active");
+
+    }
+
+
+    /* =====================================================
+       RESET SORT
+    ===================================================== */
+
+    if(sort){
+
+        sort.value =
+            "featured";
+
+    }
+
+
+    /* =====================================================
+       SHOW ALL PRODUCTS
+    ===================================================== */
+
+    const plants =
+        document.querySelectorAll(
+            ".plant-item"
+        );
+
+
+    const grid =
+        document.getElementById(
+            "plantGrid"
+        );
+
+
+    if(grid){
+
+        const cards =
+            Array.from(plants);
+
+
+        cards.sort(function(a,b){
+
+            return (
+
+                parseInt(
+                    b.dataset.id || 0
+                )
+
+                -
+
+                parseInt(
+                    a.dataset.id || 0
+                )
+
+            );
+
+        });
+
+
+        cards.forEach(function(card){
+
+            card.style.display = "";
+
+            grid.appendChild(card);
+
+        });
+
+    }
+
+
+    /* =====================================================
+       COUNT
+    ===================================================== */
+
+    if(count){
+
+        count.innerText =
+            plants.length;
+
+    }
+
+
+    /* =====================================================
+       HIDE NO RESULT
+    ===================================================== */
+
+    if(noResult){
+
+        noResult.style.display =
+            "none";
+
+    }
+
+}
+
+</script>
+
+{% endblock %}

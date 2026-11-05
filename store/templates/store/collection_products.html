@@ -1,0 +1,531 @@
+{% extends "store/base.html" %}
+{% load static %}
+
+{% block title %}
+{{ selected_collection.collection_name }} | GreenNest
+{% endblock %}
+
+{% block content %}
+
+<style>
+
+/* =====================================================
+   COLLECTION PAGE
+===================================================== */
+
+.gn-collection-page {
+    background: #f8f7f2;
+    min-height: 100vh;
+    padding: 60px 0;
+}
+
+
+/* =====================================================
+   HEADER
+===================================================== */
+
+.gn-collection-header {
+    text-align: center;
+    margin-bottom: 45px;
+}
+
+.gn-collection-header h1 {
+    color: #0b3d2e;
+    font-family: Georgia, serif;
+    font-size: 42px;
+    font-weight: 700;
+    margin-bottom: 12px;
+}
+
+.gn-collection-header p {
+    color: #68756e;
+    max-width: 700px;
+    margin: 0 auto;
+    font-size: 16px;
+    line-height: 1.7;
+}
+
+.gn-count {
+    display: inline-block;
+    margin-top: 15px;
+    background: #0b3d2e;
+    color: white;
+    padding: 7px 18px;
+    border-radius: 30px;
+    font-size: 14px;
+}
+
+
+/* =====================================================
+   PRODUCT CARD
+===================================================== */
+
+.gn-product-card {
+    background: white;
+    border: none;
+    border-radius: 18px;
+    overflow: hidden;
+    height: 100%;
+    box-shadow: 0 8px 25px rgba(11, 61, 46, 0.08);
+    transition: all 0.3s ease;
+}
+
+.gn-product-card:hover {
+    transform: translateY(-7px);
+    box-shadow: 0 15px 35px rgba(11, 61, 46, 0.15);
+}
+
+
+/* =====================================================
+   IMAGE
+===================================================== */
+
+.gn-product-image {
+    height: 260px;
+    background: #f1f3ed;
+    overflow: hidden;
+}
+
+.gn-product-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.4s ease;
+}
+
+.gn-product-card:hover .gn-product-image img {
+    transform: scale(1.05);
+}
+
+
+/* =====================================================
+   PRODUCT BODY
+===================================================== */
+
+.gn-product-body {
+    padding: 22px;
+}
+
+.gn-product-category {
+    color: #6c8c78;
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.gn-product-name {
+    color: #173d2b;
+    font-size: 20px;
+    font-weight: 700;
+    margin-top: 7px;
+}
+
+.gn-product-description {
+    color: #777;
+    font-size: 14px;
+    line-height: 1.6;
+    margin-top: 8px;
+    min-height: 45px;
+}
+
+
+/* =====================================================
+   PRICE
+===================================================== */
+
+.gn-price {
+    color: #0b3d2e;
+    font-size: 21px;
+    font-weight: 700;
+}
+
+.gn-old-price {
+    color: #999;
+    text-decoration: line-through;
+    font-size: 14px;
+    margin-left: 8px;
+}
+
+
+/* =====================================================
+   RATING
+===================================================== */
+
+.gn-rating {
+    color: #c8a96b;
+    font-size: 14px;
+}
+
+
+/* =====================================================
+   STOCK
+===================================================== */
+
+.gn-stock {
+    margin-top: 12px;
+}
+
+
+/* =====================================================
+   VIEW PRODUCT BUTTON
+===================================================== */
+
+.gn-view-btn {
+    display: block;
+    width: 100%;
+    text-align: center;
+    background: #0b3d2e;
+    color: white;
+    text-decoration: none;
+    padding: 11px;
+    border-radius: 10px;
+    margin-top: 15px;
+    transition: all 0.3s ease;
+    font-weight: 600;
+}
+
+.gn-view-btn:hover {
+    background: #286044;
+    color: white;
+    transform: translateY(-2px);
+}
+
+
+/* =====================================================
+   EMPTY
+===================================================== */
+
+.gn-empty {
+    text-align: center;
+    padding: 80px 20px;
+}
+
+.gn-empty i {
+    font-size: 60px;
+    color: #6c8c78;
+}
+
+.gn-empty h3 {
+    color: #173d2b;
+    margin-top: 20px;
+}
+
+
+/* =====================================================
+   RESPONSIVE
+===================================================== */
+
+@media (max-width: 768px) {
+
+    .gn-collection-page {
+        padding: 40px 0;
+    }
+
+    .gn-collection-header h1 {
+        font-size: 32px;
+    }
+
+    .gn-product-image {
+        height: 230px;
+    }
+
+}
+
+</style>
+
+
+<section class="gn-collection-page">
+
+<div class="container">
+
+
+    <!-- =================================================
+         COLLECTION HEADER
+    ================================================== -->
+
+    <div class="gn-collection-header">
+
+        <h1>
+            {{ collection_name }}
+        </h1>
+
+
+        {% if collection_description %}
+
+        <p>
+            {{ collection_description }}
+        </p>
+
+        {% endif %}
+
+
+        <span class="gn-count">
+
+            {{ product_count }} Products
+
+        </span>
+
+    </div>
+
+
+
+    <!-- =================================================
+         PRODUCTS
+    ================================================== -->
+
+    {% if products %}
+
+    <div class="row g-4">
+
+
+        {% for product in products %}
+
+
+        <div class="col-xl-3 col-lg-4 col-md-6">
+
+
+            <!-- =================================================
+                 PRODUCT CARD
+            ================================================== -->
+
+            <div class="gn-product-card">
+
+
+                <!-- ============================================
+                     PRODUCT IMAGE
+                ============================================= -->
+
+                <div class="gn-product-image">
+
+                    {% if product.image %}
+
+                    <img
+                        src="{{ product.image }}"
+                        alt="{{ product.name }}"
+                        onerror="this.style.display='none';"
+                    >
+
+                    {% else %}
+
+                    <div class="d-flex
+                                align-items-center
+                                justify-content-center
+                                h-100">
+
+                        <i class="bi bi-flower1 fs-1 text-success"></i>
+
+                    </div>
+
+                    {% endif %}
+
+                </div>
+
+
+
+                <!-- ============================================
+                     PRODUCT DETAILS
+                ============================================= -->
+
+                <div class="gn-product-body">
+
+
+                    <!-- CATEGORY -->
+
+                    {% if product.category %}
+
+                    <div class="gn-product-category">
+
+                        {{ product.category }}
+
+                    </div>
+
+                    {% endif %}
+
+
+
+                    <!-- PRODUCT NAME -->
+
+                    <div class="gn-product-name">
+
+                        {{ product.name }}
+
+                    </div>
+
+
+
+                    <!-- SUBCATEGORY -->
+
+                    {% if product.subcategory %}
+
+                    <div class="small text-muted mt-1">
+
+                        {{ product.subcategory }}
+
+                    </div>
+
+                    {% endif %}
+
+
+
+                    <!-- DESCRIPTION -->
+
+                    {% if product.description %}
+
+                    <div class="gn-product-description">
+
+                        {{ product.description|truncatechars:80 }}
+
+                    </div>
+
+                    {% else %}
+
+                    <div class="gn-product-description">
+
+                        Beautiful plant from our
+                        {{ collection_name }} collection.
+
+                    </div>
+
+                    {% endif %}
+
+
+
+                    <!-- PRICE -->
+
+                    <div class="mt-3">
+
+                        <span class="gn-price">
+
+                            ₹{{ product.price }}
+
+                        </span>
+
+
+                        {% if product.old_price %}
+
+                        <span class="gn-old-price">
+
+                            ₹{{ product.old_price }}
+
+                        </span>
+
+                        {% endif %}
+
+                    </div>
+
+
+
+                    <!-- RATING -->
+
+                    <div class="mt-2">
+
+                        <span class="gn-rating">
+
+                            ★★★★★
+
+                        </span>
+
+                        <span class="text-muted small">
+
+                            {{ product.rating }}
+
+                        </span>
+
+                    </div>
+
+
+
+                    <!-- STOCK -->
+
+                    <div class="gn-stock">
+
+                        {% if product.stock|default:0 > 0 %}
+
+                        <span class="badge bg-success">
+
+                            <i class="bi bi-check-circle me-1"></i>
+
+                            In Stock
+
+                        </span>
+
+                        {% else %}
+
+                        <span class="badge bg-secondary">
+
+                            <i class="bi bi-x-circle me-1"></i>
+
+                            Out of Stock
+
+                        </span>
+
+                        {% endif %}
+
+                    </div>
+
+
+
+                    <!-- ========================================
+                         VIEW PRODUCT
+                    ========================================= -->
+
+                    <a
+                        href="{% url 'productdetail' product.id %}"
+                        class="gn-view-btn"
+                    >
+
+                        <i class="bi bi-eye me-1"></i>
+
+                        View Product
+
+                    </a>
+
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        {% endfor %}
+
+    </div>
+
+
+    {% else %}
+
+
+    <!-- =================================================
+         NO PRODUCT
+    ================================================== -->
+
+    <div class="gn-empty">
+
+        <i class="bi bi-flower1"></i>
+
+        <h3>
+
+            No Products Available
+
+        </h3>
+
+        <p class="text-muted">
+
+            Products will appear here when they are
+            assigned to this collection.
+
+        </p>
+
+    </div>
+
+    {% endif %}
+
+
+</div>
+
+</section>
+
+{% endblock %}

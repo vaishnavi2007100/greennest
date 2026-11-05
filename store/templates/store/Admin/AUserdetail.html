@@ -1,0 +1,487 @@
+{% extends "store/Admin/AdminMaster.html" %}
+
+{% block title %}
+User Details | GreenNest
+{% endblock %}
+
+{% block page_heading %}
+User Details
+{% endblock %}
+
+{% block content %}
+
+<style>
+
+/* =====================================================
+   USER DETAIL PAGE
+===================================================== */
+
+.user-detail-card {
+
+    background: #ffffff;
+
+    border: 1px solid #e5ece6;
+
+    border-radius: 18px;
+
+    padding: 28px;
+
+}
+
+
+/* =====================================================
+   HEADER
+===================================================== */
+
+.detail-header {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 15px;
+
+    margin-bottom: 25px;
+
+    flex-wrap: wrap;
+
+}
+
+
+.detail-header h3 {
+
+    margin: 0;
+
+    color: #173d2b;
+
+    font-family:
+        'DM Serif Display',
+        serif;
+
+}
+
+
+.detail-header p {
+
+    margin: 5px 0 0;
+
+    color: #8a958e;
+
+    font-size: 12px;
+
+}
+
+
+/* =====================================================
+   USER ICON
+===================================================== */
+
+.user-icon {
+
+    width: 58px;
+
+    height: 58px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    background: #eaf3ed;
+
+    color: #173d2b;
+
+    border-radius: 50%;
+
+    font-size: 25px;
+
+}
+
+
+/* =====================================================
+   DETAIL BOX
+===================================================== */
+
+.detail-box {
+
+    background: #f8faf8;
+
+    border: 1px solid #edf1ee;
+
+    border-radius: 12px;
+
+    padding: 17px;
+
+    height: 100%;
+
+}
+
+
+.detail-label {
+
+    display: block;
+
+    color: #8a958e;
+
+    font-size: 11px;
+
+    font-weight: 600;
+
+    margin-bottom: 7px;
+
+    text-transform: uppercase;
+
+    letter-spacing: 0.5px;
+
+}
+
+
+.detail-value {
+
+    color: #173d2b;
+
+    font-size: 14px;
+
+    font-weight: 600;
+
+    word-break: break-word;
+
+}
+
+
+/* =====================================================
+   ADDRESS
+===================================================== */
+
+.address-box {
+
+    background: #f8faf8;
+
+    border: 1px solid #edf1ee;
+
+    border-radius: 12px;
+
+    padding: 20px;
+
+    margin-top: 20px;
+
+}
+
+
+.address-box h5 {
+
+    color: #173d2b;
+
+    font-size: 15px;
+
+    margin-bottom: 18px;
+
+    font-weight: 700;
+
+}
+
+
+.address-text {
+
+    color: #526159;
+
+    font-size: 13px;
+
+    line-height: 1.7;
+
+}
+
+
+/* =====================================================
+   BUTTONS
+===================================================== */
+
+.back-btn {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 7px;
+
+    background: #173d2b;
+
+    color: white;
+
+    padding: 10px 17px;
+
+    border-radius: 9px;
+
+    text-decoration: none;
+
+    font-size: 12px;
+
+    font-weight: 600;
+
+    margin-top: 25px;
+
+    transition: 0.2s ease;
+
+}
+
+
+.back-btn:hover {
+
+    background: #286044;
+
+    color: white;
+
+}
+
+
+</style>
+
+
+<div class="user-detail-card">
+
+    <!-- =============================================
+         HEADER
+    ============================================== -->
+
+    <div class="detail-header">
+
+        <div class="d-flex align-items-center gap-3">
+
+            <div class="user-icon">
+
+                <i class="bi bi-person-fill"></i>
+
+            </div>
+
+            <div>
+
+                <h3>
+                    {{ user.name }}
+                </h3>
+
+                <p>
+                    Registered User Details
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- =============================================
+         BASIC DETAILS
+    ============================================== -->
+
+    <div class="row g-3">
+
+        <div class="col-md-6">
+
+            <div class="detail-box">
+
+                <span class="detail-label">
+                    User ID
+                </span>
+
+                <div class="detail-value">
+                    {{ user.id }}
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="col-md-6">
+
+            <div class="detail-box">
+
+                <span class="detail-label">
+                    Full Name
+                </span>
+
+                <div class="detail-value">
+                    {{ user.name }}
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="col-md-6">
+
+            <div class="detail-box">
+
+                <span class="detail-label">
+                    Email Address
+                </span>
+
+                <div class="detail-value">
+                    {{ user.email }}
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="col-md-6">
+
+            <div class="detail-box">
+
+                <span class="detail-label">
+                    Mobile Number
+                </span>
+
+                <div class="detail-value">
+
+                    {% if user.mobile %}
+
+                        {{ user.mobile }}
+
+                    {% else %}
+
+                        Not Available
+
+                    {% endif %}
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- =============================================
+         ADDRESS DETAILS
+    ============================================== -->
+
+    <div class="address-box">
+
+        <h5>
+            <i class="bi bi-geo-alt-fill me-2"></i>
+            Address Details
+        </h5>
+
+
+        <div class="row g-3">
+
+            <div class="col-md-12">
+
+                <span class="detail-label">
+                    Address
+                </span>
+
+                <div class="address-text">
+
+                    {% if user.address %}
+
+                        {{ user.address }}
+
+                    {% else %}
+
+                        Address not available
+
+                    {% endif %}
+
+                </div>
+
+            </div>
+
+
+            <div class="col-md-4">
+
+                <span class="detail-label">
+                    City
+                </span>
+
+                <div class="detail-value">
+
+                    {% if user.city %}
+
+                        {{ user.city }}
+
+                    {% else %}
+
+                        Not Available
+
+                    {% endif %}
+
+                </div>
+
+            </div>
+
+
+            <div class="col-md-4">
+
+                <span class="detail-label">
+                    State
+                </span>
+
+                <div class="detail-value">
+
+                    {% if user.state %}
+
+                        {{ user.state }}
+
+                    {% else %}
+
+                        Not Available
+
+                    {% endif %}
+
+                </div>
+
+            </div>
+
+
+            <div class="col-md-4">
+
+                <span class="detail-label">
+                    Pincode
+                </span>
+
+                <div class="detail-value">
+
+                    {% if user.pincode %}
+
+                        {{ user.pincode }}
+
+                    {% else %}
+
+                        Not Available
+
+                    {% endif %}
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- =============================================
+         BACK BUTTON
+    ============================================== -->
+
+    <a href="{% url 'UserList' %}"
+       class="back-btn">
+
+        <i class="bi bi-arrow-left"></i>
+
+        Back to User List
+
+    </a>
+
+</div>
+
+{% endblock %}

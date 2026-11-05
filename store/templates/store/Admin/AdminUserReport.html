@@ -1,0 +1,125 @@
+{% extends "store/Admin/AdminMaster.html" %}
+
+{% block title %}User Report | GreenNest Admin{% endblock %}
+
+{% block page_heading %}User Report{% endblock %}
+
+{% block content %}
+
+<div class="row g-4 mb-4">
+
+    <div class="col-md-4">
+
+        <div class="card border-0 shadow-sm rounded-4 p-4">
+
+            <h6 class="text-muted">
+                Total Users
+            </h6>
+
+            <h2 class="fw-bold">
+                {{ total_users|default:"0" }}
+            </h2>
+
+        </div>
+
+    </div>
+
+    <div class="col-md-4">
+
+        <div class="card border-0 shadow-sm rounded-4 p-4">
+
+            <h6 class="text-muted">
+                Users With Orders
+            </h6>
+
+            <h2 class="fw-bold">
+                {{ active_users|default:"0" }}
+            </h2>
+
+        </div>
+
+    </div>
+
+    <div class="col-md-4">
+
+        <div class="card border-0 shadow-sm rounded-4 p-4">
+
+            <h6 class="text-muted">
+                Total Orders
+            </h6>
+
+            <h2 class="fw-bold">
+                {{ total_orders|default:"0" }}
+            </h2>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<div class="card border-0 shadow-sm rounded-4 p-4">
+
+    <h4 class="fw-bold mb-4">
+        Customer Report
+    </h4>
+
+    <div class="table-responsive">
+
+        <table class="table table-hover">
+
+            <thead class="table-dark">
+
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Mobile</th>
+                    <th>Orders</th>
+                </tr>
+
+            </thead>
+
+            <tbody>
+
+            {% for user in users %}
+
+                <tr>
+
+                    <td>#{{ user.id }}</td>
+
+                    <td>{{ user.name }}</td>
+
+                    <td>{{ user.email }}</td>
+
+                    <td>{{ user.mobile }}</td>
+
+                    <td>{{ user.order_count }}</td>
+
+                </tr>
+
+            {% empty %}
+
+                <tr>
+
+                    <td
+                        colspan="5"
+                        class="text-center py-4"
+                    >
+                        No users found.
+                    </td>
+
+                </tr>
+
+            {% endfor %}
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</div>
+
+{% endblock %}

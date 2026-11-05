@@ -1,0 +1,2236 @@
+{% extends "store/base.html" %}
+{% load static %}
+
+{% block title %}
+Table Plants | GreenNest
+{% endblock %}
+
+{% block extra_css %}
+
+<style>
+
+/* =========================================================
+   TABLE PLANTS PAGE
+========================================================= */
+
+.table-page{
+    background:#fbfcfa;
+    min-height:100vh;
+    color:#15251e;
+}
+
+
+/* =========================================================
+   HERO
+========================================================= */
+
+.table-hero{
+    min-height:430px;
+    position:relative;
+    display:flex;
+    align-items:center;
+    overflow:hidden;
+
+    background:
+        linear-gradient(
+            90deg,
+            rgba(8,47,35,.95),
+            rgba(8,47,35,.72),
+            rgba(8,47,35,.25)
+        ),
+        url("{% static 'images/tableplants.jpg' %}")
+        center/cover no-repeat;
+}
+
+
+.table-hero-content{
+    position:relative;
+    z-index:2;
+    max-width:700px;
+    color:#fff;
+}
+
+
+.table-small-title{
+    display:inline-block;
+    color:#b9dfce;
+    font-size:13px;
+    font-weight:700;
+    letter-spacing:2px;
+    text-transform:uppercase;
+    margin-bottom:16px;
+}
+
+
+.table-hero h1{
+    font-family:'Playfair Display',serif;
+    font-size:clamp(45px,6vw,70px);
+    font-weight:700;
+    line-height:1.05;
+    margin-bottom:20px;
+}
+
+
+.table-hero p{
+    max-width:600px;
+    color:#e6f2ed;
+    font-size:17px;
+    line-height:1.8;
+}
+
+
+.table-hero-btn{
+    display:inline-flex;
+    align-items:center;
+    gap:9px;
+    margin-top:22px;
+    padding:13px 25px;
+    border-radius:50px;
+    background:#fff;
+    color:#145c45;
+    text-decoration:none;
+    font-weight:700;
+    transition:.3s ease;
+}
+
+
+.table-hero-btn:hover{
+    background:#d9f0e6;
+    color:#104d3b;
+    transform:translateY(-3px);
+}
+
+
+/* =========================================================
+   COLLECTION
+========================================================= */
+
+.table-collection{
+    padding:85px 0 75px;
+}
+
+
+.table-section-label{
+    color:#2b8064;
+    font-size:13px;
+    font-weight:700;
+    letter-spacing:2px;
+    text-transform:uppercase;
+}
+
+
+.table-section-title{
+    font-family:'Playfair Display',serif;
+    color:#183b30;
+    font-size:42px;
+    font-weight:700;
+    margin-top:10px;
+}
+
+
+.table-section-text{
+    color:#6b7c75;
+    max-width:680px;
+    margin:15px auto 0;
+    line-height:1.8;
+    font-size:15px;
+}
+
+
+/* =========================================================
+   FILTER WRAPPER
+========================================================= */
+
+.table-filter-wrapper{
+    background:#fff;
+    border-radius:25px;
+    padding:25px;
+    margin-top:50px;
+
+    box-shadow:0 15px 45px rgba(0,0,0,.06);
+
+    display:grid;
+
+    grid-template-columns:
+        minmax(0,1fr)
+        auto;
+
+    grid-template-areas:
+        "top controls"
+        "buttons controls";
+
+    column-gap:28px;
+    row-gap:14px;
+
+    align-items:center;
+}
+
+
+/* =========================================================
+   FILTER TOP
+========================================================= */
+
+.table-filter-top{
+    grid-area:top;
+
+    display:flex;
+    align-items:center;
+    justify-content:flex-start;
+
+    gap:8px;
+
+    width:100%;
+    margin:0;
+}
+
+
+.table-browse-title{
+    color:#173d2b;
+    font-weight:700;
+    font-size:16px;
+}
+
+
+.table-browse-count{
+    color:#718078;
+    font-size:14px;
+    margin-left:5px;
+}
+
+
+/* =========================================================
+   CATEGORY BUTTONS
+========================================================= */
+
+.table-category-buttons{
+    grid-area:buttons;
+
+    display:flex;
+    flex-wrap:wrap;
+    align-items:center;
+
+    gap:10px;
+
+    width:100%;
+}
+
+
+.table-category-btn{
+    border:1px solid #dce6df;
+
+    background:#fff;
+
+    color:#123d2b;
+
+    padding:10px 18px;
+
+    border-radius:50px;
+
+    font-size:14px;
+
+    cursor:pointer;
+
+    transition:.3s ease;
+}
+
+
+.table-category-btn:hover,
+.table-category-btn.active{
+    background:#123d2b;
+
+    color:#fff;
+
+    border-color:#123d2b;
+}
+
+
+/* =========================================================
+   SEARCH + FEATURED
+========================================================= */
+
+.table-controls{
+    grid-area:controls;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:flex-end;
+
+    gap:12px;
+
+    width:auto;
+
+    min-width:440px;
+
+    margin:0;
+}
+
+
+.table-search-box{
+    position:relative;
+
+    width:260px;
+
+    flex-shrink:0;
+}
+
+
+.table-search-box i{
+    position:absolute;
+
+    left:17px;
+
+    top:50%;
+
+    transform:translateY(-50%);
+
+    color:#809087;
+
+    z-index:2;
+}
+
+
+.table-search-box input{
+    width:100%;
+
+    height:48px;
+
+    padding:0 18px 0 48px;
+
+    border-radius:50px;
+
+    border:1px solid #dce6df;
+
+    outline:none;
+
+    background:#fff;
+
+    color:#23392f;
+
+    font-size:14px;
+}
+
+
+.table-search-box input::placeholder{
+    color:#8a9891;
+}
+
+
+.table-search-box input:focus{
+    border-color:#1f6045;
+
+    box-shadow:
+        0 0 0 4px
+        rgba(31,96,69,.08);
+}
+
+
+.table-sort-select{
+    width:180px;
+
+    height:48px;
+
+    border-radius:50px;
+
+    border:1px solid #dce6df;
+
+    padding:0 18px;
+
+    outline:none;
+
+    background:#fff;
+
+    color:#23392f;
+
+    font-size:14px;
+
+    flex-shrink:0;
+}
+
+
+.table-sort-select:focus{
+    border-color:#1f6045;
+
+    box-shadow:
+        0 0 0 4px
+        rgba(31,96,69,.08);
+}
+
+
+/* =========================================================
+   PRODUCT GRID
+========================================================= */
+
+.table-product-grid{
+    margin-top:30px;
+}
+
+
+/* =========================================================
+   PRODUCT CARD
+   SCREENSHOT STYLE / COMPACT
+========================================================= */
+
+.table-product-card{
+    background:#fff;
+
+    border:1px solid #e8eee9;
+
+    border-radius:22px;
+
+    overflow:hidden;
+
+    height:100%;
+
+    position:relative;
+
+    box-shadow:
+        0 6px 24px
+        rgba(20,80,55,.06);
+
+    transition:
+        transform .3s ease,
+        box-shadow .3s ease;
+}
+
+
+.table-product-card:hover{
+    transform:translateY(-6px);
+
+    box-shadow:
+        0 16px 35px
+        rgba(18,61,43,.12);
+}
+
+
+/* =========================================================
+   IMAGE
+========================================================= */
+
+.table-product-image{
+    height:250px;
+
+    position:relative;
+
+    overflow:hidden;
+
+    background:#f1f5f0;
+}
+
+
+.table-product-image > a:first-child{
+    display:block;
+
+    width:100%;
+
+    height:100%;
+}
+
+
+.table-product-image img{
+    width:100%;
+
+    height:100%;
+
+    object-fit:cover;
+
+    display:block;
+
+    transition:.45s ease;
+}
+
+
+.table-product-card:hover
+.table-product-image img{
+    transform:scale(1.04);
+}
+
+
+/* =========================================================
+   BADGE
+========================================================= */
+
+.table-product-badge{
+    position:absolute;
+
+    top:13px;
+
+    left:13px;
+
+    padding:7px 13px;
+
+    background:#fff;
+
+    color:#123d2b;
+
+    border-radius:50px;
+
+    font-size:11px;
+
+    font-weight:700;
+
+    box-shadow:
+        0 5px 15px
+        rgba(0,0,0,.08);
+
+    z-index:5;
+}
+
+
+/* =========================================================
+   STOCK
+========================================================= */
+
+.table-product-stock{
+    position:absolute;
+
+    bottom:11px;
+
+    left:11px;
+
+    background:#123d2b;
+
+    color:#fff;
+
+    padding:5px 9px;
+
+    border-radius:50px;
+
+    font-size:9px;
+
+    font-weight:600;
+
+    z-index:5;
+}
+
+
+.table-product-stock.out{
+    background:#a94b43;
+}
+
+
+/* =========================================================
+   WISHLIST
+========================================================= */
+
+.table-wishlist{
+    position:absolute;
+
+    top:12px;
+
+    right:12px;
+
+    width:40px;
+
+    height:40px;
+
+    border-radius:50%;
+
+    background:#fff;
+
+    color:#123d2b;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    text-decoration:none;
+
+    font-size:17px;
+
+    box-shadow:
+        0 6px 16px
+        rgba(0,0,0,.10);
+
+    z-index:10;
+
+    transition:.3s ease;
+}
+
+
+.table-wishlist:hover{
+    background:#123d2b;
+
+    color:#fff;
+
+    transform:scale(1.06);
+}
+
+
+/* =========================================================
+   PRODUCT INFO
+========================================================= */
+
+.table-product-info{
+    padding:15px 18px 16px;
+
+    display:flex;
+
+    flex-direction:column;
+
+    height:calc(100% - 250px);
+}
+
+
+.table-product-category{
+    color:#a18a55;
+
+    text-transform:uppercase;
+
+    letter-spacing:1.4px;
+
+    font-size:10px;
+
+    font-weight:700;
+
+    line-height:1.5;
+}
+
+
+.table-product-name{
+    color:#123d2b;
+
+    font-family:'Playfair Display',serif;
+
+    font-size:19px;
+
+    line-height:1.25;
+
+    margin:5px 0 6px;
+}
+
+
+.table-product-name a{
+    color:inherit;
+
+    text-decoration:none;
+
+    transition:.3s ease;
+}
+
+
+.table-product-name a:hover{
+    color:#1f6045;
+}
+
+
+/* =========================================================
+   DESCRIPTION
+========================================================= */
+
+.table-product-description{
+    color:#718078;
+
+    font-size:13px;
+
+    line-height:1.55;
+
+    min-height:40px;
+
+    margin-bottom:3px;
+}
+
+
+/* =========================================================
+   RATING
+========================================================= */
+
+.table-rating{
+    color:#d0a958;
+
+    font-size:12px;
+
+    margin:10px 0 11px;
+
+    letter-spacing:.5px;
+}
+
+
+.table-rating span{
+    color:#7c8981;
+
+    margin-left:5px;
+
+    letter-spacing:0;
+}
+
+
+/* =========================================================
+   PRICE
+========================================================= */
+
+.table-product-bottom{
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-between;
+
+    margin-top:auto;
+
+    margin-bottom:12px;
+}
+
+
+.table-price{
+    font-size:22px;
+
+    color:#123d2b;
+
+    font-weight:800;
+}
+
+
+.table-old-price{
+    font-size:12px;
+
+    color:#9aa49e;
+
+    text-decoration:line-through;
+
+    margin-left:5px;
+}
+
+
+/* =========================================================
+   EYE / VIEW DETAILS
+========================================================= */
+
+.table-view-btn{
+    width:41px;
+
+    height:41px;
+
+    flex-shrink:0;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    border:1px solid #d9e5dd;
+
+    border-radius:50%;
+
+    background:#fff;
+
+    color:#123d2b;
+
+    text-decoration:none;
+
+    font-size:16px;
+
+    box-shadow:
+        0 4px 12px
+        rgba(0,0,0,.04);
+
+    transition:.3s ease;
+}
+
+
+.table-view-btn:hover{
+    background:#123d2b;
+
+    color:#fff;
+
+    border-color:#123d2b;
+
+    transform:scale(1.05);
+}
+
+
+/* =========================================================
+   ACTION ROW
+========================================================= */
+
+.table-action-row{
+    display:flex;
+
+    align-items:center;
+
+    width:100%;
+}
+
+
+/* =========================================================
+   CART
+========================================================= */
+
+.table-cart-btn{
+    width:100%;
+
+    min-height:41px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    gap:6px;
+
+    border:none;
+
+    border-radius:50px;
+
+    background:#123d2b;
+
+    color:#fff;
+
+    text-decoration:none;
+
+    font-size:12px;
+
+    font-weight:700;
+
+    transition:.3s ease;
+}
+
+
+.table-cart-btn:hover{
+    background:#1d6848;
+
+    color:#fff;
+
+    transform:translateY(-1px);
+}
+
+
+.table-cart-btn.disabled{
+    background:#aaa;
+
+    pointer-events:none;
+}
+
+
+/* =========================================================
+   NO RESULT
+========================================================= */
+
+.table-no-result{
+    text-align:center;
+
+    padding:60px 20px;
+
+    background:#f5faf7;
+
+    border-radius:18px;
+}
+
+
+.table-no-result i{
+    font-size:50px;
+
+    color:#b7c8bd;
+}
+
+
+.table-no-result h3{
+    color:#123d2b;
+
+    margin-top:18px;
+
+    font-family:'Playfair Display',serif;
+}
+
+
+/* =========================================================
+   BENEFITS
+========================================================= */
+
+.table-benefits{
+    padding:75px 0;
+
+    background:#f5f8f4;
+}
+
+
+.table-benefit-card{
+    background:#fff;
+
+    border-radius:22px;
+
+    padding:30px 25px;
+
+    height:100%;
+
+    border:1px solid #e7eee8;
+
+    transition:.3s;
+}
+
+
+.table-benefit-card:hover{
+    transform:translateY(-7px);
+
+    box-shadow:
+        0 20px 40px
+        rgba(18,61,43,.08);
+}
+
+
+.table-benefit-icon{
+    width:60px;
+
+    height:60px;
+
+    border-radius:18px;
+
+    background:#edf5ef;
+
+    color:#123d2b;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    font-size:25px;
+
+    margin-bottom:20px;
+}
+
+
+.table-benefit-card h5{
+    color:#123d2b;
+
+    font-weight:700;
+}
+
+
+.table-benefit-card p{
+    color:#718078;
+
+    line-height:1.7;
+
+    margin-bottom:0;
+
+    font-size:14px;
+}
+
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media(max-width:1200px){
+
+    .table-controls{
+        min-width:400px;
+    }
+
+    .table-search-box{
+        width:230px;
+    }
+
+    .table-sort-select{
+        width:170px;
+    }
+
+}
+
+
+@media(max-width:991px){
+
+    .table-filter-wrapper{
+        display:block;
+    }
+
+
+    .table-filter-top{
+        margin-bottom:15px;
+    }
+
+
+    .table-category-buttons{
+        margin-bottom:18px;
+    }
+
+
+    .table-controls{
+        width:100%;
+
+        min-width:0;
+
+        justify-content:flex-start;
+
+        margin:0;
+    }
+
+
+    .table-search-box{
+        flex:1;
+
+        width:auto;
+    }
+
+}
+
+
+@media(max-width:767px){
+
+    .table-hero{
+        min-height:500px;
+    }
+
+
+    .table-hero h1{
+        font-size:43px;
+    }
+
+
+    .table-collection{
+        padding:70px 15px;
+    }
+
+
+    .table-section-title{
+        font-size:34px;
+    }
+
+
+    .table-category-buttons{
+        gap:8px;
+    }
+
+
+    .table-category-btn{
+        padding:9px 14px;
+
+        font-size:13px;
+    }
+
+
+    .table-controls{
+        flex-direction:column;
+
+        align-items:stretch;
+
+        gap:10px;
+    }
+
+
+    .table-search-box,
+    .table-sort-select{
+        width:100%;
+    }
+
+
+    .table-product-image{
+        height:250px;
+    }
+
+
+    .table-product-info{
+        height:auto;
+
+        padding:15px;
+    }
+
+}
+
+
+@media(max-width:400px){
+
+    .table-product-info{
+        padding:13px;
+    }
+
+
+    .table-product-name{
+        font-size:17px;
+    }
+
+
+    .table-price{
+        font-size:18px;
+    }
+
+
+    .table-view-btn{
+        width:38px;
+
+        height:38px;
+    }
+
+
+    .table-cart-btn{
+        min-height:38px;
+
+        font-size:11px;
+    }
+
+}
+
+</style>
+
+{% endblock %}
+
+
+{% block content %}
+
+<div class="table-page">
+
+
+    <!-- =====================================================
+         HERO
+    ====================================================== -->
+
+    <section class="table-hero">
+
+        <div class="container">
+
+            <div class="table-hero-content">
+
+                <span class="table-small-title">
+                    GreenNest Collection
+                </span>
+
+                <h1>
+                    Bring Nature<br>
+                    To Your Table
+                </h1>
+
+                <p>
+                    Discover beautiful plants for tables, desks
+                    and cozy indoor corners. Add a fresh natural
+                    touch to your everyday spaces.
+                </p>
+
+                <a
+                    href="#tableCollection"
+                    class="table-hero-btn"
+                >
+
+                    Explore Table Plants
+
+                    <i class="bi bi-arrow-right"></i>
+
+                </a>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         COLLECTION
+    ====================================================== -->
+
+    <section
+        class="table-collection"
+        id="tableCollection"
+    >
+
+        <div class="container">
+
+
+            <!-- =================================================
+                 HEADING
+            ================================================== -->
+
+            <div class="text-center">
+
+                <div class="table-section-label">
+                    Our Collection
+                </div>
+
+                <h2 class="table-section-title">
+                    Table Plants
+                </h2>
+
+                <p class="table-section-text">
+                    Small, beautiful and easy-to-place plants
+                    that make desks, tables and indoor corners
+                    look fresh and welcoming.
+                </p>
+
+            </div>
+
+
+            <!-- =================================================
+                 BROWSE FILTER
+            ================================================== -->
+
+            <div class="table-filter-wrapper">
+
+
+                <!-- BROWSE -->
+
+                <div class="table-filter-top">
+
+                    <div>
+
+                        <span class="table-browse-title">
+                            Browse Plants
+                        </span>
+
+                        <span
+                            class="table-browse-count"
+                            id="tableProductCount"
+                        >
+                            {{ table_products|length }} plants
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <!-- CATEGORY BUTTONS -->
+
+                <div class="table-category-buttons">
+
+
+                    <button
+                        type="button"
+                        class="table-category-btn"
+                        data-category="all"
+                    >
+
+                        All Plants
+
+                    </button>
+
+
+                    <button
+                        type="button"
+                        class="table-category-btn"
+                        data-category="indoor"
+                    >
+
+                        Indoor
+
+                    </button>
+
+
+                    <button
+                        type="button"
+                        class="table-category-btn"
+                        data-category="outdoor"
+                    >
+
+                        Outdoor
+
+                    </button>
+
+
+                    <button
+                        type="button"
+                        class="table-category-btn"
+                        data-category="flowering"
+                    >
+
+                        Flowering
+
+                    </button>
+
+
+                    <button
+                        type="button"
+                        class="table-category-btn active"
+                        data-category="table"
+                    >
+
+                        Table Plant
+
+                    </button>
+
+                </div>
+
+
+                <!-- SEARCH + FEATURED -->
+
+                <div class="table-controls">
+
+                    <div class="table-search-box">
+
+                        <i class="bi bi-search"></i>
+
+                        <input
+                            type="text"
+                            id="tableSearch"
+                            placeholder="Search plants..."
+                            autocomplete="off"
+                        >
+
+                    </div>
+
+
+                    <select
+                        id="tableSort"
+                        class="table-sort-select"
+                    >
+
+                        <option value="featured">
+                            Featured
+                        </option>
+
+                        <option value="low">
+                            Price: Low
+                        </option>
+
+                        <option value="high">
+                            Price: High
+                        </option>
+
+                        <option value="rating">
+                            Top Rated
+                        </option>
+
+                    </select>
+
+                </div>
+
+            </div>
+
+
+            <!-- =================================================
+                 PRODUCTS
+            ================================================== -->
+
+            <div
+                class="row g-4 table-product-grid"
+                id="tableProductGrid"
+            >
+
+
+                {% for product in table_products %}
+
+
+                    <div
+                        class="col-xl-3 col-lg-4 col-md-6 table-item"
+
+                        data-id="{{ product.id|default:0 }}"
+
+                        data-category="
+                            {{ product.category|default:''|lower }}
+                            {% if product.subcategory %}
+                                {{ product.subcategory|lower }}
+                            {% endif %}
+                        "
+
+                        data-name="{{ product.name|default:''|lower }}"
+
+                        data-price="{{ product.price|default:0 }}"
+
+                        data-rating="{{ product.rating|default:4.8 }}"
+                    >
+
+
+                        <div class="table-product-card">
+
+
+                            <!-- =====================================
+                                 IMAGE
+                            ====================================== -->
+
+                            <div class="table-product-image">
+
+
+                                <a
+                                    href="{% url 'product_details' product.id %}"
+                                >
+
+                                    {% if product.image_url %}
+
+                                        <img
+                                            src="{{ product.image_url }}"
+                                            alt="{{ product.name }}"
+                                            loading="lazy"
+                                        >
+
+                                    {% elif product.image %}
+
+                                        <img
+                                            src="{% static 'product_images/' %}{{ product.image }}"
+                                            alt="{{ product.name }}"
+                                            loading="lazy"
+                                        >
+
+                                    {% else %}
+
+                                        <img
+                                            src="{% static 'images/plant1.jpg' %}"
+                                            alt="{{ product.name }}"
+                                            loading="lazy"
+                                        >
+
+                                    {% endif %}
+
+                                </a>
+
+
+                                <!-- BADGE -->
+
+                                {% if product.old_price %}
+
+                                    <span class="table-product-badge">
+                                        Sale
+                                    </span>
+
+                                {% else %}
+
+                                    <span class="table-product-badge">
+                                        Fresh
+                                    </span>
+
+                                {% endif %}
+
+
+                                <!-- STOCK -->
+
+                                {% if product.stock and product.stock > 0 %}
+
+                                    <span class="table-product-stock">
+
+                                        <i class="bi bi-check-circle me-1"></i>
+
+                                        In Stock
+
+                                    </span>
+
+                                {% else %}
+
+                                    <span class="table-product-stock out">
+
+                                        <i class="bi bi-x-circle me-1"></i>
+
+                                        Out of Stock
+
+                                    </span>
+
+                                {% endif %}
+
+
+                                <!-- WISHLIST -->
+
+                                <a
+                                    href="{% url 'AddToWishlist' product.id %}"
+                                    class="table-wishlist"
+                                    title="Add to Wishlist"
+                                >
+
+                                    <i class="bi bi-heart"></i>
+
+                                </a>
+
+                            </div>
+
+
+                            <!-- =====================================
+                                 PRODUCT INFORMATION
+                            ====================================== -->
+
+                            <div class="table-product-info">
+
+
+                                <!-- CATEGORY -->
+
+                                <div class="table-product-category">
+
+                                    {{ product.category|default:"Plant" }}
+
+                                    {% if product.subcategory %}
+
+                                        · {{ product.subcategory }}
+
+                                    {% endif %}
+
+                                </div>
+
+
+                                <!-- NAME -->
+
+                                <div class="table-product-name">
+
+                                    <a
+                                        href="{% url 'product_details' product.id %}"
+                                    >
+
+                                        {{ product.name }}
+
+                                    </a>
+
+                                </div>
+
+
+                                <!-- DESCRIPTION -->
+
+                                {% if product.description %}
+
+                                    <div class="table-product-description">
+
+                                        {{ product.description|truncatechars:45 }}
+
+                                    </div>
+
+                                {% else %}
+
+                                    <div class="table-product-description">
+
+                                        Beautiful plant for your
+                                        home or workspace.
+
+                                    </div>
+
+                                {% endif %}
+
+
+                                <!-- RATING -->
+
+                                <div class="table-rating">
+
+                                    ★★★★★
+
+                                    <span>
+
+                                        {{ product.rating|default:"4.8" }}
+
+                                    </span>
+
+                                </div>
+
+
+                                <!-- PRICE + EYE -->
+
+                                <div class="table-product-bottom">
+
+
+                                    <div>
+
+                                        <span class="table-price">
+
+                                            ₹{{ product.price }}
+
+                                        </span>
+
+
+                                        {% if product.old_price %}
+
+                                            <span class="table-old-price">
+
+                                                ₹{{ product.old_price }}
+
+                                            </span>
+
+                                        {% endif %}
+
+                                    </div>
+
+
+                                    <!-- EYE -->
+
+                                    <a
+                                        href="{% url 'product_details' product.id %}"
+                                        class="table-view-btn"
+                                        title="View Product Details"
+                                    >
+
+                                        <i class="bi bi-eye"></i>
+
+                                    </a>
+
+
+                                </div>
+
+
+                                <!-- ADD TO CART -->
+
+                                <div class="table-action-row">
+
+
+                                    {% if product.stock and product.stock > 0 %}
+
+                                        <a
+                                            href="{% url 'AddToCart' product.id %}"
+                                            class="table-cart-btn"
+                                        >
+
+                                            <i class="bi bi-cart-plus"></i>
+
+                                            Add
+
+                                        </a>
+
+                                    {% else %}
+
+                                        <a
+                                            href="javascript:void(0);"
+                                            class="table-cart-btn disabled"
+                                        >
+
+                                            <i class="bi bi-cart-x"></i>
+
+                                            Out of Stock
+
+                                        </a>
+
+                                    {% endif %}
+
+
+                                </div>
+
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                {% empty %}
+
+
+                    <!-- =================================================
+                         NO PRODUCTS
+                    ================================================== -->
+
+                    <div class="col-12">
+
+                        <div class="table-no-result">
+
+                            <i class="bi bi-flower1"></i>
+
+                            <h3>
+                                No Products Available
+                            </h3>
+
+                            <p class="text-muted">
+                                Products will appear here when
+                                they are added.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                {% endfor %}
+
+
+            </div>
+
+
+            <!-- =================================================
+                 FILTER NO RESULT
+            ================================================== -->
+
+            <div
+                class="table-no-result mt-5"
+                id="tableNoResult"
+                style="display:none;"
+            >
+
+                <i class="bi bi-search"></i>
+
+                <h3>
+                    No plants found
+                </h3>
+
+                <p class="text-muted">
+                    Try another plant name or category.
+                </p>
+
+            </div>
+
+
+        </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         BENEFITS
+    ====================================================== -->
+
+    <section class="table-benefits">
+
+        <div class="container">
+
+
+            <div class="text-center mb-5">
+
+                <div class="table-section-label">
+                    Why Table Plants?
+                </div>
+
+                <h2 class="table-section-title">
+                    Small Plants, Big Difference
+                </h2>
+
+            </div>
+
+
+            <div class="row g-4">
+
+
+                <!-- BENEFIT 1 -->
+
+                <div class="col-lg-4 col-md-6">
+
+                    <div class="table-benefit-card">
+
+                        <div class="table-benefit-icon">
+
+                            <i class="bi bi-house-heart"></i>
+
+                        </div>
+
+                        <h5>
+                            Perfect For Small Spaces
+                        </h5>
+
+                        <p>
+                            Place beautiful plants on desks,
+                            tables, shelves and compact corners.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <!-- BENEFIT 2 -->
+
+                <div class="col-lg-4 col-md-6">
+
+                    <div class="table-benefit-card">
+
+                        <div class="table-benefit-icon">
+
+                            <i class="bi bi-stars"></i>
+
+                        </div>
+
+                        <h5>
+                            Fresh & Beautiful
+                        </h5>
+
+                        <p>
+                            Add a refreshing natural touch
+                            to your everyday indoor environment.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <!-- BENEFIT 3 -->
+
+                <div class="col-lg-4 col-md-6">
+
+                    <div class="table-benefit-card">
+
+                        <div class="table-benefit-icon">
+
+                            <i class="bi bi-heart"></i>
+
+                        </div>
+
+                        <h5>
+                            Easy To Enjoy
+                        </h5>
+
+                        <p>
+                            Choose beautiful plants that are
+                            easy to place and enjoy.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+</div>
+
+
+<!-- =========================================================
+     JAVASCRIPT
+========================================================= -->
+
+<script>
+
+document.addEventListener(
+    "DOMContentLoaded",
+    function(){
+
+        const buttons =
+            document.querySelectorAll(
+                ".table-category-btn"
+            );
+
+
+        const products =
+            document.querySelectorAll(
+                ".table-item"
+            );
+
+
+        const search =
+            document.getElementById(
+                "tableSearch"
+            );
+
+
+        const sort =
+            document.getElementById(
+                "tableSort"
+            );
+
+
+        const count =
+            document.getElementById(
+                "tableProductCount"
+            );
+
+
+        const noResult =
+            document.getElementById(
+                "tableNoResult"
+            );
+
+
+        const grid =
+            document.getElementById(
+                "tableProductGrid"
+            );
+
+
+        /* =====================================================
+           CURRENT CATEGORY
+        ===================================================== */
+
+        let currentCategory = "table";
+
+
+        /* =====================================================
+           CATEGORY MAPPING
+        ===================================================== */
+
+        const categoryMap = {
+
+            all: "",
+
+            indoor: "indoor",
+
+            outdoor: "outdoor",
+
+            flowering: "flower",
+
+            table: "table"
+
+        };
+
+
+        /* =====================================================
+           CATEGORY MATCH
+        ===================================================== */
+
+        function categoryMatches(
+            productCategory,
+            selectedCategory
+        ){
+
+            if(
+                selectedCategory === "all"
+            ){
+
+                return true;
+
+            }
+
+
+            const category =
+                (
+                    productCategory || ""
+                )
+                .toLowerCase()
+                .trim();
+
+
+            const searchCategory =
+                categoryMap[
+                    selectedCategory
+                ] || "";
+
+
+            return category.includes(
+                searchCategory
+            );
+
+        }
+
+
+        /* =====================================================
+           FILTER PRODUCTS
+        ===================================================== */
+
+        function filterProducts(){
+
+            const searchText =
+                search
+                ? search.value.toLowerCase().trim()
+                : "";
+
+
+            let visibleCount = 0;
+
+
+            products.forEach(
+                function(product){
+
+                    const category =
+                        product.dataset.category || "";
+
+
+                    const name =
+                        product.dataset.name || "";
+
+
+                    const categoryMatch =
+                        categoryMatches(
+                            category,
+                            currentCategory
+                        );
+
+
+                    const searchMatch =
+                        searchText === "" ||
+
+                        name.includes(
+                            searchText
+                        ) ||
+
+                        category.includes(
+                            searchText
+                        );
+
+
+                    if(
+                        categoryMatch &&
+                        searchMatch
+                    ){
+
+                        product.style.display =
+                            "";
+
+                        visibleCount++;
+
+                    }
+
+                    else{
+
+                        product.style.display =
+                            "none";
+
+                    }
+
+                }
+            );
+
+
+            if(count){
+
+                count.innerText =
+                    visibleCount +
+                    " plants";
+
+            }
+
+
+            if(noResult){
+
+                noResult.style.display =
+                    visibleCount === 0
+                    ? "block"
+                    : "none";
+
+            }
+
+        }
+
+
+        /* =====================================================
+           CATEGORY BUTTONS
+           NO PAGE REFRESH
+        ===================================================== */
+
+        buttons.forEach(
+            function(button){
+
+                button.addEventListener(
+                    "click",
+                    function(event){
+
+                        event.preventDefault();
+
+
+                        buttons.forEach(
+                            function(btn){
+
+                                btn.classList.remove(
+                                    "active"
+                                );
+
+                            }
+                        );
+
+
+                        this.classList.add(
+                            "active"
+                        );
+
+
+                        currentCategory =
+                            this.dataset.category ||
+                            "all";
+
+
+                        filterProducts();
+
+                    }
+                );
+
+            }
+        );
+
+
+        /* =====================================================
+           SEARCH
+        ===================================================== */
+
+        if(search){
+
+            search.addEventListener(
+                "input",
+                function(){
+
+                    filterProducts();
+
+                }
+            );
+
+        }
+
+
+        /* =====================================================
+           SORT
+        ===================================================== */
+
+        if(sort && grid){
+
+            sort.addEventListener(
+                "change",
+                function(){
+
+                    const cards =
+                        Array.from(
+                            grid.querySelectorAll(
+                                ".table-item"
+                            )
+                        );
+
+
+                    /* =========================================
+                       LOW PRICE
+                    ========================================== */
+
+                    if(
+                        this.value === "low"
+                    ){
+
+                        cards.sort(
+                            function(a,b){
+
+                                return (
+
+                                    parseFloat(
+                                        a.dataset.price || 0
+                                    )
+
+                                    -
+
+                                    parseFloat(
+                                        b.dataset.price || 0
+                                    )
+
+                                );
+
+                            }
+                        );
+
+                    }
+
+
+                    /* =========================================
+                       HIGH PRICE
+                    ========================================== */
+
+                    else if(
+                        this.value === "high"
+                    ){
+
+                        cards.sort(
+                            function(a,b){
+
+                                return (
+
+                                    parseFloat(
+                                        b.dataset.price || 0
+                                    )
+
+                                    -
+
+                                    parseFloat(
+                                        a.dataset.price || 0
+                                    )
+
+                                );
+
+                            }
+                        );
+
+                    }
+
+
+                    /* =========================================
+                       TOP RATED
+                    ========================================== */
+
+                    else if(
+                        this.value === "rating"
+                    ){
+
+                        cards.sort(
+                            function(a,b){
+
+                                return (
+
+                                    parseFloat(
+                                        b.dataset.rating || 0
+                                    )
+
+                                    -
+
+                                    parseFloat(
+                                        a.dataset.rating || 0
+                                    )
+
+                                );
+
+                            }
+                        );
+
+                    }
+
+
+                    /* =========================================
+                       FEATURED
+                    ========================================== */
+
+                    else{
+
+                        cards.sort(
+                            function(a,b){
+
+                                return (
+
+                                    parseInt(
+                                        b.dataset.id || 0
+                                    )
+
+                                    -
+
+                                    parseInt(
+                                        a.dataset.id || 0
+                                    )
+
+                                );
+
+                            }
+                        );
+
+                    }
+
+
+                    /* =========================================
+                       PUT CARDS BACK
+                    ========================================== */
+
+                    cards.forEach(
+                        function(card){
+
+                            grid.appendChild(
+                                card
+                            );
+
+                        }
+                    );
+
+
+                    filterProducts();
+
+                }
+            );
+
+        }
+
+
+        /* =====================================================
+           INITIAL ACTIVE BUTTON
+        ===================================================== */
+
+        buttons.forEach(
+            function(button){
+
+                button.classList.remove(
+                    "active"
+                );
+
+            }
+        );
+
+
+        const tableButton =
+            document.querySelector(
+                '.table-category-btn[data-category="table"]'
+            );
+
+
+        if(tableButton){
+
+            tableButton.classList.add(
+                "active"
+            );
+
+        }
+
+
+        /* =====================================================
+           INITIAL FILTER
+        ===================================================== */
+
+        filterProducts();
+
+    }
+);
+
+</script>
+
+{% endblock %}

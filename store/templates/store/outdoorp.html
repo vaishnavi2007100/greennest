@@ -1,0 +1,550 @@
+{% extends "store/base.html" %}
+{% load static %}
+
+{% block title %}Outdoor Plants | GreenNest{% endblock %}
+
+
+{% block extra_css %}
+
+<style>
+
+    .outdoor-hero {
+        min-height: 420px;
+        display: flex;
+        align-items: center;
+        background:
+            linear-gradient(
+                90deg,
+                rgba(6,48,34,.94),
+                rgba(6,48,34,.40)
+            ),
+            url("{% static 'images/plant-center.jpg' %}") center/cover;
+    }
+
+
+    .hero-content {
+        max-width: 650px;
+        color: white;
+    }
+
+
+    .hero-content small {
+        color: #b9dfce;
+        letter-spacing: 3px;
+        font-weight: 700;
+    }
+
+
+    .hero-content h1 {
+        font-family: 'Playfair Display', serif;
+        font-size: 60px;
+        margin: 15px 0;
+    }
+
+
+    .hero-content p {
+        font-size: 17px;
+        line-height: 1.8;
+        color: #e7f1ed;
+    }
+
+
+    .section-space {
+        padding: 80px 0;
+    }
+
+
+    .heading {
+        text-align: center;
+        margin-bottom: 50px;
+    }
+
+
+    .heading span {
+        color: #27785d;
+        font-size: 13px;
+        letter-spacing: 2px;
+        font-weight: 700;
+        text-transform: uppercase;
+    }
+
+
+    .heading h2 {
+        font-family: 'Playfair Display', serif;
+        color: #183d30;
+        font-size: 42px;
+        margin-top: 10px;
+    }
+
+
+    .outdoor-card {
+        border: 0;
+        border-radius: 20px;
+        overflow: hidden;
+        box-shadow: 0 8px 30px rgba(20,70,50,.08);
+        transition: .35s;
+        height: 100%;
+        background: white;
+    }
+
+
+    .outdoor-card:hover {
+        transform: translateY(-9px);
+        box-shadow: 0 20px 45px rgba(20,70,50,.16);
+    }
+
+
+    .outdoor-card img {
+        width: 100%;
+        height: 280px;
+        object-fit: cover;
+        transition: .5s;
+    }
+
+
+    .outdoor-card:hover img {
+        transform: scale(1.06);
+    }
+
+
+    .img-wrap {
+        overflow: hidden;
+        position: relative;
+    }
+
+
+    .card-body {
+        padding: 24px;
+    }
+
+
+    .card-body h4 {
+        color: #203f34;
+        font-weight: 700;
+    }
+
+
+    .card-body p {
+        color: #77857f;
+        line-height: 1.7;
+        font-size: 14px;
+    }
+
+
+    .price {
+        color: #145d46;
+        font-size: 21px;
+        font-weight: 800;
+    }
+
+
+    .old-price {
+        color: #999;
+        text-decoration: line-through;
+        margin-left: 8px;
+        font-size: 14px;
+    }
+
+
+    .btn-green {
+        background: #165d47;
+        color: white;
+        border-radius: 10px;
+        padding: 11px;
+        display: block;
+        text-align: center;
+        text-decoration: none;
+        margin-top: 15px;
+        font-weight: 600;
+    }
+
+
+    .btn-green:hover {
+        background: #0d4534;
+        color: white;
+    }
+
+
+    .info-strip {
+        background: #f3faf6;
+        border-radius: 20px;
+        padding: 40px;
+        text-align: center;
+        margin-bottom: 60px;
+    }
+
+
+    .plant-badge {
+        position: absolute;
+        top: 15px;
+        left: 15px;
+        background: #165d47;
+        color: white;
+        padding: 6px 13px;
+        border-radius: 30px;
+        font-size: 12px;
+        font-weight: 600;
+    }
+
+
+    .heart-btn {
+        position: absolute;
+        top: 15px;
+        right: 15px;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        background: white;
+        color: #165d47;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 4px 15px rgba(0,0,0,.10);
+        text-decoration: none;
+    }
+
+
+    .heart-btn:hover {
+        color: #c0392b;
+    }
+
+
+    .rating {
+        color: #e5a92d;
+        font-size: 14px;
+        margin-bottom: 10px;
+    }
+
+
+    .rating span {
+        color: #777;
+        margin-left: 5px;
+    }
+
+
+    @media (max-width: 768px) {
+
+        .hero-content h1 {
+            font-size: 42px;
+        }
+
+        .heading h2 {
+            font-size: 34px;
+        }
+
+    }
+
+</style>
+
+{% endblock %}
+
+
+
+{% block content %}
+
+
+<!-- =====================================================
+     HERO
+===================================================== -->
+
+<section class="outdoor-hero">
+
+    <div class="container">
+
+        <div class="hero-content">
+
+            <small>
+                Nature Collection
+            </small>
+
+            <h1>
+                Outdoor Plants
+            </h1>
+
+            <p>
+                Make your garden, balcony and outdoor spaces
+                fresh, colourful and full of life.
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =====================================================
+     OUTDOOR PRODUCTS
+===================================================== -->
+
+<section class="section-space">
+
+    <div class="container">
+
+
+        <!-- INFO -->
+
+        <div class="info-strip">
+
+            <h2
+                style="
+                    font-family:'Playfair Display',serif;
+                    color:#183d30;
+                "
+            >
+                Grow Your Outdoor Paradise
+            </h2>
+
+            <p class="text-muted mb-0">
+
+                Strong, beautiful and vibrant plants selected
+                for your outdoor spaces.
+
+            </p>
+
+        </div>
+
+
+
+        <!-- HEADING -->
+
+        <div class="heading">
+
+            <span>
+                Outdoor Collection
+            </span>
+
+            <h2>
+                Explore Outdoor Plants
+            </h2>
+
+            <p
+                class="text-muted mt-2"
+                style="font-size:14px;"
+            >
+                {{ outdoor_product_count }}
+                Outdoor Plants Available
+            </p>
+
+        </div>
+
+
+
+        <!-- =================================================
+             PRODUCTS
+        ================================================== -->
+
+        <div class="row g-4">
+
+
+            {% if outdoor_products %}
+
+
+                {% for product in outdoor_products %}
+
+
+                    <div class="col-lg-3 col-md-6">
+
+
+                        <div class="outdoor-card">
+
+
+                            <!-- PRODUCT IMAGE -->
+
+                            <div class="img-wrap">
+
+
+                                {% if product.image_url %}
+
+                                    <img
+                                        src="{{ product.image_url }}"
+                                        alt="{{ product.name }}"
+                                    >
+
+                                {% else %}
+
+                                    <img
+                                        src="{% static 'images/plant-center.jpg' %}"
+                                        alt="{{ product.name }}"
+                                    >
+
+                                {% endif %}
+
+
+                                <!-- BADGE -->
+
+                                <span class="plant-badge">
+                                    Outdoor Plant
+                                </span>
+
+
+                                <!-- WISHLIST -->
+
+                                <a
+                                    href="{% url 'AddToWishlist' product.id %}"
+                                    class="heart-btn"
+                                    title="Add to Wishlist"
+                                >
+                                    <i class="bi bi-heart"></i>
+                                </a>
+
+
+                            </div>
+
+
+
+                            <!-- PRODUCT DETAILS -->
+
+                            <div class="card-body">
+
+
+                                <!-- CATEGORY -->
+
+                                <div
+                                    style="
+                                        color:#27785d;
+                                        font-size:12px;
+                                        font-weight:700;
+                                        text-transform:uppercase;
+                                        letter-spacing:1px;
+                                        margin-bottom:7px;
+                                    "
+                                >
+                                    {{ product.category }}
+                                </div>
+
+
+                                <!-- NAME -->
+
+                                <h4>
+                                    {{ product.name }}
+                                </h4>
+
+
+                                <!-- DESCRIPTION -->
+
+                                {% if product.description %}
+
+                                    <p>
+                                        {{ product.description|truncatechars:90 }}
+                                    </p>
+
+                                {% endif %}
+
+
+                                <!-- RATING -->
+
+                                <div class="rating">
+
+                                    ★★★★★
+
+                                    <span>
+                                        {{ product.rating }}
+                                    </span>
+
+                                </div>
+
+
+                                <!-- PRICE -->
+
+                                <div>
+
+                                    <span class="price">
+                                        ₹{{ product.price }}
+                                    </span>
+
+
+                                    {% if product.old_price %}
+
+                                        <span class="old-price">
+                                            ₹{{ product.old_price }}
+                                        </span>
+
+                                    {% endif %}
+
+                                </div>
+
+
+                                <!-- ADD TO CART -->
+
+                                <a
+                                    href="{% url 'AddToCart' product.id %}"
+                                    class="btn-green"
+                                >
+                                    Add to Cart
+                                </a>
+
+
+                            </div>
+
+
+                        </div>
+
+
+                    </div>
+
+
+                {% endfor %}
+
+
+            {% else %}
+
+
+                <!-- =================================================
+                     NO PRODUCTS
+                ================================================== -->
+
+                <div class="col-12">
+
+                    <div
+                        class="text-center py-5"
+                        style="
+                            background:#f5faf7;
+                            border-radius:18px;
+                        "
+                    >
+
+                        <i
+                            class="bi bi-tree"
+                            style="
+                                font-size:50px;
+                                color:#6d9a88;
+                            "
+                        ></i>
+
+
+                        <h4
+                            style="
+                                color:#23483b;
+                                margin-top:15px;
+                            "
+                        >
+                            No Outdoor Plants Available
+                        </h4>
+
+
+                        <p style="color:#75857e;">
+
+                            Outdoor plants will appear here
+                            when products are added.
+
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+            {% endif %}
+
+
+        </div>
+
+
+    </div>
+
+</section>
+
+
+{% endblock %}

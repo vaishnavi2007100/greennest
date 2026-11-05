@@ -1,0 +1,1313 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>
+        {% block title %}
+        Vendor Panel | GreenNest
+        {% endblock %}
+    </title>
+
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet"
+          href="{% static 'css/bootstrap.min.css' %}">
+
+
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet"
+          href="{% static 'css/bootstrap-icons.min.css' %}">
+
+
+    <style>
+
+        /* =====================================================
+           GLOBAL
+        ===================================================== */
+
+        * {
+            box-sizing: border-box;
+        }
+
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+
+        body {
+
+            margin: 0;
+
+            background: #f4f7f4;
+
+            color: #173d2b;
+
+            font-family:
+                Arial,
+                Helvetica,
+                sans-serif;
+        }
+
+
+        a {
+            text-decoration: none;
+        }
+
+
+
+        /* =====================================================
+           SIDEBAR
+        ===================================================== */
+
+        .vendor-sidebar {
+
+            position: fixed;
+
+            left: 0;
+            top: 0;
+
+            width: 270px;
+
+            height: 100vh;
+
+            background:
+                linear-gradient(
+                    180deg,
+                    #0c3021 0%,
+                    #123b29 45%,
+                    #0a281c 100%
+                );
+
+            z-index: 1000;
+
+            padding: 20px 16px;
+
+            overflow-y: auto;
+
+            box-shadow:
+                8px 0 35px rgba(5, 35, 22, 0.22);
+        }
+
+
+        /* Scrollbar */
+
+        .vendor-sidebar::-webkit-scrollbar {
+
+            width: 5px;
+        }
+
+
+        .vendor-sidebar::-webkit-scrollbar-track {
+
+            background: transparent;
+        }
+
+
+        .vendor-sidebar::-webkit-scrollbar-thumb {
+
+            background: rgba(216,181,106,0.35);
+
+            border-radius: 10px;
+        }
+
+
+
+        /* =====================================================
+           LOGO
+        ===================================================== */
+
+        .vendor-logo {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 12px;
+
+            color: white;
+
+            padding:
+                8px
+                10px
+                20px;
+
+            margin-bottom: 20px;
+
+            border-bottom:
+                1px solid
+                rgba(255,255,255,0.10);
+        }
+
+
+        .vendor-logo:hover {
+
+            color: white;
+        }
+
+
+        .vendor-logo-icon {
+
+            width: 46px;
+
+            height: 46px;
+
+            min-width: 46px;
+
+            border-radius: 14px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #d8b56a,
+                    #b99145
+                );
+
+            color: #143c29;
+
+            font-size: 22px;
+
+            box-shadow:
+                0 8px 20px
+                rgba(0,0,0,0.18);
+        }
+
+
+        .vendor-logo-text strong {
+
+            display: block;
+
+            color: #ffffff;
+
+            font-size: 20px;
+
+            font-weight: 700;
+
+            letter-spacing: 0.3px;
+        }
+
+
+        .vendor-logo-text span {
+
+            display: block;
+
+            margin-top: 2px;
+
+            color:
+                rgba(255,255,255,0.48);
+
+            font-size: 9px;
+
+            font-weight: 700;
+
+            letter-spacing: 1.8px;
+        }
+
+
+
+        /* =====================================================
+           VENDOR PROFILE MINI CARD
+        ===================================================== */
+
+        .vendor-mini-profile {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 11px;
+
+            padding: 12px;
+
+            margin:
+                0 2px
+                22px;
+
+            border-radius: 14px;
+
+            background:
+                rgba(255,255,255,0.055);
+
+            border:
+                1px solid
+                rgba(255,255,255,0.06);
+        }
+
+
+        .vendor-mini-icon {
+
+            width: 39px;
+
+            height: 39px;
+
+            min-width: 39px;
+
+            border-radius: 50%;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            background:
+                rgba(216,181,106,0.15);
+
+            color: #d8b56a;
+
+            font-size: 17px;
+        }
+
+
+        .vendor-mini-text strong {
+
+            display: block;
+
+            color: white;
+
+            font-size: 12px;
+
+            font-weight: 700;
+        }
+
+
+        .vendor-mini-text span {
+
+            display: block;
+
+            color:
+                rgba(255,255,255,0.45);
+
+            font-size: 10px;
+
+            margin-top: 2px;
+        }
+
+
+
+        /* =====================================================
+           NAVIGATION SECTION TITLE
+        ===================================================== */
+
+        .vendor-nav-section {
+
+            margin-top: 19px;
+
+            margin-bottom: 8px;
+
+            padding:
+                0 12px;
+        }
+
+
+        .vendor-nav-title {
+
+            color:
+                rgba(216,181,106,0.72);
+
+            font-size: 9px;
+
+            font-weight: 800;
+
+            letter-spacing: 1.7px;
+
+            text-transform: uppercase;
+        }
+
+
+
+        /* =====================================================
+           NAVIGATION
+        ===================================================== */
+
+        .vendor-nav {
+
+            display: flex;
+
+            flex-direction: column;
+
+            gap: 4px;
+        }
+
+
+        .vendor-nav a {
+
+            position: relative;
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 13px;
+
+            min-height: 45px;
+
+            padding:
+                10px
+                13px;
+
+            border-radius: 11px;
+
+            color:
+                rgba(255,255,255,0.67);
+
+            font-size: 13px;
+
+            font-weight: 600;
+
+            transition:
+                all 0.25s ease;
+        }
+
+
+        .vendor-nav a i {
+
+            width: 21px;
+
+            min-width: 21px;
+
+            text-align: center;
+
+            font-size: 17px;
+
+            color:
+                rgba(255,255,255,0.55);
+
+            transition:
+                all 0.25s ease;
+        }
+
+
+        .vendor-nav a span {
+
+            flex: 1;
+        }
+
+
+        /* Arrow */
+
+        .nav-arrow {
+
+            font-size: 11px !important;
+
+            width: auto !important;
+
+            min-width: auto !important;
+
+            color:
+                rgba(255,255,255,0.22) !important;
+        }
+
+
+        /* Hover */
+
+        .vendor-nav a:hover {
+
+            background:
+                rgba(255,255,255,0.075);
+
+            color: #ffffff;
+
+            transform:
+                translateX(3px);
+        }
+
+
+        .vendor-nav a:hover i {
+
+            color: #d8b56a;
+        }
+
+
+        .vendor-nav a:hover .nav-arrow {
+
+            color: #d8b56a !important;
+        }
+
+
+        /* Active */
+
+        .vendor-nav a.active {
+
+            background:
+                linear-gradient(
+                    90deg,
+                    rgba(216,181,106,0.19),
+                    rgba(216,181,106,0.07)
+                );
+
+            color: #ffffff;
+
+            border:
+                1px solid
+                rgba(216,181,106,0.13);
+
+            box-shadow:
+                inset 3px 0 0 #d8b56a;
+        }
+
+
+        .vendor-nav a.active i {
+
+            color: #d8b56a;
+        }
+
+
+        /* =====================================================
+           LOGOUT
+        ===================================================== */
+
+        .vendor-logout {
+
+            margin-top: 8px;
+        }
+
+
+        .vendor-logout a {
+
+            color:
+                rgba(255,255,255,0.65);
+        }
+
+
+        .vendor-logout a:hover {
+
+            background:
+                rgba(180,60,60,0.13);
+
+            color: #ffffff;
+        }
+
+
+        .vendor-logout a:hover i {
+
+            color: #e7a3a3;
+        }
+
+
+
+        /* =====================================================
+           SIDEBAR BOTTOM
+        ===================================================== */
+
+        .vendor-sidebar-bottom {
+
+            margin-top: 25px;
+
+            padding:
+                15px 12px
+                5px;
+
+            border-top:
+                1px solid
+                rgba(255,255,255,0.08);
+
+            color:
+                rgba(255,255,255,0.30);
+
+            font-size: 9px;
+
+            line-height: 1.6;
+        }
+
+
+
+        /* =====================================================
+           MAIN AREA
+        ===================================================== */
+
+        .vendor-main {
+
+            margin-left: 270px;
+
+            min-height: 100vh;
+
+            display: flex;
+
+            flex-direction: column;
+        }
+
+
+
+        /* =====================================================
+           TOPBAR
+        ===================================================== */
+
+        .vendor-topbar {
+
+            height: 78px;
+
+            background: #ffffff;
+
+            border-bottom:
+                1px solid #e6ece7;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            padding:
+                0 35px;
+
+            position: sticky;
+
+            top: 0;
+
+            z-index: 900;
+
+            box-shadow:
+                0 3px 15px
+                rgba(15,50,30,0.03);
+        }
+
+
+        .vendor-page-title h1 {
+
+            margin: 0;
+
+            color: #173d2b;
+
+            font-size: 21px;
+
+            font-weight: 700;
+        }
+
+
+        .vendor-page-title p {
+
+            margin:
+                4px 0 0;
+
+            color: #8a958e;
+
+            font-size: 11px;
+        }
+
+
+
+        /* =====================================================
+           TOPBAR ACCOUNT
+        ===================================================== */
+
+        .vendor-account {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 11px;
+
+            padding:
+                6px 10px;
+
+            border-radius: 12px;
+
+            transition: 0.25s ease;
+        }
+
+
+        .vendor-account:hover {
+
+            background: #f5f8f5;
+        }
+
+
+        .vendor-account-icon {
+
+            width: 41px;
+
+            height: 41px;
+
+            border-radius: 50%;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            background:
+                #edf4ef;
+
+            border:
+                1px solid #dce9df;
+
+            color: #173d2b;
+
+            font-size: 18px;
+        }
+
+
+        .vendor-account-text strong {
+
+            display: block;
+
+            color: #173d2b;
+
+            font-size: 12px;
+
+            font-weight: 700;
+        }
+
+
+        .vendor-account-text span {
+
+            display: block;
+
+            color: #8a958e;
+
+            font-size: 10px;
+
+            margin-top: 2px;
+        }
+
+
+
+        /* =====================================================
+           CONTENT
+        ===================================================== */
+
+        .vendor-content {
+
+            flex: 1;
+
+            padding: 35px;
+        }
+
+
+
+        /* =====================================================
+           FOOTER
+        ===================================================== */
+
+        .vendor-footer {
+
+            margin-left: 270px;
+
+            padding:
+                18px 35px;
+
+            background: #ffffff;
+
+            border-top:
+                1px solid #e6ece7;
+
+            color: #89948e;
+
+            font-size: 11px;
+
+            text-align: center;
+        }
+
+
+
+        /* =====================================================
+           MOBILE TOGGLE
+        ===================================================== */
+
+        .vendor-mobile-header {
+
+            display: none;
+
+            height: 65px;
+
+            background:
+                #123b29;
+
+            color: white;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            padding:
+                0 18px;
+        }
+
+
+        .vendor-mobile-brand {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 9px;
+
+            color: white;
+
+            font-weight: 700;
+        }
+
+
+        .vendor-mobile-brand i {
+
+            color: #d8b56a;
+        }
+
+
+        .vendor-mobile-menu {
+
+            border: none;
+
+            background:
+                rgba(255,255,255,0.08);
+
+            color: white;
+
+            width: 40px;
+
+            height: 40px;
+
+            border-radius: 10px;
+        }
+
+
+
+        /* =====================================================
+           TABLET
+        ===================================================== */
+
+        @media(max-width: 1000px) {
+
+            .vendor-sidebar {
+
+                width: 235px;
+            }
+
+
+            .vendor-main {
+
+                margin-left: 235px;
+            }
+
+
+            .vendor-footer {
+
+                margin-left: 235px;
+            }
+
+
+            .vendor-topbar {
+
+                padding:
+                    0 25px;
+            }
+
+
+            .vendor-content {
+
+                padding: 25px;
+            }
+
+        }
+
+
+
+        /* =====================================================
+           MOBILE
+        ===================================================== */
+
+        @media(max-width: 768px) {
+
+            .vendor-sidebar {
+
+                position: relative;
+
+                width: 100%;
+
+                height: auto;
+
+                min-height: auto;
+
+                padding: 15px;
+
+                overflow: visible;
+            }
+
+
+            .vendor-main {
+
+                margin-left: 0;
+            }
+
+
+            .vendor-footer {
+
+                margin-left: 0;
+            }
+
+
+            .vendor-logo {
+
+                margin-bottom: 15px;
+            }
+
+
+            .vendor-mini-profile {
+
+                margin-bottom: 15px;
+            }
+
+
+            .vendor-nav {
+
+                display: grid;
+
+                grid-template-columns:
+                    repeat(2, 1fr);
+
+                gap: 5px;
+            }
+
+
+            .vendor-nav-section {
+
+                margin-top: 15px;
+            }
+
+
+            .vendor-topbar {
+
+                height: 70px;
+
+                padding:
+                    0 18px;
+            }
+
+
+            .vendor-page-title h1 {
+
+                font-size: 18px;
+            }
+
+
+            .vendor-page-title p {
+
+                display: none;
+            }
+
+
+            .vendor-content {
+
+                padding: 20px;
+            }
+
+        }
+
+
+
+        /* =====================================================
+           SMALL MOBILE
+        ===================================================== */
+
+        @media(max-width: 480px) {
+
+            .vendor-nav {
+
+                grid-template-columns: 1fr;
+            }
+
+
+            .vendor-account-text {
+
+                display: none;
+            }
+
+
+            .vendor-account {
+
+                padding: 0;
+            }
+
+
+            .vendor-topbar {
+
+                padding:
+                    0 15px;
+            }
+
+
+            .vendor-content {
+
+                padding: 15px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<!-- =====================================================
+     VENDOR SIDEBAR
+===================================================== -->
+
+<aside class="vendor-sidebar">
+
+
+    <!-- LOGO -->
+
+    <a href="{% url 'VDashboard' %}"
+       class="vendor-logo">
+
+        <div class="vendor-logo-icon">
+
+            <i class="bi bi-flower1"></i>
+
+        </div>
+
+
+        <div class="vendor-logo-text">
+
+            <strong>
+                GreenNest
+            </strong>
+
+            <span>
+                VENDOR MANAGEMENT
+            </span>
+
+        </div>
+
+    </a>
+
+
+
+    <!-- PROFILE -->
+
+    <div class="vendor-mini-profile">
+
+        <div class="vendor-mini-icon">
+
+            <i class="bi bi-person-fill"></i>
+
+        </div>
+
+
+        <div class="vendor-mini-text">
+
+            <strong>
+                Vendor Account
+            </strong>
+
+            <span>
+                GreenNest Seller
+            </span>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- =================================================
+         MANAGEMENT
+    ================================================== -->
+
+    <div class="vendor-nav-section">
+
+        <div class="vendor-nav-title">
+            Management
+        </div>
+
+    </div>
+
+
+    <nav class="vendor-nav">
+
+
+        <!-- Dashboard -->
+
+        <a href="{% url 'VDashboard' %}"
+           class="active">
+
+            <i class="bi bi-grid-1x2-fill"></i>
+
+            <span>
+                Dashboard
+            </span>
+
+        </a>
+
+
+        <!-- My Products -->
+
+        <!-- My Products -->
+
+<a href="{% url 'MyProducts' %}">
+
+    <i class="bi bi-box-seam"></i>
+
+    <span>
+        My Products
+    </span>
+
+    <i class="bi bi-chevron-right nav-arrow"></i>
+
+</a>
+
+        <!-- Add Product -->
+
+        <a href="{% url 'AddProduct' %}">
+    <i class="bi bi-box-seam"></i>
+    <span>Add Products</span>
+</a>
+
+        
+
+
+        <!-- Orders -->
+
+        <a href="{% url 'vorders' %}">
+
+            <i class="bi bi-cart-check"></i>
+
+            <span>
+                Orders
+            </span>
+
+            <i class="bi bi-chevron-right nav-arrow"></i>
+
+        </a>
+
+
+        <!-- Inventory -->
+
+        <a href="#">
+
+            <i class="bi bi-boxes"></i>
+
+            <span>
+                Inventory
+            </span>
+
+        </a>
+
+
+        <!-- Sales Report -->
+
+        <a href="{% url 'SalesReport' %}">
+
+            <i class="bi bi-graph-up-arrow"></i>
+
+            <span>
+                Sales Report
+            </span>
+
+        </a>
+
+        <li>
+    <a href="{% url 'VendorReviews' %}">
+        <i class="bi bi-star"></i>
+        <span>Customer Reviews</span>
+    </a>
+</li>
+
+
+    </nav>
+
+
+
+    <!-- =================================================
+         ACCOUNT
+    ================================================== -->
+
+    <div class="vendor-nav-section">
+
+        <div class="vendor-nav-title">
+            Account
+        </div>
+
+    </div>
+
+
+    <nav class="vendor-nav">
+
+
+        <!-- My Profile -->
+
+        <a href="{% url 'vviewprofile' %}">
+
+            <i class="bi bi-person-circle"></i>
+
+            <span>
+                My Profile
+            </span>
+
+        </a>
+
+
+        <!-- Change Password -->
+
+        <a href="{% url 'vcpassword' %}">
+
+            <i class="bi bi-shield-lock"></i>
+
+            <span>
+                Change Password
+            </span>
+
+        </a>
+
+
+        <!-- Logout -->
+
+        <div class="vendor-logout">
+
+            <a href="{% url 'logout' %}">
+
+                <i class="bi bi-box-arrow-right"></i>
+
+                <span>
+                    Logout
+                </span>
+
+            </a>
+
+        </div>
+
+
+    </nav>
+
+
+
+    <!-- SIDEBAR FOOTER -->
+
+    <div class="vendor-sidebar-bottom">
+
+        GreenNest Vendor Management Panel
+
+        <br>
+
+        © 2026 GreenNest
+
+    </div>
+
+
+</aside>
+
+
+
+<!-- =====================================================
+     MAIN
+===================================================== -->
+
+<main class="vendor-main">
+
+
+    <!-- =================================================
+         TOPBAR
+    ================================================== -->
+
+    <header class="vendor-topbar">
+
+
+        <div class="vendor-page-title">
+
+            <h1>
+
+                {% block page_heading %}
+                Vendor Dashboard
+                {% endblock %}
+
+            </h1>
+
+
+            <p>
+                Manage your GreenNest business
+            </p>
+
+        </div>
+
+
+
+        <!-- ACCOUNT -->
+
+        <div class="vendor-account">
+
+            <div class="vendor-account-icon">
+
+                <i class="bi bi-person-fill"></i>
+
+            </div>
+
+
+            <div class="vendor-account-text">
+
+                <strong>
+                    Vendor Account
+                </strong>
+
+                <span>
+                    GreenNest Seller
+                </span>
+
+            </div>
+
+        </div>
+
+
+    </header>
+
+
+
+    <!-- =================================================
+         PAGE CONTENT
+    ================================================== -->
+
+    <section class="vendor-content">
+
+        {% block content %}
+
+        {% endblock %}
+
+    </section>
+
+
+</main>
+
+
+
+<!-- =====================================================
+     FOOTER
+===================================================== -->
+
+<footer class="vendor-footer">
+
+    © 2026 GreenNest.
+    All Rights Reserved.
+    &nbsp; | &nbsp;
+    Vendor Management Panel
+
+</footer>
+
+
+
+<!-- Bootstrap JS -->
+
+<script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+
+
+</body>
+
+</html>

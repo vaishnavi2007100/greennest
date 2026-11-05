@@ -1,0 +1,498 @@
+{% extends "store/Manager/managermaster.html" %}
+{% load static %}
+
+{% block title %}
+Add Category | GreenNest Manager
+{% endblock %}
+
+{% block page_heading %}
+Add Category
+{% endblock %}
+
+{% block content %}
+
+<style>
+
+/* =========================================================
+   ADD CATEGORY PAGE
+========================================================= */
+
+.category-page {
+    max-width: 850px;
+    margin: 0 auto;
+    padding: 20px 0 50px;
+}
+
+
+/* =========================================================
+   ALERT MESSAGE
+========================================================= */
+
+.category-message {
+    margin-bottom: 25px;
+}
+
+.category-message .alert {
+    border-radius: 12px;
+    padding: 14px 18px;
+    font-weight: 500;
+    border: none;
+}
+
+.category-message .alert-success {
+    background: #e8f5e9;
+    color: #1b5e20;
+}
+
+.category-message .alert-error {
+    background: #fdecea;
+    color: #b71c1c;
+}
+
+
+/* =========================================================
+   CARD
+========================================================= */
+
+.category-card {
+    background: #ffffff;
+    border-radius: 22px;
+    padding: 40px;
+    box-shadow: 0 12px 35px rgba(0, 0, 0, 0.08);
+    border: 1px solid #e8eee8;
+}
+
+
+/* =========================================================
+   HEADER
+========================================================= */
+
+.category-header {
+    text-align: center;
+    margin-bottom: 35px;
+}
+
+.category-icon {
+    width: 75px;
+    height: 75px;
+    margin: 0 auto 18px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 20px;
+
+    background: linear-gradient(
+        135deg,
+        #174c2c,
+        #3d7a4d
+    );
+
+    color: #ffffff;
+
+    font-size: 32px;
+
+    box-shadow:
+        0 10px 25px rgba(23, 76, 44, 0.25);
+}
+
+.category-header h2 {
+    color: #174c2c;
+    font-weight: 700;
+    margin-bottom: 8px;
+}
+
+.category-header p {
+    color: #777;
+    margin-bottom: 0;
+}
+
+
+/* =========================================================
+   FORM
+========================================================= */
+
+.form-label {
+    font-weight: 600;
+    color: #294735;
+    margin-bottom: 9px;
+}
+
+.form-control,
+.form-select {
+    min-height: 52px;
+    border-radius: 12px;
+    border: 1px solid #dce5dc;
+    padding: 12px 15px;
+}
+
+.form-control:focus,
+.form-select:focus {
+    border-color: #3d7a4d;
+    box-shadow: 0 0 0 0.2rem rgba(61, 122, 77, 0.12);
+}
+
+
+/* =========================================================
+   TEXTAREA
+========================================================= */
+
+textarea.form-control {
+    min-height: 130px;
+    resize: vertical;
+}
+
+
+/* =========================================================
+   BUTTONS
+========================================================= */
+
+.btn-area {
+    display: flex;
+    gap: 12px;
+    margin-top: 30px;
+}
+
+.btn-add-category {
+    flex: 1;
+
+    min-height: 52px;
+
+    border: none;
+    border-radius: 12px;
+
+    background: linear-gradient(
+        135deg,
+        #174c2c,
+        #3d7a4d
+    );
+
+    color: white;
+    font-weight: 600;
+
+    transition: 0.3s;
+}
+
+.btn-add-category:hover {
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 8px 20px rgba(23, 76, 44, 0.25);
+
+    color: white;
+}
+
+.btn-cancel {
+    min-height: 52px;
+
+    padding: 0 28px;
+
+    border-radius: 12px;
+
+    border: 1px solid #d8e1d8;
+
+    background: #f7faf7;
+
+    color: #36523d;
+
+    font-weight: 600;
+}
+
+.btn-cancel:hover {
+    background: #edf4ed;
+}
+
+
+/* =========================================================
+   REQUIRED
+========================================================= */
+
+.required {
+    color: #dc3545;
+}
+
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media (max-width: 768px) {
+
+    .category-card {
+        padding: 25px 20px;
+    }
+
+    .btn-area {
+        flex-direction: column;
+    }
+
+    .btn-cancel {
+        width: 100%;
+    }
+
+}
+
+</style>
+
+
+<div class="category-page">
+
+    <div class="category-card">
+
+
+        <!-- =================================================
+             SUCCESS / ERROR MESSAGE
+        ================================================== -->
+
+        {% if messages %}
+
+            <div class="category-message">
+
+                {% for message in messages %}
+
+                    <div
+                        class="alert alert-{{ message.tags }} alert-dismissible fade show"
+                        role="alert"
+                    >
+
+                        {% if message.tags == "success" %}
+
+                            <i class="bi bi-check-circle-fill me-2"></i>
+
+                        {% elif message.tags == "error" %}
+
+                            <i class="bi bi-exclamation-circle-fill me-2"></i>
+
+                        {% endif %}
+
+                        {{ message }}
+
+                        <button
+                            type="button"
+                            class="btn-close"
+                            data-bs-dismiss="alert"
+                            aria-label="Close"
+                        ></button>
+
+                    </div>
+
+                {% endfor %}
+
+            </div>
+
+        {% endif %}
+
+
+        <!-- =================================================
+             HEADER
+        ================================================== -->
+
+        <div class="category-header">
+
+            <div class="category-icon">
+
+                <i class="bi bi-grid-3x3-gap-fill"></i>
+
+            </div>
+
+            <h2>
+                Add New Category
+            </h2>
+
+            <p>
+                Create a new plant category for GreenNest.
+            </p>
+
+        </div>
+
+
+        <!-- =================================================
+             FORM
+        ================================================== -->
+
+        <form method="POST">
+
+            {% csrf_token %}
+
+            <div class="row g-4">
+
+
+                <!-- =========================================
+                     CATEGORY NAME
+                ========================================== -->
+
+                <div class="col-md-12">
+
+                    <label class="form-label">
+
+                        Category Name
+
+                        <span class="required">
+                            *
+                        </span>
+
+                    </label>
+
+                    <input
+                        type="text"
+                        name="category_name"
+                        class="form-control"
+                        placeholder="Enter category name"
+                        required
+                    >
+
+                </div>
+
+
+                <!-- =========================================
+                     CATEGORY TYPE
+                ========================================== -->
+
+                <div class="col-md-6">
+
+                    <label class="form-label">
+
+                        Category Type
+
+                        <span class="required">
+                            *
+                        </span>
+
+                    </label>
+
+                    <select
+                        name="category_type"
+                        class="form-select"
+                        required
+                    >
+
+                        <option value="">
+                            Select category type
+                        </option>
+
+                        <option value="plant">
+                            Plants
+                        </option>
+
+                        <option value="pot">
+                            Decorative Pots
+                        </option>
+
+                        <option value="accessory">
+                            Plant Accessories
+                        </option>
+
+                        <option value="decor">
+                            Home Decor
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <!-- =========================================
+                     STATUS
+                ========================================== -->
+
+                <div class="col-md-6">
+
+                    <label class="form-label">
+
+                        Status
+
+                        <span class="required">
+                            *
+                        </span>
+
+                    </label>
+
+                    <select
+                        name="status"
+                        class="form-select"
+                        required
+                    >
+
+                        <option value="Active">
+                            Active
+                        </option>
+
+                        <option value="Inactive">
+                            Inactive
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <!-- =========================================
+                     DESCRIPTION
+                ========================================== -->
+
+                <div class="col-md-12">
+
+                    <label class="form-label">
+
+                        Category Description
+
+                    </label>
+
+                    <textarea
+                        name="description"
+                        class="form-control"
+                        placeholder="Enter a short description about this category..."
+                    ></textarea>
+
+                </div>
+
+
+            </div>
+
+
+            <!-- =================================================
+                 BUTTONS
+            ================================================== -->
+
+            <div class="btn-area">
+
+
+                <!-- ADD CATEGORY -->
+
+                <button
+                    type="submit"
+                    class="btn-add-category"
+                >
+
+                    <i class="bi bi-plus-circle me-2"></i>
+
+                    Add Category
+
+                </button>
+
+
+                <!-- CANCEL -->
+
+                <a
+                    href="{% url 'Addcategory' %}"
+                    class="btn btn-cancel d-flex align-items-center justify-content-center"
+                >
+
+                    <i class="bi bi-arrow-left me-2"></i>
+
+                    Cancel
+
+                </a>
+
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+
+{% endblock %}

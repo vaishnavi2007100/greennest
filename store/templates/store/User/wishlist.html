@@ -1,0 +1,335 @@
+{% extends "store/User/usermaster.html" %}
+
+{% block title %}
+My Wishlist | GreenNest
+{% endblock %}
+
+{% block page_heading %}
+My Wishlist
+{% endblock %}
+
+{% block content %}
+
+<style>
+
+    .wishlist-header {
+        margin-bottom: 25px;
+    }
+
+    .wishlist-header h2 {
+        font-family: 'DM Serif Display', serif;
+        color: #173c2a;
+        margin-bottom: 6px;
+    }
+
+    .wishlist-header p {
+        color: #89958d;
+        font-size: 13px;
+        margin: 0;
+    }
+
+    .wishlist-card {
+        background: #ffffff;
+        border: 1px solid #e6ece5;
+        border-radius: 18px;
+        padding: 22px;
+        box-shadow: 0 8px 25px rgba(30,70,45,0.05);
+        margin-bottom: 18px;
+    }
+
+    .wishlist-product {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+    }
+
+    .wishlist-image {
+        width: 105px;
+        height: 105px;
+        border-radius: 14px;
+        overflow: hidden;
+        background: #f2f6f1;
+        flex-shrink: 0;
+    }
+
+    .wishlist-image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    .wishlist-details {
+        flex: 1;
+    }
+
+    .wishlist-details h4 {
+        font-size: 17px;
+        font-weight: 700;
+        color: #284434;
+        margin-bottom: 7px;
+    }
+
+    .wishlist-details p {
+        font-size: 12px;
+        color: #89958d;
+        margin-bottom: 8px;
+    }
+
+    .wishlist-price {
+        font-size: 16px;
+        font-weight: 700;
+        color: #24613f;
+    }
+
+    .wishlist-actions {
+        display: flex;
+        gap: 9px;
+        flex-wrap: wrap;
+    }
+
+    .wishlist-btn {
+        border: none;
+        border-radius: 10px;
+        padding: 9px 15px;
+        font-size: 11px;
+        font-weight: 600;
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+    }
+
+    .cart-btn {
+        background: #173c2a;
+        color: white;
+    }
+
+    .cart-btn:hover {
+        background: #24613f;
+        color: white;
+    }
+
+    .remove-btn {
+        background: #fff1f1;
+        color: #c44d4d;
+        cursor: pointer;
+    }
+
+    .remove-btn:hover {
+        background: #ffe1e1;
+        color: #a63838;
+    }
+
+    .empty-wishlist {
+        text-align: center;
+        padding: 70px 20px;
+        background: white;
+        border: 1px solid #e6ece5;
+        border-radius: 18px;
+    }
+
+    .empty-wishlist-icon {
+        width: 70px;
+        height: 70px;
+        border-radius: 50%;
+        background: #f3f7f2;
+        color: #24613f;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 18px;
+        font-size: 28px;
+    }
+
+    .empty-wishlist h3 {
+        font-family: 'DM Serif Display', serif;
+        color: #173c2a;
+        margin-bottom: 8px;
+    }
+
+    .empty-wishlist p {
+        font-size: 12px;
+        color: #89958d;
+        margin-bottom: 20px;
+    }
+
+    .shop-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 7px;
+        padding: 11px 20px;
+        border-radius: 11px;
+        background: #173c2a;
+        color: white;
+        font-size: 12px;
+        font-weight: 600;
+        text-decoration: none;
+    }
+
+    .shop-btn:hover {
+        background: #24613f;
+        color: white;
+    }
+
+    @media (max-width: 650px) {
+
+        .wishlist-product {
+            align-items: flex-start;
+            flex-direction: column;
+        }
+
+        .wishlist-image {
+            width: 100%;
+            height: 180px;
+        }
+
+        .wishlist-actions {
+            width: 100%;
+        }
+
+    }
+
+</style>
+
+
+<div class="wishlist-header">
+
+    <h2>
+        My Wishlist
+    </h2>
+
+    <p>
+        Save your favorite plants and products for later.
+    </p>
+
+</div>
+
+
+{% if wishlist_items %}
+
+    {% for item in wishlist_items %}
+
+    <div class="wishlist-card">
+
+        <div class="wishlist-product">
+
+
+            <!-- PRODUCT IMAGE -->
+<div class="wishlist-image">
+
+    {% if item.image %}
+        <img src="/static/product_images/{{ item.image }}"
+             alt="{{ item.product_name }}">
+    {% else %}
+        <img src="/static/images/plant1.jpg"
+             alt="{{ item.product_name }}">
+    {% endif %}
+
+</div>
+
+
+            <!-- PRODUCT DETAILS -->
+
+            <div class="wishlist-details">
+
+                <h4>
+                    {{ item.product_name }}
+                </h4>
+
+                <p>
+                    {{ item.description|default:"Beautiful GreenNest product" }}
+                </p>
+
+                <div class="wishlist-price">
+                    ₹{{ item.price }}
+                </div>
+
+            </div>
+
+
+            <!-- ACTIONS -->
+
+            <div class="wishlist-actions">
+
+                <!-- ADD TO CART -->
+
+                <a href="{% url 'AddToCart' item.product_id %}"
+                   class="wishlist-btn cart-btn">
+
+                    <i class="bi bi-cart-plus"></i>
+
+                    Add to Cart
+
+                </a>
+
+
+                <!-- REMOVE FROM WISHLIST -->
+
+               <form method="POST" action="{% url 'wishlist' %}" style="margin:0;">
+
+    {% csrf_token %}
+
+    <input type="hidden"
+           name="action"
+           value="remove">
+
+    <input type="hidden"
+           name="wishlist_id"
+           value="{{ item.id }}">
+
+    <button type="submit"
+            class="wishlist-btn remove-btn">
+
+        <i class="bi bi-trash3"></i>
+
+        Remove
+
+    </button>
+
+</form>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    {% endfor %}
+
+
+{% else %}
+
+
+    <!-- EMPTY WISHLIST -->
+
+    <div class="empty-wishlist">
+
+        <div class="empty-wishlist-icon">
+
+            <i class="bi bi-heart"></i>
+
+        </div>
+
+        <h3>
+            Your Wishlist is Empty
+        </h3>
+
+        <p>
+            You haven't added any products to your wishlist yet.
+        </p>
+
+        <a href="{% url 'plant' %}"
+           class="shop-btn">
+
+            <i class="bi bi-shop"></i>
+
+            Continue Shopping
+
+        </a>
+
+    </div>
+
+{% endif %}
+
+
+{% endblock %}

@@ -1,0 +1,1625 @@
+{% extends "store/base.html" %}
+{% load static %}
+
+{% block title %}Winter Collection | GreenNest{% endblock %}
+
+{% block content %}
+
+<style>
+
+/* =====================================================
+   GREENNEST WINTER COLLECTION
+===================================================== */
+
+.winter-page{
+    background:#f7faf9;
+    color:#25342f;
+    overflow:hidden;
+}
+
+
+/* =====================================================
+   HERO
+===================================================== */
+
+.winter-hero{
+    min-height:540px;
+
+    display:flex;
+    align-items:center;
+
+    position:relative;
+    overflow:hidden;
+
+    background:
+        linear-gradient(
+            90deg,
+            rgba(25,61,58,.95),
+            rgba(25,61,58,.72),
+            rgba(25,61,58,.16)
+        ),
+        url("https://images.unsplash.com/photo-1485955900006-10f4d324d411?auto=format&fit=crop&w=1900&q=90")
+        center/cover;
+}
+
+.winter-hero-content{
+    max-width:1250px;
+    width:100%;
+
+    margin:auto;
+
+    padding:80px 25px;
+
+    color:white;
+}
+
+.winter-label{
+    display:inline-block;
+
+    padding:9px 18px;
+
+    border:1px solid rgba(255,255,255,.4);
+
+    background:rgba(255,255,255,.12);
+
+    backdrop-filter:blur(5px);
+
+    border-radius:30px;
+
+    font-size:11px;
+
+    font-weight:800;
+
+    letter-spacing:2px;
+
+    text-transform:uppercase;
+
+    margin-bottom:22px;
+}
+
+.winter-hero h1{
+    font-family:Georgia,serif;
+
+    font-size:clamp(48px,7vw,78px);
+
+    line-height:1.05;
+
+    max-width:760px;
+
+    margin:0 0 20px;
+}
+
+.winter-hero p{
+    max-width:650px;
+
+    color:#e6f0ee;
+
+    line-height:1.8;
+
+    font-size:17px;
+
+    margin-bottom:30px;
+}
+
+.winter-btn{
+    display:inline-block;
+
+    padding:14px 30px;
+
+    border-radius:30px;
+
+    background:#9ebdb7;
+
+    color:white;
+
+    text-decoration:none;
+
+    font-size:13px;
+
+    font-weight:700;
+
+    transition:.3s;
+}
+
+.winter-btn:hover{
+    background:white;
+
+    color:#214e49;
+
+    transform:translateY(-3px);
+}
+
+
+/* =====================================================
+   INTRO
+===================================================== */
+
+.winter-intro{
+    max-width:900px;
+
+    margin:auto;
+
+    text-align:center;
+
+    padding:75px 20px 55px;
+}
+
+.winter-intro small,
+.winter-heading small{
+    color:#608d86;
+
+    font-size:11px;
+
+    font-weight:800;
+
+    letter-spacing:3px;
+
+    text-transform:uppercase;
+}
+
+.winter-intro h2,
+.winter-heading h2{
+    font-family:Georgia,serif;
+
+    color:#28554f;
+
+    font-size:43px;
+
+    margin:12px 0 15px;
+}
+
+.winter-intro p,
+.winter-heading p{
+    color:#71817d;
+
+    line-height:1.8;
+
+    max-width:700px;
+
+    margin:auto;
+}
+
+
+/* =====================================================
+   HIGHLIGHTS
+===================================================== */
+
+.winter-highlights{
+    max-width:1200px;
+
+    margin:0 auto 75px;
+
+    padding:0 20px;
+}
+
+.winter-highlight-grid{
+    display:grid;
+
+    grid-template-columns:repeat(4,1fr);
+
+    gap:16px;
+}
+
+.winter-highlight{
+    background:white;
+
+    border:1px solid #dfeae7;
+
+    border-radius:18px;
+
+    padding:25px 15px;
+
+    text-align:center;
+
+    transition:.3s;
+}
+
+.winter-highlight:hover{
+    transform:translateY(-5px);
+
+    box-shadow:0 12px 30px rgba(40,85,79,.10);
+}
+
+.winter-highlight-icon{
+    font-size:27px;
+
+    margin-bottom:10px;
+}
+
+.winter-highlight strong{
+    display:block;
+
+    color:#28554f;
+
+    font-size:14px;
+
+    margin-bottom:5px;
+}
+
+.winter-highlight span{
+    color:#7e8d88;
+
+    font-size:11px;
+}
+
+
+/* =====================================================
+   PRODUCT SECTION
+===================================================== */
+
+.winter-section{
+    max-width:1250px;
+
+    margin:auto;
+
+    padding:20px 20px 80px;
+}
+
+.winter-heading{
+    text-align:center;
+
+    margin-bottom:42px;
+}
+
+
+/* =====================================================
+   PRODUCT GRID
+===================================================== */
+
+.winter-products{
+    display:grid;
+
+    grid-template-columns:repeat(4,1fr);
+
+    gap:22px;
+}
+
+.winter-card{
+    background:white;
+
+    border:1px solid #dfeae7;
+
+    border-radius:18px;
+
+    overflow:hidden;
+
+    transition:.35s;
+}
+
+.winter-card:hover{
+    transform:translateY(-8px);
+
+    box-shadow:
+        0 18px 40px rgba(40,85,79,.13);
+}
+
+.winter-img{
+    height:280px;
+
+    position:relative;
+
+    overflow:hidden;
+
+    background:#edf5f3;
+}
+
+.winter-img img{
+    width:100%;
+
+    height:100%;
+
+    object-fit:cover;
+
+    transition:.5s;
+}
+
+.winter-card:hover .winter-img img{
+    transform:scale(1.07);
+}
+
+
+/* BADGE */
+
+.winter-badge{
+    position:absolute;
+
+    left:13px;
+
+    top:13px;
+
+    z-index:2;
+
+    padding:7px 12px;
+
+    background:#28554f;
+
+    color:white;
+
+    border-radius:20px;
+
+    font-size:9px;
+
+    font-weight:800;
+
+    letter-spacing:1px;
+}
+
+
+/* WISHLIST */
+
+.winter-heart{
+    position:absolute;
+
+    right:13px;
+
+    top:13px;
+
+    z-index:2;
+
+    width:38px;
+
+    height:38px;
+
+    border-radius:50%;
+
+    background:rgba(255,255,255,.95);
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    color:#61736f;
+
+    text-decoration:none;
+
+    font-size:20px;
+
+    transition:.3s;
+}
+
+.winter-heart:hover{
+    background:#28554f;
+
+    color:white;
+
+    transform:scale(1.08);
+}
+
+
+/* PRODUCT BODY */
+
+.winter-body{
+    padding:18px;
+}
+
+.winter-category{
+    color:#81918c;
+
+    font-size:10px;
+
+    font-weight:800;
+
+    letter-spacing:1.2px;
+
+    text-transform:uppercase;
+}
+
+.winter-body h3{
+    font-family:Georgia,serif;
+
+    color:#28554f;
+
+    font-size:19px;
+
+    margin:7px 0;
+}
+
+.winter-stars{
+    color:#c39a4e;
+
+    font-size:13px;
+
+    margin-bottom:10px;
+}
+
+.winter-stars span{
+    color:#87928f;
+
+    font-size:11px;
+
+    margin-left:4px;
+}
+
+.winter-price{
+    display:flex;
+
+    flex-wrap:wrap;
+
+    gap:7px;
+
+    align-items:center;
+
+    margin-bottom:15px;
+}
+
+.winter-price strong{
+    color:#28554f;
+
+    font-size:18px;
+}
+
+.winter-price del{
+    color:#a1aba7;
+
+    font-size:12px;
+}
+
+.winter-off{
+    color:#56847b;
+
+    font-size:10px;
+
+    font-weight:800;
+}
+
+
+/* ADD TO CART */
+
+.winter-cart{
+    display:block;
+
+    text-align:center;
+
+    padding:11px;
+
+    background:#28554f;
+
+    color:white;
+
+    border-radius:9px;
+
+    text-decoration:none;
+
+    font-size:12px;
+
+    font-weight:700;
+
+    transition:.3s;
+}
+
+.winter-cart:hover{
+    background:#47766f;
+
+    color:white;
+
+    transform:translateY(-2px);
+}
+
+
+/* =====================================================
+   WINTER FLOWERS
+===================================================== */
+
+.winter-flower-area{
+    background:#edf5f3;
+
+    padding:80px 20px;
+
+    margin-bottom:75px;
+}
+
+.winter-flower-inner{
+    max-width:1250px;
+
+    margin:auto;
+}
+
+.winter-flower-grid{
+    display:grid;
+
+    grid-template-columns:repeat(4,1fr);
+
+    gap:22px;
+}
+
+.winter-flower{
+    background:white;
+
+    border-radius:18px;
+
+    overflow:hidden;
+
+    border:1px solid #dce8e5;
+
+    transition:.35s;
+}
+
+.winter-flower:hover{
+    transform:translateY(-7px);
+
+    box-shadow:
+        0 15px 35px rgba(40,85,79,.12);
+}
+
+.winter-flower img{
+    width:100%;
+
+    height:245px;
+
+    object-fit:cover;
+
+    transition:.5s;
+}
+
+.winter-flower:hover img{
+    transform:scale(1.05);
+}
+
+.winter-flower-body{
+    padding:20px;
+}
+
+.winter-flower-body small{
+    color:#608d86;
+
+    font-size:10px;
+
+    font-weight:800;
+
+    letter-spacing:2px;
+
+    text-transform:uppercase;
+}
+
+.winter-flower-body h3{
+    color:#28554f;
+
+    font-family:Georgia,serif;
+
+    font-size:20px;
+
+    margin:8px 0;
+}
+
+.winter-flower-body p{
+    color:#71817d;
+
+    font-size:12px;
+
+    line-height:1.7;
+
+    margin:0;
+}
+
+
+/* =====================================================
+   DECOR
+===================================================== */
+
+.winter-decor{
+    max-width:1250px;
+
+    margin:auto;
+
+    padding:0 20px 80px;
+}
+
+.winter-decor-grid{
+    display:grid;
+
+    grid-template-columns:repeat(3,1fr);
+
+    gap:23px;
+}
+
+.winter-decor-card{
+    min-height:350px;
+
+    position:relative;
+
+    overflow:hidden;
+
+    border-radius:20px;
+}
+
+.winter-decor-card img{
+    width:100%;
+
+    height:100%;
+
+    position:absolute;
+
+    inset:0;
+
+    object-fit:cover;
+
+    transition:.6s;
+}
+
+.winter-decor-card:hover img{
+    transform:scale(1.08);
+}
+
+.winter-overlay{
+    position:absolute;
+
+    inset:0;
+
+    background:
+        linear-gradient(
+            to top,
+            rgba(20,54,50,.92),
+            rgba(20,54,50,.05)
+        );
+}
+
+.winter-decor-content{
+    position:absolute;
+
+    bottom:0;
+
+    left:0;
+
+    right:0;
+
+    padding:28px;
+
+    color:white;
+
+    z-index:2;
+}
+
+.winter-decor-content small{
+    color:#b9d8d1;
+
+    font-size:10px;
+
+    font-weight:800;
+
+    letter-spacing:2px;
+}
+
+.winter-decor-content h3{
+    font-family:Georgia,serif;
+
+    font-size:27px;
+
+    margin:7px 0;
+}
+
+.winter-decor-content p{
+    color:#dce8e5;
+
+    font-size:12px;
+
+    line-height:1.6;
+
+    margin-bottom:12px;
+}
+
+.winter-decor-content a{
+    color:white;
+
+    text-decoration:none;
+
+    font-size:12px;
+
+    font-weight:700;
+
+    transition:.3s;
+}
+
+.winter-decor-content a:hover{
+    color:#b9d8d1;
+}
+
+
+/* =====================================================
+   FINAL CTA
+===================================================== */
+
+.winter-final{
+    max-width:1250px;
+
+    margin:0 auto 75px;
+
+    padding:75px 25px;
+
+    text-align:center;
+
+    border-radius:25px;
+
+    background:
+        linear-gradient(
+            rgba(32,72,67,.93),
+            rgba(32,72,67,.93)
+        ),
+        url("https://images.unsplash.com/photo-1485955900006-10f4d324d411?auto=format&fit=crop&w=1600&q=90")
+        center/cover;
+
+    color:white;
+}
+
+.winter-final h2{
+    font-family:Georgia,serif;
+
+    font-size:42px;
+
+    margin-bottom:12px;
+}
+
+.winter-final p{
+    max-width:650px;
+
+    margin:0 auto 25px;
+
+    color:#dce8e5;
+
+    line-height:1.7;
+}
+
+
+/* =====================================================
+   RESPONSIVE
+===================================================== */
+
+@media(max-width:1050px){
+
+    .winter-products,
+    .winter-flower-grid{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+    .winter-highlight-grid{
+        grid-template-columns:repeat(2,1fr);
+    }
+}
+
+
+@media(max-width:800px){
+
+    .winter-decor-grid{
+        grid-template-columns:1fr;
+    }
+
+    .winter-decor-card{
+        min-height:400px;
+    }
+
+    .winter-hero-content{
+        padding:70px 25px;
+    }
+}
+
+
+@media(max-width:600px){
+
+    .winter-hero{
+        min-height:540px;
+    }
+
+    .winter-hero h1{
+        font-size:45px;
+    }
+
+    .winter-hero p{
+        font-size:15px;
+    }
+
+    .winter-intro{
+        padding-top:55px;
+    }
+
+    .winter-intro h2,
+    .winter-heading h2{
+        font-size:34px;
+    }
+
+    .winter-products,
+    .winter-flower-grid{
+        grid-template-columns:1fr;
+    }
+
+    .winter-highlight-grid{
+        grid-template-columns:1fr 1fr;
+    }
+
+    .winter-final{
+        margin-left:15px;
+
+        margin-right:15px;
+
+        padding:55px 20px;
+    }
+
+    .winter-final h2{
+        font-size:34px;
+    }
+}
+
+
+@media(max-width:420px){
+
+    .winter-highlight-grid{
+        grid-template-columns:1fr;
+    }
+
+    .winter-hero h1{
+        font-size:39px;
+    }
+
+    .winter-btn{
+        padding:13px 24px;
+    }
+}
+
+</style>
+
+
+<div class="winter-page">
+
+
+<!-- =====================================================
+     HERO
+===================================================== -->
+
+<section class="winter-hero">
+
+    <div class="winter-hero-content">
+
+        <span class="winter-label">
+            GreenNest • Winter Collection
+        </span>
+
+        <h1>
+            Cozy Corners, Calm Greens.
+        </h1>
+
+        <p>
+            Bring life into your winter home with beautiful
+            indoor plants, winter-friendly flowers, elegant
+            planters and cozy nature-inspired décor.
+        </p>
+
+        <!-- PLANT PAGE -->
+        <a href="{% url 'plant' %}" class="winter-btn">
+            Shop Winter
+        </a>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     INTRO
+===================================================== -->
+
+<section class="winter-intro">
+
+    <small>
+        Winter Collection
+    </small>
+
+    <h2>
+        Keep Your Home Green Through Winter
+    </h2>
+
+    <p>
+        Discover indoor-friendly plants, winter blooms and
+        beautiful décor designed to make your home feel fresh,
+        calm and welcoming.
+    </p>
+
+</section>
+
+
+<!-- =====================================================
+     HIGHLIGHTS
+===================================================== -->
+
+<section class="winter-highlights">
+
+    <div class="winter-highlight-grid">
+
+
+        <div class="winter-highlight">
+
+            <div class="winter-highlight-icon">
+                ❄️
+            </div>
+
+            <strong>
+                Winter Friendly
+            </strong>
+
+            <span>
+                Indoor-ready plants
+            </span>
+
+        </div>
+
+
+        <div class="winter-highlight">
+
+            <div class="winter-highlight-icon">
+                🌿
+            </div>
+
+            <strong>
+                Indoor Greens
+            </strong>
+
+            <span>
+                Fresh home greenery
+            </span>
+
+        </div>
+
+
+        <div class="winter-highlight">
+
+            <div class="winter-highlight-icon">
+                🌺
+            </div>
+
+            <strong>
+                Winter Blooms
+            </strong>
+
+            <span>
+                Seasonal flowers
+            </span>
+
+        </div>
+
+
+        <div class="winter-highlight">
+
+            <div class="winter-highlight-icon">
+                🏡
+            </div>
+
+            <strong>
+                Cozy Styling
+            </strong>
+
+            <span>
+                Warm home décor
+            </span>
+
+        </div>
+
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     WINTER PLANTS
+===================================================== -->
+
+<section class="winter-section" id="winter-plants">
+
+    <div class="winter-heading">
+
+        <small>
+            Winter Plants
+        </small>
+
+        <h2>
+            Indoor Greens For Cozy Homes
+        </h2>
+
+        <p>
+            Keep your indoor spaces fresh and lively with
+            beautiful plants that work beautifully during winter.
+        </p>
+
+    </div>
+
+
+    <div class="winter-products">
+
+
+        <!-- =================================================
+             SPIDER PLANT
+        ================================================== -->
+
+        <div class="winter-card">
+
+            <div class="winter-img">
+
+                <span class="winter-badge">
+                    WINTER PICK
+                </span>
+
+                <!-- WISHLIST = # -->
+                <a href="#" class="winter-heart">
+                    ♡
+                </a>
+
+                <img
+                    src="https://images.unsplash.com/photo-1545241047-6083a3684587?auto=format&fit=crop&w=800&q=90"
+                    alt="Spider Plant"
+                >
+
+            </div>
+
+
+            <div class="winter-body">
+
+                <span class="winter-category">
+                    Indoor Plant
+                </span>
+
+                <h3>
+                    Spider Plant
+                </h3>
+
+                <div class="winter-stars">
+                    ★★★★★
+                    <span>
+                        (137)
+                    </span>
+                </div>
+
+                <div class="winter-price">
+
+                    <strong>
+                        ₹549
+                    </strong>
+
+                    <del>
+                        ₹699
+                    </del>
+
+                    <span class="winter-off">
+                        21% OFF
+                    </span>
+
+                </div>
+
+                <!-- ADD TO CART = # -->
+                <a href="#" class="winter-cart">
+                    Add to Cart
+                </a>
+
+            </div>
+
+        </div>
+
+
+        <!-- =================================================
+             PEACE LILY
+        ================================================== -->
+
+        <div class="winter-card">
+
+            <div class="winter-img">
+
+                <span class="winter-badge">
+                    TOP RATED
+                </span>
+
+                <!-- WISHLIST = # -->
+                <a href="#" class="winter-heart">
+                    ♡
+                </a>
+
+                <img
+                    src="https://images.unsplash.com/photo-1501004318641-b39e6451bec6?auto=format&fit=crop&w=800&q=90"
+                    alt="Peace Lily"
+                >
+
+            </div>
+
+
+            <div class="winter-body">
+
+                <span class="winter-category">
+                    Indoor Plant
+                </span>
+
+                <h3>
+                    Peace Lily
+                </h3>
+
+                <div class="winter-stars">
+                    ★★★★★
+                    <span>
+                        (203)
+                    </span>
+                </div>
+
+                <div class="winter-price">
+
+                    <strong>
+                        ₹649
+                    </strong>
+
+                    <del>
+                        ₹799
+                    </del>
+
+                    <span class="winter-off">
+                        19% OFF
+                    </span>
+
+                </div>
+
+                <!-- ADD TO CART = # -->
+                <a href="#" class="winter-cart">
+                    Add to Cart
+                </a>
+
+            </div>
+
+        </div>
+
+
+        <!-- =================================================
+             SUCCULENT
+        ================================================== -->
+
+        <div class="winter-card">
+
+            <div class="winter-img">
+
+                <span class="winter-badge">
+                    EASY CARE
+                </span>
+
+                <!-- WISHLIST = # -->
+                <a href="#" class="winter-heart">
+                    ♡
+                </a>
+
+                <img
+                    src="https://images.unsplash.com/photo-1459411621453-7b03977f4bfc?auto=format&fit=crop&w=800&q=90"
+                    alt="Succulent Plant"
+                >
+
+            </div>
+
+
+            <div class="winter-body">
+
+                <span class="winter-category">
+                    Succulent
+                </span>
+
+                <h3>
+                    Winter Succulent
+                </h3>
+
+                <div class="winter-stars">
+                    ★★★★★
+                    <span>
+                        (109)
+                    </span>
+                </div>
+
+                <div class="winter-price">
+
+                    <strong>
+                        ₹449
+                    </strong>
+
+                    <del>
+                        ₹599
+                    </del>
+
+                    <span class="winter-off">
+                        25% OFF
+                    </span>
+
+                </div>
+
+                <!-- ADD TO CART = # -->
+                <a href="#" class="winter-cart">
+                    Add to Cart
+                </a>
+
+            </div>
+
+        </div>
+
+
+        <!-- =================================================
+             RUBBER PLANT
+        ================================================== -->
+
+        <div class="winter-card">
+
+            <div class="winter-img">
+
+                <span class="winter-badge">
+                    POPULAR
+                </span>
+
+                <!-- WISHLIST = # -->
+                <a href="#" class="winter-heart">
+                    ♡
+                </a>
+
+                <img
+                    src="https://images.unsplash.com/photo-1598880940080-ff9a29891b85?auto=format&fit=crop&w=800&q=90"
+                    alt="Rubber Plant"
+                >
+
+            </div>
+
+
+            <div class="winter-body">
+
+                <span class="winter-category">
+                    Indoor Plant
+                </span>
+
+                <h3>
+                    Rubber Plant
+                </h3>
+
+                <div class="winter-stars">
+                    ★★★★★
+                    <span>
+                        (165)
+                    </span>
+                </div>
+
+                <div class="winter-price">
+
+                    <strong>
+                        ₹799
+                    </strong>
+
+                    <del>
+                        ₹999
+                    </del>
+
+                    <span class="winter-off">
+                        20% OFF
+                    </span>
+
+                </div>
+
+                <!-- ADD TO CART = # -->
+                <a href="#" class="winter-cart">
+                    Add to Cart
+                </a>
+
+            </div>
+
+        </div>
+
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     WINTER FLOWERS
+===================================================== -->
+
+<section class="winter-flower-area">
+
+    <div class="winter-flower-inner">
+
+        <div class="winter-heading">
+
+            <small>
+                Winter Flowers
+            </small>
+
+            <h2>
+                Beautiful Winter Blooms
+            </h2>
+
+            <p>
+                Add seasonal colour to your home with winter
+                flowering plants and beautiful blooms.
+            </p>
+
+        </div>
+
+
+        <div class="winter-flower-grid">
+
+
+            <!-- WINTER FLOWER MIX -->
+
+            <div class="winter-flower">
+
+                <img
+                    src="https://images.unsplash.com/photo-1487070183336-b863922373d4?auto=format&fit=crop&w=700&q=90"
+                    alt="Winter Flower"
+                >
+
+                <div class="winter-flower-body">
+
+                    <small>
+                        Winter Favourite
+                    </small>
+
+                    <h3>
+                        Winter Flower Mix
+                    </h3>
+
+                    <p>
+                        A colourful selection for bright winter
+                        corners.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <!-- PETUNIA -->
+
+            <div class="winter-flower">
+
+                <img
+                    src="https://images.unsplash.com/photo-1490750967868-88aa4486c946?auto=format&fit=crop&w=700&q=90"
+                    alt="Petunia"
+                >
+
+                <div class="winter-flower-body">
+
+                    <small>
+                        Seasonal Bloom
+                    </small>
+
+                    <h3>
+                        Petunia
+                    </h3>
+
+                    <p>
+                        Beautiful blooms for balconies and sunny
+                        winter spaces.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <!-- CALENDULA -->
+
+            <div class="winter-flower">
+
+                <img
+                    src="https://images.unsplash.com/photo-1509423350716-97f9360b4e09?auto=format&fit=crop&w=700&q=90"
+                    alt="Calendula Flower"
+                >
+
+                <div class="winter-flower-body">
+
+                    <small>
+                        Winter Colour
+                    </small>
+
+                    <h3>
+                        Calendula
+                    </h3>
+
+                    <p>
+                        Bright flowers that add warmth to the
+                        winter garden.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <!-- WINTER BLOOM -->
+
+            <div class="winter-flower">
+
+                <img
+                    src="https://images.unsplash.com/photo-1495231916356-a86217efff12?auto=format&fit=crop&w=700&q=90"
+                    alt="Winter Flowers"
+                >
+
+                <div class="winter-flower-body">
+
+                    <small>
+                        Flowering Favourite
+                    </small>
+
+                    <h3>
+                        Winter Bloom Collection
+                    </h3>
+
+                    <p>
+                        Elegant flowering plants for a fresh
+                        seasonal display.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     WINTER DECOR
+===================================================== -->
+
+<section class="winter-decor">
+
+    <div class="winter-heading">
+
+        <small>
+            Winter Styling
+        </small>
+
+        <h2>
+            Create A Cozy Green Home
+        </h2>
+
+        <p>
+            Complete your winter home with indoor planters,
+            greenery and warm nature-inspired décor.
+        </p>
+
+    </div>
+
+
+    <div class="winter-decor-grid">
+
+
+        <!-- =================================================
+             PLANTERS
+        ================================================== -->
+
+        <div class="winter-decor-card">
+
+            <img
+                src="https://images.unsplash.com/photo-1485955900006-10f4d324d411?auto=format&fit=crop&w=900&q=90"
+                alt="Winter Planters"
+            >
+
+            <div class="winter-overlay"></div>
+
+            <div class="winter-decor-content">
+
+                <small>
+                    Winter Pots
+                </small>
+
+                <h3>
+                    Elegant Indoor Planters
+                </h3>
+
+                <p>
+                    Give your winter plants a beautiful new home.
+                </p>
+
+                <!-- PLANTERS URL -->
+                <a href="{% url 'plantp' %}">
+                    Shop Planters →
+                </a>
+
+            </div>
+
+        </div>
+
+
+        <!-- =================================================
+             HOME DECOR
+        ================================================== -->
+
+        <div class="winter-decor-card">
+
+            <img
+                src="https://images.unsplash.com/photo-1512428813834-c702c7702b78?auto=format&fit=crop&w=900&q=90"
+                alt="Winter Home Decor"
+            >
+
+            <div class="winter-overlay"></div>
+
+            <div class="winter-decor-content">
+
+                <small>
+                    Home Décor
+                </small>
+
+                <h3>
+                    Cozy Natural Décor
+                </h3>
+
+                <p>
+                    Bring warmth and greenery into your living space.
+                </p>
+
+                <!-- HOME DECOR URL -->
+                <a href="{% url 'homedecore' %}">
+                    Shop Décor →
+                </a>
+
+            </div>
+
+        </div>
+
+
+        <!-- =================================================
+             PLANTS
+        ================================================== -->
+
+        <div class="winter-decor-card">
+
+            <img
+                src="https://images.unsplash.com/photo-1501004318641-b39e6451bec6?auto=format&fit=crop&w=900&q=90"
+                alt="Winter Indoor Plants"
+            >
+
+            <div class="winter-overlay"></div>
+
+            <div class="winter-decor-content">
+
+                <small>
+                    Indoor Greenery
+                </small>
+
+                <h3>
+                    Cozy Green Corners
+                </h3>
+
+                <p>
+                    Make your winter home feel fresh and alive.
+                </p>
+
+                <!-- PLANTS URL -->
+                <a href="{% url 'plant' %}">
+                    Shop Collection →
+                </a>
+
+            </div>
+
+        </div>
+
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     FINAL CTA
+===================================================== -->
+
+<section class="winter-final">
+
+    <h2>
+        Keep Winter Green
+    </h2>
+
+    <p>
+        Discover indoor plants, winter flowers and cozy décor
+        curated specially for your home.
+    </p>
+
+    <!-- PLANTS URL -->
+    <a href="{% url 'plant' %}" class="winter-btn">
+        Shop Winter Collection
+    </a>
+
+</section>
+
+
+</div>
+
+{% endblock %}

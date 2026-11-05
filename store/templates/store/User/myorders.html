@@ -1,0 +1,2143 @@
+{% extends "store/User/usermaster.html" %}
+
+{% load static %}
+
+{% block title %}
+My Orders | GreenNest
+{% endblock %}
+
+
+{% block page_heading %}
+My Orders
+{% endblock %}
+
+
+{% block content %}
+
+<style>
+
+    /* =====================================================
+       MY ORDERS
+    ===================================================== */
+
+    .orders-wrapper {
+        width: 100%;
+    }
+
+
+    /* =====================================================
+       HEADER
+    ===================================================== */
+
+    .orders-header {
+        margin-bottom: 25px;
+    }
+
+    .orders-header h2 {
+        margin: 0;
+        color: #173c2a;
+        font-family: 'DM Serif Display', serif;
+        font-size: 28px;
+    }
+
+    .orders-header p {
+        margin-top: 6px;
+        color: #89958d;
+        font-size: 12px;
+    }
+
+
+    /* =====================================================
+       ORDER CARD
+    ===================================================== */
+
+    .order-card {
+
+        background: #ffffff;
+
+        border: 1px solid #e6ede5;
+
+        border-radius: 18px;
+
+        margin-bottom: 20px;
+
+        padding: 22px;
+
+        box-shadow:
+            0 8px 25px rgba(30,70,45,0.05);
+
+        transition: 0.25s ease;
+
+        cursor: pointer;
+    }
+
+
+    .order-card:hover {
+
+        transform: translateY(-3px);
+
+        box-shadow:
+            0 12px 30px rgba(30,70,45,0.09);
+
+        border-color: #d8e5d9;
+    }
+
+
+    /* =====================================================
+       CLICK HINT
+    ===================================================== */
+
+    .order-click-hint {
+
+        color: #89958d;
+
+        font-size: 10px;
+
+        margin-top: 4px;
+    }
+
+    .order-click-hint i {
+
+        color: #286542;
+
+        margin-right: 3px;
+    }
+
+
+    /* =====================================================
+       ORDER TOP
+    ===================================================== */
+
+    .order-top {
+
+        display: flex;
+
+        justify-content: space-between;
+
+        align-items: center;
+
+        padding-bottom: 15px;
+
+        margin-bottom: 18px;
+
+        border-bottom: 1px solid #edf1ec;
+    }
+
+    .order-id {
+
+        color: #173c2a;
+
+        font-size: 13px;
+
+        font-weight: 700;
+    }
+
+    .order-date {
+
+        color: #89958d;
+
+        font-size: 11px;
+
+        margin-top: 4px;
+    }
+
+
+    /* =====================================================
+       STATUS
+    ===================================================== */
+
+    .order-status {
+
+        display: inline-block;
+
+        padding: 7px 13px;
+
+        border-radius: 20px;
+
+        background: #edf7ef;
+
+        color: #287044;
+
+        font-size: 10px;
+
+        font-weight: 700;
+
+        text-transform: uppercase;
+    }
+
+
+    /* =====================================================
+       PRODUCT
+    ===================================================== */
+
+    .order-product {
+
+        display: flex;
+
+        align-items: center;
+
+        gap: 18px;
+    }
+
+
+    .order-image {
+
+        width: 95px;
+
+        height: 95px;
+
+        object-fit: cover;
+
+        border-radius: 14px;
+
+        background: #f4f7f2;
+
+        border: 1px solid #e7eee6;
+
+        flex-shrink: 0;
+    }
+
+
+    .order-product-info {
+
+        flex: 1;
+    }
+
+
+    .order-product-name {
+
+        color: #173c2a;
+
+        font-size: 16px;
+
+        font-weight: 700;
+
+        margin-bottom: 8px;
+    }
+
+
+    .order-price {
+
+        color: #c29e50;
+
+        font-size: 15px;
+
+        font-weight: 700;
+    }
+
+
+    .order-quantity {
+
+        color: #89958d;
+
+        font-size: 11px;
+
+        margin-top: 5px;
+    }
+
+
+    /* =====================================================
+       TOTAL
+    ===================================================== */
+
+    .order-total-box {
+
+        text-align: right;
+
+        min-width: 130px;
+    }
+
+
+    .order-total-label {
+
+        color: #89958d;
+
+        font-size: 10px;
+
+        margin-bottom: 5px;
+    }
+
+
+    .order-total {
+
+        color: #173c2a;
+
+        font-size: 20px;
+
+        font-weight: 700;
+    }
+
+
+    /* =====================================================
+       ORDER SUMMARY OVERLAY
+    ===================================================== */
+
+    .order-summary-overlay {
+
+        position: fixed;
+
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+
+        background: rgba(15, 38, 27, 0.45);
+
+        display: none;
+
+        align-items: center;
+        justify-content: center;
+
+        padding: 20px;
+
+        z-index: 9999;
+
+        backdrop-filter: blur(3px);
+    }
+
+
+    .order-summary-overlay.show {
+
+        display: flex;
+    }
+
+
+    /* =====================================================
+       SUMMARY BOX
+    ===================================================== */
+
+    .order-summary-box {
+
+        width: 100%;
+
+        max-width: 650px;
+
+        max-height: 90vh;
+
+        overflow-y: auto;
+
+        background: #ffffff;
+
+        border-radius: 20px;
+
+        border: 1px solid #e4ece4;
+
+        box-shadow:
+            0 25px 70px rgba(20,55,35,0.22);
+
+        animation: summaryOpen 0.25s ease;
+    }
+
+
+    @keyframes summaryOpen {
+
+        from {
+
+            opacity: 0;
+
+            transform: translateY(20px) scale(0.98);
+        }
+
+        to {
+
+            opacity: 1;
+
+            transform: translateY(0) scale(1);
+        }
+    }
+
+
+    /* =====================================================
+       SUMMARY HEADER
+    ===================================================== */
+
+    .summary-header {
+
+        display: flex;
+
+        justify-content: space-between;
+
+        align-items: center;
+
+        padding: 22px 24px;
+
+        border-bottom: 1px solid #edf1ec;
+    }
+
+
+    .summary-title {
+
+        color: #173c2a;
+
+        font-family: 'DM Serif Display', serif;
+
+        font-size: 23px;
+
+        margin: 0;
+    }
+
+
+    .summary-subtitle {
+
+        color: #89958d;
+
+        font-size: 11px;
+
+        margin-top: 4px;
+    }
+
+
+    .summary-close {
+
+        width: 34px;
+
+        height: 34px;
+
+        border: none;
+
+        border-radius: 50%;
+
+        background: #f1f5f0;
+
+        color: #173c2a;
+
+        display: flex;
+
+        align-items: center;
+
+        justify-content: center;
+
+        font-size: 17px;
+
+        cursor: pointer;
+
+        transition: 0.2s ease;
+    }
+
+
+    .summary-close:hover {
+
+        background: #173c2a;
+
+        color: #ffffff;
+    }
+
+
+    /* =====================================================
+       SUMMARY BODY
+    ===================================================== */
+
+    .summary-body {
+
+        padding: 24px;
+    }
+
+
+    /* =====================================================
+       SUMMARY STATUS
+    ===================================================== */
+
+    .summary-status-row {
+
+        display: flex;
+
+        justify-content: space-between;
+
+        align-items: center;
+
+        background: #f7faf6;
+
+        border: 1px solid #e8efe7;
+
+        border-radius: 12px;
+
+        padding: 13px 15px;
+
+        margin-bottom: 20px;
+    }
+
+
+    .summary-status-label {
+
+        color: #89958d;
+
+        font-size: 11px;
+    }
+
+
+    .summary-status {
+
+        background: #edf7ef;
+
+        color: #287044;
+
+        padding: 6px 12px;
+
+        border-radius: 20px;
+
+        font-size: 10px;
+
+        font-weight: 700;
+
+        text-transform: uppercase;
+    }
+
+
+    /* =====================================================
+       SECTION TITLE
+    ===================================================== */
+
+    .summary-section-title {
+
+        display: flex;
+
+        align-items: center;
+
+        gap: 8px;
+
+        color: #173c2a;
+
+        font-size: 13px;
+
+        font-weight: 700;
+
+        margin-bottom: 12px;
+    }
+
+
+    .summary-section-title i {
+
+        color: #c29e50;
+
+        font-size: 15px;
+    }
+
+
+    /* =====================================================
+       PRODUCT SUMMARY
+    ===================================================== */
+
+    .summary-product {
+
+        display: flex;
+
+        align-items: center;
+
+        gap: 15px;
+
+        padding: 15px;
+
+        border: 1px solid #e8eee7;
+
+        border-radius: 14px;
+
+        margin-bottom: 22px;
+    }
+
+
+    .summary-product-image {
+
+        width: 75px;
+
+        height: 75px;
+
+        border-radius: 12px;
+
+        object-fit: cover;
+
+        border: 1px solid #e7eee6;
+
+        background: #f4f7f2;
+
+        flex-shrink: 0;
+    }
+
+
+    .summary-product-info {
+
+        flex: 1;
+    }
+
+
+    .summary-product-name {
+
+        color: #173c2a;
+
+        font-size: 15px;
+
+        font-weight: 700;
+
+        margin-bottom: 5px;
+    }
+
+
+    .summary-product-price {
+
+        color: #c29e50;
+
+        font-size: 14px;
+
+        font-weight: 700;
+    }
+
+
+    .summary-product-qty {
+
+        color: #89958d;
+
+        font-size: 11px;
+
+        margin-top: 4px;
+    }
+
+
+    .summary-product-total {
+
+        text-align: right;
+    }
+
+
+    .summary-product-total-label {
+
+        color: #89958d;
+
+        font-size: 9px;
+
+        margin-bottom: 3px;
+    }
+
+
+    .summary-product-total-value {
+
+        color: #173c2a;
+
+        font-size: 15px;
+
+        font-weight: 700;
+    }
+
+
+    /* =====================================================
+       CUSTOMER DETAILS
+    ===================================================== */
+
+    .customer-details {
+
+        background: #fbfcfa;
+
+        border: 1px solid #e8eee7;
+
+        border-radius: 14px;
+
+        padding: 15px;
+
+        margin-bottom: 20px;
+    }
+
+
+    .detail-row {
+
+        display: flex;
+
+        gap: 12px;
+
+        margin-bottom: 12px;
+    }
+
+
+    .detail-row:last-child {
+
+        margin-bottom: 0;
+    }
+
+
+    .detail-icon {
+
+        width: 30px;
+
+        height: 30px;
+
+        flex-shrink: 0;
+
+        display: flex;
+
+        align-items: center;
+
+        justify-content: center;
+
+        border-radius: 8px;
+
+        background: #edf5ed;
+
+        color: #286542;
+
+        font-size: 13px;
+    }
+
+
+    .detail-content {
+
+        flex: 1;
+    }
+
+
+    .detail-label {
+
+        color: #89958d;
+
+        font-size: 9px;
+
+        margin-bottom: 2px;
+
+        text-transform: uppercase;
+
+        letter-spacing: 0.3px;
+    }
+
+
+    .detail-value {
+
+        color: #173c2a;
+
+        font-size: 12px;
+
+        line-height: 1.5;
+    }
+
+
+    /* =====================================================
+       ADDRESS BOX
+    ===================================================== */
+
+    .address-box {
+
+        background: #fbfcfa;
+
+        border: 1px solid #e8eee7;
+
+        border-radius: 14px;
+
+        padding: 15px;
+
+        margin-bottom: 22px;
+    }
+
+
+    .address-text {
+
+        color: #43564c;
+
+        font-size: 12px;
+
+        line-height: 1.7;
+
+        margin: 0;
+    }
+
+
+    .address-location {
+
+        color: #173c2a;
+
+        font-size: 12px;
+
+        font-weight: 600;
+
+        margin-top: 4px;
+    }
+
+
+    /* =====================================================
+       TOTAL SUMMARY
+    ===================================================== */
+
+    .summary-total-box {
+
+        border-top: 1px solid #e8eee7;
+
+        padding-top: 17px;
+
+        display: flex;
+
+        justify-content: space-between;
+
+        align-items: center;
+    }
+
+
+    .summary-total-label {
+
+        color: #89958d;
+
+        font-size: 12px;
+    }
+
+
+    .summary-total-value {
+
+        color: #173c2a;
+
+        font-size: 22px;
+
+        font-weight: 700;
+    }
+
+
+    /* =====================================================
+       FOOTER
+    ===================================================== */
+
+    .summary-footer {
+
+        padding: 15px 24px 22px;
+
+        text-align: right;
+    }
+
+
+    .summary-close-btn {
+
+        border: none;
+
+        background: #173c2a;
+
+        color: #ffffff;
+
+        padding: 10px 20px;
+
+        border-radius: 9px;
+
+        font-size: 11px;
+
+        font-weight: 600;
+
+        cursor: pointer;
+
+        transition: 0.2s ease;
+    }
+
+
+    .summary-close-btn:hover {
+
+        background: #286542;
+    }
+
+
+    /* =====================================================
+       CANCEL ORDER BUTTON
+    ===================================================== */
+
+    .cancel-order-btn {
+
+        border: none;
+
+        background: #fff1f1;
+
+        color: #b33a3a;
+
+        padding: 10px 18px;
+
+        border-radius: 9px;
+
+        font-size: 11px;
+
+        font-weight: 600;
+
+        cursor: pointer;
+
+        transition: 0.2s ease;
+
+        margin-right: 8px;
+    }
+
+
+    .cancel-order-btn:hover {
+
+        background: #b33a3a;
+
+        color: #ffffff;
+    }
+
+
+    /* =====================================================
+       CANCEL REASON BOX
+    ===================================================== */
+
+    .cancel-reason-box {
+
+        display: none;
+
+        margin-bottom: 15px;
+
+        padding: 15px;
+
+        background: #fffafa;
+
+        border: 1px solid #f0dddd;
+
+        border-radius: 12px;
+
+        text-align: left;
+    }
+
+
+    .cancel-reason-title {
+
+        color: #173c2a;
+
+        font-size: 12px;
+
+        font-weight: 700;
+
+        margin-bottom: 8px;
+    }
+
+
+    .cancel-reason-title i {
+
+        color: #b33a3a;
+
+        margin-right: 5px;
+    }
+
+
+    .cancel-reason-textarea {
+
+        width: 100%;
+
+        min-height: 80px;
+
+        padding: 10px 12px;
+
+        border: 1px solid #e2d5d5;
+
+        border-radius: 9px;
+
+        background: #ffffff;
+
+        color: #173c2a;
+
+        font-size: 11px;
+
+        outline: none;
+
+        resize: vertical;
+
+        box-sizing: border-box;
+    }
+
+
+    .cancel-reason-textarea:focus {
+
+        border-color: #b33a3a;
+
+        box-shadow: 0 0 0 2px rgba(179,58,58,0.08);
+    }
+
+
+    .cancel-reason-actions {
+
+        display: flex;
+
+        justify-content: flex-end;
+
+        gap: 8px;
+
+        margin-top: 10px;
+    }
+
+
+    .confirm-cancel-btn {
+
+        border: none;
+
+        background: #b33a3a;
+
+        color: #ffffff;
+
+        padding: 9px 15px;
+
+        border-radius: 8px;
+
+        font-size: 10px;
+
+        font-weight: 600;
+
+        cursor: pointer;
+    }
+
+
+    .confirm-cancel-btn:hover {
+
+        background: #922e2e;
+    }
+
+
+    .cancel-back-btn {
+
+        border: 1px solid #ddd;
+
+        background: #ffffff;
+
+        color: #555;
+
+        padding: 9px 15px;
+
+        border-radius: 8px;
+
+        font-size: 10px;
+
+        font-weight: 600;
+
+        cursor: pointer;
+    }
+
+
+    .cancel-back-btn:hover {
+
+        background: #f5f5f5;
+    }
+
+
+    /* =====================================================
+       EMPTY ORDERS
+    ===================================================== */
+
+    .empty-orders {
+
+        background: #ffffff;
+
+        border: 1px solid #e6ede5;
+
+        border-radius: 18px;
+
+        padding: 70px 25px;
+
+        text-align: center;
+
+        box-shadow:
+            0 8px 25px rgba(30,70,45,0.05);
+    }
+
+
+    .empty-orders-icon {
+
+        width: 75px;
+
+        height: 75px;
+
+        margin: 0 auto 20px;
+
+        border-radius: 50%;
+
+        display: flex;
+
+        align-items: center;
+
+        justify-content: center;
+
+        background: #edf5ed;
+
+        color: #286542;
+
+        font-size: 32px;
+    }
+
+
+    .empty-orders h3 {
+
+        color: #173c2a;
+
+        font-size: 22px;
+
+        font-weight: 700;
+
+        margin-bottom: 8px;
+    }
+
+
+    .empty-orders p {
+
+        color: #89958d;
+
+        font-size: 12px;
+
+        margin-bottom: 22px;
+    }
+
+
+    .shop-btn {
+
+        display: inline-flex;
+
+        align-items: center;
+
+        gap: 8px;
+
+        padding: 11px 20px;
+
+        border-radius: 10px;
+
+        background: #173c2a;
+
+        color: white;
+
+        font-size: 12px;
+
+        font-weight: 600;
+
+        transition: 0.25s ease;
+    }
+
+
+    .shop-btn:hover {
+
+        background: #286542;
+
+        color: white;
+
+        transform: translateY(-2px);
+    }
+
+
+    /* =====================================================
+       RESPONSIVE
+    ===================================================== */
+
+    @media (max-width: 767px) {
+
+        .order-product {
+
+            align-items: flex-start;
+
+            flex-wrap: wrap;
+        }
+
+        .order-total-box {
+
+            width: 100%;
+
+            text-align: left;
+
+            padding-top: 10px;
+
+            border-top: 1px solid #edf1ec;
+        }
+
+        .summary-product {
+
+            align-items: flex-start;
+        }
+
+        .summary-product-total {
+
+            min-width: 75px;
+        }
+
+    }
+
+
+    @media (max-width: 480px) {
+
+        .order-card {
+
+            padding: 16px;
+        }
+
+        .order-image {
+
+            width: 75px;
+
+            height: 75px;
+        }
+
+        .order-product-name {
+
+            font-size: 14px;
+        }
+
+        .order-top {
+
+            align-items: flex-start;
+
+            gap: 10px;
+        }
+
+        .order-click-hint {
+
+            display: none;
+        }
+
+        .order-summary-overlay {
+
+            padding: 10px;
+        }
+
+        .order-summary-box {
+
+            max-height: 94vh;
+
+            border-radius: 16px;
+        }
+
+        .summary-header {
+
+            padding: 18px;
+        }
+
+        .summary-body {
+
+            padding: 18px;
+        }
+
+        .summary-footer {
+
+            padding: 12px 18px 18px;
+        }
+
+        .summary-title {
+
+            font-size: 20px;
+        }
+
+        .summary-product {
+
+            flex-wrap: wrap;
+        }
+
+        .summary-product-total {
+
+            width: 100%;
+
+            text-align: left;
+
+            padding-top: 8px;
+
+            border-top: 1px solid #edf1ec;
+        }
+
+    }
+
+</style>
+
+
+<div class="orders-wrapper">
+
+
+    <!-- =================================================
+         HEADER
+    ================================================== -->
+
+    <div class="orders-header">
+
+        <h2>
+            <i class="bi bi-bag-check-fill"></i>
+            My Orders
+        </h2>
+
+        <p>
+            View and track all your GreenNest orders.
+        </p>
+
+    </div>
+
+
+    <!-- =================================================
+         ORDERS AVAILABLE
+    ================================================== -->
+
+    {% if order_items %}
+
+
+        {% for item in order_items %}
+
+
+            <!-- =================================================
+                 ORDER CARD
+            ================================================== -->
+
+            <div
+                class="order-card"
+                onclick="openOrderSummary('orderSummary{{ item.id }}')"
+            >
+
+
+                <!-- =====================================
+                     ORDER TOP
+                ====================================== -->
+
+                <div class="order-top">
+
+                    <div>
+
+                        <div class="order-id">
+
+                            Order #{{ item.id }}
+
+                        </div>
+
+                        <div class="order-date">
+
+                            <i class="bi bi-calendar3"></i>
+
+                            {{ item.created_at|date:"d M Y, h:i A" }}
+
+                        </div>
+
+                        <div class="order-click-hint">
+
+                            <i class="bi bi-eye"></i>
+                            Click to view order summary
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- STATUS -->
+
+                    <div class="order-status">
+
+                        {{ item.status }}
+
+                    </div>
+
+                </div>
+
+
+                <!-- =====================================
+                     PRODUCT
+                ====================================== -->
+
+                <div class="order-product">
+
+
+                    <!-- PRODUCT IMAGE -->
+
+                    {% if item.image %}
+
+                        <img
+                            src="{% static 'product_images/' %}{{ item.image }}"
+                            class="order-image"
+                            alt="{{ item.product_name }}"
+                        >
+
+                    {% else %}
+
+                        <div class="order-image d-flex align-items-center justify-content-center">
+
+                            <i class="bi bi-image text-secondary fs-2"></i>
+
+                        </div>
+
+                    {% endif %}
+
+
+                    <!-- PRODUCT INFORMATION -->
+
+                    <div class="order-product-info">
+
+                        <div class="order-product-name">
+
+                            {{ item.product_name }}
+
+                        </div>
+
+
+                        <div class="order-price">
+
+                            ₹{{ item.price }}
+
+                        </div>
+
+
+                        <div class="order-quantity">
+
+                            Quantity:
+                            {{ item.quantity }}
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- =================================
+                         TOTAL
+                    ================================== -->
+
+                    <div class="order-total-box">
+
+                        <div class="order-total-label">
+
+                            Order Total
+
+                        </div>
+
+                        <div class="order-total">
+
+                            ₹{{ item.total }}
+
+                        </div>
+
+                    </div>
+
+
+                </div>
+
+
+            </div>
+
+
+            <!-- =================================================
+                 ORDER SUMMARY POPUP
+            ================================================== -->
+
+            <div
+                id="orderSummary{{ item.id }}"
+                class="order-summary-overlay"
+                onclick="closeOrderSummaryOutside(event, 'orderSummary{{ item.id }}')"
+            >
+
+                <div class="order-summary-box">
+
+
+                    <!-- =====================================
+                         SUMMARY HEADER
+                    ====================================== -->
+
+                    <div class="summary-header">
+
+                        <div>
+
+                            <h3 class="summary-title">
+
+                                Order #{{ item.id }}
+
+                            </h3>
+
+                            <div class="summary-subtitle">
+
+                                <i class="bi bi-calendar3"></i>
+
+                                {{ item.created_at|date:"d M Y, h:i A" }}
+
+                            </div>
+
+                        </div>
+
+
+                        <button
+                            type="button"
+                            class="summary-close"
+                            onclick="closeOrderSummary('orderSummary{{ item.id }}')"
+                        >
+
+                            <i class="bi bi-x-lg"></i>
+
+                        </button>
+
+                    </div>
+
+
+                    <!-- =====================================
+                         SUMMARY BODY
+                    ====================================== -->
+
+                    <div class="summary-body">
+
+
+                        <!-- STATUS -->
+
+                        <div class="summary-status-row">
+
+                            <div class="summary-status-label">
+
+                                Order Status
+
+                            </div>
+
+                            <div class="summary-status">
+
+                                {{ item.status }}
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- =================================
+                             PRODUCT
+                        ================================== -->
+
+                        <div class="summary-section-title">
+
+                            <i class="bi bi-box-seam"></i>
+
+                            Order Item
+
+                        </div>
+
+
+                        <div class="summary-product">
+
+
+                            {% if item.image %}
+
+                                <img
+                                    src="{% static 'product_images/' %}{{ item.image }}"
+                                    class="summary-product-image"
+                                    alt="{{ item.product_name }}"
+                                >
+
+                            {% else %}
+
+                                <div class="summary-product-image d-flex align-items-center justify-content-center">
+
+                                    <i class="bi bi-image text-secondary fs-3"></i>
+
+                                </div>
+
+                            {% endif %}
+
+
+                            <div class="summary-product-info">
+
+                                <div class="summary-product-name">
+
+                                    {{ item.product_name }}
+
+                                </div>
+
+                                <div class="summary-product-price">
+
+                                    ₹{{ item.price }}
+
+                                </div>
+
+                                <div class="summary-product-qty">
+
+                                    Quantity: {{ item.quantity }}
+
+                                </div>
+
+                            </div>
+
+
+                            <div class="summary-product-total">
+
+                                <div class="summary-product-total-label">
+
+                                    ITEM TOTAL
+
+                                </div>
+
+                                <div class="summary-product-total-value">
+
+                                    ₹{{ item.total }}
+
+                                </div>
+
+                            </div>
+
+
+                        </div>
+
+
+                        <!-- =================================
+                             CUSTOMER INFORMATION
+                        ================================== -->
+
+                        <div class="summary-section-title">
+
+                            <i class="bi bi-person"></i>
+
+                            Customer Details
+
+                        </div>
+
+
+                        <div class="customer-details">
+
+
+                            <!-- NAME -->
+
+                            <div class="detail-row">
+
+                                <div class="detail-icon">
+
+                                    <i class="bi bi-person-fill"></i>
+
+                                </div>
+
+                                <div class="detail-content">
+
+                                    <div class="detail-label">
+                                        Name
+                                    </div>
+
+                                    <div class="detail-value">
+                                        {{ item.name }}
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+
+                            <!-- MOBILE -->
+
+                            <div class="detail-row">
+
+                                <div class="detail-icon">
+
+                                    <i class="bi bi-telephone-fill"></i>
+
+                                </div>
+
+                                <div class="detail-content">
+
+                                    <div class="detail-label">
+                                        Mobile Number
+                                    </div>
+
+                                    <div class="detail-value">
+                                        {{ item.mobile }}
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+
+                            <!-- EMAIL -->
+
+                            <div class="detail-row">
+
+                                <div class="detail-icon">
+
+                                    <i class="bi bi-envelope-fill"></i>
+
+                                </div>
+
+                                <div class="detail-content">
+
+                                    <div class="detail-label">
+                                        Email
+                                    </div>
+
+                                    <div class="detail-value">
+                                        {{ item.email }}
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+
+                        </div>
+
+
+                        <!-- =================================
+                             DELIVERY ADDRESS
+                        ================================== -->
+
+                        <div class="summary-section-title">
+
+                            <i class="bi bi-geo-alt"></i>
+
+                            Delivery Address
+
+                        </div>
+
+
+                        <div class="address-box">
+
+
+                            <!-- ADDRESS -->
+
+                            <div class="detail-row">
+
+                                <div class="detail-icon">
+
+                                    <i class="bi bi-house"></i>
+
+                                </div>
+
+                                <div class="detail-content">
+
+                                    <div class="detail-label">
+                                        Address
+                                    </div>
+
+                                    <p class="address-text">
+                                        {{ item.address }}
+                                    </p>
+
+                                </div>
+
+                            </div>
+
+
+                            <!-- CITY + STATE -->
+
+                            <div class="detail-row">
+
+                                <div class="detail-icon">
+
+                                    <i class="bi bi-geo"></i>
+
+                                </div>
+
+                                <div class="detail-content">
+
+                                    <div class="detail-label">
+                                        Location
+                                    </div>
+
+                                    <div class="address-location">
+
+                                        {{ item.city }}, {{ item.state }}
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+
+                            <!-- PINCODE -->
+
+                            <div class="detail-row">
+
+                                <div class="detail-icon">
+
+                                    <i class="bi bi-mailbox"></i>
+
+                                </div>
+
+                                <div class="detail-content">
+
+                                    <div class="detail-label">
+                                        Pincode
+                                    </div>
+
+                                    <div class="detail-value">
+
+                                        {{ item.pincode }}
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+
+                        </div>
+
+
+                        <!-- =================================
+                             PAYMENT METHOD
+                        ================================== -->
+
+                        <div class="summary-section-title">
+
+                            {% if item.payment_method == "Online Payment" %}
+
+                                <i class="bi bi-credit-card-fill"></i>
+
+                            {% else %}
+
+                                <i class="bi bi-cash-stack"></i>
+
+                            {% endif %}
+
+                            Payment Method
+
+                        </div>
+
+
+                        <div class="customer-details">
+
+                            <div class="detail-row">
+
+                                <div class="detail-icon">
+
+                                    {% if item.payment_method == "Online Payment" %}
+
+                                        <i class="bi bi-credit-card-fill"></i>
+
+                                    {% else %}
+
+                                        <i class="bi bi-cash-stack"></i>
+
+                                    {% endif %}
+
+                                </div>
+
+
+                                <div class="detail-content">
+
+                                    <div class="detail-label">
+
+                                        Payment
+
+                                    </div>
+
+                                    <div class="detail-value">
+
+                                        {{ item.payment_method }}
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- =================================
+                             TOTAL
+                        ================================== -->
+
+                        <div class="summary-total-box">
+
+                            <div class="summary-total-label">
+
+                                Order Total
+
+                            </div>
+
+                            <div class="summary-total-value">
+
+                                ₹{{ item.total }}
+
+                            </div>
+
+                        </div>
+
+
+                    </div>
+
+
+                    <!-- =====================================
+                         FOOTER
+                    ====================================== -->
+
+                    <div class="summary-footer">
+
+
+                        {% if item.status == "Pending" or item.status == "Approved" %}
+
+                            <!-- =================================
+                                 CANCEL REASON FORM
+                            ================================== -->
+
+                            <form
+                                method="POST"
+                                action="{% url 'cancelorder' item.id %}"
+                                style="display:inline;"
+                                onclick="event.stopPropagation();"
+                            >
+
+                                {% csrf_token %}
+
+
+                                <!-- CANCEL BUTTON -->
+
+                                <button
+                                    type="button"
+                                    class="cancel-order-btn"
+                                    onclick="showCancelReason('{{ item.id }}')"
+                                >
+
+                                    <i class="bi bi-x-circle"></i>
+
+                                    Cancel Order
+
+                                </button>
+
+
+                                <!-- CANCEL REASON BOX -->
+
+                                <div
+                                    id="cancelReasonBox{{ item.id }}"
+                                    class="cancel-reason-box"
+                                >
+
+                                    <div class="cancel-reason-title">
+
+                                        <i class="bi bi-exclamation-circle"></i>
+
+                                        Why do you want to cancel this order?
+
+                                    </div>
+
+
+                                    <textarea
+                                        name="cancel_reason"
+                                        id="cancelReason{{ item.id }}"
+                                        class="cancel-reason-textarea"
+                                        maxlength="500"
+                                        placeholder="Please enter your cancellation reason..."
+                                    ></textarea>
+
+
+                                    <div class="cancel-reason-actions">
+
+
+                                        <button
+                                            type="button"
+                                            class="cancel-back-btn"
+                                            onclick="hideCancelReason('{{ item.id }}')"
+                                        >
+
+                                            Back
+
+                                        </button>
+
+
+                                        <button
+                                            type="submit"
+                                            class="confirm-cancel-btn"
+                                            onclick="return validateCancelReason('{{ item.id }}')"
+                                        >
+
+                                            <i class="bi bi-check-circle"></i>
+
+                                            Confirm Cancellation
+
+                                        </button>
+
+
+                                    </div>
+
+                                </div>
+
+
+                            </form>
+
+                        {% endif %}
+
+
+                        <button
+                            type="button"
+                            class="summary-close-btn"
+                            onclick="closeOrderSummary('orderSummary{{ item.id }}')"
+                        >
+
+                            <i class="bi bi-x-circle"></i>
+
+                            Close
+
+                        </button>
+
+
+                    </div>
+
+
+                </div>
+
+            </div>
+
+
+        {% endfor %}
+
+
+    {% else %}
+
+
+        <!-- =================================================
+             NO ORDERS
+        ================================================== -->
+
+        <div class="empty-orders">
+
+
+            <div class="empty-orders-icon">
+
+                <i class="bi bi-bag-x"></i>
+
+            </div>
+
+
+            <h3>
+
+                No Orders Yet
+
+            </h3>
+
+
+            <p>
+
+                You haven't placed any orders yet.
+                Start shopping and bring nature home.
+
+            </p>
+
+
+            <a
+                href="{% url 'plant' %}"
+                class="shop-btn"
+            >
+
+                <i class="bi bi-flower1"></i>
+
+                Start Shopping
+
+            </a>
+
+
+        </div>
+
+
+    {% endif %}
+
+
+</div>
+
+
+<!-- =====================================================
+     ORDER SUMMARY JAVASCRIPT
+===================================================== -->
+
+<script>
+
+    function openOrderSummary(id) {
+
+        const modal = document.getElementById(id);
+
+        if (modal) {
+
+            modal.classList.add("show");
+
+            document.body.style.overflow = "hidden";
+        }
+    }
+
+
+    function closeOrderSummary(id) {
+
+        const modal = document.getElementById(id);
+
+        if (modal) {
+
+            modal.classList.remove("show");
+
+            document.body.style.overflow = "";
+        }
+    }
+
+
+    function closeOrderSummaryOutside(event, id) {
+
+        if (event.target.id === id) {
+
+            closeOrderSummary(id);
+        }
+    }
+
+
+    /* =====================================================
+       CANCEL REASON
+    ===================================================== */
+
+    function showCancelReason(orderId) {
+
+        const box = document.getElementById(
+            "cancelReasonBox" + orderId
+        );
+
+        const textarea = document.getElementById(
+            "cancelReason" + orderId
+        );
+
+
+        if (box) {
+
+            box.style.display = "block";
+        }
+
+
+        if (textarea) {
+
+            textarea.focus();
+        }
+
+    }
+
+
+    function hideCancelReason(orderId) {
+
+        const box = document.getElementById(
+            "cancelReasonBox" + orderId
+        );
+
+        if (box) {
+
+            box.style.display = "none";
+        }
+
+    }
+
+
+    function validateCancelReason(orderId) {
+
+        const textarea = document.getElementById(
+            "cancelReason" + orderId
+        );
+
+
+        if (!textarea) {
+
+            return false;
+        }
+
+
+        const reason = textarea.value.trim();
+
+
+        if (reason === "") {
+
+            alert(
+                "Please enter a cancellation reason."
+            );
+
+            textarea.focus();
+
+            return false;
+        }
+
+
+        return confirm(
+            "Are you sure you want to cancel this order?"
+        );
+
+    }
+
+
+    /* =====================================================
+       ESC KEY
+    ===================================================== */
+
+    document.addEventListener("keydown", function(event) {
+
+        if (event.key === "Escape") {
+
+            const openModal =
+                document.querySelector(".order-summary-overlay.show");
+
+            if (openModal) {
+
+                openModal.classList.remove("show");
+
+                document.body.style.overflow = "";
+            }
+        }
+
+    });
+
+</script>
+
+
+{% endblock %}

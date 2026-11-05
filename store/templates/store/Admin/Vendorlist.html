@@ -1,0 +1,423 @@
+{% extends "store/Admin/AdminMaster.html" %}
+
+{% block title %}
+Vendor List | GreenNest
+{% endblock %}
+
+{% block page_heading %}
+Vendor List
+{% endblock %}
+
+{% block content %}
+
+<style>
+
+/* =====================================================
+   VENDOR LIST CARD
+===================================================== */
+
+.list-card {
+
+    background: white;
+
+    border: 1px solid #e5ece6;
+
+    border-radius: 18px;
+
+    padding: 25px;
+
+    box-shadow:
+        0 8px 25px
+        rgba(25,70,45,0.04);
+}
+
+
+/* =====================================================
+   HEADING
+===================================================== */
+
+.list-card h3 {
+
+    font-family:
+        'DM Serif Display',
+        serif;
+
+    color: #173d2b;
+
+    margin-bottom: 20px;
+}
+
+
+/* =====================================================
+   TABLE
+===================================================== */
+
+.table {
+
+    margin: 0;
+
+    font-size: 12px;
+
+    vertical-align: middle;
+}
+
+
+/* =====================================================
+   TABLE HEADER
+===================================================== */
+
+.table thead th {
+
+    background: #f3f7f3;
+
+    color: #526159;
+
+    font-size: 11px;
+
+    font-weight: 700;
+
+    border: none;
+
+    padding: 14px;
+}
+
+
+/* =====================================================
+   TABLE BODY
+===================================================== */
+
+.table tbody td {
+
+    padding: 14px;
+
+    border-color: #edf1ee;
+
+    color: #37463e;
+}
+
+
+/* =====================================================
+   VENDOR NAME
+===================================================== */
+
+.vendor-name {
+
+    font-weight: 600;
+
+    color: #173d2b;
+}
+
+
+/* =====================================================
+   EMAIL
+===================================================== */
+
+.vendor-email {
+
+    color: #526159;
+}
+
+
+/* =====================================================
+   MOBILE
+===================================================== */
+
+.vendor-mobile {
+
+    color: #526159;
+
+    white-space: nowrap;
+}
+
+
+/* =====================================================
+   ROLE BADGE
+===================================================== */
+
+.role-badge {
+
+    display: inline-block;
+
+    background: #fff7e5;
+
+    color: #9a7628;
+
+    padding: 6px 10px;
+
+    border-radius: 7px;
+
+    font-size: 10px;
+
+    font-weight: 700;
+
+    text-transform: capitalize;
+}
+
+
+/* =====================================================
+   DELETE BUTTON
+===================================================== */
+
+.delete-btn {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 5px;
+
+    padding: 6px 11px;
+
+    border-radius: 7px;
+
+    background: #fff1f1;
+
+    color: #a33d3d;
+
+    border: 1px solid #f0cece;
+
+    text-decoration: none;
+
+    font-size: 11px;
+
+    font-weight: 600;
+
+    transition: 0.3s;
+}
+
+
+.delete-btn:hover {
+
+    background: #a33d3d;
+
+    color: white;
+
+    border-color: #a33d3d;
+}
+
+
+/* =====================================================
+   EMPTY
+===================================================== */
+
+.empty {
+
+    text-align: center;
+
+    padding: 40px !important;
+
+    color: #8a958e;
+
+    font-size: 12px;
+}
+
+
+/* =====================================================
+   RESPONSIVE
+===================================================== */
+
+@media (max-width: 768px) {
+
+    .list-card {
+
+        padding: 18px;
+
+        border-radius: 15px;
+    }
+
+    .table {
+
+        min-width: 650px;
+    }
+
+}
+
+</style>
+
+
+<div class="list-card">
+
+    <!-- =================================================
+         HEADING
+    ================================================== -->
+
+    <h3>
+
+        <i class="bi bi-shop me-2"></i>
+
+        All Vendors
+
+    </h3>
+
+
+    <!-- =================================================
+         TABLE
+    ================================================== -->
+
+    <div class="table-responsive">
+
+        <table class="table">
+
+            <!-- =================================================
+                 TABLE HEADER
+            ================================================== -->
+
+            <thead>
+
+                <tr>
+
+                    <th>
+                        ID
+                    </th>
+
+                    <th>
+                        Vendor Name
+                    </th>
+
+                    <th>
+                        Email
+                    </th>
+
+                   
+
+                    <th>
+                        Role
+                    </th>
+
+                    <th>
+                        Action
+                    </th>
+
+                </tr>
+
+            </thead>
+
+
+            <!-- =================================================
+                 TABLE BODY
+            ================================================== -->
+
+            <tbody>
+
+                {% for vendor in vendors %}
+
+                <tr>
+
+                    <!-- =========================================
+                         ID
+                    ========================================== -->
+
+                    <td>
+
+                        {{ vendor.id }}
+
+                    </td>
+
+
+                    <!-- =========================================
+                         NAME
+                    ========================================== -->
+
+                    <td>
+
+                        <span class="vendor-name">
+
+                            {{ vendor.name }}
+
+                        </span>
+
+                    </td>
+
+
+                    <!-- =========================================
+                         EMAIL
+                    ========================================== -->
+
+                    <td>
+
+                        <span class="vendor-email">
+
+                            {{ vendor.email }}
+
+                        </span>
+
+                    </td>
+
+
+                    <!-- =========================================
+                         MOBILE
+                    ========================================== -->
+
+                  
+
+
+                    <!-- =========================================
+                         ROLE
+                    ========================================== -->
+
+                    <td>
+
+                        <span class="role-badge">
+
+                            {{ vendor.role }}
+
+                        </span>
+
+                    </td>
+
+
+                    <!-- =========================================
+                         ACTION
+                    ========================================== -->
+
+                    <td>
+
+                        <a
+                            href="{% url 'DeleteVendor' vendor.id %}"
+                            class="delete-btn"
+                            onclick="return confirm('Are you sure you want to delete this vendor?');"
+                        >
+
+                            <i class="bi bi-trash"></i>
+
+                            Delete
+
+                        </a>
+
+                    </td>
+
+                </tr>
+
+
+                {% empty %}
+
+                <!-- =============================================
+                     NO VENDOR
+                ============================================== -->
+
+                <tr>
+
+                    <td
+                        colspan="6"
+                        class="empty"
+                    >
+
+                        <i class="bi bi-shop fs-4 d-block mb-2"></i>
+
+                        No vendors found.
+
+                    </td>
+
+                </tr>
+
+                {% endfor %}
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</div>
+
+{% endblock %}

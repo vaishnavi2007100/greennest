@@ -1,0 +1,418 @@
+{% extends "store/Manager/ManagerMaster.html" %}
+{% load static %}
+
+{% block title %}
+Product Detail | GreenNest Manager
+{% endblock %}
+
+{% block page_heading %}
+Product Detail
+{% endblock %}
+
+{% block content %}
+
+<style>
+
+.product-detail-page {
+    width: 100%;
+}
+
+.product-detail-card {
+    background: #ffffff;
+    border: 1px solid #e5ece6;
+    border-radius: 20px;
+    padding: 30px;
+    box-shadow: 0 10px 30px rgba(25, 70, 45, 0.07);
+}
+
+.product-image-box {
+    background: #f5f8f5;
+    border-radius: 18px;
+    min-height: 380px;
+    padding: 25px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.product-detail-image {
+    width: 100%;
+    max-width: 340px;
+    height: 340px;
+    object-fit: contain;
+    border-radius: 15px;
+}
+
+.product-title {
+    color: #173d2b;
+    font-size: 30px;
+    font-weight: 700;
+    margin-bottom: 22px;
+}
+
+.detail-row {
+    display: flex;
+    align-items: center;
+    padding: 13px 0;
+    border-bottom: 1px solid #edf1ee;
+}
+
+.detail-label {
+    width: 150px;
+    color: #7a857f;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.detail-value {
+    flex: 1;
+    color: #30463a;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.price {
+    color: #173d2b;
+    font-size: 22px;
+    font-weight: 700;
+}
+
+.old-price {
+    color: #9aa39e;
+    text-decoration: line-through;
+    margin-left: 10px;
+    font-size: 13px;
+}
+
+.stock-badge {
+    display: inline-block;
+    padding: 6px 12px;
+    border-radius: 8px;
+    background: #edf5ef;
+    color: #24613f;
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.status-badge {
+    display: inline-block;
+    padding: 6px 13px;
+    border-radius: 20px;
+    background: #edf5ef;
+    color: #24613f;
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: capitalize;
+}
+
+.description-box {
+    margin-top: 25px;
+    padding: 18px;
+    background: #f7faf8;
+    border-radius: 14px;
+}
+
+.description-title {
+    color: #173d2b;
+    font-weight: 700;
+    margin-bottom: 8px;
+}
+
+.description-text {
+    color: #66736b;
+    font-size: 13px;
+    line-height: 1.7;
+}
+
+.back-btn {
+    margin-top: 25px;
+}
+
+.back-btn a {
+    border-radius: 8px;
+    padding: 9px 16px;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.no-image {
+    color: #9aa39e;
+    font-size: 14px;
+}
+
+@media (max-width: 768px) {
+
+    .product-detail-card {
+        padding: 20px;
+    }
+
+    .product-title {
+        margin-top: 25px;
+        font-size: 24px;
+    }
+
+    .detail-row {
+        display: block;
+    }
+
+    .detail-label {
+        width: 100%;
+        margin-bottom: 5px;
+    }
+
+}
+
+</style>
+
+
+<div class="product-detail-page">
+
+    <div class="product-detail-card">
+
+        <div class="row g-4">
+
+
+            <!-- PRODUCT IMAGE -->
+
+            <div class="col-lg-5">
+
+                <div class="product-image-box">
+
+                    {% if product.image %}
+
+                        <img
+                            src="{% static 'product_images/' %}{{ product.image }}"
+                            class="product-detail-image"
+                            alt="{{ product.name }}"
+                        >
+
+                    {% else %}
+
+                        <span class="no-image">
+                            No Image Available
+                        </span>
+
+                    {% endif %}
+
+                </div>
+
+            </div>
+
+
+            <!-- PRODUCT DETAILS -->
+
+            <div class="col-lg-7">
+
+                <h2 class="product-title">
+                    {{ product.name }}
+                </h2>
+
+
+                <!-- ID -->
+
+                <div class="detail-row">
+
+                    <div class="detail-label">
+                        Product ID
+                    </div>
+
+                    <div class="detail-value">
+                        #{{ product.id }}
+                    </div>
+
+                </div>
+
+
+                <!-- VENDOR -->
+
+                <div class="detail-row">
+
+                    <div class="detail-label">
+                        Vendor
+                    </div>
+
+                    <div class="detail-value">
+                        {{ product.vendor_email }}
+                    </div>
+
+                </div>
+
+
+                <!-- CATEGORY -->
+
+                <div class="detail-row">
+
+                    <div class="detail-label">
+                        Category
+                    </div>
+
+                    <div class="detail-value">
+                        {{ product.category }}
+                    </div>
+
+                </div>
+
+
+                <!-- SUBCATEGORY -->
+
+                <div class="detail-row">
+
+                    <div class="detail-label">
+                        Subcategory
+                    </div>
+
+                    <div class="detail-value">
+
+                        {% if product.subcategory %}
+                            {{ product.subcategory }}
+                        {% else %}
+                            Not Available
+                        {% endif %}
+
+                    </div>
+
+                </div>
+
+
+                <!-- PRICE -->
+
+                <div class="detail-row">
+
+                    <div class="detail-label">
+                        Price
+                    </div>
+
+                    <div class="detail-value">
+
+                        <span class="price">
+                            ₹{{ product.price }}
+                        </span>
+
+                        {% if product.old_price %}
+
+                            <span class="old-price">
+                                ₹{{ product.old_price }}
+                            </span>
+
+                        {% endif %}
+
+                    </div>
+
+                </div>
+
+
+                <!-- STOCK -->
+
+                <div class="detail-row">
+
+                    <div class="detail-label">
+                        Stock
+                    </div>
+
+                    <div class="detail-value">
+
+                        <span class="stock-badge">
+                            {{ product.stock }}
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <!-- STATUS -->
+
+                <div class="detail-row">
+
+                    <div class="detail-label">
+                        Status
+                    </div>
+
+                    <div class="detail-value">
+
+                        <span class="status-badge">
+                            {{ product.status }}
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <!-- CREATED AT -->
+
+                <div class="detail-row">
+
+                    <div class="detail-label">
+                        Created At
+                    </div>
+
+                    <div class="detail-value">
+
+                        {% if product.created_at %}
+
+                            {{ product.created_at|date:"d M Y, h:i A" }}
+
+                        {% else %}
+
+                            Not Available
+
+                        {% endif %}
+
+                    </div>
+
+                </div>
+
+
+                <!-- DESCRIPTION -->
+
+                <div class="description-box">
+
+                    <div class="description-title">
+                        Description
+                    </div>
+
+                    <div class="description-text">
+
+                        {% if product.description %}
+
+                            {{ product.description }}
+
+                        {% else %}
+
+                            No description available.
+
+                        {% endif %}
+
+                    </div>
+
+                </div>
+
+
+                <!-- BACK -->
+
+                <div class="back-btn">
+
+                    <a
+                        href="{% url 'Productlist' %}"
+                        class="btn btn-outline-success"
+                    >
+
+                        <i class="bi bi-arrow-left"></i>
+
+                        Back to Product List
+
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

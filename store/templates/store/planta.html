@@ -1,0 +1,904 @@
+{% extends "store/base.html" %}
+{% load static %}
+
+{% block title %}Plant Accessories | GreenNest{% endblock %}
+
+{% block content %}
+
+<style>
+
+/* =========================================================
+   GREENNEST - PLANT ACCESSORIES PAGE
+========================================================= */
+
+.accessories-page {
+    background: #faf9f6;
+    color: #263f36;
+    font-family: Arial, sans-serif;
+}
+
+/* ================= HERO ================= */
+
+.accessories-hero {
+    min-height: 430px;
+    background:
+        linear-gradient(90deg,
+        rgba(9, 55, 43, 0.88),
+        rgba(9, 55, 43, 0.48),
+        rgba(9, 55, 43, 0.10)),
+        url("{% static 'images/plant-accessories/accessories-banner.jpg' %}")
+        center/cover no-repeat;
+
+    display: flex;
+    align-items: center;
+}
+
+.hero-content {
+    max-width: 620px;
+    padding: 70px 0;
+}
+
+.hero-small {
+    color: #d9eadf;
+    font-size: 13px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    font-weight: 600;
+    margin-bottom: 15px;
+}
+
+.hero-content h1 {
+    color: white;
+    font-size: 54px;
+    font-weight: 700;
+    line-height: 1.1;
+    margin-bottom: 20px;
+}
+
+.hero-content p {
+    color: #edf5f0;
+    font-size: 17px;
+    line-height: 1.8;
+    max-width: 540px;
+}
+
+.hero-btn {
+    display: inline-block;
+    margin-top: 15px;
+    padding: 13px 28px;
+    background: #ffffff;
+    color: #075640;
+    text-decoration: none;
+    border-radius: 30px;
+    font-weight: 600;
+    transition: 0.3s;
+}
+
+.hero-btn:hover {
+    background: #dcefe5;
+    color: #064b38;
+    transform: translateY(-3px);
+}
+
+/* ================= INTRO ================= */
+
+.section-title {
+    text-align: center;
+    margin-bottom: 45px;
+}
+
+.section-title .small-title {
+    color: #6c927f;
+    font-size: 12px;
+    letter-spacing: 3px;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+.section-title h2 {
+    color: #173f32;
+    font-size: 38px;
+    font-weight: 700;
+    margin-top: 8px;
+}
+
+.section-title p {
+    color: #748078;
+    max-width: 650px;
+    margin: 12px auto 0;
+    line-height: 1.7;
+}
+
+/* ================= CATEGORY CARDS ================= */
+
+.category-section {
+    padding: 80px 0 45px;
+}
+
+.category-card {
+    position: relative;
+    overflow: hidden;
+    border-radius: 18px;
+    height: 260px;
+    background: #ddd;
+    margin-bottom: 25px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.07);
+}
+
+.category-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: 0.5s;
+}
+
+.category-card:hover img {
+    transform: scale(1.08);
+}
+
+.category-overlay {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    padding: 25px;
+    background: linear-gradient(
+        transparent,
+        rgba(10, 42, 33, 0.88)
+    );
+    color: white;
+}
+
+.category-overlay h4 {
+    font-size: 21px;
+    margin: 0 0 5px;
+    font-weight: 600;
+}
+
+.category-overlay p {
+    margin: 0;
+    font-size: 13px;
+    color: #e2eee8;
+}
+
+/* ================= PRODUCTS ================= */
+
+.products-section {
+    padding: 70px 0 80px;
+    background: #f4f5f0;
+}
+
+.product-card {
+    border: none;
+    background: white;
+    border-radius: 18px;
+    overflow: hidden;
+    height: 100%;
+    box-shadow: 0 5px 22px rgba(35, 63, 51, 0.08);
+    transition: 0.3s;
+}
+
+.product-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 14px 32px rgba(35, 63, 51, 0.15);
+}
+
+.product-img {
+    position: relative;
+    height: 250px;
+    overflow: hidden;
+    background: #f2f1eb;
+}
+
+.product-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: 0.5s;
+}
+
+.product-card:hover .product-img img {
+    transform: scale(1.06);
+}
+
+.product-badge {
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    background: #0b624b;
+    color: white;
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 600;
+}
+
+.product-info {
+    padding: 20px;
+}
+
+.product-info h5 {
+    color: #254b3e;
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 8px;
+}
+
+.product-info p {
+    color: #7b847e;
+    font-size: 14px;
+    line-height: 1.6;
+    min-height: 44px;
+}
+
+.price {
+    color: #075640;
+    font-size: 20px;
+    font-weight: 700;
+}
+
+.old-price {
+    color: #9ca39e;
+    font-size: 13px;
+    text-decoration: line-through;
+    margin-left: 7px;
+}
+
+.buy-btn {
+    display: inline-block;
+    width: 100%;
+    margin-top: 15px;
+    padding: 11px;
+    border: 1px solid #0b624b;
+    color: #0b624b;
+    background: white;
+    text-align: center;
+    text-decoration: none;
+    border-radius: 25px;
+    font-size: 14px;
+    font-weight: 600;
+    transition: 0.3s;
+}
+
+.buy-btn:hover {
+    background: #0b624b;
+    color: white;
+}
+
+/* ================= WHY SECTION ================= */
+
+.why-section {
+    padding: 80px 0;
+    background: #ffffff;
+}
+
+.feature-box {
+    text-align: center;
+    padding: 30px 20px;
+    border-radius: 15px;
+    transition: 0.3s;
+}
+
+.feature-box:hover {
+    background: #f5f8f4;
+    transform: translateY(-5px);
+}
+
+.feature-icon {
+    width: 65px;
+    height: 65px;
+    margin: 0 auto 18px;
+    border-radius: 50%;
+    background: #e6f1eb;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #176b52;
+    font-size: 27px;
+}
+
+.feature-box h5 {
+    color: #24483c;
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+
+.feature-box p {
+    color: #7a827d;
+    font-size: 14px;
+    line-height: 1.7;
+}
+
+/* ================= CTA ================= */
+
+.accessories-cta {
+    margin: 0;
+    padding: 80px 20px;
+    text-align: center;
+    background:
+        linear-gradient(
+            rgba(7, 73, 55, 0.93),
+            rgba(7, 73, 55, 0.93)
+        ),
+        url("{% static 'images/plant-accessories/cta-bg.jpg' %}")
+        center/cover;
+}
+
+.accessories-cta h2 {
+    color: white;
+    font-size: 38px;
+    font-weight: 700;
+    margin-bottom: 15px;
+}
+
+.accessories-cta p {
+    color: #d9e9e1;
+    max-width: 620px;
+    margin: auto;
+    line-height: 1.7;
+}
+
+.cta-btn {
+    display: inline-block;
+    margin-top: 25px;
+    background: white;
+    color: #075640;
+    padding: 13px 30px;
+    border-radius: 30px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: 0.3s;
+}
+
+.cta-btn:hover {
+    background: #dcefe5;
+    color: #064b38;
+}
+
+/* ================= RESPONSIVE ================= */
+
+@media (max-width: 991px) {
+
+    .hero-content h1 {
+        font-size: 44px;
+    }
+
+    .accessories-hero {
+        min-height: 400px;
+    }
+
+}
+
+@media (max-width: 767px) {
+
+    .accessories-hero {
+        min-height: 480px;
+    }
+
+    .hero-content {
+        padding: 50px 20px;
+    }
+
+    .hero-content h1 {
+        font-size: 38px;
+    }
+
+    .hero-content p {
+        font-size: 15px;
+    }
+
+    .section-title h2 {
+        font-size: 30px;
+    }
+
+    .category-card {
+        height: 230px;
+    }
+
+    .product-img {
+        height: 230px;
+    }
+
+    .accessories-cta h2 {
+        font-size: 30px;
+    }
+
+}
+
+</style>
+
+
+<div class="accessories-page">
+
+    <!-- ================= HERO ================= -->
+
+    <section class="accessories-hero">
+
+        <div class="container">
+
+            <div class="hero-content">
+
+                <div class="hero-small">
+                    GreenNest • Plant Accessories
+                </div>
+
+                <h1>
+                    Little Details,<br>
+                    Beautiful Plants
+                </h1>
+
+                <p>
+                    Give your plants the care and style they deserve
+                    with beautiful, practical and thoughtfully designed
+                    plant accessories.
+                </p>
+
+                <a href="#accessories" class="hero-btn">
+                    Explore Accessories
+                </a>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- ================= CATEGORY ================= -->
+
+    <section class="category-section" id="accessories">
+
+        <div class="container">
+
+            <div class="section-title">
+
+                <div class="small-title">
+                    Explore Collection
+                </div>
+
+                <h2>
+                    Everything Your Plants Need
+                </h2>
+
+                <p>
+                    From elegant plant stands to everyday gardening
+                    essentials, discover accessories that make plant
+                    care easier and your space more beautiful.
+                </p>
+
+            </div>
+
+
+            <div class="row g-4">
+
+                <!-- Plant Stands -->
+
+                <div class="col-lg-4 col-md-6">
+
+                    <div class="category-card">
+
+                        <img src="{% static 'images/plant-accessories/plant-stands.jpg' %}"
+                             alt="Plant Stands">
+
+                        <div class="category-overlay">
+
+                            <h4>Plant Stands</h4>
+
+                            <p>
+                                Elevate your plants beautifully
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- Watering -->
+
+                <div class="col-lg-4 col-md-6">
+
+                    <div class="category-card">
+
+                        <img src="{% static 'images/plant-accessories/watering-cans.jpg' %}"
+                             alt="Watering Cans">
+
+                        <div class="category-overlay">
+
+                            <h4>Watering Cans</h4>
+
+                            <p>
+                                Make watering simple and stylish
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- Gardening Tools -->
+
+                <div class="col-lg-4 col-md-6">
+
+                    <div class="category-card">
+
+                        <img src="{% static 'images/plant-accessories/gardening-tools.jpg' %}"
+                             alt="Gardening Tools">
+
+                        <div class="category-overlay">
+
+                            <h4>Gardening Tools</h4>
+
+                            <p>
+                                Handy tools for everyday plant care
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- ================= PRODUCTS ================= -->
+
+    <section class="products-section">
+
+        <div class="container">
+
+            <div class="section-title">
+
+                <div class="small-title">
+                    Best Sellers
+                </div>
+
+                <h2>
+                    Plant Care Essentials
+                </h2>
+
+                <p>
+                    Beautiful accessories selected to complement
+                    your indoor and outdoor plants.
+                </p>
+
+            </div>
+
+
+            <div class="row g-4">
+
+                <!-- PRODUCT 1 -->
+
+                <div class="col-xl-3 col-lg-4 col-md-6">
+
+                    <div class="product-card">
+
+                        <div class="product-img">
+
+                            <span class="product-badge">
+                                Bestseller
+                            </span>
+
+                            <img src="{% static 'images/plant-accessories/plant-stand.jpg' %}"
+                                 alt="Wooden Plant Stand">
+
+                        </div>
+
+                        <div class="product-info">
+
+                            <h5>
+                                Wooden Plant Stand
+                            </h5>
+
+                            <p>
+                                Minimal wooden stand for indoor plants.
+                            </p>
+
+                            <span class="price">
+                                ₹899
+                            </span>
+
+                            <span class="old-price">
+                                ₹1,199
+                            </span>
+
+                            <a href="#" class="buy-btn">
+                                View Product
+                            </a>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- PRODUCT 2 -->
+
+                <div class="col-xl-3 col-lg-4 col-md-6">
+
+                    <div class="product-card">
+
+                        <div class="product-img">
+
+                            <span class="product-badge">
+                                New
+                            </span>
+
+                            <img src="{% static 'images/plant-accessories/watering-can.jpg' %}"
+                                 alt="Watering Can">
+
+                        </div>
+
+                        <div class="product-info">
+
+                            <h5>
+                                Modern Watering Can
+                            </h5>
+
+                            <p>
+                                Elegant watering can for daily plant care.
+                            </p>
+
+                            <span class="price">
+                                ₹549
+                            </span>
+
+                            <span class="old-price">
+                                ₹699
+                            </span>
+
+                            <a href="#" class="buy-btn">
+                                View Product
+                            </a>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- PRODUCT 3 -->
+
+                <div class="col-xl-3 col-lg-4 col-md-6">
+
+                    <div class="product-card">
+
+                        <div class="product-img">
+
+                            <span class="product-badge">
+                                Popular
+                            </span>
+
+                            <img src="{% static 'images/plant-accessories/garden-tool-set.jpg' %}"
+                                 alt="Garden Tool Set">
+
+                        </div>
+
+                        <div class="product-info">
+
+                            <h5>
+                                Garden Tool Set
+                            </h5>
+
+                            <p>
+                                Essential tools for easy gardening.
+                            </p>
+
+                            <span class="price">
+                                ₹749
+                            </span>
+
+                            <span class="old-price">
+                                ₹999
+                            </span>
+
+                            <a href="#" class="buy-btn">
+                                View Product
+                            </a>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- PRODUCT 4 -->
+
+                <div class="col-xl-3 col-lg-4 col-md-6">
+
+                    <div class="product-card">
+
+                        <div class="product-img">
+
+                            <span class="product-badge">
+                                New
+                            </span>
+
+                            <img src="{% static 'images/plant-accessories/plant-mister.jpg' %}"
+                                 alt="Plant Mister">
+
+                        </div>
+
+                        <div class="product-info">
+
+                            <h5>
+                                Glass Plant Mister
+                            </h5>
+
+                            <p>
+                                Perfect for keeping tropical plants fresh.
+                            </p>
+
+                            <span class="price">
+                                ₹399
+                            </span>
+
+                            <span class="old-price">
+                                ₹499
+                            </span>
+
+                            <a href="#" class="buy-btn">
+                                View Product
+                            </a>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- ================= WHY GREENNEST ================= -->
+
+    <section class="why-section">
+
+        <div class="container">
+
+            <div class="section-title">
+
+                <div class="small-title">
+                    Why GreenNest
+                </div>
+
+                <h2>
+                    Made For Plant Lovers
+                </h2>
+
+            </div>
+
+
+            <div class="row g-4">
+
+                <div class="col-lg-3 col-md-6">
+
+                    <div class="feature-box">
+
+                        <div class="feature-icon">
+                            ♡
+                        </div>
+
+                        <h5>
+                            Thoughtfully Selected
+                        </h5>
+
+                        <p>
+                            Accessories chosen with plant lovers
+                            and modern homes in mind.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="col-lg-3 col-md-6">
+
+                    <div class="feature-box">
+
+                        <div class="feature-icon">
+                            ✿
+                        </div>
+
+                        <h5>
+                            Beautiful Designs
+                        </h5>
+
+                        <p>
+                            Add a natural and elegant touch
+                            to your plant collection.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="col-lg-3 col-md-6">
+
+                    <div class="feature-box">
+
+                        <div class="feature-icon">
+                            ✓
+                        </div>
+
+                        <h5>
+                            Everyday Friendly
+                        </h5>
+
+                        <p>
+                            Practical products designed for
+                            simple everyday plant care.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="col-lg-3 col-md-6">
+
+                    <div class="feature-box">
+
+                        <div class="feature-icon">
+                            ♧
+                        </div>
+
+                        <h5>
+                            Made To Last
+                        </h5>
+
+                        <p>
+                            Quality accessories that fit naturally
+                            into your plant care routine.
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- ================= CTA ================= -->
+
+    <section class="accessories-cta">
+
+        <h2>
+            Complete Your Green Space
+        </h2>
+
+        <p>
+            Find the perfect accessories to care for your plants
+            and create a home that feels closer to nature.
+        </p>
+
+        <a href="#" class="cta-btn">
+            Shop Plant Accessories
+        </a>
+
+    </section>
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,517 @@
+{% extends "store/Admin/AdminMaster.html" %}
+
+{% block title %}
+User List | GreenNest
+{% endblock %}
+
+
+{% block page_heading %}
+User List
+{% endblock %}
+
+
+{% block content %}
+
+<style>
+
+/* =====================================================
+   USER LIST
+===================================================== */
+
+.list-card {
+
+    background: white;
+
+    border: 1px solid #e5ece6;
+
+    border-radius: 18px;
+
+    padding: 25px;
+}
+
+
+/* =====================================================
+   HEADING
+===================================================== */
+
+.list-card h3 {
+
+    font-family:
+        'DM Serif Display',
+        serif;
+
+    color: #173d2b;
+
+    margin-bottom: 20px;
+}
+
+
+/* =====================================================
+   TABLE
+===================================================== */
+
+.table {
+
+    margin: 0;
+
+    font-size: 12px;
+
+    vertical-align: middle;
+}
+
+
+.table thead th {
+
+    background: #f3f7f3;
+
+    color: #526159;
+
+    font-size: 11px;
+
+    border: none;
+
+    padding: 14px;
+}
+
+
+.table tbody td {
+
+    padding: 14px;
+
+    border-color: #edf1ee;
+}
+
+
+/* =====================================================
+   VIEW BUTTON
+===================================================== */
+
+.view-btn {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 5px;
+
+    background: #173d2b;
+
+    color: white;
+
+    padding: 7px 12px;
+
+    border-radius: 8px;
+
+    text-decoration: none;
+
+    font-size: 10px;
+
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition: 0.2s ease;
+}
+
+
+.view-btn:hover {
+
+    background: #286044;
+
+    color: white;
+
+    text-decoration: none;
+}
+
+
+/* =====================================================
+   BLOCK BUTTON
+===================================================== */
+
+.block-btn {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 5px;
+
+    background: #dc3545;
+
+    color: white;
+
+    padding: 7px 12px;
+
+    border-radius: 8px;
+
+    text-decoration: none;
+
+    font-size: 10px;
+
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition: 0.2s ease;
+}
+
+
+.block-btn:hover {
+
+    background: #bb2d3b;
+
+    color: white;
+
+    text-decoration: none;
+}
+
+
+/* =====================================================
+   UNBLOCK BUTTON
+===================================================== */
+
+.unblock-btn {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 5px;
+
+    background: #198754;
+
+    color: white;
+
+    padding: 7px 12px;
+
+    border-radius: 8px;
+
+    text-decoration: none;
+
+    font-size: 10px;
+
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition: 0.2s ease;
+}
+
+
+.unblock-btn:hover {
+
+    background: #157347;
+
+    color: white;
+
+    text-decoration: none;
+}
+
+
+/* =====================================================
+   STATUS
+===================================================== */
+
+.status-active {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 5px;
+
+    color: #198754;
+
+    background: #eaf7ef;
+
+    padding: 6px 10px;
+
+    border-radius: 20px;
+
+    font-size: 10px;
+
+    font-weight: 700;
+}
+
+
+.status-blocked {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 5px;
+
+    color: #dc3545;
+
+    background: #fff0f1;
+
+    padding: 6px 10px;
+
+    border-radius: 20px;
+
+    font-size: 10px;
+
+    font-weight: 700;
+}
+
+
+/* =====================================================
+   EMPTY
+===================================================== */
+
+.empty {
+
+    text-align: center;
+
+    padding: 40px;
+
+    color: #8a958e;
+
+    font-size: 12px;
+}
+
+
+/* =====================================================
+   USER ID
+===================================================== */
+
+.user-id {
+
+    font-weight: 600;
+
+    color: #173d2b;
+}
+
+
+/* =====================================================
+   USER NAME
+===================================================== */
+
+.user-name {
+
+    font-weight: 600;
+
+    color: #263b31;
+}
+
+
+/* =====================================================
+   EMAIL
+===================================================== */
+
+.user-email {
+
+    color: #65736b;
+}
+
+
+/* =====================================================
+   ACTION AREA
+===================================================== */
+
+.action-area {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 7px;
+
+    flex-wrap: wrap;
+}
+
+</style>
+
+
+<div class="list-card">
+
+    <h3>
+        Registered Users
+    </h3>
+
+
+    <div class="table-responsive">
+
+        <table class="table">
+
+            <thead>
+
+                <tr>
+
+                    <th>
+                        ID
+                    </th>
+
+                    <th>
+                        Name
+                    </th>
+
+                    <th>
+                        Email
+                    </th>
+
+                    <th>
+                        Status
+                    </th>
+
+                    <th>
+                        Action
+                    </th>
+
+                </tr>
+
+            </thead>
+
+
+            <tbody>
+
+                {% for user in users %}
+
+                <tr>
+
+                    <!-- =================================
+                         ID
+                    ================================== -->
+
+                    <td class="user-id">
+
+                        {{ user.id }}
+
+                    </td>
+
+
+                    <!-- =================================
+                         NAME
+                    ================================== -->
+
+                    <td class="user-name">
+
+                        {{ user.name }}
+
+                    </td>
+
+
+                    <!-- =================================
+                         EMAIL
+                    ================================== -->
+
+                    <td class="user-email">
+
+                        {{ user.email }}
+
+                    </td>
+
+
+                    <!-- =================================
+                         STATUS
+                    ================================== -->
+
+                    <td>
+
+                        {% if user.status == "Blocked" %}
+
+                            <span class="status-blocked">
+
+                                <i class="bi bi-x-circle"></i>
+
+                                Blocked
+
+                            </span>
+
+                        {% else %}
+
+                            <span class="status-active">
+
+                                <i class="bi bi-check-circle"></i>
+
+                                Active
+
+                            </span>
+
+                        {% endif %}
+
+                    </td>
+
+
+                    <!-- =================================
+                         ACTION
+                    ================================== -->
+
+                    <td>
+
+                        <div class="action-area">
+
+                            <a
+                                href="{% url 'AUserdetail' user.id %}"
+                                class="view-btn"
+                            >
+
+                                <i class="bi bi-eye"></i>
+
+                                View
+
+                            </a>
+
+
+                            {% if user.status == "Blocked" %}
+
+                                <a
+                                    href="{% url 'AdminUnblockUser' user.id %}"
+                                    class="unblock-btn"
+                                >
+
+                                    <i class="bi bi-unlock"></i>
+
+                                    Unblock
+
+                                </a>
+
+                            {% else %}
+
+                                <a
+                                    href="{% url 'AdminBlockUser' user.id %}"
+                                    class="block-btn"
+                                >
+
+                                    <i class="bi bi-lock"></i>
+
+                                    Block
+
+                                </a>
+
+                            {% endif %}
+
+                        </div>
+
+                    </td>
+
+                </tr>
+
+
+                {% empty %}
+
+                <tr>
+
+                    <td
+                        colspan="5"
+                        class="empty"
+                    >
+
+                        No users found.
+
+                    </td>
+
+                </tr>
+
+                {% endfor %}
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</div>
+
+{% endblock %}

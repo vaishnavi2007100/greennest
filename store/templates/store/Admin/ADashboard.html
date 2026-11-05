@@ -1,0 +1,821 @@
+{% extends "store/Admin/AdminMaster.html" %}
+
+{% block title %}
+Admin Dashboard | GreenNest
+{% endblock %}
+
+{% block page_heading %}
+Admin Dashboard
+{% endblock %}
+
+{% block content %}
+
+<style>
+
+/* =========================================================
+   GREENNEST ADMIN DASHBOARD
+========================================================= */
+
+.admin-dashboard {
+    width: 100%;
+}
+
+/* =========================================================
+   WELCOME SECTION
+========================================================= */
+
+.dashboard-welcome {
+    background: linear-gradient(135deg, #12372a, #286849);
+    border-radius: 18px;
+    padding: 28px 30px;
+    margin-bottom: 28px;
+    color: #ffffff;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(18, 55, 42, 0.12);
+}
+
+.dashboard-welcome::after {
+    content: "";
+    position: absolute;
+    width: 180px;
+    height: 180px;
+    border-radius: 50%;
+    right: -60px;
+    top: -70px;
+    background: rgba(255,255,255,0.08);
+}
+
+.dashboard-welcome::before {
+    content: "";
+    position: absolute;
+    width: 110px;
+    height: 110px;
+    border-radius: 50%;
+    right: 100px;
+    bottom: -65px;
+    background: rgba(200,169,107,0.15);
+}
+
+.dashboard-welcome h2 {
+    font-size: 27px;
+    font-weight: 700;
+    margin-bottom: 8px;
+    position: relative;
+    z-index: 2;
+}
+
+.dashboard-welcome p {
+    margin: 0;
+    color: rgba(255,255,255,0.82);
+    font-size: 15px;
+    position: relative;
+    z-index: 2;
+}
+
+/* =========================================================
+   STAT CARDS
+========================================================= */
+
+.dashboard-stat-row {
+    margin-bottom: 30px;
+}
+
+.admin-card {
+    background: #ffffff;
+    border-radius: 18px;
+    padding: 24px 22px;
+    height: 100%;
+    border: 1px solid #edf0ec;
+    box-shadow: 0 8px 25px rgba(18,55,42,0.07);
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.admin-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 15px 35px rgba(18,55,42,0.12);
+}
+
+.admin-card::after {
+    content: "";
+    position: absolute;
+    width: 85px;
+    height: 85px;
+    border-radius: 50%;
+    right: -35px;
+    bottom: -35px;
+    background: rgba(18,55,42,0.04);
+}
+
+.admin-icon {
+    width: 52px;
+    height: 52px;
+    border-radius: 14px;
+    background: #eef6f0;
+    color: #12372a;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 23px;
+    margin-bottom: 17px;
+}
+
+.admin-card h5 {
+    font-size: 15px;
+    color: #66736c;
+    margin-bottom: 7px;
+    font-weight: 600;
+}
+
+.admin-card h3 {
+    font-size: 30px;
+    color: #12372a;
+    font-weight: 700;
+    margin-bottom: 5px;
+}
+
+.admin-card p {
+    margin: 0;
+    color: #929b96;
+    font-size: 13px;
+}
+
+/* =========================================================
+   OVERVIEW SECTION
+========================================================= */
+
+.dashboard-section {
+    background: #ffffff;
+    border: 1px solid #edf0ec;
+    border-radius: 18px;
+    padding: 25px;
+    box-shadow: 0 8px 25px rgba(18,55,42,0.06);
+    height: 100%;
+}
+
+.dashboard-section-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 22px;
+}
+
+.dashboard-section-header h4 {
+    margin: 0;
+    color: #12372a;
+    font-size: 19px;
+    font-weight: 700;
+}
+
+.dashboard-section-header span {
+    font-size: 13px;
+    color: #89938d;
+}
+
+/* =========================================================
+   OVERVIEW ITEMS
+========================================================= */
+
+.overview-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 0;
+    border-bottom: 1px solid #eef1ee;
+}
+
+.overview-item:last-child {
+    border-bottom: none;
+}
+
+.overview-left {
+    display: flex;
+    align-items: center;
+    gap: 13px;
+}
+
+.overview-icon {
+    width: 42px;
+    height: 42px;
+    border-radius: 12px;
+    background: #f1f7f3;
+    color: #286849;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+}
+
+.overview-name {
+    font-size: 14px;
+    font-weight: 600;
+    color: #37433d;
+}
+
+.overview-description {
+    font-size: 12px;
+    color: #929b96;
+    margin-top: 2px;
+}
+
+.overview-count {
+    min-width: 45px;
+    text-align: center;
+    padding: 6px 10px;
+    border-radius: 20px;
+    background: #f5f7f5;
+    color: #12372a;
+    font-size: 13px;
+    font-weight: 700;
+}
+
+/* =========================================================
+   QUICK ACTIONS
+========================================================= */
+
+.quick-action {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 15px;
+    border-radius: 13px;
+    background: #f8faf8;
+    margin-bottom: 12px;
+    text-decoration: none;
+    transition: all 0.25s ease;
+    border: 1px solid transparent;
+}
+
+.quick-action:last-child {
+    margin-bottom: 0;
+}
+
+.quick-action:hover {
+    background: #eef6f0;
+    border-color: #dce9df;
+    transform: translateX(4px);
+}
+
+.quick-action-icon {
+    width: 43px;
+    height: 43px;
+    border-radius: 11px;
+    background: #12372a;
+    color: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    flex-shrink: 0;
+}
+
+.quick-action-content {
+    flex: 1;
+}
+
+.quick-action-content strong {
+    display: block;
+    color: #29352f;
+    font-size: 14px;
+    margin-bottom: 2px;
+}
+
+.quick-action-content span {
+    color: #929b96;
+    font-size: 12px;
+}
+
+.quick-action-arrow {
+    color: #9ba59f;
+}
+
+/* =========================================================
+   ADMIN INFO BANNER
+========================================================= */
+
+.admin-info {
+    margin-top: 30px;
+    padding: 22px 24px;
+    border-radius: 17px;
+    background: #faf8f1;
+    border: 1px solid #eee8d8;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.admin-info-icon {
+    width: 48px;
+    height: 48px;
+    background: #c8a96b;
+    color: #ffffff;
+    border-radius: 13px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 21px;
+    flex-shrink: 0;
+}
+
+.admin-info h6 {
+    color: #514631;
+    font-weight: 700;
+    margin-bottom: 4px;
+}
+
+.admin-info p {
+    margin: 0;
+    color: #81765e;
+    font-size: 13px;
+}
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media (max-width: 767px) {
+
+    .dashboard-welcome {
+        padding: 23px 20px;
+    }
+
+    .dashboard-welcome h2 {
+        font-size: 22px;
+    }
+
+    .admin-card {
+        margin-bottom: 15px;
+    }
+
+    .dashboard-section {
+        margin-bottom: 20px;
+    }
+
+    .admin-info {
+        align-items: flex-start;
+    }
+
+}
+
+</style>
+
+
+<div class="admin-dashboard">
+
+
+<!-- =====================================================
+     WELCOME
+====================================================== -->
+
+<div class="dashboard-welcome">
+
+    <h2>
+        Welcome, Admin
+    </h2>
+
+    <p>
+        Manage GreenNest managers, vendors, customers and
+        product categories from one powerful dashboard.
+    </p>
+
+</div>
+
+
+<!-- =====================================================
+     FOUR STAT CARDS
+====================================================== -->
+
+<div class="row g-4 dashboard-stat-row">
+
+
+    <!-- USERS -->
+
+    <div class="col-xl-3 col-lg-6 col-md-6">
+
+        <div class="admin-card">
+
+            <div class="admin-icon">
+                <i class="bi bi-people-fill"></i>
+            </div>
+
+            <h5>
+                Total Users
+            </h5>
+
+            <h3>
+                {{ total_users|default:"0" }}
+            </h3>
+
+            <p>
+                Registered customers
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <!-- MANAGERS -->
+
+    <div class="col-xl-3 col-lg-6 col-md-6">
+
+        <div class="admin-card">
+
+            <div class="admin-icon">
+                <i class="bi bi-person-badge-fill"></i>
+            </div>
+
+            <h5>
+                Managers
+            </h5>
+
+            <h3>
+                {{ total_managers|default:"0" }}
+            </h3>
+
+            <p>
+                Active managers
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <!-- VENDORS -->
+
+    <div class="col-xl-3 col-lg-6 col-md-6">
+
+        <div class="admin-card">
+
+            <div class="admin-icon">
+                <i class="bi bi-shop"></i>
+            </div>
+
+            <h5>
+                Vendors
+            </h5>
+
+            <h3>
+                {{ total_vendors|default:"0" }}
+            </h3>
+
+            <p>
+                Registered vendors
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <!-- CATEGORIES -->
+
+    <div class="col-xl-3 col-lg-6 col-md-6">
+
+        <div class="admin-card">
+
+            <div class="admin-icon">
+                <i class="bi bi-grid-fill"></i>
+            </div>
+
+            <h5>
+                Categories
+            </h5>
+
+            <h3>
+                {{ total_categories|default:"0" }}
+            </h3>
+
+            <p>
+                Product categories
+            </p>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- =====================================================
+     LOWER DASHBOARD
+====================================================== -->
+
+<div class="row g-4">
+
+
+    <!-- =================================================
+         SYSTEM OVERVIEW
+    ================================================== -->
+
+    <div class="col-lg-7">
+
+        <div class="dashboard-section">
+
+            <div class="dashboard-section-header">
+
+                <h4>
+                    <i class="bi bi-bar-chart-line me-2"></i>
+                    System Overview
+                </h4>
+
+                <span>
+                    GreenNest
+                </span>
+
+            </div>
+
+
+            <!-- USERS -->
+
+            <div class="overview-item">
+
+                <div class="overview-left">
+
+                    <div class="overview-icon">
+                        <i class="bi bi-people"></i>
+                    </div>
+
+                    <div>
+
+                        <div class="overview-name">
+                            Customers
+                        </div>
+
+                        <div class="overview-description">
+                            Registered GreenNest customers
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="overview-count">
+                    {{ total_users|default:"0" }}
+                </div>
+
+            </div>
+
+
+            <!-- MANAGERS -->
+
+            <div class="overview-item">
+
+                <div class="overview-left">
+
+                    <div class="overview-icon">
+                        <i class="bi bi-person-badge"></i>
+                    </div>
+
+                    <div>
+
+                        <div class="overview-name">
+                            Managers
+                        </div>
+
+                        <div class="overview-description">
+                            Store management accounts
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="overview-count">
+                    {{ total_managers|default:"0" }}
+                </div>
+
+            </div>
+
+
+            <!-- VENDORS -->
+
+            <div class="overview-item">
+
+                <div class="overview-left">
+
+                    <div class="overview-icon">
+                        <i class="bi bi-shop"></i>
+                    </div>
+
+                    <div>
+
+                        <div class="overview-name">
+                            Vendors
+                        </div>
+
+                        <div class="overview-description">
+                            Registered product vendors
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="overview-count">
+                    {{ total_vendors|default:"0" }}
+                </div>
+
+            </div>
+
+
+            <!-- CATEGORIES -->
+
+            <div class="overview-item">
+
+                <div class="overview-left">
+
+                    <div class="overview-icon">
+                        <i class="bi bi-grid"></i>
+                    </div>
+
+                    <div>
+
+                        <div class="overview-name">
+                            Categories
+                        </div>
+
+                        <div class="overview-description">
+                            Product categories available
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="overview-count">
+                    {{ total_categories|default:"0" }}
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- =================================================
+         QUICK ACTIONS
+    ================================================== -->
+
+    <div class="col-lg-5">
+
+        <div class="dashboard-section">
+
+            <div class="dashboard-section-header">
+
+                <h4>
+                    <i class="bi bi-lightning-charge-fill me-2"></i>
+                    Quick Actions
+                </h4>
+
+                <span>
+                    Manage
+                </span>
+
+            </div>
+
+
+            <!-- USER LIST -->
+
+            <a href="{% url 'UserList' %}"
+               class="quick-action">
+
+                <div class="quick-action-icon">
+                    <i class="bi bi-people-fill"></i>
+                </div>
+
+                <div class="quick-action-content">
+
+                    <strong>
+                        Manage Users
+                    </strong>
+
+                    <span>
+                        View registered customers
+                    </span>
+
+                </div>
+
+                <i class="bi bi-chevron-right quick-action-arrow"></i>
+
+            </a>
+
+
+            <!-- ADMIN CATEGORY -->
+
+            <a href="{% url 'AdminCategorylist' %}"
+               class="quick-action">
+
+                <div class="quick-action-icon">
+                    <i class="bi bi-grid-fill"></i>
+                </div>
+
+                <div class="quick-action-content">
+
+                    <strong>
+                        Manage Categories
+                    </strong>
+
+                    <span>
+                        Add or edit product categories
+                    </span>
+
+                </div>
+
+                <i class="bi bi-chevron-right quick-action-arrow"></i>
+
+            </a>
+
+
+            <!-- ADMIN SUBCATEGORY -->
+
+            <a href="{% url 'AdminSubcategorylist' %}"
+               class="quick-action">
+
+                <div class="quick-action-icon">
+                    <i class="bi bi-diagram-3-fill"></i>
+                </div>
+
+                <div class="quick-action-content">
+
+                    <strong>
+                        Manage Subcategories
+                    </strong>
+
+                    <span>
+                        Organize product subcategories
+                    </span>
+
+                </div>
+
+                <i class="bi bi-chevron-right quick-action-arrow"></i>
+
+            </a>
+
+
+            <!-- ADMIN PROFILE -->
+
+            <a href="{% url 'AdminProfile' %}"
+               class="quick-action">
+
+                <div class="quick-action-icon">
+                    <i class="bi bi-person-circle"></i>
+                </div>
+
+                <div class="quick-action-content">
+
+                    <strong>
+                        Admin Profile
+                    </strong>
+
+                    <span>
+                        View your account details
+                    </span>
+
+                </div>
+
+                <i class="bi bi-chevron-right quick-action-arrow"></i>
+
+            </a>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- =====================================================
+     INFORMATION BANNER
+====================================================== -->
+
+<div class="admin-info">
+
+    <div class="admin-info-icon">
+        <i class="bi bi-shield-check"></i>
+    </div>
+
+    <div>
+
+        <h6>
+            GreenNest Administration
+        </h6>
+
+        <p>
+            Use this dashboard to monitor customers,
+            managers, vendors and product categories
+            across the GreenNest store.
+        </p>
+
+    </div>
+
+</div>
+
+
+</div>
+
+{% endblock %}

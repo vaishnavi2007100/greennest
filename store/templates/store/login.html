@@ -1,0 +1,2677 @@
+{% extends 'store/base.html' %}
+{% load static %}
+
+{% block title %}
+Login Now | GreenNest
+{% endblock %}
+
+{% block content %}
+
+<style>
+
+/* =========================================================
+   GREENNEST SHOP / LOGIN REGISTER PAGE
+========================================================= */
+
+.gn-shop-page {
+    min-height: calc(100vh - 150px);
+    padding: 55px 15px 75px;
+
+    background:
+        radial-gradient(
+            circle at 10% 10%,
+            rgba(215,235,220,.55),
+            transparent 28%
+        ),
+        radial-gradient(
+            circle at 90% 90%,
+            rgba(226,240,228,.55),
+            transparent 30%
+        ),
+        #f6faf7;
+}
+
+
+/* =========================================================
+   MAIN CARD
+========================================================= */
+
+.gn-account-card {
+    width: 100%;
+    max-width: 1120px;
+    min-height: 650px;
+
+    margin: auto;
+
+    display: flex;
+
+    background: #ffffff;
+
+    border: 1px solid #e1ebe4;
+    border-radius: 32px;
+
+    overflow: hidden;
+
+    box-shadow:
+        0 30px 80px rgba(17, 61, 44, .13);
+}
+
+
+/* =========================================================
+   LEFT SIDE
+========================================================= */
+
+.gn-account-left {
+    width: 50%;
+    min-height: 650px;
+
+    position: relative;
+    overflow: hidden;
+
+    padding: 55px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(5, 48, 34, .96),
+            rgba(11, 61, 46, .82)
+        ),
+        url("{% static 'images/plant-center.jpg' %}")
+        center / cover no-repeat;
+}
+
+
+.gn-account-left::before {
+    content: "";
+
+    position: absolute;
+
+    width: 330px;
+    height: 330px;
+
+    border-radius: 50%;
+
+    border: 1px solid rgba(255,255,255,.10);
+
+    top: -140px;
+    right: -120px;
+}
+
+
+.gn-account-left::after {
+    content: "";
+
+    position: absolute;
+
+    width: 500px;
+    height: 500px;
+
+    border-radius: 50%;
+
+    border: 1px solid rgba(255,255,255,.07);
+
+    bottom: -320px;
+    left: -220px;
+}
+
+
+.gn-left-inner {
+    position: relative;
+    z-index: 2;
+}
+
+
+/* =========================================================
+   LOGO
+========================================================= */
+
+.gn-account-logo {
+    display: flex;
+    align-items: center;
+
+    gap: 12px;
+
+    color: #ffffff;
+
+    font-size: 23px;
+    font-weight: 800;
+}
+
+
+.gn-account-logo-icon {
+    width: 45px;
+    height: 45px;
+
+    display: grid;
+    place-items: center;
+
+    border-radius: 14px;
+
+    background: rgba(255,255,255,.11);
+
+    border: 1px solid rgba(255,255,255,.18);
+}
+
+
+.gn-account-logo-icon svg {
+    width: 25px;
+    height: 25px;
+}
+
+
+/* =========================================================
+   LEFT CONTENT
+========================================================= */
+
+.gn-left-main {
+    margin-top: 115px;
+}
+
+
+.gn-left-label {
+    display: inline-block;
+
+    margin-bottom: 17px;
+
+    color: #c9e0c9;
+
+    font-size: 10px;
+    font-weight: 800;
+
+    letter-spacing: 2.5px;
+
+    text-transform: uppercase;
+}
+
+
+.gn-left-main h1 {
+    max-width: 470px;
+
+    margin: 0 0 22px;
+
+    color: #ffffff;
+
+    font-family: Georgia, serif;
+
+    font-size: clamp(43px, 5vw, 63px);
+
+    font-weight: 400;
+
+    line-height: 1.04;
+
+    letter-spacing: -1.5px;
+}
+
+
+.gn-left-main h1 strong {
+    font-family: Arial, sans-serif;
+
+    font-weight: 800;
+}
+
+
+.gn-left-description {
+    max-width: 440px;
+
+    margin: 0;
+
+    color: rgba(255,255,255,.70);
+
+    font-size: 14px;
+
+    line-height: 1.9;
+}
+
+
+/* =========================================================
+   LEFT FEATURES
+========================================================= */
+
+.gn-left-features {
+    position: relative;
+
+    z-index: 2;
+
+    display: flex;
+
+    flex-wrap: wrap;
+
+    gap: 12px;
+}
+
+
+.gn-feature {
+    display: flex;
+
+    align-items: center;
+
+    gap: 8px;
+
+    padding: 9px 13px;
+
+    border-radius: 50px;
+
+    color: rgba(255,255,255,.82);
+
+    font-size: 11px;
+
+    background: rgba(255,255,255,.08);
+
+    border: 1px solid rgba(255,255,255,.10);
+}
+
+
+.gn-feature-dot {
+    width: 7px;
+    height: 7px;
+
+    border-radius: 50%;
+
+    background: #c9e2c5;
+}
+
+
+/* =========================================================
+   RIGHT SIDE
+========================================================= */
+
+.gn-account-right {
+    width: 50%;
+    min-height: 650px;
+
+    padding: 55px 65px;
+
+    display: flex;
+
+    flex-direction: column;
+
+    justify-content: center;
+}
+
+
+/* =========================================================
+   HEADER
+========================================================= */
+
+.gn-account-header {
+    margin-bottom: 28px;
+}
+
+
+.gn-account-small {
+    margin-bottom: 9px;
+
+    color: #6f8178;
+
+    font-size: 10px;
+
+    font-weight: 800;
+
+    letter-spacing: 2px;
+
+    text-transform: uppercase;
+}
+
+
+.gn-account-header h2 {
+    margin: 0 0 9px;
+
+    color: #103c2c;
+
+    font-size: 35px;
+
+    font-weight: 800;
+
+    letter-spacing: -1px;
+}
+
+
+.gn-account-header p {
+    margin: 0;
+
+    color: #7b8982;
+
+    font-size: 13px;
+
+    line-height: 1.7;
+}
+
+
+/* =========================================================
+   TABS
+========================================================= */
+
+.gn-tabs {
+    display: flex;
+
+    width: 100%;
+
+    padding: 5px;
+
+    margin-bottom: 28px;
+
+    border-radius: 14px;
+
+    background: #eef4ef;
+}
+
+
+.gn-tab {
+    width: 50%;
+
+    padding: 13px 10px;
+
+    border: none;
+
+    outline: none;
+
+    border-radius: 10px;
+
+    background: transparent;
+
+    color: #718078;
+
+    font-size: 13px;
+
+    font-weight: 700;
+
+    cursor: pointer;
+
+    transition: all .3s ease;
+}
+
+
+.gn-tab:hover {
+    color: #0b3d2e;
+}
+
+
+.gn-tab.active {
+    color: #0b3d2e;
+
+    background: #ffffff;
+
+    box-shadow:
+        0 5px 18px rgba(15,60,43,.09);
+}
+
+
+/* =========================================================
+   FORMS
+========================================================= */
+
+.gn-form {
+    display: none;
+}
+
+
+.gn-form.active {
+    display: block;
+
+    animation: gnShowForm .35s ease;
+}
+
+
+@keyframes gnShowForm {
+
+    from {
+        opacity: 0;
+
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+
+        transform: translateY(0);
+    }
+
+}
+
+
+/* =========================================================
+   FIELD
+========================================================= */
+
+.gn-field {
+    margin-bottom: 17px;
+}
+
+
+.gn-field label {
+    display: block;
+
+    margin-bottom: 8px;
+
+    color: #344a40;
+
+    font-size: 12px;
+
+    font-weight: 700;
+}
+
+
+.gn-input-box {
+    position: relative;
+}
+
+
+.gn-input-icon {
+    position: absolute;
+
+    left: 15px;
+
+    top: 50%;
+
+    transform: translateY(-50%);
+
+    color: #91a099;
+
+    z-index: 2;
+}
+
+
+.gn-input-icon svg {
+    width: 18px;
+
+    height: 18px;
+}
+
+
+.gn-input {
+    width: 100%;
+
+    height: 51px;
+
+    padding: 0 15px 0 45px;
+
+    border: 1px solid #dfe8e2;
+
+    border-radius: 13px;
+
+    outline: none;
+
+    background: #fbfdfb;
+
+    color: #20382e;
+
+    font-size: 13px;
+
+    transition: all .25s ease;
+}
+
+
+.gn-input::placeholder {
+    color: #a5b0ab;
+}
+
+
+.gn-input:focus {
+    border-color: #8daf99;
+
+    background: #ffffff;
+
+    box-shadow:
+        0 0 0 4px rgba(54,112,78,.08);
+}
+
+
+/* =========================================================
+   VALIDATION
+========================================================= */
+
+.gn-validation-error {
+    display: none;
+
+    margin-top: 6px;
+
+    color: #dc3545;
+
+    font-size: 11px;
+
+    font-weight: 600;
+}
+
+
+.gn-input.gn-invalid {
+    border-color: #dc3545 !important;
+
+    background: #fff8f8 !important;
+
+    box-shadow:
+        0 0 0 3px rgba(220,53,69,.07) !important;
+}
+
+
+.gn-input.gn-valid {
+    border-color: #198754 !important;
+
+    background: #f9fffb !important;
+}
+
+
+.gn-input.gn-invalid:focus {
+    border-color: #dc3545 !important;
+}
+
+
+.gn-input.gn-valid:focus {
+    border-color: #198754 !important;
+}
+
+
+/* =========================================================
+   LOGIN OPTIONS
+========================================================= */
+
+.gn-login-options {
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    margin: 3px 0 22px;
+}
+
+
+.gn-remember {
+    display: flex;
+
+    align-items: center;
+
+    gap: 7px;
+
+    color: #7a8981;
+
+    font-size: 11px;
+}
+
+
+.gn-remember input {
+    accent-color: #1d6848;
+}
+
+
+.gn-forgot {
+    color: #347051;
+
+    font-size: 11px;
+
+    font-weight: 700;
+
+    text-decoration: none;
+}
+
+
+.gn-forgot:hover {
+    color: #0b3d2e;
+}
+
+
+/* =========================================================
+   SUBMIT BUTTON
+========================================================= */
+
+.gn-submit-btn {
+    width: 100%;
+
+    height: 52px;
+
+    border: none;
+
+    border-radius: 14px;
+
+    background: #0b3d2e;
+
+    color: #ffffff;
+
+    font-size: 13px;
+
+    font-weight: 800;
+
+    cursor: pointer;
+
+    box-shadow:
+        0 10px 25px rgba(11,61,46,.18);
+
+    transition: all .3s ease;
+}
+
+
+.gn-submit-btn:hover {
+    background: #1d6848;
+
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 15px 30px rgba(11,61,46,.22);
+}
+
+
+/* =========================================================
+   DIVIDER
+========================================================= */
+
+.gn-divider {
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+
+    margin: 23px 0;
+
+    color: #a2ada7;
+
+    font-size: 9px;
+
+    font-weight: 700;
+
+    letter-spacing: 1.5px;
+
+    text-transform: uppercase;
+}
+
+
+.gn-divider::before,
+.gn-divider::after {
+    content: "";
+
+    flex: 1;
+
+    height: 1px;
+
+    background: #e5ebe7;
+}
+
+
+/* =========================================================
+   GUEST SHOPPING
+========================================================= */
+
+.gn-guest-btn {
+    width: 100%;
+
+    min-height: 48px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 9px;
+
+    border: 1px solid #dfe8e2;
+
+    border-radius: 13px;
+
+    background: #ffffff;
+
+    color: #315143;
+
+    text-decoration: none;
+
+    font-size: 12px;
+
+    font-weight: 700;
+
+    transition: all .3s ease;
+}
+
+
+.gn-guest-btn:hover {
+    color: #0b3d2e;
+
+    background: #f3f9f4;
+
+    border-color: #8db49b;
+
+    transform: translateY(-1px);
+}
+
+
+.gn-guest-btn svg {
+    width: 17px;
+
+    height: 17px;
+}
+
+
+/* =========================================================
+   REGISTER INFO
+========================================================= */
+
+.gn-register-info {
+    padding: 12px 14px;
+
+    margin-bottom: 17px;
+
+    border-radius: 12px;
+
+    background: #f2f8f3;
+
+    color: #668073;
+
+    font-size: 11px;
+
+    line-height: 1.6;
+}
+
+
+.gn-terms {
+    margin-top: 17px;
+
+    color: #9aa59f;
+
+    font-size: 10px;
+
+    line-height: 1.7;
+
+    text-align: center;
+}
+
+
+.gn-terms a {
+    color: #4c765f;
+
+    font-weight: 700;
+
+    text-decoration: none;
+}
+
+
+/* =========================================================
+   DJANGO ALERT
+========================================================= */
+
+.gn-form .alert {
+    border-radius: 12px;
+
+    font-size: 12px;
+
+    margin-bottom: 17px;
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 991px) {
+
+    .gn-account-card {
+        display: block;
+    }
+
+    .gn-account-left,
+    .gn-account-right {
+        width: 100%;
+    }
+
+    .gn-account-left {
+        min-height: 470px;
+    }
+
+    .gn-account-right {
+        min-height: auto;
+    }
+
+    .gn-left-main {
+        margin-top: 70px;
+    }
+
+}
+
+
+@media (max-width: 767px) {
+
+    .gn-shop-page {
+        padding: 25px 12px 45px;
+    }
+
+    .gn-account-card {
+        border-radius: 23px;
+    }
+
+    .gn-account-left {
+        min-height: 430px;
+
+        padding: 32px 25px;
+    }
+
+    .gn-left-main {
+        margin-top: 55px;
+    }
+
+    .gn-left-main h1 {
+        font-size: 42px;
+    }
+
+    .gn-left-description {
+        font-size: 13px;
+    }
+
+    .gn-account-right {
+        padding: 38px 24px;
+    }
+
+    .gn-account-header h2 {
+        font-size: 29px;
+    }
+
+}
+
+
+@media (max-width: 400px) {
+
+    .gn-account-left {
+        padding: 28px 20px;
+    }
+
+    .gn-account-right {
+        padding: 32px 18px;
+    }
+
+    .gn-left-main h1 {
+        font-size: 37px;
+    }
+
+}
+
+</style>
+
+
+<!-- =========================================================
+     SHOP PAGE
+========================================================= -->
+
+<section class="gn-shop-page">
+
+    <div class="gn-account-card">
+
+
+        <!-- =====================================================
+             LEFT SIDE
+        ====================================================== -->
+
+        <div class="gn-account-left">
+
+            <div class="gn-left-inner">
+
+
+                <!-- LOGO -->
+
+                <div class="gn-account-logo">
+
+                    <div class="gn-account-logo-icon">
+
+                        <svg
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="1.6"
+                        >
+
+                            <path d="M12 21V10"/>
+
+                            <path
+                                d="M12 10C12 5 16 3 20 3C20 8 17 11 12 11"
+                            />
+
+                            <path
+                                d="M12 14C12 10 9 8 5 8C5 12 7 15 12 15"
+                            />
+
+                        </svg>
+
+                    </div>
+
+                    GreenNest
+
+                </div>
+
+
+                <!-- MAIN TEXT -->
+
+                <div class="gn-left-main">
+
+                    <span class="gn-left-label">
+                        Welcome to GreenNest
+                    </span>
+
+                    <h1>
+                        Grow your
+                        <br>
+                        <strong>green</strong> journey.
+                    </h1>
+
+                    <p class="gn-left-description">
+
+                        Sign in to your GreenNest account to enjoy
+                        a smoother shopping experience, save your
+                        favourite plants and keep track of your orders.
+
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <!-- FEATURES -->
+
+            <div class="gn-left-features">
+
+                <div class="gn-feature">
+
+                    <span class="gn-feature-dot"></span>
+
+                    Easy Shopping
+
+                </div>
+
+
+                <div class="gn-feature">
+
+                    <span class="gn-feature-dot"></span>
+
+                    Wishlist
+
+                </div>
+
+
+                <div class="gn-feature">
+
+                    <span class="gn-feature-dot"></span>
+
+                    Order Tracking
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- =====================================================
+             RIGHT SIDE
+        ====================================================== -->
+
+        <div class="gn-account-right">
+
+
+            <!-- HEADER -->
+
+            <div class="gn-account-header">
+
+                <div class="gn-account-small">
+                    GreenNest Account
+                </div>
+
+                <h2 id="gnTitle">
+                    Welcome back
+                </h2>
+
+                <p id="gnDescription">
+                    Login to continue your GreenNest journey.
+                </p>
+
+            </div>
+
+
+            <!-- =================================================
+                 LOGIN / REGISTER TABS
+            ================================================== -->
+
+            <div class="gn-tabs">
+
+                <button
+                    type="button"
+                    class="gn-tab active"
+                    id="loginTab"
+                    onclick="showLogin()"
+                >
+
+                    Login
+
+                </button>
+
+
+                <button
+                    type="button"
+                    class="gn-tab"
+                    id="registerTab"
+                    onclick="showRegister()"
+                >
+
+                    Create Account
+
+                </button>
+
+            </div>
+
+
+            <!-- =================================================
+                 LOGIN FORM
+            ================================================== -->
+
+            <form
+                class="gn-form active"
+                id="loginForm"
+                method="POST"
+                action="{% url 'login' %}"
+            >
+
+                {% csrf_token %}
+
+            {% if Msg %}
+
+    <div class="alert alert-danger">
+        {{ Msg }}
+    </div>
+
+{% endif %}
+                <!-- LOGIN ERROR -->
+
+                {% if login_error %}
+
+                    <div class="alert alert-danger">
+                        {{ login_error }}
+                    </div>
+
+                {% endif %}
+
+
+                <!-- REGISTER SUCCESS -->
+
+                {% if register_success %}
+
+                    <div class="alert alert-success">
+                        {{ register_success }}
+                    </div>
+
+                {% endif %}
+
+
+                <!-- EMAIL -->
+
+                <div class="gn-field">
+
+                    <label>
+                        Email Address
+                    </label>
+
+                    <div class="gn-input-box">
+
+                        <span class="gn-input-icon">
+
+                            <svg
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                stroke="currentColor"
+                                stroke-width="1.7"
+                            >
+
+                                <rect
+                                    x="3"
+                                    y="5"
+                                    width="18"
+                                    height="14"
+                                    rx="2"
+                                />
+
+                                <path d="m3 7 9 6 9-6"/>
+
+                            </svg>
+
+                        </span>
+
+
+                        <input
+                            type="email"
+                            name="email"
+                            class="gn-input"
+                            placeholder="Enter your email"
+                            required
+                        >
+
+                    </div>
+
+                    <div class="gn-validation-error"></div>
+
+                </div>
+
+
+                <!-- PASSWORD -->
+
+                <div class="gn-field">
+
+                    <label>
+                        Password
+                    </label>
+
+                    <div class="gn-input-box">
+
+                        <span class="gn-input-icon">
+
+                            <svg
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                stroke="currentColor"
+                                stroke-width="1.7"
+                            >
+
+                                <rect
+                                    x="4"
+                                    y="10"
+                                    width="16"
+                                    height="11"
+                                    rx="2"
+                                />
+
+                                <path
+                                    d="M8 10V7a4 4 0 0 1 8 0v3"
+                                />
+
+                            </svg>
+
+                        </span>
+
+
+                        <input
+                            type="password"
+                            name="password"
+                            class="gn-input"
+                            placeholder="Enter your password"
+                            required
+                        >
+
+                    </div>
+
+                    <div class="gn-validation-error"></div>
+
+                </div>
+
+
+                <!-- OPTIONS -->
+
+                <div class="gn-login-options">
+
+                    <label class="gn-remember">
+
+                        <input
+                            type="checkbox"
+                            name="remember"
+                        >
+
+                        Remember me
+
+                    </label>
+
+
+                    <a
+                        href="#"
+                        class="gn-forgot"
+                    >
+
+                        Forgot password?
+
+                    </a>
+
+                </div>
+
+
+                <!-- LOGIN BUTTON -->
+
+                <button
+                    type="submit"
+                    class="gn-submit-btn"
+                >
+
+                    Login to GreenNest →
+
+                </button>
+
+
+                <!-- DIVIDER -->
+
+                <div class="gn-divider">
+
+                    OR
+
+                </div>
+
+
+                <!-- GUEST -->
+
+                <a
+                    href="{% url 'plant' %}"
+                    class="gn-guest-btn"
+                >
+
+                    <svg
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="1.7"
+                    >
+
+                        <path d="M6 8h12l1 12H5L6 8z"/>
+
+                        <path d="M9 8a3 3 0 0 1 6 0"/>
+
+                    </svg>
+
+                    Continue Shopping as Guest
+
+                </a>
+
+            </form>
+
+
+            <!-- =================================================
+                 REGISTER FORM
+            ================================================== -->
+
+            <form
+                class="gn-form"
+                id="registerForm"
+                method="POST"
+                action="{% url 'register' %}"
+            >
+
+                {% csrf_token %}
+
+
+                <!-- REGISTER ERROR -->
+
+                {% if register_error %}
+
+                    <div class="alert alert-danger">
+                        {{ register_error }}
+                    </div>
+
+                {% endif %}
+
+
+                <!-- INFO -->
+
+                <div class="gn-register-info">
+
+                    Create your free GreenNest account and enjoy
+                    a personalized shopping experience.
+
+                </div>
+
+
+                <!-- NAME -->
+
+                <div class="gn-field">
+
+                    <label>
+                        Full Name
+                    </label>
+
+                    <div class="gn-input-box">
+
+                        <span class="gn-input-icon">
+
+                            <svg
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                stroke="currentColor"
+                                stroke-width="1.7"
+                            >
+
+                                <circle
+                                    cx="12"
+                                    cy="8"
+                                    r="3.5"
+                                />
+
+                                <path
+                                    d="M5 20c.7-4 3-6 7-6s6.3 2 7 6"
+                                />
+
+                            </svg>
+
+                        </span>
+
+
+                        <input
+                            type="text"
+                            name="name"
+                            class="gn-input"
+                            placeholder="Enter your full name"
+                            required
+                        >
+
+                    </div>
+
+                    <div class="gn-validation-error"></div>
+
+                </div>
+
+
+                <!-- =================================================
+                     MOBILE NUMBER
+                ================================================== -->
+
+                <div class="gn-field">
+
+                    <label>
+                        Mobile Number
+                    </label>
+
+                    <div class="gn-input-box">
+
+                        <span class="gn-input-icon">
+
+                            <svg
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                stroke="currentColor"
+                                stroke-width="1.7"
+                            >
+
+                                <rect
+                                    x="7"
+                                    y="3"
+                                    width="10"
+                                    height="18"
+                                    rx="2"
+                                />
+
+                                <path d="M10 6h4"/>
+
+                                <circle
+                                    cx="12"
+                                    cy="18"
+                                    r=".7"
+                                />
+
+                            </svg>
+
+                        </span>
+
+
+                        <input
+                            type="tel"
+                            name="mobile"
+                            class="gn-input"
+                            placeholder="Enter your mobile number"
+                            maxlength="10"
+                            required
+                        >
+
+                    </div>
+
+                    <div class="gn-validation-error"></div>
+
+                </div>
+
+
+                <!-- EMAIL -->
+
+                <div class="gn-field">
+
+                    <label>
+                        Email Address
+                    </label>
+
+                    <div class="gn-input-box">
+
+                        <span class="gn-input-icon">
+
+                            <svg
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                stroke="currentColor"
+                                stroke-width="1.7"
+                            >
+
+                                <rect
+                                    x="3"
+                                    y="5"
+                                    width="18"
+                                    height="14"
+                                    rx="2"
+                                />
+
+                                <path d="m3 7 9 6 9-6"/>
+
+                            </svg>
+
+                        </span>
+
+
+                        <input
+                            type="email"
+                            name="email"
+                            class="gn-input"
+                            placeholder="Enter your email"
+                            required
+                        >
+
+                    </div>
+
+                    <div class="gn-validation-error"></div>
+
+                </div>
+
+
+                <!-- PASSWORD -->
+
+                <div class="gn-field">
+
+                    <label>
+                        Create Password
+                    </label>
+
+                    <div class="gn-input-box">
+
+                        <span class="gn-input-icon">
+
+                            <svg
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                stroke="currentColor"
+                                stroke-width="1.7"
+                            >
+
+                                <rect
+                                    x="4"
+                                    y="10"
+                                    width="16"
+                                    height="11"
+                                    rx="2"
+                                />
+
+                                <path
+                                    d="M8 10V7a4 4 0 0 1 8 0v3"
+                                />
+
+                            </svg>
+
+                        </span>
+
+
+                        <input
+                            type="password"
+                            name="password"
+                            class="gn-input"
+                            placeholder="Create a password"
+                            required
+                        >
+
+                    </div>
+
+                    <div class="gn-validation-error"></div>
+
+                </div>
+
+
+                <!-- REGISTER BUTTON -->
+
+                <button
+                    type="submit"
+                    class="gn-submit-btn"
+                >
+
+                    Create My Account →
+
+                </button>
+
+
+                <!-- TERMS -->
+
+                <div class="gn-terms">
+
+                    By creating an account, you agree to our
+
+                    <a href="#">
+                        Terms
+                    </a>
+
+                    and
+
+                    <a href="#">
+                        Privacy Policy
+                    </a>.
+
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =========================================================
+     LOGIN / REGISTER JAVASCRIPT
+========================================================= -->
+
+<script>
+
+/* =========================================================
+   SHOW LOGIN
+========================================================= */
+
+function showLogin() {
+
+    document
+        .getElementById("loginTab")
+        .classList.add("active");
+
+    document
+        .getElementById("registerTab")
+        .classList.remove("active");
+
+
+    document
+        .getElementById("loginForm")
+        .classList.add("active");
+
+    document
+        .getElementById("registerForm")
+        .classList.remove("active");
+
+
+    document
+        .getElementById("gnTitle")
+        .innerHTML = "Welcome back";
+
+
+    document
+        .getElementById("gnDescription")
+        .innerHTML =
+        "Login to continue your GreenNest journey.";
+}
+
+
+/* =========================================================
+   SHOW REGISTER
+========================================================= */
+
+function showRegister() {
+
+    document
+        .getElementById("registerTab")
+        .classList.add("active");
+
+    document
+        .getElementById("loginTab")
+        .classList.remove("active");
+
+
+    document
+        .getElementById("registerForm")
+        .classList.add("active");
+
+    document
+        .getElementById("loginForm")
+        .classList.remove("active");
+
+
+    document
+        .getElementById("gnTitle")
+        .innerHTML = "Join GreenNest";
+
+
+    document
+        .getElementById("gnDescription")
+        .innerHTML =
+        "Create your account and start shopping greener.";
+}
+
+
+/* =========================================================
+   SET ERROR
+========================================================= */
+
+function setError(input, message) {
+
+    input.classList.remove("gn-valid");
+
+    input.classList.add("gn-invalid");
+
+    const errorBox = input
+        .closest(".gn-field")
+        .querySelector(".gn-validation-error");
+
+    if (errorBox) {
+
+        errorBox.textContent = message;
+
+        errorBox.style.display = "block";
+    }
+}
+
+
+/* =========================================================
+   SET SUCCESS
+========================================================= */
+
+function setSuccess(input) {
+
+    input.classList.remove("gn-invalid");
+
+    input.classList.add("gn-valid");
+
+    const errorBox = input
+        .closest(".gn-field")
+        .querySelector(".gn-validation-error");
+
+    if (errorBox) {
+
+        errorBox.textContent = "";
+
+        errorBox.style.display = "none";
+    }
+}
+
+
+/* =========================================================
+   CLEAR VALIDATION
+========================================================= */
+
+function clearValidation(input) {
+
+    input.classList.remove("gn-invalid");
+
+    input.classList.remove("gn-valid");
+
+    const errorBox = input
+        .closest(".gn-field")
+        .querySelector(".gn-validation-error");
+
+    if (errorBox) {
+
+        errorBox.textContent = "";
+
+        errorBox.style.display = "none";
+    }
+}
+
+
+/* =========================================================
+   EMAIL VALIDATION
+========================================================= */
+
+function validateEmail(input) {
+
+    const email = input.value.trim();
+
+    if (email === "") {
+
+        setError(
+            input,
+            "Email address is required."
+        );
+
+        return false;
+    }
+
+    if (!email.includes("@")) {
+
+        setError(
+            input,
+            "Please enter a valid email address."
+        );
+
+        return false;
+    }
+
+    if (!email.includes(".")) {
+
+        setError(
+            input,
+            "Please enter a valid email address."
+        );
+
+        return false;
+    }
+
+    if (email.startsWith("@")) {
+
+        setError(
+            input,
+            "Please enter a valid email address."
+        );
+
+        return false;
+    }
+
+    if (email.endsWith("@")) {
+
+        setError(
+            input,
+            "Please enter a valid email address."
+        );
+
+        return false;
+    }
+
+    if (email.startsWith(".")) {
+
+        setError(
+            input,
+            "Please enter a valid email address."
+        );
+
+        return false;
+    }
+
+    if (email.endsWith(".")) {
+
+        setError(
+            input,
+            "Please enter a valid email address."
+        );
+
+        return false;
+    }
+
+    setSuccess(input);
+
+    return true;
+}
+
+
+/* =========================================================
+   LOGIN PASSWORD VALIDATION
+========================================================= */
+
+function validateLoginPassword(input) {
+
+    const password = input.value;
+
+    if (password === "") {
+
+        setError(
+            input,
+            "Password is required."
+        );
+
+        return false;
+    }
+
+    if (password.includes(" ")) {
+
+        setError(
+            input,
+            "Password must not contain spaces."
+        );
+
+        return false;
+    }
+
+    setSuccess(input);
+
+    return true;
+}
+
+
+/* =========================================================
+   REGISTER NAME VALIDATION
+========================================================= */
+
+function validateName(input) {
+
+    const name = input.value.trim();
+
+    if (name === "") {
+
+        setError(
+            input,
+            "Full name is required."
+        );
+
+        return false;
+    }
+
+    if (name.length < 3) {
+
+        setError(
+            input,
+            "Name must contain at least 3 characters."
+        );
+
+        return false;
+    }
+
+    for (let i = 0; i < name.length; i++) {
+
+        const character = name[i];
+
+        const isUppercaseLetter =
+            character >= "A" &&
+            character <= "Z";
+
+        const isLowercaseLetter =
+            character >= "a" &&
+            character <= "z";
+
+        const isSpace =
+            character === " ";
+
+        if (
+            !isUppercaseLetter &&
+            !isLowercaseLetter &&
+            !isSpace
+        ) {
+
+            setError(
+                input,
+                "Name can contain only letters and spaces."
+            );
+
+            return false;
+        }
+    }
+
+    setSuccess(input);
+
+    return true;
+}
+
+
+/* =========================================================
+   MOBILE NUMBER VALIDATION
+========================================================= */
+
+function validateMobile(input) {
+
+    const mobile = input.value.trim();
+
+    /* Empty mobile */
+
+    if (mobile === "") {
+
+        setError(
+            input,
+            "Mobile number is required."
+        );
+
+        return false;
+    }
+
+
+    /* Check every character */
+
+    for (let i = 0; i < mobile.length; i++) {
+
+        const character = mobile[i];
+
+        const isDigit =
+            character >= "0" &&
+            character <= "9";
+
+        if (!isDigit) {
+
+            setError(
+                input,
+                "Mobile number can contain only digits."
+            );
+
+            return false;
+        }
+    }
+
+
+    /* Check exactly 10 digits */
+
+    if (mobile.length !== 10) {
+
+        setError(
+            input,
+            "Mobile number must contain exactly 10 digits."
+        );
+
+        return false;
+    }
+
+
+    /* First digit should not be 0 */
+
+    if (mobile.startsWith("0")) {
+
+        setError(
+            input,
+            "Please enter a valid 10 digit mobile number."
+        );
+
+        return false;
+    }
+
+
+    /* Mobile is correct */
+
+    setSuccess(input);
+
+    return true;
+}
+
+
+/* =========================================================
+   REGISTER PASSWORD VALIDATION
+========================================================= */
+
+function validateRegisterPassword(input) {
+
+    const password = input.value;
+
+    if (password === "") {
+
+        setError(
+            input,
+            "Password is required."
+        );
+
+        return false;
+    }
+
+    if (password.length < 6) {
+
+        setError(
+            input,
+            "Password must contain at least 6 characters."
+        );
+
+        return false;
+    }
+
+    if (password.includes(" ")) {
+
+        setError(
+            input,
+            "Password must not contain spaces."
+        );
+
+        return false;
+    }
+
+    setSuccess(input);
+
+    return true;
+}
+
+
+/* =========================================================
+   JAVASCRIPT FORM VALIDATION
+========================================================= */
+
+document.addEventListener(
+    "DOMContentLoaded",
+    function () {
+
+
+        /* =================================================
+           LOGIN FORM
+        ================================================= */
+
+        const loginForm =
+            document.getElementById("loginForm");
+
+        if (loginForm) {
+
+            loginForm.addEventListener(
+                "submit",
+                function (event) {
+
+
+                    const email =
+                        loginForm.querySelector(
+                            'input[name="email"]'
+                        );
+
+
+                    const password =
+                        loginForm.querySelector(
+                            'input[name="password"]'
+                        );
+
+
+                    const emailValid =
+                        validateEmail(email);
+
+
+                    const passwordValid =
+                        validateLoginPassword(password);
+
+
+                    if (
+                        !emailValid ||
+                        !passwordValid
+                    ) {
+
+                        event.preventDefault();
+
+
+                        if (!emailValid) {
+
+                            email.focus();
+
+                        }
+
+                        else if (!passwordValid) {
+
+                            password.focus();
+
+                        }
+
+
+                        return false;
+                    }
+
+                }
+            );
+        }
+
+
+        /* =================================================
+           REGISTER FORM
+        ================================================= */
+
+        const registerForm =
+            document.getElementById("registerForm");
+
+        if (registerForm) {
+
+            registerForm.addEventListener(
+                "submit",
+                function (event) {
+
+
+                    /* Register name */
+
+                    const name =
+                        registerForm.querySelector(
+                            'input[name="name"]'
+                        );
+
+
+                    /* Register mobile */
+
+                    const mobile =
+                        registerForm.querySelector(
+                            'input[name="mobile"]'
+                        );
+
+
+                    /* Register email */
+
+                    const email =
+                        registerForm.querySelector(
+                            'input[name="email"]'
+                        );
+
+
+                    /* Register password */
+
+                    const password =
+                        registerForm.querySelector(
+                            'input[name="password"]'
+                        );
+
+
+                    /* Validate name */
+
+                    const nameValid =
+                        validateName(name);
+
+
+                    /* Validate mobile */
+
+                    const mobileValid =
+                        validateMobile(mobile);
+
+
+                    /* Validate email */
+
+                    const emailValid =
+                        validateEmail(email);
+
+
+                    /* Validate password */
+
+                    const passwordValid =
+                        validateRegisterPassword(password);
+
+
+                    /* If any validation fails */
+
+                    if (
+                        !nameValid ||
+                        !mobileValid ||
+                        !emailValid ||
+                        !passwordValid
+                    ) {
+
+                        event.preventDefault();
+
+
+                        /* Focus name first */
+
+                        if (!nameValid) {
+
+                            name.focus();
+
+                        }
+
+
+                        /* Then mobile */
+
+                        else if (!mobileValid) {
+
+                            mobile.focus();
+
+                        }
+
+
+                        /* Then email */
+
+                        else if (!emailValid) {
+
+                            email.focus();
+
+                        }
+
+
+                        /* Then password */
+
+                        else if (!passwordValid) {
+
+                            password.focus();
+
+                        }
+
+
+                        return false;
+                    }
+
+                }
+            );
+        }
+
+    }
+);
+
+
+/* =========================================================
+   JQUERY VALIDATION
+========================================================= */
+
+$(document).ready(function () {
+
+
+    /* =====================================================
+       REGISTER NAME
+    ===================================================== */
+
+    $('#registerForm input[name="name"]').on(
+        "keyup input blur",
+        function () {
+
+            const input = this;
+
+            const name =
+                $(input)
+                .val()
+                .trim();
+
+
+            if (name === "") {
+
+                clearValidation(input);
+
+                return;
+            }
+
+
+            if (name.length < 2) {
+
+                setError(
+                    input,
+                    "Name must contain at least 2 characters."
+                );
+
+                return;
+            }
+
+
+            for (let i = 0; i < name.length; i++) {
+
+                const character = name[i];
+
+                const isUppercaseLetter =
+                    character >= "A" &&
+                    character <= "Z";
+
+                const isLowercaseLetter =
+                    character >= "a" &&
+                    character <= "z";
+
+                const isSpace =
+                    character === " ";
+
+
+                if (
+                    !isUppercaseLetter &&
+                    !isLowercaseLetter &&
+                    !isSpace
+                ) {
+
+                    setError(
+                        input,
+                        "Name can contain only letters and spaces."
+                    );
+
+                    return;
+                }
+            }
+
+
+            setSuccess(input);
+
+        }
+    );
+
+
+    /* =====================================================
+       REGISTER MOBILE
+    ===================================================== */
+
+    $('#registerForm input[name="mobile"]').on(
+        "keyup input blur",
+        function () {
+
+            const input = this;
+
+            const mobile =
+                $(input)
+                .val()
+                .trim();
+
+
+            /* Empty */
+
+            if (mobile === "") {
+
+                clearValidation(input);
+
+                return;
+            }
+
+
+            /* Check digits */
+
+            for (let i = 0; i < mobile.length; i++) {
+
+                const character = mobile[i];
+
+                const isDigit =
+                    character >= "0" &&
+                    character <= "9";
+
+
+                if (!isDigit) {
+
+                    setError(
+                        input,
+                        "Mobile number can contain only digits."
+                    );
+
+                    return;
+                }
+            }
+
+
+            /* Check length */
+
+            if (mobile.length !== 10) {
+
+                setError(
+                    input,
+                    "Mobile number must contain exactly 10 digits."
+                );
+
+                return;
+            }
+
+
+            /* First digit */
+
+            if (mobile.startsWith("0")) {
+
+                setError(
+                    input,
+                    "Please enter a valid 10 digit mobile number."
+                );
+
+                return;
+            }
+
+
+            /* Correct */
+
+            setSuccess(input);
+
+        }
+    );
+
+
+    /* =====================================================
+       REGISTER EMAIL
+       WITHOUT REGEX
+    ===================================================== */
+
+    $('#registerForm input[name="email"]').on(
+        "input blur",
+        function () {
+
+            const input = this;
+
+            const email =
+                $(input)
+                .val()
+                .trim();
+
+
+            if (email === "") {
+
+                clearValidation(input);
+
+                return;
+            }
+
+
+            if (!email.includes("@")) {
+
+                setError(
+                    input,
+                    "Please enter a valid email address."
+                );
+
+                return;
+            }
+
+
+            if (!email.includes(".")) {
+
+                setError(
+                    input,
+                    "Please enter a valid email address."
+                );
+
+                return;
+            }
+
+
+            if (email.startsWith("@")) {
+
+                setError(
+                    input,
+                    "Please enter a valid email address."
+                );
+
+                return;
+            }
+
+
+            if (email.endsWith("@")) {
+
+                setError(
+                    input,
+                    "Please enter a valid email address."
+                );
+
+                return;
+            }
+
+
+            if (email.startsWith(".")) {
+
+                setError(
+                    input,
+                    "Please enter a valid email address."
+                );
+
+                return;
+            }
+
+
+            if (email.endsWith(".")) {
+
+                setError(
+                    input,
+                    "Please enter a valid email address."
+                );
+
+                return;
+            }
+
+
+            setSuccess(input);
+
+        }
+    );
+
+
+    /* =====================================================
+       REGISTER PASSWORD
+    ===================================================== */
+
+    $('#registerForm input[name="password"]').on(
+        "keyup input blur",
+        function () {
+
+            const input = this;
+
+            const password =
+                $(input).val();
+
+
+            if (password === "") {
+
+                clearValidation(input);
+
+                return;
+            }
+
+
+            if (password.length < 6) {
+
+                setError(
+                    input,
+                    "Password must contain at least 6 characters."
+                );
+
+                return;
+            }
+
+
+            if (password.includes(" ")) {
+
+                setError(
+                    input,
+                    "Password must not contain spaces."
+                );
+
+                return;
+            }
+
+
+            setSuccess(input);
+
+        }
+    );
+
+
+    /* =====================================================
+       LOGIN EMAIL
+       WITHOUT REGEX
+    ===================================================== */
+
+    $('#loginForm input[name="email"]').on(
+        "input blur",
+        function () {
+
+            const input = this;
+
+            const email =
+                $(input)
+                .val()
+                .trim();
+
+
+            if (email === "") {
+
+                clearValidation(input);
+
+                return;
+            }
+
+
+            if (!email.includes("@")) {
+
+                setError(
+                    input,
+                    "Please enter a valid email address."
+                );
+
+                return;
+            }
+
+
+            if (!email.includes(".")) {
+
+                setError(
+                    input,
+                    "Please enter a valid email address."
+                );
+
+                return;
+            }
+
+
+            if (email.startsWith("@")) {
+
+                setError(
+                    input,
+                    "Please enter a valid email address."
+                );
+
+                return;
+            }
+
+
+            if (email.endsWith("@")) {
+
+                setError(
+                    input,
+                    "Please enter a valid email address."
+                );
+
+                return;
+            }
+
+
+            if (email.startsWith(".")) {
+
+                setError(
+                    input,
+                    "Please enter a valid email address."
+                );
+
+                return;
+            }
+
+
+            if (email.endsWith(".")) {
+
+                setError(
+                    input,
+                    "Please enter a valid email address."
+                );
+
+                return;
+            }
+
+
+            setSuccess(input);
+
+        }
+    );
+
+
+    /* =====================================================
+       LOGIN PASSWORD
+    ===================================================== */
+
+    $('#loginForm input[name="password"]').on(
+        "keyup input blur",
+        function () {
+
+            const input = this;
+
+            const password =
+                $(input).val();
+
+
+            if (password === "") {
+
+                clearValidation(input);
+
+                return;
+            }
+
+
+            if (password.includes(" ")) {
+
+                setError(
+                    input,
+                    "Password must not contain spaces."
+                );
+
+                return;
+            }
+
+
+            setSuccess(input);
+
+        }
+    );
+
+
+    /* =====================================================
+       FOCUS EFFECT
+    ===================================================== */
+
+    $(".gn-input").on(
+        "focus",
+        function () {
+
+            $(this)
+                .closest(".gn-field")
+                .find(".gn-validation-error")
+                .hide();
+
+        }
+    );
+
+});
+
+</script>
+
+{% endblock %}

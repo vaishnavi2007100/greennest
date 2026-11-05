@@ -1,0 +1,1901 @@
+{% extends "store/base.html" %}
+{% load static %}
+
+{% block title %}Summer Collection | GreenNest{% endblock %}
+
+{% block content %}
+
+<style>
+
+/* =====================================================
+   GREENNEST SUMMER COLLECTION
+===================================================== */
+
+.summer-page{
+    background:#fffdf6;
+    color:#24332c;
+    overflow:hidden;
+}
+
+/* =====================================================
+   HERO
+===================================================== */
+
+.summer-hero{
+    min-height:540px;
+    display:flex;
+    align-items:center;
+    position:relative;
+    overflow:hidden;
+
+    background:
+        linear-gradient(
+            90deg,
+            rgba(51,77,48,.94),
+            rgba(51,77,48,.68),
+            rgba(51,77,48,.12)
+        ),
+        url("https://images.unsplash.com/photo-1497250681960-ef046c08a56e?auto=format&fit=crop&w=1900&q=90")
+        center/cover;
+}
+
+.summer-hero-content{
+    max-width:1250px;
+    width:100%;
+    margin:auto;
+    padding:80px 25px;
+    color:white;
+}
+
+.summer-label{
+    display:inline-block;
+    padding:9px 18px;
+
+    border:1px solid rgba(255,255,255,.4);
+
+    background:rgba(255,255,255,.12);
+
+    backdrop-filter:blur(5px);
+
+    border-radius:30px;
+
+    font-size:11px;
+    font-weight:800;
+
+    letter-spacing:2px;
+
+    text-transform:uppercase;
+
+    margin-bottom:22px;
+}
+
+.summer-hero h1{
+    font-family:Georgia,serif;
+
+    font-size:clamp(48px,7vw,78px);
+
+    line-height:1.05;
+
+    max-width:760px;
+
+    margin:0 0 20px;
+}
+
+.summer-hero p{
+    max-width:650px;
+
+    color:#f5f7e9;
+
+    line-height:1.8;
+
+    font-size:17px;
+
+    margin-bottom:30px;
+}
+
+.summer-btn{
+    display:inline-block;
+
+    padding:14px 30px;
+
+    border-radius:30px;
+
+    background:#e7b84b;
+
+    color:white;
+
+    text-decoration:none;
+
+    font-size:13px;
+
+    font-weight:700;
+
+    transition:.3s;
+}
+
+.summer-btn:hover{
+    background:white;
+
+    color:#55703d;
+
+    transform:translateY(-3px);
+}
+
+
+/* =====================================================
+   INTRO
+===================================================== */
+
+.summer-intro{
+    max-width:900px;
+
+    margin:auto;
+
+    text-align:center;
+
+    padding:75px 20px 55px;
+}
+
+.summer-intro small,
+.summer-heading small{
+
+    color:#b58a2d;
+
+    font-size:11px;
+
+    font-weight:800;
+
+    letter-spacing:3px;
+
+    text-transform:uppercase;
+}
+
+.summer-intro h2,
+.summer-heading h2{
+
+    font-family:Georgia,serif;
+
+    color:#405638;
+
+    font-size:43px;
+
+    margin:12px 0 15px;
+}
+
+.summer-intro p,
+.summer-heading p{
+
+    color:#77776d;
+
+    line-height:1.8;
+
+    max-width:700px;
+
+    margin:auto;
+}
+
+
+/* =====================================================
+   HIGHLIGHTS
+===================================================== */
+
+.summer-highlights{
+
+    max-width:1200px;
+
+    margin:0 auto 75px;
+
+    padding:0 20px;
+}
+
+.summer-highlight-grid{
+
+    display:grid;
+
+    grid-template-columns:repeat(4,1fr);
+
+    gap:16px;
+}
+
+.summer-highlight{
+
+    background:white;
+
+    border:1px solid #eee5c9;
+
+    border-radius:18px;
+
+    padding:25px 15px;
+
+    text-align:center;
+
+    transition:.3s;
+}
+
+.summer-highlight:hover{
+
+    transform:translateY(-5px);
+
+    box-shadow:
+        0 12px 30px
+        rgba(86,91,49,.10);
+}
+
+.summer-highlight-icon{
+
+    font-size:27px;
+
+    margin-bottom:10px;
+}
+
+.summer-highlight strong{
+
+    display:block;
+
+    color:#405638;
+
+    font-size:14px;
+
+    margin-bottom:5px;
+}
+
+.summer-highlight span{
+
+    color:#878678;
+
+    font-size:11px;
+}
+
+
+/* =====================================================
+   SECTION
+===================================================== */
+
+.summer-section{
+
+    max-width:1250px;
+
+    margin:auto;
+
+    padding:20px 20px 80px;
+}
+
+.summer-heading{
+
+    text-align:center;
+
+    margin-bottom:42px;
+}
+
+
+/* =====================================================
+   PRODUCT GRID
+===================================================== */
+
+.summer-products{
+
+    display:grid;
+
+    grid-template-columns:repeat(4,1fr);
+
+    gap:22px;
+}
+
+.summer-card{
+
+    background:white;
+
+    border:1px solid #eee5d0;
+
+    border-radius:18px;
+
+    overflow:hidden;
+
+    transition:.35s;
+}
+
+.summer-card:hover{
+
+    transform:translateY(-8px);
+
+    box-shadow:
+        0 18px 40px
+        rgba(86,91,49,.13);
+}
+
+.summer-img{
+
+    height:280px;
+
+    position:relative;
+
+    overflow:hidden;
+
+    background:#f7f4df;
+}
+
+.summer-img img{
+
+    width:100%;
+
+    height:100%;
+
+    object-fit:cover;
+
+    transition:.5s;
+}
+
+.summer-card:hover
+.summer-img img{
+
+    transform:scale(1.07);
+}
+
+.summer-badge{
+
+    position:absolute;
+
+    left:13px;
+
+    top:13px;
+
+    z-index:2;
+
+    padding:7px 12px;
+
+    background:#597341;
+
+    color:white;
+
+    border-radius:20px;
+
+    font-size:9px;
+
+    font-weight:800;
+
+    letter-spacing:1px;
+}
+
+.summer-heart{
+
+    position:absolute;
+
+    right:13px;
+
+    top:13px;
+
+    z-index:2;
+
+    width:38px;
+
+    height:38px;
+
+    border-radius:50%;
+
+    background:rgba(255,255,255,.95);
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    color:#697060;
+
+    text-decoration:none;
+
+    font-size:20px;
+
+    transition:.3s;
+}
+
+.summer-heart:hover{
+
+    background:#597341;
+
+    color:white;
+
+    transform:scale(1.08);
+}
+
+.summer-body{
+
+    padding:18px;
+}
+
+.summer-category{
+
+    color:#968f78;
+
+    font-size:10px;
+
+    font-weight:800;
+
+    letter-spacing:1.2px;
+
+    text-transform:uppercase;
+}
+
+.summer-body h3{
+
+    font-family:Georgia,serif;
+
+    color:#405638;
+
+    font-size:19px;
+
+    margin:7px 0;
+}
+
+.summer-stars{
+
+    color:#c39a4e;
+
+    font-size:13px;
+
+    margin-bottom:10px;
+}
+
+.summer-stars span{
+
+    color:#918d82;
+
+    font-size:11px;
+
+    margin-left:4px;
+}
+
+.summer-price{
+
+    display:flex;
+
+    flex-wrap:wrap;
+
+    align-items:center;
+
+    gap:7px;
+
+    margin-bottom:15px;
+}
+
+.summer-price strong{
+
+    color:#405638;
+
+    font-size:18px;
+}
+
+.summer-price del{
+
+    color:#aaa79d;
+
+    font-size:12px;
+}
+
+.summer-off{
+
+    color:#b27c25;
+
+    font-size:10px;
+
+    font-weight:800;
+}
+
+.summer-cart{
+
+    display:block;
+
+    text-align:center;
+
+    padding:11px;
+
+    background:#597341;
+
+    color:white;
+
+    border-radius:9px;
+
+    text-decoration:none;
+
+    font-size:12px;
+
+    font-weight:700;
+
+    transition:.3s;
+}
+
+.summer-cart:hover{
+
+    background:#7d9459;
+
+    color:white;
+
+    transform:translateY(-2px);
+}
+
+
+/* =====================================================
+   SUMMER FLOWERS
+===================================================== */
+
+.summer-flower-area{
+
+    background:#fff8df;
+
+    padding:80px 20px;
+
+    margin-bottom:75px;
+}
+
+.summer-flower-inner{
+
+    max-width:1250px;
+
+    margin:auto;
+}
+
+.summer-flower-grid{
+
+    display:grid;
+
+    grid-template-columns:repeat(4,1fr);
+
+    gap:22px;
+}
+
+.summer-flower{
+
+    background:white;
+
+    border-radius:18px;
+
+    overflow:hidden;
+
+    border:1px solid #eee5d0;
+
+    transition:.35s;
+}
+
+.summer-flower:hover{
+
+    transform:translateY(-7px);
+
+    box-shadow:
+        0 15px 35px
+        rgba(86,91,49,.12);
+}
+
+.summer-flower img{
+
+    width:100%;
+
+    height:245px;
+
+    object-fit:cover;
+
+    transition:.5s;
+}
+
+.summer-flower:hover img{
+
+    transform:scale(1.05);
+}
+
+.summer-flower-body{
+
+    padding:20px;
+}
+
+.summer-flower-body small{
+
+    color:#b58a2d;
+
+    font-size:10px;
+
+    font-weight:800;
+
+    letter-spacing:2px;
+
+    text-transform:uppercase;
+}
+
+.summer-flower-body h3{
+
+    color:#405638;
+
+    font-family:Georgia,serif;
+
+    font-size:20px;
+
+    margin:8px 0;
+}
+
+.summer-flower-body p{
+
+    color:#77776d;
+
+    font-size:12px;
+
+    line-height:1.7;
+
+    margin:0;
+}
+
+
+/* =====================================================
+   SUMMER DECOR
+===================================================== */
+
+.summer-decor{
+
+    max-width:1250px;
+
+    margin:auto;
+
+    padding:0 20px 80px;
+}
+
+.summer-decor-grid{
+
+    display:grid;
+
+    grid-template-columns:repeat(3,1fr);
+
+    gap:23px;
+}
+
+.summer-decor-card{
+
+    min-height:350px;
+
+    position:relative;
+
+    overflow:hidden;
+
+    border-radius:20px;
+}
+
+.summer-decor-card img{
+
+    width:100%;
+
+    height:100%;
+
+    position:absolute;
+
+    inset:0;
+
+    object-fit:cover;
+
+    transition:.6s;
+}
+
+.summer-decor-card:hover img{
+
+    transform:scale(1.08);
+}
+
+.summer-overlay{
+
+    position:absolute;
+
+    inset:0;
+
+    background:
+        linear-gradient(
+            to top,
+            rgba(45,58,31,.92),
+            rgba(45,58,31,.05)
+        );
+}
+
+.summer-decor-content{
+
+    position:absolute;
+
+    bottom:0;
+
+    left:0;
+
+    right:0;
+
+    padding:28px;
+
+    color:white;
+
+    z-index:2;
+}
+
+.summer-decor-content small{
+
+    color:#e6c96d;
+
+    font-size:10px;
+
+    font-weight:800;
+
+    letter-spacing:2px;
+}
+
+.summer-decor-content h3{
+
+    font-family:Georgia,serif;
+
+    font-size:27px;
+
+    margin:7px 0;
+}
+
+.summer-decor-content p{
+
+    color:#eef0dc;
+
+    font-size:12px;
+
+    line-height:1.6;
+
+    margin-bottom:12px;
+}
+
+.summer-decor-content a{
+
+    color:white;
+
+    text-decoration:none;
+
+    font-size:12px;
+
+    font-weight:700;
+
+    transition:.3s;
+}
+
+.summer-decor-content a:hover{
+
+    color:#e6c96d;
+}
+
+
+/* =====================================================
+   SUMMER TIPS
+===================================================== */
+
+.summer-tips{
+
+    background:#f3f6e8;
+
+    padding:75px 20px;
+
+    margin-bottom:75px;
+}
+
+.summer-tips-inner{
+
+    max-width:1100px;
+
+    margin:auto;
+
+    text-align:center;
+}
+
+.summer-tips-grid{
+
+    display:grid;
+
+    grid-template-columns:repeat(3,1fr);
+
+    gap:22px;
+
+    margin-top:40px;
+}
+
+.summer-tip{
+
+    background:white;
+
+    border:1px solid #e4ead6;
+
+    border-radius:18px;
+
+    padding:30px 22px;
+
+    transition:.3s;
+}
+
+.summer-tip:hover{
+
+    transform:translateY(-6px);
+
+    box-shadow:
+        0 14px 30px
+        rgba(86,91,49,.10);
+}
+
+.summer-tip-icon{
+
+    width:58px;
+
+    height:58px;
+
+    margin:0 auto 15px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    border-radius:50%;
+
+    background:#edf3dd;
+
+    font-size:26px;
+}
+
+.summer-tip h3{
+
+    font-family:Georgia,serif;
+
+    color:#405638;
+
+    font-size:20px;
+
+    margin-bottom:10px;
+}
+
+.summer-tip p{
+
+    color:#77776d;
+
+    font-size:12px;
+
+    line-height:1.7;
+
+    margin:0;
+}
+
+
+/* =====================================================
+   FINAL CTA
+===================================================== */
+
+.summer-final{
+
+    max-width:1250px;
+
+    margin:0 auto 75px;
+
+    padding:75px 25px;
+
+    text-align:center;
+
+    border-radius:25px;
+
+    background:
+        linear-gradient(
+            rgba(64,86,56,.94),
+            rgba(64,86,56,.94)
+        ),
+        url("https://images.unsplash.com/photo-1497250681960-ef046c08a56e?auto=format&fit=crop&w=1600&q=90")
+        center/cover;
+
+    color:white;
+}
+
+.summer-final h2{
+
+    font-family:Georgia,serif;
+
+    font-size:42px;
+
+    margin-bottom:12px;
+}
+
+.summer-final p{
+
+    max-width:650px;
+
+    margin:0 auto 25px;
+
+    color:#e9edda;
+
+    line-height:1.7;
+}
+
+
+/* =====================================================
+   RESPONSIVE
+===================================================== */
+
+@media(max-width:1100px){
+
+    .summer-products{
+
+        grid-template-columns:repeat(2,1fr);
+    }
+
+    .summer-flower-grid{
+
+        grid-template-columns:repeat(2,1fr);
+    }
+
+    .summer-highlight-grid{
+
+        grid-template-columns:repeat(2,1fr);
+    }
+
+    .summer-tips-grid{
+
+        grid-template-columns:repeat(2,1fr);
+    }
+}
+
+
+@media(max-width:800px){
+
+    .summer-decor-grid{
+
+        grid-template-columns:1fr;
+    }
+
+    .summer-decor-card{
+
+        min-height:400px;
+    }
+
+    .summer-hero-content{
+
+        padding:70px 25px;
+    }
+}
+
+
+@media(max-width:600px){
+
+    .summer-hero{
+
+        min-height:540px;
+    }
+
+    .summer-hero h1{
+
+        font-size:45px;
+    }
+
+    .summer-hero p{
+
+        font-size:15px;
+    }
+
+    .summer-intro{
+
+        padding-top:55px;
+    }
+
+    .summer-intro h2,
+    .summer-heading h2{
+
+        font-size:34px;
+    }
+
+    .summer-products{
+
+        grid-template-columns:1fr;
+    }
+
+    .summer-flower-grid{
+
+        grid-template-columns:1fr;
+    }
+
+    .summer-highlight-grid{
+
+        grid-template-columns:1fr 1fr;
+    }
+
+    .summer-tips-grid{
+
+        grid-template-columns:1fr;
+    }
+
+    .summer-final{
+
+        margin-left:15px;
+
+        margin-right:15px;
+
+        padding:55px 20px;
+    }
+
+    .summer-final h2{
+
+        font-size:34px;
+    }
+}
+
+
+@media(max-width:420px){
+
+    .summer-highlight-grid{
+
+        grid-template-columns:1fr;
+    }
+
+    .summer-hero h1{
+
+        font-size:39px;
+    }
+
+    .summer-btn{
+
+        padding:13px 24px;
+    }
+}
+
+</style>
+
+
+<div class="summer-page">
+
+
+<!-- =====================================================
+     HERO
+===================================================== -->
+
+<section class="summer-hero">
+
+    <div class="summer-hero-content">
+
+        <span class="summer-label">
+            GreenNest • Summer 2026
+        </span>
+
+        <h1>
+            Sunshine, Greenery & Summer Vibes.
+        </h1>
+
+        <p>
+            Welcome the warm season with fresh tropical plants,
+            vibrant flowers and natural décor designed to bring
+            sunshine and refreshing greenery into your home.
+        </p>
+
+        <a href="{% url 'plant' %}" class="summer-btn">
+            Shop Summer
+        </a>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     INTRO
+===================================================== -->
+
+<section class="summer-intro">
+
+    <small>
+        Summer Collection
+    </small>
+
+    <h2>
+        Bring The Sunshine Indoors
+    </h2>
+
+    <p>
+        Summer is all about bright colours, tropical greenery
+        and relaxed living. Discover our carefully selected
+        summer plants, flowers and décor for a fresh natural home.
+    </p>
+
+</section>
+
+
+<!-- =====================================================
+     HIGHLIGHTS
+===================================================== -->
+
+<section class="summer-highlights">
+
+    <div class="summer-highlight-grid">
+
+
+        <div class="summer-highlight">
+
+            <div class="summer-highlight-icon">
+                ☀️
+            </div>
+
+            <strong>
+                Sun Loving
+            </strong>
+
+            <span>
+                Perfect for bright spaces
+            </span>
+
+        </div>
+
+
+        <div class="summer-highlight">
+
+            <div class="summer-highlight-icon">
+                🌴
+            </div>
+
+            <strong>
+                Tropical Greenery
+            </strong>
+
+            <span>
+                Fresh summer foliage
+            </span>
+
+        </div>
+
+
+        <div class="summer-highlight">
+
+            <div class="summer-highlight-icon">
+                💧
+            </div>
+
+            <strong>
+                Fresh & Hydrated
+            </strong>
+
+            <span>
+                Summer plant care
+            </span>
+
+        </div>
+
+
+        <div class="summer-highlight">
+
+            <div class="summer-highlight-icon">
+                🌼
+            </div>
+
+            <strong>
+                Bright Blooms
+            </strong>
+
+            <span>
+                Colourful summer flowers
+            </span>
+
+        </div>
+
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     SUMMER PLANTS
+===================================================== -->
+
+<section class="summer-section"
+         id="summer-plants">
+
+    <div class="summer-heading">
+
+        <small>
+            Summer Plants
+        </small>
+
+        <h2>
+            Tropical Green Favorites
+        </h2>
+
+        <p>
+            Refresh your home with lush greenery and easy-care
+            plants that bring a beautiful summer feeling indoors.
+        </p>
+
+    </div>
+
+
+    <div class="summer-products">
+
+
+        <!-- MONSTERA -->
+
+        <div class="summer-card">
+
+            <div class="summer-img">
+
+                <span class="summer-badge">
+                    SUMMER PICK
+                </span>
+
+                <a href="#"
+                   class="summer-heart">
+                    ♡
+                </a>
+
+                <img
+                    src="https://images.unsplash.com/photo-1614594576372-7f0b8d7e8f75?auto=format&fit=crop&w=800&q=90"
+                    alt="Monstera Plant"
+                >
+
+            </div>
+
+
+            <div class="summer-body">
+
+                <span class="summer-category">
+                    Tropical Plant
+                </span>
+
+                <h3>
+                    Monstera Deliciosa
+                </h3>
+
+                <div class="summer-stars">
+
+                    ★★★★★
+
+                    <span>
+                        (219)
+                    </span>
+
+                </div>
+
+                <div class="summer-price">
+
+                    <strong>
+                        ₹899
+                    </strong>
+
+                    <del>
+                        ₹1,099
+                    </del>
+
+                    <span class="summer-off">
+                        18% OFF
+                    </span>
+
+                </div>
+
+                <a href="#"
+                   class="summer-cart">
+
+                    Add to Cart
+
+                </a>
+
+            </div>
+
+        </div>
+
+
+        <!-- ARECA PALM -->
+
+        <div class="summer-card">
+
+            <div class="summer-img">
+
+                <span class="summer-badge">
+                    POPULAR
+                </span>
+
+                <a href="#"
+                   class="summer-heart">
+                    ♡
+                </a>
+
+                <img
+                    src="https://images.unsplash.com/photo-1523438885200-e635ba2c371e?auto=format&fit=crop&w=800&q=90"
+                    alt="Areca Palm"
+                >
+
+            </div>
+
+
+            <div class="summer-body">
+
+                <span class="summer-category">
+                    Indoor Plant
+                </span>
+
+                <h3>
+                    Areca Palm
+                </h3>
+
+                <div class="summer-stars">
+
+                    ★★★★★
+
+                    <span>
+                        (188)
+                    </span>
+
+                </div>
+
+                <div class="summer-price">
+
+                    <strong>
+                        ₹799
+                    </strong>
+
+                    <del>
+                        ₹999
+                    </del>
+
+                    <span class="summer-off">
+                        20% OFF
+                    </span>
+
+                </div>
+
+                <a href="#"
+                   class="summer-cart">
+
+                    Add to Cart
+
+                </a>
+
+            </div>
+
+        </div>
+
+
+        <!-- SNAKE PLANT -->
+
+        <div class="summer-card">
+
+            <div class="summer-img">
+
+                <span class="summer-badge">
+                    EASY CARE
+                </span>
+
+                <a href="#"
+                   class="summer-heart">
+                    ♡
+                </a>
+
+                <img
+                    src="https://images.unsplash.com/photo-1593482892290-f54927ae1bb5?auto=format&fit=crop&w=800&q=90"
+                    alt="Snake Plant"
+                >
+
+            </div>
+
+
+            <div class="summer-body">
+
+                <span class="summer-category">
+                    Easy Care
+                </span>
+
+                <h3>
+                    Snake Plant
+                </h3>
+
+                <div class="summer-stars">
+
+                    ★★★★★
+
+                    <span>
+                        (245)
+                    </span>
+
+                </div>
+
+                <div class="summer-price">
+
+                    <strong>
+                        ₹599
+                    </strong>
+
+                    <del>
+                        ₹749
+                    </del>
+
+                    <span class="summer-off">
+                        20% OFF
+                    </span>
+
+                </div>
+
+                <a href="#"
+                   class="summer-cart">
+
+                    Add to Cart
+
+                </a>
+
+            </div>
+
+        </div>
+
+
+        <!-- RUBBER PLANT -->
+
+        <div class="summer-card">
+
+            <div class="summer-img">
+
+                <span class="summer-badge">
+                    BESTSELLER
+                </span>
+
+                <a href="#"
+                   class="summer-heart">
+                    ♡
+                </a>
+
+                <img
+                    src="https://images.unsplash.com/photo-1509423350716-97f9360b4e09?auto=format&fit=crop&w=800&q=90"
+                    alt="Rubber Plant"
+                >
+
+            </div>
+
+
+            <div class="summer-body">
+
+                <span class="summer-category">
+                    Indoor Plant
+                </span>
+
+                <h3>
+                    Rubber Plant
+                </h3>
+
+                <div class="summer-stars">
+
+                    ★★★★★
+
+                    <span>
+                        (176)
+                    </span>
+
+                </div>
+
+                <div class="summer-price">
+
+                    <strong>
+                        ₹699
+                    </strong>
+
+                    <del>
+                        ₹899
+                    </del>
+
+                    <span class="summer-off">
+                        22% OFF
+                    </span>
+
+                </div>
+
+                <a href="#"
+                   class="summer-cart">
+
+                    Add to Cart
+
+                </a>
+
+            </div>
+
+        </div>
+
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     SUMMER FLOWERS
+===================================================== -->
+
+<section class="summer-flower-area">
+
+    <div class="summer-flower-inner">
+
+        <div class="summer-heading">
+
+            <small>
+                Summer Flowers
+            </small>
+
+            <h2>
+                Colours Made For Sunshine
+            </h2>
+
+            <p>
+                Add vibrant colours and cheerful blooms to your
+                balcony, garden or favourite sunny corner.
+            </p>
+
+        </div>
+
+
+        <div class="summer-flower-grid">
+
+
+            <!-- SUNFLOWER -->
+
+            <div class="summer-flower">
+
+                <img
+                    src="https://images.unsplash.com/photo-1470509037663-253afd7f0f51?auto=format&fit=crop&w=700&q=90"
+                    alt="Sunflower"
+                >
+
+                <div class="summer-flower-body">
+
+                    <small>
+                        Summer Favourite
+                    </small>
+
+                    <h3>
+                        Sunflower
+                    </h3>
+
+                    <p>
+                        Bright golden blooms that bring cheerful
+                        summer energy to your garden.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <!-- MARIGOLD -->
+
+            <div class="summer-flower">
+
+                <img
+                    src="https://images.unsplash.com/photo-1509223197845-458d87318791?auto=format&fit=crop&w=700&q=90"
+                    alt="Marigold Flowers"
+                >
+
+                <div class="summer-flower-body">
+
+                    <small>
+                        Bright Bloom
+                    </small>
+
+                    <h3>
+                        Marigold
+                    </h3>
+
+                    <p>
+                        Warm golden flowers perfect for sunny
+                        outdoor spaces.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <!-- HIBISCUS -->
+
+            <div class="summer-flower">
+
+                <img
+                    src="https://images.unsplash.com/photo-1597848212624-e19e7c0f4a9b?auto=format&fit=crop&w=700&q=90"
+                    alt="Hibiscus"
+                >
+
+                <div class="summer-flower-body">
+
+                    <small>
+                        Tropical Bloom
+                    </small>
+
+                    <h3>
+                        Hibiscus
+                    </h3>
+
+                    <p>
+                        Large colourful flowers for a vibrant
+                        tropical summer garden.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <!-- ZINNIA -->
+
+            <div class="summer-flower">
+
+                <img
+                    src="https://images.unsplash.com/photo-1495231916356-a86217efff12?auto=format&fit=crop&w=700&q=90"
+                    alt="Colourful Summer Flowers"
+                >
+
+                <div class="summer-flower-body">
+
+                    <small>
+                        Fresh Colour
+                    </small>
+
+                    <h3>
+                        Summer Flower Mix
+                    </h3>
+
+                    <p>
+                        A colourful collection made to brighten
+                        every sunny corner.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     SUMMER TIPS
+===================================================== -->
+
+<section class="summer-tips">
+
+    <div class="summer-tips-inner">
+
+        <div class="summer-heading">
+
+            <small>
+                Summer Plant Care
+            </small>
+
+            <h2>
+                Keep Your Plants Happy
+            </h2>
+
+            <p>
+                A few simple habits can help your plants stay
+                fresh, healthy and beautiful during warm days.
+            </p>
+
+        </div>
+
+
+        <div class="summer-tips-grid">
+
+
+            <div class="summer-tip">
+
+                <div class="summer-tip-icon">
+                    💧
+                </div>
+
+                <h3>
+                    Water Wisely
+                </h3>
+
+                <p>
+                    Check the soil before watering and give your
+                    plants enough moisture without overwatering.
+                </p>
+
+            </div>
+
+
+            <div class="summer-tip">
+
+                <div class="summer-tip-icon">
+                    ☀️
+                </div>
+
+                <h3>
+                    Give Right Light
+                </h3>
+
+                <p>
+                    Keep plants in suitable light and protect
+                    delicate leaves from harsh afternoon sunlight.
+                </p>
+
+            </div>
+
+
+            <div class="summer-tip">
+
+                <div class="summer-tip-icon">
+                    🌿
+                </div>
+
+                <h3>
+                    Keep Leaves Fresh
+                </h3>
+
+                <p>
+                    Clean dusty leaves regularly so your plants
+                    can stay fresh and look their best.
+                </p>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     SUMMER DECOR
+===================================================== -->
+
+<section class="summer-decor">
+
+    <div class="summer-heading">
+
+        <small>
+            Summer Styling
+        </small>
+
+        <h2>
+            Refresh Your Space
+        </h2>
+
+        <p>
+            Complete your summer look with tropical greenery,
+            beautiful planters and refreshing home décor.
+        </p>
+
+    </div>
+
+
+    <div class="summer-decor-grid">
+
+
+        <!-- TROPICAL PLANTS -->
+
+        <div class="summer-decor-card">
+
+            <img
+                src="https://images.unsplash.com/photo-1497250681960-ef046c08a56e?auto=format&fit=crop&w=900&q=90"
+                alt="Tropical Plants"
+            >
+
+            <div class="summer-overlay"></div>
+
+            <div class="summer-decor-content">
+
+                <small>
+                    Tropical Collection
+                </small>
+
+                <h3>
+                    Tropical Greenery
+                </h3>
+
+                <p>
+                    Bring the refreshing feeling of a tropical
+                    garden into your home.
+                </p>
+
+                <a href="{% url 'plant' %}">
+                    Shop Plants →
+                </a>
+
+            </div>
+
+        </div>
+
+
+        <!-- SUMMER POTS -->
+
+        <div class="summer-decor-card">
+
+            <img
+                src="https://images.unsplash.com/photo-1485955900006-10f4d324d411?auto=format&fit=crop&w=900&q=90"
+                alt="Summer Planters"
+            >
+
+            <div class="summer-overlay"></div>
+
+            <div class="summer-decor-content">
+
+                <small>
+                    Summer Pots
+                </small>
+
+                <h3>
+                    Fresh Planters
+                </h3>
+
+                <p>
+                    Style your plants with natural and refreshing
+                    planters.
+                </p>
+
+                <a href="{% url 'plantp' %}">
+                    Shop Planters →
+                </a>
+
+            </div>
+
+        </div>
+
+
+        <!-- HOME DECOR -->
+
+        <div class="summer-decor-card">
+
+            <img
+                src="https://images.unsplash.com/photo-1512428813834-c702c7702b78?auto=format&fit=crop&w=900&q=90"
+                alt="Summer Home Decor"
+            >
+
+            <div class="summer-overlay"></div>
+
+            <div class="summer-decor-content">
+
+                <small>
+                    Home Styling
+                </small>
+
+                <h3>
+                    Fresh Summer Décor
+                </h3>
+
+                <p>
+                    Create a light, bright and naturally refreshing
+                    home this summer.
+                </p>
+
+                <a href="{% url 'homedecore' %}">
+                    Shop Décor →
+                </a>
+
+            </div>
+
+        </div>
+
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     FINAL CTA
+===================================================== -->
+
+<section class="summer-final">
+
+    <h2>
+        Make Your Home Feel Like Summer
+    </h2>
+
+    <p>
+        Discover tropical plants, colourful flowers and
+        beautiful natural décor curated especially for
+        your summer space.
+    </p>
+
+    <a href="{% url 'plant' %}"
+       class="summer-btn">
+
+        Shop Summer Collection
+
+    </a>
+
+</section>
+
+
+</div>
+
+{% endblock %}

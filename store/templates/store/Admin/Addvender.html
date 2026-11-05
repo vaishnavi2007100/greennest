@@ -1,0 +1,468 @@
+{% extends "store/Admin/AdminMaster.html" %}
+
+{% block title %}
+Add Vendor | GreenNest
+{% endblock %}
+
+{% block page_heading %}
+Add Vendor
+{% endblock %}
+
+{% block content %}
+
+<style>
+
+/* =========================================================
+   ADD VENDOR FORM
+========================================================= */
+
+.admin-form-card {
+
+    max-width: 700px;
+
+    margin: 0 auto;
+
+    background: white;
+
+    border: 1px solid #e5ece6;
+
+    border-radius: 20px;
+
+    padding: 30px;
+
+    box-shadow:
+        0 8px 25px
+        rgba(25,70,45,0.05);
+}
+
+
+/* =========================================================
+   HEADING
+========================================================= */
+
+.admin-form-card h3 {
+
+    font-family:
+        'DM Serif Display',
+        serif;
+
+    color: #173d2b;
+
+    margin-bottom: 25px;
+}
+
+
+/* =========================================================
+   LABEL
+========================================================= */
+
+.form-label {
+
+    font-size: 12px;
+
+    font-weight: 600;
+
+    color: #526159;
+
+    margin-bottom: 7px;
+}
+
+
+/* =========================================================
+   INPUT
+========================================================= */
+
+.form-control {
+
+    border: 1px solid #dfe8e1;
+
+    border-radius: 10px;
+
+    padding: 11px 13px;
+
+    font-size: 12px;
+
+    color: #26352d;
+
+    background: #ffffff;
+}
+
+
+.form-control:focus {
+
+    border-color: #286044;
+
+    box-shadow:
+        0 0 0 3px
+        rgba(40,96,68,0.08);
+}
+
+
+.form-control::placeholder {
+
+    color: #9aa69f;
+
+    font-size: 12px;
+}
+
+
+/* =========================================================
+   MESSAGE
+========================================================= */
+
+.message {
+
+    padding: 10px 15px;
+
+    border-radius: 10px;
+
+    margin-bottom: 20px;
+
+    font-size: 12px;
+}
+
+
+/* =========================================================
+   SUBMIT BUTTON
+========================================================= */
+
+.admin-submit {
+
+    background: #173d2b;
+
+    color: white;
+
+    border: none;
+
+    border-radius: 10px;
+
+    padding: 11px 25px;
+
+    font-size: 12px;
+
+    font-weight: 600;
+
+    transition: 0.2s ease;
+}
+
+
+.admin-submit:hover {
+
+    background: #286044;
+
+    color: white;
+
+    transform: translateY(-1px);
+}
+
+
+/* =========================================================
+   CANCEL BUTTON
+========================================================= */
+
+.admin-cancel {
+
+    background: #f2f5f3;
+
+    color: #526159;
+
+    border: 1px solid #dfe8e1;
+
+    border-radius: 10px;
+
+    padding: 10px 22px;
+
+    font-size: 12px;
+
+    font-weight: 600;
+
+    text-decoration: none;
+
+    margin-left: 8px;
+
+    display: inline-block;
+}
+
+
+.admin-cancel:hover {
+
+    background: #e8eee9;
+
+    color: #173d2b;
+}
+
+
+/* =========================================================
+   REQUIRED STAR
+========================================================= */
+
+.required-star {
+
+    color: #c94b4b;
+
+    margin-left: 2px;
+}
+
+
+/* =========================================================
+   FORM HINT
+========================================================= */
+
+.form-hint {
+
+    font-size: 11px;
+
+    color: #8a9690;
+
+    margin-top: 5px;
+}
+
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media (max-width: 576px) {
+
+    .admin-form-card {
+
+        padding: 22px;
+
+        border-radius: 16px;
+    }
+
+    .admin-cancel {
+
+        margin-left: 0;
+
+        margin-top: 10px;
+    }
+
+}
+
+</style>
+
+
+<div class="admin-form-card">
+
+    <!-- =====================================================
+         HEADING
+    ====================================================== -->
+
+    <h3>
+        <i class="bi bi-shop me-2"></i>
+        Add New Vendor
+    </h3>
+
+
+    <!-- =====================================================
+         SUCCESS MESSAGE
+    ====================================================== -->
+
+    {% if msg %}
+
+        <div class="message alert alert-info">
+
+            <i class="bi bi-info-circle me-1"></i>
+
+            {{ msg }}
+
+        </div>
+
+    {% endif %}
+
+
+    <!-- =====================================================
+         ERROR MESSAGE
+    ====================================================== -->
+
+    {% if error %}
+
+        <div class="message alert alert-danger">
+
+            <i class="bi bi-exclamation-triangle me-1"></i>
+
+            {{ error }}
+
+        </div>
+
+    {% endif %}
+
+
+    <!-- =====================================================
+         FORM
+    ====================================================== -->
+
+    <form method="POST">
+
+        {% csrf_token %}
+
+
+        <!-- =================================================
+             VENDOR NAME
+        ================================================== -->
+
+        <div class="mb-3">
+
+            <label class="form-label">
+
+                Vendor Name
+
+                <span class="required-star">*</span>
+
+            </label>
+
+            <input
+                type="text"
+                name="name"
+                class="form-control"
+                placeholder="Enter vendor name"
+                value="{{ request.POST.name }}"
+                required
+            >
+
+        </div>
+
+
+        <!-- =================================================
+             MOBILE NUMBER
+        ================================================== -->
+
+        <div class="mb-3">
+
+            <label class="form-label">
+
+                Mobile Number
+
+                <span class="required-star">*</span>
+
+            </label>
+
+            <input
+                type="tel"
+                name="mobile"
+                class="form-control"
+                placeholder="Enter 10 digit mobile number"
+                value="{{ request.POST.mobile }}"
+                maxlength="10"
+                pattern="[0-9]{10}"
+                required
+            >
+
+            <div class="form-hint">
+
+                Enter a valid 10 digit mobile number.
+
+            </div>
+
+        </div>
+
+
+        <!-- =================================================
+             EMAIL
+        ================================================== -->
+
+        <div class="mb-3">
+
+            <label class="form-label">
+
+                Vendor Email
+
+                <span class="required-star">*</span>
+
+            </label>
+
+            <input
+                type="email"
+                name="email"
+                class="form-control"
+                placeholder="Enter vendor email"
+                value="{{ request.POST.email }}"
+                required
+            >
+
+        </div>
+
+
+        <!-- =================================================
+             PASSWORD
+        ================================================== -->
+
+        <div class="mb-3">
+
+            <label class="form-label">
+
+                Password
+
+                <span class="required-star">*</span>
+
+            </label>
+
+            <input
+                type="password"
+                name="password"
+                class="form-control"
+                placeholder="Enter password"
+                required
+            >
+
+        </div>
+
+
+        <!-- =================================================
+             CONFIRM PASSWORD
+        ================================================== -->
+
+        <div class="mb-4">
+
+            <label class="form-label">
+
+                Confirm Password
+
+                <span class="required-star">*</span>
+
+            </label>
+
+            <input
+                type="password"
+                name="cpassword"
+                class="form-control"
+                placeholder="Re-enter password"
+                required
+            >
+
+        </div>
+
+
+        <!-- =================================================
+             BUTTONS
+        ================================================== -->
+
+        <button
+            type="submit"
+            class="admin-submit"
+        >
+
+            <i class="bi bi-shop me-1"></i>
+
+            Add Vendor
+
+        </button>
+
+
+        <a
+            href="/Admin/Vendorlist/"
+            class="admin-cancel"
+        >
+
+            <i class="bi bi-arrow-left me-1"></i>
+
+            Cancel
+
+        </a>
+
+    </form>
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,265 @@
+{% extends "store/User/usermaster.html" %}
+
+{% block title %}
+My Messages | GreenNest
+{% endblock %}
+
+{% block page_heading %}
+My Messages
+{% endblock %}
+
+{% block content %}
+
+<style>
+
+.gn-message-page {
+    padding: 10px 0 30px;
+}
+
+.gn-message-card {
+    background: #ffffff;
+    border-radius: 18px;
+    padding: 25px;
+    margin-bottom: 25px;
+    border: 1px solid #e5ebe7;
+    box-shadow: 0 8px 25px rgba(18, 61, 43, 0.08);
+}
+
+.gn-message-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 20px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #e8eee9;
+}
+
+.gn-subject {
+    font-size: 20px;
+    font-weight: 700;
+    color: #123d2b;
+    margin: 0;
+}
+
+.gn-date {
+    color: #777;
+    font-size: 13px;
+}
+
+.gn-label {
+    font-size: 13px;
+    font-weight: 700;
+    color: #123d2b;
+    margin-bottom: 7px;
+}
+
+.gn-message-box {
+    background: #f7faf8;
+    border-radius: 12px;
+    padding: 15px;
+    color: #555;
+    line-height: 1.7;
+    margin-bottom: 18px;
+}
+
+.gn-reply-box {
+    background: #eef7f0;
+    border-left: 4px solid #286044;
+    border-radius: 12px;
+    padding: 18px;
+    margin-top: 10px;
+}
+
+.gn-reply-text {
+    color: #315443;
+    line-height: 1.7;
+    margin: 0;
+}
+
+.gn-status {
+    display: inline-block;
+    padding: 6px 13px;
+    border-radius: 30px;
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.gn-status-replied {
+    background: #dff3e5;
+    color: #176b35;
+}
+
+.gn-status-pending {
+    background: #fff3cd;
+    color: #856404;
+}
+
+.gn-no-message {
+    background: #ffffff;
+    border-radius: 18px;
+    padding: 50px 25px;
+    text-align: center;
+    border: 1px solid #e5ebe7;
+    box-shadow: 0 8px 25px rgba(18, 61, 43, 0.06);
+}
+
+.gn-no-message i {
+    font-size: 50px;
+    color: #286044;
+    margin-bottom: 15px;
+}
+
+.gn-no-message h4 {
+    color: #123d2b;
+    font-weight: 700;
+}
+
+.gn-no-message p {
+    color: #777;
+}
+
+</style>
+
+
+<div class="gn-message-page">
+
+    {% if contacts %}
+
+        {% for contact in contacts %}
+
+        <div class="gn-message-card">
+
+            <!-- HEADER -->
+            <div class="gn-message-header">
+
+                <div>
+                    <h3 class="gn-subject">
+                        {{ contact.subject }}
+                    </h3>
+                </div>
+
+                <div>
+
+                    {% if contact.status == "Replied" %}
+
+                        <span class="gn-status gn-status-replied">
+                            Replied
+                        </span>
+
+                    {% else %}
+
+                        <span class="gn-status gn-status-pending">
+                            Pending
+                        </span>
+
+                    {% endif %}
+
+                </div>
+
+            </div>
+
+
+            <!-- DATE -->
+            <div class="gn-date mb-3">
+
+                <i class="bi bi-calendar3"></i>
+
+                {{ contact.created_at }}
+
+            </div>
+
+
+            <!-- USER MESSAGE -->
+            <div>
+
+                <div class="gn-label">
+
+                    <i class="bi bi-chat-left-text"></i>
+                    Your Message
+
+                </div>
+
+                <div class="gn-message-box">
+
+                    {{ contact.message }}
+
+                </div>
+
+            </div>
+
+
+            <!-- MANAGER REPLY -->
+
+            <div>
+
+                <div class="gn-label">
+
+                    <i class="bi bi-reply-fill"></i>
+                    Manager Reply
+
+                </div>
+
+
+                {% if contact.response %}
+
+                    <div class="gn-reply-box">
+
+                        <p class="gn-reply-text">
+                            {{ contact.response }}
+                        </p>
+
+                        {% if contact.response_date %}
+
+                            <div class="gn-date mt-3">
+
+                                <i class="bi bi-clock"></i>
+
+                                Replied on:
+                                {{ contact.response_date }}
+
+                            </div>
+
+                        {% endif %}
+
+                    </div>
+
+                {% else %}
+
+                    <div class="gn-message-box">
+
+                        <i class="bi bi-hourglass-split"></i>
+
+                        No reply yet. Manager will respond soon.
+
+                    </div>
+
+                {% endif %}
+
+            </div>
+
+        </div>
+
+        {% endfor %}
+
+    {% else %}
+
+        <div class="gn-no-message">
+
+            <i class="bi bi-chat-left-text"></i>
+
+            <h4>
+                No Messages Found
+            </h4>
+
+            <p>
+                You have not sent any messages yet.
+            </p>
+
+        </div>
+
+    {% endif %}
+
+</div>
+
+{% endblock %}

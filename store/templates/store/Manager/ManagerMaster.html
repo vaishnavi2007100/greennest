@@ -1,0 +1,1130 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>
+        {% block title %}
+        Manager Panel | GreenNest
+        {% endblock %}
+    </title>
+
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet"
+          href="{% static 'css/bootstrap.min.css' %}">
+
+
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet"
+          href="{% static 'css/bootstrap-icons.min.css' %}">
+
+
+    <!-- Google Font -->
+    <link rel="preconnect"
+          href="https://fonts.googleapis.com">
+
+    <link rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Montserrat:wght@400;500;600;700&display=swap"
+          rel="stylesheet">
+
+
+<style>
+
+/* =========================================================
+   GLOBAL
+========================================================= */
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+
+    margin: 0;
+
+    background: #f5f8f5;
+
+    color: #173d2b;
+
+    font-family: 'Montserrat', sans-serif;
+}
+
+
+a {
+    text-decoration: none;
+}
+
+
+/* =========================================================
+   SIDEBAR
+========================================================= */
+
+.manager-sidebar {
+
+    position: fixed;
+
+    left: 0;
+
+    top: 0;
+
+    width: 260px;
+
+    height: 100vh;
+
+    background:
+        linear-gradient(
+            180deg,
+            #123b29,
+            #173d2b 55%,
+            #102f22
+        );
+
+    padding: 25px 18px;
+
+    z-index: 1000;
+
+    box-shadow:
+        8px 0 30px rgba(20,60,40,0.12);
+
+    overflow-y: auto;
+}
+
+
+/* =========================================================
+   LOGO
+========================================================= */
+
+.manager-logo {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+
+    color: white;
+
+    padding: 10px 12px 25px;
+
+    border-bottom:
+        1px solid rgba(255,255,255,0.10);
+
+    margin-bottom: 25px;
+}
+
+
+.manager-logo-icon {
+
+    width: 45px;
+
+    height: 45px;
+
+    border-radius: 13px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    background:
+        linear-gradient(
+            135deg,
+            #d8b56a,
+            #f0d98e
+        );
+
+    color: #173d2b;
+
+    font-size: 22px;
+}
+
+
+.manager-logo-text strong {
+
+    display: block;
+
+    font-family:
+        'DM Serif Display',
+        serif;
+
+    font-size: 23px;
+
+    color: #f5dfa1;
+}
+
+
+.manager-logo-text span {
+
+    display: block;
+
+    margin-top: 3px;
+
+    color:
+        rgba(255,255,255,0.60);
+
+    font-size: 10px;
+
+    letter-spacing: 1.3px;
+}
+
+
+/* =========================================================
+   MENU TITLE
+========================================================= */
+
+.manager-nav-title {
+
+    color:
+        rgba(255,255,255,0.45);
+
+    font-size: 10px;
+
+    font-weight: 700;
+
+    letter-spacing: 1.5px;
+
+    padding: 0 12px 10px;
+}
+
+
+/* =========================================================
+   NAV
+========================================================= */
+
+.manager-nav {
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 7px;
+}
+
+
+.manager-nav a {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 13px;
+
+    padding: 12px 14px;
+
+    border-radius: 12px;
+
+    color:
+        rgba(255,255,255,0.75);
+
+    font-size: 13px;
+
+    font-weight: 600;
+
+    transition: 0.3s ease;
+}
+
+
+.manager-nav a i {
+
+    width: 20px;
+
+    font-size: 17px;
+
+    text-align: center;
+}
+
+
+.manager-nav a:hover,
+
+.manager-nav a.active {
+
+    background:
+        rgba(255,255,255,0.10);
+
+    color: white;
+
+    transform:
+        translateX(2px);
+}
+
+
+.manager-nav a:hover i,
+
+.manager-nav a.active i {
+
+    color: #d8b56a;
+}
+
+
+/* =========================================================
+   CATEGORY / USER / VENDOR / COLLECTION SUB MENU
+========================================================= */
+
+.category-submenu {
+
+    margin-left: 18px;
+
+    margin-top: 3px;
+
+    margin-bottom: 5px;
+
+    padding-left: 12px;
+
+    border-left:
+        1px solid rgba(255,255,255,0.12);
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 3px;
+}
+
+
+/* =========================================================
+   SUBMENU HEADING
+========================================================= */
+
+.subcategory-heading {
+
+    color:
+        rgba(255,255,255,0.35);
+
+    font-size: 9px;
+
+    font-weight: 700;
+
+    letter-spacing: 1px;
+
+    padding: 9px 12px 4px;
+
+    margin-top: 2px;
+}
+
+
+/* =========================================================
+   SUB MENU LINKS
+========================================================= */
+
+.category-submenu a {
+
+    padding: 9px 12px;
+
+    font-size: 12px;
+
+    font-weight: 500;
+
+    color:
+        rgba(255,255,255,0.62);
+}
+
+
+.category-submenu a i {
+
+    width: 18px;
+
+    font-size: 14px;
+}
+
+
+.category-submenu a:hover {
+
+    color: white;
+
+    background:
+        rgba(255,255,255,0.07);
+
+    transform:
+        translateX(2px);
+}
+
+
+/* =========================================================
+   LOGOUT
+========================================================= */
+
+.manager-logout {
+
+    margin-top: 18px;
+
+    border-top:
+        1px solid rgba(255,255,255,0.10);
+
+    padding-top: 18px;
+}
+
+
+.manager-logout a {
+
+    color:
+        rgba(255,255,255,0.70);
+}
+
+
+.manager-logout a:hover {
+
+    color: #ffb5b5;
+
+    background:
+        rgba(220,53,69,0.13);
+}
+
+
+/* =========================================================
+   MAIN
+========================================================= */
+
+.manager-main {
+
+    margin-left: 260px;
+
+    min-height: 100vh;
+}
+
+
+/* =========================================================
+   TOPBAR
+========================================================= */
+
+.manager-topbar {
+
+    height: 75px;
+
+    background: white;
+
+    border-bottom:
+        1px solid #e7ede8;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    padding: 0 35px;
+
+    position: sticky;
+
+    top: 0;
+
+    z-index: 900;
+
+    box-shadow:
+        0 4px 20px
+        rgba(20,60,40,0.04);
+}
+
+
+.manager-page-title h1 {
+
+    margin: 0;
+
+    font-family:
+        'DM Serif Display',
+        serif;
+
+    font-size: 24px;
+
+    color: #173d2b;
+}
+
+
+.manager-page-title p {
+
+    margin: 3px 0 0;
+
+    color: #8a948e;
+
+    font-size: 11px;
+}
+
+
+/* =========================================================
+   ACCOUNT
+========================================================= */
+
+.manager-account {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 11px;
+}
+
+
+.manager-account-icon {
+
+    width: 40px;
+
+    height: 40px;
+
+    border-radius: 50%;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    background: #edf5ef;
+
+    color: #173d2b;
+
+    font-size: 18px;
+}
+
+
+.manager-account-text strong {
+
+    display: block;
+
+    color: #173d2b;
+
+    font-size: 12px;
+}
+
+
+.manager-account-text span {
+
+    color: #87918b;
+
+    font-size: 10px;
+}
+
+
+/* =========================================================
+   CONTENT
+========================================================= */
+
+.manager-content {
+
+    padding: 35px;
+}
+
+
+/* =========================================================
+   FOOTER
+========================================================= */
+
+.manager-footer {
+
+    margin-left: 260px;
+
+    padding: 20px 35px;
+
+    background: white;
+
+    border-top:
+        1px solid #e7ede8;
+
+    color: #87918b;
+
+    font-size: 11px;
+
+    text-align: center;
+}
+
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media(max-width: 768px) {
+
+    .manager-sidebar {
+
+        position: relative;
+
+        width: 100%;
+
+        height: auto;
+    }
+
+
+    .manager-nav {
+
+        display: grid;
+
+        grid-template-columns:
+            repeat(2, 1fr);
+    }
+
+
+    .manager-main {
+
+        margin-left: 0;
+    }
+
+
+    .manager-footer {
+
+        margin-left: 0;
+    }
+
+
+    .manager-topbar {
+
+        padding: 0 20px;
+    }
+
+
+    .manager-content {
+
+        padding: 20px;
+    }
+
+}
+
+
+@media(max-width: 480px) {
+
+    .manager-nav {
+
+        grid-template-columns: 1fr;
+    }
+
+
+    .manager-account-text {
+
+        display: none;
+    }
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<!-- =====================================================
+     SIDEBAR
+===================================================== -->
+
+<aside class="manager-sidebar">
+
+
+    <!-- =================================================
+         LOGO
+    ================================================== -->
+
+    <a href="{% url 'MDashboard' %}"
+       class="manager-logo">
+
+        <div class="manager-logo-icon">
+
+            <i class="bi bi-flower1"></i>
+
+        </div>
+
+
+        <div class="manager-logo-text">
+
+            <strong>
+                GreenNest
+            </strong>
+
+            <span>
+                MANAGER PANEL
+            </span>
+
+        </div>
+
+    </a>
+
+
+    <!-- =================================================
+         MENU TITLE
+    ================================================== -->
+
+    <div class="manager-nav-title">
+
+        MANAGER MENU
+
+    </div>
+
+
+    <!-- =================================================
+         MAIN NAVIGATION
+    ================================================== -->
+
+    <nav class="manager-nav">
+
+
+        <!-- =================================================
+             DASHBOARD
+        ================================================== -->
+
+        <a href="{% url 'MDashboard' %}"
+           class="active">
+
+            <i class="bi bi-grid-1x2-fill"></i>
+
+            Dashboard
+
+        </a>
+
+
+        <!-- =================================================
+             PROFILE
+        ================================================== -->
+
+        <a href="{% url 'mviewprofile' %}">
+
+            <i class="bi bi-person-circle"></i>
+
+            My Profile
+
+        </a>
+
+
+        <!-- =================================================
+             CHANGE PASSWORD
+        ================================================== -->
+
+        <a href="{% url 'mcpassword' %}">
+
+            <i class="bi bi-shield-lock"></i>
+
+            Change Password
+
+        </a>
+
+
+        <!-- =================================================
+             USERS
+        ================================================== -->
+
+        <a href="{% url 'Userlist' %}">
+
+            <i class="bi bi-people-fill"></i>
+
+            Users
+
+        </a>
+
+
+        <!-- =================================================
+             USER MANAGEMENT
+        ================================================== -->
+
+        <div class="category-submenu">
+
+            <div class="subcategory-heading">
+
+                USER MANAGEMENT
+
+            </div>
+
+
+            <!-- USER LIST -->
+
+            <a href="{% url 'Userlist' %}">
+
+                <i class="bi bi-list-ul"></i>
+
+                User List
+
+            </a>
+
+
+            <!-- USER DETAILS -->
+
+           
+
+        </div>
+
+
+        <!-- =================================================
+             VENDORS
+        ================================================== -->
+
+        <a href="{% url 'Venderlist' %}">
+
+            <i class="bi bi-shop"></i>
+
+            Vendors
+
+        </a>
+
+
+        <!-- =================================================
+             VENDOR MANAGEMENT
+        ================================================== -->
+
+        <div class="category-submenu">
+
+            <div class="subcategory-heading">
+
+                VENDOR MANAGEMENT
+
+            </div>
+
+
+            <!-- VENDOR LIST -->
+
+            <a href="{% url 'Venderlist' %}">
+
+                <i class="bi bi-list-ul"></i>
+
+                Vendor List
+
+            </a>
+
+
+            <!-- VENDOR DETAILS -->
+
+           
+
+        </div>
+
+
+        <!-- =================================================
+             CATEGORY MAIN
+        ================================================== -->
+
+        <a href="{% url 'Categorylist' %}">
+
+            <i class="bi bi-grid-fill"></i>
+
+            Category
+
+        </a>
+
+
+        <!-- =================================================
+             CATEGORY MANAGEMENT
+        ================================================== -->
+
+        <div class="category-submenu">
+
+
+            <!-- CATEGORY MANAGEMENT TITLE -->
+
+            <div class="subcategory-heading">
+
+                CATEGORY MANAGEMENT
+
+            </div>
+
+
+            <!-- ADD CATEGORY -->
+
+            <a href="{% url 'Addcategory' %}">
+
+                <i class="bi bi-plus-circle"></i>
+
+                Add Category
+
+            </a>
+
+
+            <!-- VIEW CATEGORY -->
+
+            <a href="{% url 'Categorylist' %}">
+
+                <i class="bi bi-list-ul"></i>
+
+                View Category
+
+            </a>
+
+
+            <!-- =================================================
+                 SUBCATEGORY MANAGEMENT TITLE
+            ================================================== -->
+
+            <div class="subcategory-heading">
+
+                SUBCATEGORY MANAGEMENT
+
+            </div>
+
+
+            <!-- ADD SUBCATEGORY -->
+
+            <a href="{% url 'Addsubcategory' %}">
+
+                <i class="bi bi-node-plus"></i>
+
+                Add Subcategory
+
+            </a>
+
+
+            <!-- VIEW SUBCATEGORY -->
+
+            <a href="{% url 'Subcategorylist' %}">
+
+                <i class="bi bi-diagram-3"></i>
+
+                View Subcategory
+
+            </a>
+
+
+        </div>
+
+
+        <!-- =================================================
+             COLLECTION
+        ================================================== -->
+
+        <a href="{% url 'Collectionlist' %}">
+
+            <i class="bi bi-collection-fill"></i>
+
+            Collection
+
+        </a>
+
+
+        <!-- =================================================
+             COLLECTION MANAGEMENT
+        ================================================== -->
+
+        <div class="category-submenu">
+
+
+            <div class="subcategory-heading">
+
+                COLLECTION MANAGEMENT
+
+            </div>
+
+
+            <!-- ADD COLLECTION -->
+
+            <a href="{% url 'Addcollection' %}">
+
+                <i class="bi bi-plus-circle"></i>
+
+                Add Collection
+
+            </a>
+
+
+            <!-- VIEW COLLECTION -->
+
+            <a href="{% url 'Collectionlist' %}">
+
+                <i class="bi bi-list-ul"></i>
+
+                View Collection
+
+            </a>
+
+
+        </div>
+
+
+        <!-- =================================================
+             PRODUCTS
+        ================================================== -->
+
+        <a href="{% url 'Productlist' %}">
+
+            <i class="bi bi-box-seam"></i>
+
+            Products
+
+        </a>
+
+
+        <!-- =================================================
+             CONTACT MESSAGES
+        ================================================== -->
+
+        <a href="{% url 'ContactMessages' %}">
+
+            <i class="bi bi-chat-left-text"></i>
+
+            Contact Messages
+
+        </a>
+
+
+        <!-- =================================================
+             ORDERS
+        ================================================== -->
+
+        <a href="{% url 'MOrderlist' %}"">
+
+            <i class="bi bi-cart-check"></i>
+
+            Orders
+
+        </a>
+
+
+        <!-- =================================================
+             REPORTS
+        ================================================== -->
+
+       <a href="{% url 'Mreports' %}">
+        <i class="bi bi-bar-chart-line"></i> 
+    Reports
+</a>
+
+
+    </nav>
+
+
+    <!-- =================================================
+         LOGOUT
+    ================================================== -->
+
+    <div class="manager-logout">
+
+        <nav class="manager-nav">
+
+            <a href="{% url 'logout' %}">
+
+                <i class="bi bi-box-arrow-right"></i>
+
+                Logout
+
+            </a>
+
+        </nav>
+
+    </div>
+
+
+</aside>
+
+
+
+<!-- =====================================================
+     MAIN
+===================================================== -->
+
+<main class="manager-main">
+
+
+    <!-- =================================================
+         TOPBAR
+    ================================================== -->
+
+    <header class="manager-topbar">
+
+
+        <div class="manager-page-title">
+
+            <h1>
+
+                {% block page_heading %}
+
+                Manager Dashboard
+
+                {% endblock %}
+
+            </h1>
+
+
+            <p>
+
+                Manage your GreenNest operations
+
+            </p>
+
+        </div>
+
+
+        <!-- =================================================
+             ACCOUNT
+        ================================================== -->
+
+        <div class="manager-account">
+
+
+            <div class="manager-account-icon">
+
+                <i class="bi bi-person-fill"></i>
+
+            </div>
+
+
+            <div class="manager-account-text">
+
+                <strong>
+
+                    Manager Account
+
+                </strong>
+
+
+                <span>
+
+                    GreenNest Manager
+
+                </span>
+
+            </div>
+
+
+        </div>
+
+
+    </header>
+
+
+
+    <!-- =================================================
+         CONTENT
+    ================================================== -->
+
+    <section class="manager-content">
+
+        {% block content %}
+
+        {% endblock %}
+
+    </section>
+
+
+</main>
+
+
+
+<!-- =====================================================
+     FOOTER
+===================================================== -->
+
+<footer class="manager-footer">
+
+    © 2026 GreenNest.
+
+    All Rights Reserved.
+
+    Manager Panel
+
+</footer>
+
+
+
+<!-- =====================================================
+     BOOTSTRAP JS
+===================================================== -->
+
+<script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+
+
+</body>
+
+</html>

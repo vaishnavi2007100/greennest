@@ -1,0 +1,718 @@
+{% extends "store/Admin/AdminMaster.html" %}
+
+{% load static %}
+
+{% block title %}
+Reports | GreenNest Admin
+{% endblock %}
+
+{% block page_heading %}
+Reports & Analytics
+{% endblock %}
+
+{% block content %}
+
+<style>
+
+/* =========================================================
+   GREENNEST REPORTS PAGE
+========================================================= */
+
+.reports-page {
+    width: 100%;
+}
+
+
+/* =========================================================
+   REPORT HEADER
+========================================================= */
+
+.report-header {
+    background: linear-gradient(
+        135deg,
+        #12372a,
+        #1d6046
+    );
+
+    color: white;
+
+    padding: 28px;
+
+    border-radius: 18px;
+
+    margin-bottom: 25px;
+
+    box-shadow:
+        0 10px 30px rgba(18,55,42,.15);
+}
+
+.report-header h3 {
+    margin: 0;
+
+    font-weight: 700;
+}
+
+.report-header p {
+    margin: 8px 0 0;
+
+    color: rgba(255,255,255,.80);
+}
+
+
+/* =========================================================
+   SUMMARY CARDS
+========================================================= */
+
+.summary-card {
+
+    background: white;
+
+    border-radius: 18px;
+
+    padding: 23px;
+
+    height: 100%;
+
+    border: 1px solid #edf1ed;
+
+    box-shadow:
+        0 8px 30px rgba(18,55,42,.07);
+
+    transition: .25s;
+}
+
+.summary-card:hover {
+
+    transform: translateY(-4px);
+
+    box-shadow:
+        0 14px 35px rgba(18,55,42,.12);
+}
+
+
+.summary-icon {
+
+    width: 55px;
+
+    height: 55px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    border-radius: 14px;
+
+    background: #e8f3ec;
+
+    color: #12372a;
+
+    font-size: 24px;
+
+    margin-bottom: 15px;
+}
+
+
+.summary-card h6 {
+
+    color: #6c757d;
+
+    font-size: 14px;
+
+    font-weight: 600;
+
+    margin-bottom: 7px;
+}
+
+
+.summary-value {
+
+    color: #12372a;
+
+    font-size: 30px;
+
+    font-weight: 700;
+
+    margin: 0;
+}
+
+
+/* =========================================================
+   DETAILED REPORT TITLE
+========================================================= */
+
+.section-title {
+
+    margin-top: 32px;
+
+    margin-bottom: 18px;
+}
+
+.section-title h4 {
+
+    color: #12372a;
+
+    font-weight: 700;
+
+    margin-bottom: 5px;
+}
+
+.section-title p {
+
+    color: #6c757d;
+
+    margin: 0;
+}
+
+
+/* =========================================================
+   REPORT CARDS
+========================================================= */
+
+.report-link {
+
+    text-decoration: none;
+
+    color: inherit;
+
+    display: block;
+
+    height: 100%;
+}
+
+
+.report-card {
+
+    background: white;
+
+    border-radius: 18px;
+
+    padding: 25px;
+
+    height: 100%;
+
+    box-shadow:
+        0 8px 30px rgba(18,55,42,.08);
+
+    border: 1px solid #edf1ed;
+
+    transition: .25s;
+}
+
+
+.report-link:hover .report-card {
+
+    transform: translateY(-5px);
+
+    box-shadow:
+        0 15px 35px rgba(18,55,42,.13);
+}
+
+
+.report-icon {
+
+    width: 55px;
+
+    height: 55px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    border-radius: 14px;
+
+    background: #e8f3ec;
+
+    color: #12372a;
+
+    font-size: 24px;
+
+    transition: .25s;
+}
+
+
+.report-link:hover .report-icon {
+
+    background: #12372a;
+
+    color: white;
+}
+
+
+.report-card h4 {
+
+    color: #12372a;
+
+    margin-top: 5px;
+
+    margin-bottom: 10px;
+}
+
+
+.report-card p {
+
+    line-height: 1.6;
+
+    margin-bottom: 18px;
+}
+
+
+.view-report {
+
+    color: #198754;
+
+    font-weight: 600;
+}
+
+
+/* =========================================================
+   QUICK INFORMATION
+========================================================= */
+
+.quick-info {
+
+    background: #f7faf8;
+
+    border: 1px solid #e6eee8;
+
+    border-radius: 18px;
+
+    padding: 22px;
+
+    margin-top: 28px;
+}
+
+
+.quick-info h5 {
+
+    color: #12372a;
+
+    font-weight: 700;
+
+    margin-bottom: 8px;
+}
+
+
+.quick-info p {
+
+    color: #6c757d;
+
+    margin-bottom: 0;
+
+}
+
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media (max-width: 768px) {
+
+    .report-header {
+
+        padding: 22px;
+    }
+
+    .report-header h3 {
+
+        font-size: 22px;
+    }
+
+    .summary-value {
+
+        font-size: 26px;
+    }
+
+}
+
+</style>
+
+
+<div class="reports-page">
+
+
+    <!-- =====================================================
+         HEADER
+    ====================================================== -->
+
+    <div class="report-header">
+
+        <h3>
+
+            <i class="bi bi-bar-chart-line-fill me-2"></i>
+
+            GreenNest Reports & Analytics
+
+        </h3>
+
+        <p>
+
+            Monitor your store performance, customers,
+            products, orders and sales from one place.
+
+        </p>
+
+    </div>
+
+
+
+    <!-- =====================================================
+         SUMMARY STATISTICS
+    ====================================================== -->
+
+    <div class="row g-4">
+
+
+        <!-- TOTAL USERS -->
+
+        <div class="col-xl-3 col-md-6">
+
+            <div class="summary-card">
+
+                <div class="summary-icon">
+
+                    <i class="bi bi-people-fill"></i>
+
+                </div>
+
+                <h6>
+                    Total Users
+                </h6>
+
+                <p class="summary-value">
+
+                    {{ total_users }}
+
+                </p>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- TOTAL PRODUCTS -->
+
+        <div class="col-xl-3 col-md-6">
+
+            <div class="summary-card">
+
+                <div class="summary-icon">
+
+                    <i class="bi bi-box-seam-fill"></i>
+
+                </div>
+
+                <h6>
+                    Total Products
+                </h6>
+
+                <p class="summary-value">
+
+                    {{ total_products }}
+
+                </p>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- TOTAL ORDERS -->
+
+        <div class="col-xl-3 col-md-6">
+
+            <div class="summary-card">
+
+                <div class="summary-icon">
+
+                    <i class="bi bi-bag-check-fill"></i>
+
+                </div>
+
+                <h6>
+                    Total Orders
+                </h6>
+
+                <p class="summary-value">
+
+                    {{ total_orders }}
+
+                </p>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- TOTAL REVIEWS -->
+
+        <div class="col-xl-3 col-md-6">
+
+            <div class="summary-card">
+
+                <div class="summary-icon">
+
+                    <i class="bi bi-star-fill"></i>
+
+                </div>
+
+                <h6>
+                    Total Reviews
+                </h6>
+
+                <p class="summary-value">
+
+                    {{ total_reviews }}
+
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- =====================================================
+         TOTAL SALES
+    ====================================================== -->
+
+    <div class="row g-4 mt-1">
+
+        <div class="col-xl-3 col-md-6">
+
+            <div class="summary-card">
+
+                <div class="summary-icon">
+
+                    <i class="bi bi-currency-rupee"></i>
+
+                </div>
+
+                <h6>
+                    Total Sales
+                </h6>
+
+                <p class="summary-value">
+
+                    ₹{{ total_sales }}
+
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- =====================================================
+         DETAILED REPORT SECTION
+    ====================================================== -->
+
+    <div class="section-title">
+
+        <h4>
+
+            <i class="bi bi-file-earmark-bar-graph me-2"></i>
+
+            Detailed Reports
+
+        </h4>
+
+        <p>
+
+            Select a report below to view detailed information.
+
+        </p>
+
+    </div>
+
+
+
+    <div class="row g-4">
+
+
+        <!-- =================================================
+             SALES REPORT
+        ================================================== -->
+
+        <div class="col-lg-4 col-md-6">
+
+            <a
+                href="{% url 'AdminSalesReport' %}"
+                class="report-link"
+            >
+
+                <div class="report-card">
+
+                    <div class="report-icon mb-3">
+
+                        <i class="bi bi-graph-up-arrow"></i>
+
+                    </div>
+
+                    <h4 class="fw-bold">
+
+                        Sales Report
+
+                    </h4>
+
+                    <p class="text-muted">
+
+                        View sales, orders and revenue
+                        information in detail.
+
+                    </p>
+
+                    <span class="view-report">
+
+                        View Report
+
+                        <i class="bi bi-arrow-right ms-1"></i>
+
+                    </span>
+
+                </div>
+
+            </a>
+
+        </div>
+
+
+
+        <!-- =================================================
+             USER REPORT
+        ================================================== -->
+
+        <div class="col-lg-4 col-md-6">
+
+            <a
+                href="{% url 'AdminUserReport' %}"
+                class="report-link"
+            >
+
+                <div class="report-card">
+
+                    <div class="report-icon mb-3">
+
+                        <i class="bi bi-people"></i>
+
+                    </div>
+
+                    <h4 class="fw-bold">
+
+                        User Report
+
+                    </h4>
+
+                    <p class="text-muted">
+
+                        View registered customers and
+                        their order activity.
+
+                    </p>
+
+                    <span class="view-report">
+
+                        View Report
+
+                        <i class="bi bi-arrow-right ms-1"></i>
+
+                    </span>
+
+                </div>
+
+            </a>
+
+        </div>
+
+
+
+        <!-- =================================================
+             PRODUCT REPORT
+        ================================================== -->
+
+        <div class="col-lg-4 col-md-6">
+
+            <a
+                href="{% url 'AdminProductReport' %}"
+                class="report-link"
+            >
+
+                <div class="report-card">
+
+                    <div class="report-icon mb-3">
+
+                        <i class="bi bi-box-seam"></i>
+
+                    </div>
+
+                    <h4 class="fw-bold">
+
+                        Product Report
+
+                    </h4>
+
+                    <p class="text-muted">
+
+                        Analyze products, stock and
+                        category information.
+
+                    </p>
+
+                    <span class="view-report">
+
+                        View Report
+
+                        <i class="bi bi-arrow-right ms-1"></i>
+
+                    </span>
+
+                </div>
+
+            </a>
+
+        </div>
+
+
+    </div>
+
+
+
+    <!-- =====================================================
+         QUICK INFORMATION
+    ====================================================== -->
+
+    <div class="quick-info">
+
+        <h5>
+
+            <i class="bi bi-info-circle me-2"></i>
+
+            Reports Overview
+
+        </h5>
+
+        <p>
+
+            Use the detailed reports above to monitor
+            GreenNest sales performance, customer activity
+            and product information.
+
+        </p>
+
+    </div>
+
+
+</div>
+
+{% endblock %}

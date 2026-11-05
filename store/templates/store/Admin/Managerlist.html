@@ -1,0 +1,318 @@
+{% extends "store/Admin/AdminMaster.html" %}
+
+{% block title %}
+Manager List | GreenNest
+{% endblock %}
+
+{% block page_heading %}
+Manager List
+{% endblock %}
+
+{% block content %}
+
+<style>
+
+/* =====================================================
+   MANAGER LIST PAGE
+===================================================== */
+
+.list-card {
+
+    background: white;
+
+    border: 1px solid #e5ece6;
+
+    border-radius: 18px;
+
+    padding: 25px;
+
+}
+
+
+/* =====================================================
+   HEADING
+===================================================== */
+
+.list-card h3 {
+
+    font-family:
+        'DM Serif Display',
+        serif;
+
+    color: #173d2b;
+
+    margin-bottom: 20px;
+
+}
+
+
+/* =====================================================
+   TABLE
+===================================================== */
+
+.table {
+
+    margin: 0;
+
+    font-size: 12px;
+
+    vertical-align: middle;
+
+}
+
+
+.table thead th {
+
+    background: #f3f7f3;
+
+    color: #526159;
+
+    font-size: 11px;
+
+    border: none;
+
+    padding: 14px;
+
+}
+
+
+.table tbody td {
+
+    padding: 14px;
+
+    border-color: #edf1ee;
+
+}
+
+
+/* =====================================================
+   ROLE BADGE
+===================================================== */
+
+.role-badge {
+
+    display: inline-block;
+
+    background: #edf5ef;
+
+    color: #24613f;
+
+    padding: 6px 10px;
+
+    border-radius: 7px;
+
+    font-size: 10px;
+
+    font-weight: 700;
+
+}
+
+
+/* =====================================================
+   DELETE BUTTON
+===================================================== */
+
+.delete-btn {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 5px;
+
+    padding: 6px 11px;
+
+    border-radius: 7px;
+
+    background: #fff1f1;
+
+    color: #a33d3d;
+
+    border: 1px solid #f0cece;
+
+    text-decoration: none;
+
+    font-size: 11px;
+
+    font-weight: 600;
+
+    transition: 0.3s;
+
+}
+
+
+.delete-btn:hover {
+
+    background: #a33d3d;
+
+    color: white;
+
+    border-color: #a33d3d;
+
+}
+
+
+/* =====================================================
+   EMPTY MESSAGE
+===================================================== */
+
+.empty {
+
+    text-align: center;
+
+    padding: 40px;
+
+    color: #8a958e;
+
+    font-size: 12px;
+
+}
+
+
+/* =====================================================
+   MOBILE
+===================================================== */
+
+@media (max-width: 768px) {
+
+    .list-card {
+
+        padding: 18px;
+
+        border-radius: 14px;
+
+    }
+
+    .list-card h3 {
+
+        font-size: 22px;
+
+    }
+
+    .table {
+
+        min-width: 550px;
+
+    }
+
+}
+
+</style>
+
+
+<!-- =====================================================
+     MANAGER LIST CARD
+===================================================== -->
+
+<div class="list-card">
+
+    <h3>
+        All Managers
+    </h3>
+
+
+    <div class="table-responsive">
+
+        <table class="table">
+
+            <thead>
+
+                <tr>
+
+                    <th>
+                        ID
+                    </th>
+
+                    <th>
+                        Email
+                    </th>
+
+                    <th>
+                        Role
+                    </th>
+
+                    <th>
+                        Action
+                    </th>
+
+                </tr>
+
+            </thead>
+
+
+            <tbody>
+
+                {% for manager in managers %}
+
+                <tr>
+
+                    <!-- LOGIN TABLE ID -->
+                    <td>
+                        {{ manager.id }}
+                    </td>
+
+
+                    <!-- EMAIL -->
+                    <td>
+                        {{ manager.email }}
+                    </td>
+
+
+                    <!-- ROLE -->
+                    <td>
+
+                        <span class="role-badge">
+
+                            {{ manager.role }}
+
+                        </span>
+
+                    </td>
+
+
+                    <!-- ACTION -->
+                    <td>
+
+                        <a
+                            href="{% url 'DeleteManager' manager.id %}"
+                            class="delete-btn"
+                            onclick="return confirm('Are you sure you want to delete this manager?');"
+                        >
+
+                            <i class="bi bi-trash"></i>
+
+                            Delete
+
+                        </a>
+
+                    </td>
+
+                </tr>
+
+
+                {% empty %}
+
+                <tr>
+
+                    <td
+                        colspan="4"
+                        class="empty"
+                    >
+
+                        No managers found.
+
+                    </td>
+
+                </tr>
+
+                {% endfor %}
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,1311 @@
+{% extends "store/base.html" %}
+{% load static %}
+
+{% block title %}Home Décor | GreenNest{% endblock %}
+
+{% block content %}
+
+<style>
+/* =========================================================
+   GREENNEST HOME DECOR PAGE
+   ========================================================= */
+
+.decor-page {
+    --green-dark: #0b3d2e;
+    --green-deep: #073527;
+    --green: #1d6848;
+    --green-light: #e9f4ed;
+    --green-soft: #f4faf6;
+    --gold: #c8a96b;
+    --cream: #faf9f5;
+    --white: #ffffff;
+    --text: #24332c;
+    --muted: #718078;
+    --border: #e3ebe6;
+
+    background: var(--cream);
+    color: var(--text);
+    overflow: hidden;
+}
+
+
+/* =========================================================
+   HERO
+   ========================================================= */
+
+.decor-hero {
+    position: relative;
+    min-height: 650px;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    background:
+        linear-gradient(90deg,
+            rgba(7,53,39,.97) 0%,
+            rgba(7,53,39,.91) 42%,
+            rgba(7,53,39,.30) 72%,
+            rgba(7,53,39,.10) 100%
+        ),
+        url("{% static 'images/plant-center.jpg' %}") center/cover no-repeat;
+}
+
+.decor-hero::before {
+    content: "";
+    position: absolute;
+    width: 420px;
+    height: 420px;
+    border: 1px solid rgba(200,169,107,.35);
+    border-radius: 50%;
+    right: -130px;
+    top: -100px;
+}
+
+.decor-hero::after {
+    content: "";
+    position: absolute;
+    width: 260px;
+    height: 260px;
+    border: 1px solid rgba(255,255,255,.12);
+    border-radius: 50%;
+    right: 120px;
+    bottom: -150px;
+}
+
+.decor-hero-content {
+    position: relative;
+    z-index: 3;
+    max-width: 680px;
+    padding: 100px 0;
+}
+
+.decor-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 9px 17px;
+    border: 1px solid rgba(200,169,107,.5);
+    border-radius: 50px;
+    color: #f1dfb8;
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 25px;
+    background: rgba(255,255,255,.05);
+    backdrop-filter: blur(8px);
+}
+
+.decor-eyebrow span {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--gold);
+    box-shadow: 0 0 12px rgba(200,169,107,.8);
+}
+
+.decor-hero h1 {
+    font-size: clamp(48px, 6vw, 78px);
+    line-height: .98;
+    color: white;
+    font-weight: 800;
+    letter-spacing: -3px;
+    margin-bottom: 25px;
+}
+
+.decor-hero h1 span {
+    color: #d8bd82;
+    font-family: Georgia, serif;
+    font-style: italic;
+    font-weight: 500;
+}
+
+.decor-hero p {
+    max-width: 580px;
+    color: rgba(255,255,255,.78);
+    font-size: 17px;
+    line-height: 1.8;
+    margin-bottom: 35px;
+}
+
+.decor-hero-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 13px;
+}
+
+.decor-btn-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 15px 25px;
+    border-radius: 50px;
+    background: white;
+    color: var(--green-dark);
+    text-decoration: none;
+    font-weight: 800;
+    transition: .3s ease;
+}
+
+.decor-btn-primary:hover {
+    transform: translateY(-3px);
+    color: var(--green-dark);
+    box-shadow: 0 15px 35px rgba(0,0,0,.2);
+}
+
+.decor-btn-outline {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 14px 24px;
+    border: 1px solid rgba(255,255,255,.4);
+    border-radius: 50px;
+    color: white;
+    text-decoration: none;
+    font-weight: 700;
+    transition: .3s ease;
+}
+
+.decor-btn-outline:hover {
+    background: white;
+    color: var(--green-dark);
+}
+
+
+/* =========================================================
+   FLOATING HERO CARD
+   ========================================================= */
+
+.decor-floating-card {
+    position: absolute;
+    right: 7%;
+    bottom: 55px;
+    z-index: 5;
+    width: 235px;
+    padding: 20px;
+    border-radius: 22px;
+    background: rgba(255,255,255,.94);
+    backdrop-filter: blur(15px);
+    box-shadow: 0 25px 60px rgba(0,0,0,.2);
+}
+
+.decor-floating-image {
+    height: 150px;
+    border-radius: 16px;
+    overflow: hidden;
+    margin-bottom: 15px;
+}
+
+.decor-floating-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: .5s ease;
+}
+
+.decor-floating-card:hover img {
+    transform: scale(1.08);
+}
+
+.decor-floating-card small {
+    color: var(--muted);
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+}
+
+.decor-floating-card h5 {
+    margin: 4px 0 10px;
+    font-weight: 800;
+    color: var(--green-dark);
+}
+
+
+/* =========================================================
+   INTRO
+   ========================================================= */
+
+.decor-intro {
+    padding: 95px 0 70px;
+    text-align: center;
+}
+
+.decor-section-label {
+    color: var(--green);
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+}
+
+.decor-intro h2 {
+    max-width: 760px;
+    margin: auto;
+    font-size: clamp(34px, 4vw, 52px);
+    line-height: 1.1;
+    color: var(--green-dark);
+    font-weight: 800;
+    letter-spacing: -1.5px;
+}
+
+.decor-intro h2 span {
+    color: var(--gold);
+    font-family: Georgia, serif;
+    font-style: italic;
+    font-weight: 500;
+}
+
+.decor-intro p {
+    max-width: 680px;
+    margin: 20px auto 0;
+    color: var(--muted);
+    line-height: 1.8;
+}
+
+
+/* =========================================================
+   CATEGORY CARDS
+   ========================================================= */
+
+.decor-categories {
+    padding: 20px 0 90px;
+}
+
+.decor-category-card {
+    position: relative;
+    min-height: 280px;
+    overflow: hidden;
+    border-radius: 25px;
+    margin-bottom: 24px;
+    box-shadow: 0 10px 35px rgba(12,61,46,.08);
+}
+
+.decor-category-card img {
+    width: 100%;
+    height: 100%;
+    min-height: 280px;
+    object-fit: cover;
+    transition: transform .6s ease;
+}
+
+.decor-category-card::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+        0deg,
+        rgba(7,53,39,.88),
+        rgba(7,53,39,.05) 70%
+    );
+}
+
+.decor-category-card:hover img {
+    transform: scale(1.08);
+}
+
+.decor-category-content {
+    position: absolute;
+    z-index: 3;
+    bottom: 25px;
+    left: 27px;
+    right: 20px;
+    color: white;
+}
+
+.decor-category-content span {
+    color: #e4c98e;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    font-weight: 700;
+}
+
+.decor-category-content h3 {
+    font-size: 25px;
+    font-weight: 800;
+    margin: 5px 0;
+}
+
+.decor-category-content a {
+    color: white;
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 700;
+}
+
+
+/* =========================================================
+   PRODUCTS
+   ========================================================= */
+
+.decor-products {
+    padding: 85px 0;
+    background: var(--green-soft);
+}
+
+.decor-heading {
+    text-align: center;
+    margin-bottom: 45px;
+}
+
+.decor-heading h2 {
+    color: var(--green-dark);
+    font-size: 42px;
+    font-weight: 800;
+    margin-bottom: 10px;
+}
+
+.decor-heading p {
+    color: var(--muted);
+}
+
+.decor-product-card {
+    height: 100%;
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 22px;
+    overflow: hidden;
+    transition: .35s ease;
+}
+
+.decor-product-card:hover {
+    transform: translateY(-9px);
+    box-shadow: 0 22px 50px rgba(11,61,46,.14);
+}
+
+.decor-product-image {
+    position: relative;
+    height: 290px;
+    overflow: hidden;
+    background: #edf4ef;
+}
+
+.decor-product-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: .5s ease;
+}
+
+.decor-product-card:hover .decor-product-image img {
+    transform: scale(1.07);
+}
+
+.decor-product-badge {
+    position: absolute;
+    left: 15px;
+    top: 15px;
+    padding: 7px 12px;
+    border-radius: 30px;
+    background: white;
+    color: var(--green);
+    font-size: 10px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: .8px;
+}
+
+.decor-heart {
+    position: absolute;
+    right: 15px;
+    top: 15px;
+    width: 40px;
+    height: 40px;
+    display: grid;
+    place-items: center;
+    border-radius: 50%;
+    background: rgba(255,255,255,.95);
+    color: var(--green-dark);
+    font-size: 19px;
+}
+
+.decor-product-body {
+    padding: 22px;
+}
+
+.decor-product-category {
+    color: var(--gold);
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 1.3px;
+    text-transform: uppercase;
+}
+
+.decor-product-body h4 {
+    color: var(--green-dark);
+    font-size: 19px;
+    font-weight: 800;
+    margin: 7px 0;
+}
+
+.decor-product-body p {
+    color: var(--muted);
+    font-size: 13px;
+    line-height: 1.6;
+    margin-bottom: 15px;
+}
+
+.decor-rating {
+    color: #c8a96b;
+    font-size: 13px;
+}
+
+.decor-price {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 15px;
+}
+
+.decor-price strong {
+    color: var(--green-dark);
+    font-size: 21px;
+}
+
+.decor-add {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: none;
+    background: var(--green-dark);
+    color: white;
+    font-size: 19px;
+    transition: .3s ease;
+}
+
+.decor-add:hover {
+    background: var(--gold);
+    transform: rotate(8deg);
+}
+
+
+/* =========================================================
+   FEATURE STRIP
+   ========================================================= */
+
+.decor-features {
+    padding: 0;
+    background: var(--green-dark);
+}
+
+.decor-feature {
+    padding: 35px 20px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    color: white;
+    border-right: 1px solid rgba(255,255,255,.1);
+}
+
+.decor-feature-icon {
+    width: 50px;
+    height: 50px;
+    flex-shrink: 0;
+    display: grid;
+    place-items: center;
+    border-radius: 15px;
+    background: rgba(200,169,107,.15);
+    color: #d9bd80;
+}
+
+.decor-feature h6 {
+    margin: 0 0 4px;
+    font-weight: 800;
+}
+
+.decor-feature p {
+    margin: 0;
+    color: rgba(255,255,255,.6);
+    font-size: 12px;
+}
+
+
+/* =========================================================
+   WHY GREENNEST
+   ========================================================= */
+
+.decor-why {
+    padding: 100px 0;
+}
+
+.decor-why-box {
+    padding: 55px;
+    border-radius: 30px;
+    background: white;
+    border: 1px solid var(--border);
+    box-shadow: 0 15px 50px rgba(11,61,46,.06);
+}
+
+.decor-why h2 {
+    color: var(--green-dark);
+    font-size: 40px;
+    font-weight: 800;
+}
+
+.decor-why p {
+    color: var(--muted);
+    line-height: 1.8;
+}
+
+.decor-check {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-top: 18px;
+    font-weight: 700;
+    color: var(--green-dark);
+}
+
+.decor-check span {
+    width: 28px;
+    height: 28px;
+    display: grid;
+    place-items: center;
+    border-radius: 50%;
+    background: var(--green-light);
+    color: var(--green);
+}
+
+
+/* =========================================================
+   CTA
+   ========================================================= */
+
+.decor-cta {
+    position: relative;
+    padding: 95px 20px;
+    text-align: center;
+    overflow: hidden;
+    background:
+        linear-gradient(135deg, rgba(7,53,39,.97), rgba(29,104,72,.9)),
+        url("{% static 'images/plant-center.jpg' %}") center/cover;
+}
+
+.decor-cta::before {
+    content: "";
+    position: absolute;
+    width: 350px;
+    height: 350px;
+    border: 1px solid rgba(200,169,107,.3);
+    border-radius: 50%;
+    left: -120px;
+    top: -120px;
+}
+
+.decor-cta-content {
+    position: relative;
+    z-index: 2;
+}
+
+.decor-cta h2 {
+    color: white;
+    font-size: clamp(35px, 5vw, 55px);
+    font-weight: 800;
+    margin-bottom: 15px;
+}
+
+.decor-cta p {
+    color: rgba(255,255,255,.72);
+    max-width: 620px;
+    margin: 0 auto 30px;
+}
+
+
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
+
+@media (max-width: 991px) {
+
+    .decor-hero {
+        min-height: 600px;
+        background-position: center;
+    }
+
+    .decor-floating-card {
+        display: none;
+    }
+
+    .decor-hero-content {
+        padding: 90px 25px;
+    }
+
+    .decor-feature {
+        border-bottom: 1px solid rgba(255,255,255,.1);
+        border-right: none;
+    }
+}
+
+@media (max-width: 767px) {
+
+    .decor-hero {
+        min-height: 650px;
+        background:
+            linear-gradient(90deg,
+                rgba(7,53,39,.94),
+                rgba(7,53,39,.72)
+            ),
+            url("{% static 'images/plant-center.jpg' %}") center/cover;
+    }
+
+    .decor-hero h1 {
+        font-size: 48px;
+        letter-spacing: -2px;
+    }
+
+    .decor-hero p {
+        font-size: 15px;
+    }
+
+    .decor-intro {
+        padding: 70px 20px 50px;
+    }
+
+    .decor-heading h2 {
+        font-size: 33px;
+    }
+
+    .decor-why-box {
+        padding: 35px 25px;
+    }
+
+    .decor-why h2 {
+        font-size: 32px;
+    }
+}
+
+@media (max-width: 480px) {
+
+    .decor-hero-content {
+        padding: 75px 18px;
+    }
+
+    .decor-hero h1 {
+        font-size: 40px;
+    }
+
+    .decor-hero-buttons {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .decor-btn-primary,
+    .decor-btn-outline {
+        justify-content: center;
+    }
+
+    .decor-category-card {
+        min-height: 240px;
+    }
+
+    .decor-category-card img {
+        min-height: 240px;
+    }
+}
+</style>
+
+
+<div class="decor-page">
+
+    <!-- ================= HERO ================= -->
+    <section class="decor-hero">
+
+        <div class="container">
+            <div class="decor-hero-content">
+
+                <div class="decor-eyebrow">
+                    <span></span>
+                    GreenNest Home Collection
+                </div>
+
+                <h1>
+                    Make your home
+                    <span>beautiful.</span>
+                </h1>
+
+                <p>
+                    Discover thoughtfully selected home décor pieces
+                    that bring warmth, elegance and a natural GreenNest
+                    feeling into every corner of your home.
+                </p>
+
+                <div class="decor-hero-buttons">
+
+                    <a href="#decorCollection"
+                       class="decor-btn-primary">
+                        Explore Collection
+                        <span>→</span>
+                    </a>
+
+                    <a href="#categories"
+                       class="decor-btn-outline">
+                        Discover More
+                    </a>
+
+                </div>
+
+            </div>
+        </div>
+
+
+        <!-- Floating Product -->
+        <div class="decor-floating-card">
+
+            <div class="decor-floating-image">
+                <img src="{% static 'images/plant1.jpg' %}"
+                     alt="GreenNest Home Decor">
+            </div>
+
+            <small>Featured Collection</small>
+
+            <h5>Natural Living</h5>
+
+            <div class="decor-rating">
+                ★★★★★
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- ================= INTRO ================= -->
+    <section class="decor-intro">
+
+        <div class="container">
+
+            <div class="decor-section-label">
+                Curated For Your Space
+            </div>
+
+            <h2>
+                Little details make a
+                <span>beautiful home.</span>
+            </h2>
+
+            <p>
+                From elegant corners to cozy living spaces, our décor
+                collection is designed to help you create a home that
+                feels calm, personal and naturally beautiful.
+            </p>
+
+        </div>
+
+    </section>
+
+
+    <!-- ================= CATEGORIES ================= -->
+    <section class="decor-categories" id="categories">
+
+        <div class="container">
+
+            <div class="row">
+
+                <div class="col-lg-6">
+
+                    <div class="decor-category-card">
+
+                        <img src="{% static 'images/plant1.jpg' %}"
+                             alt="Living Room Decor">
+
+                        <div class="decor-category-content">
+
+                            <span>01 · Living Space</span>
+
+                            <h3>Living Room Décor</h3>
+
+                            <a href="#decorCollection">
+                                Explore Collection →
+                            </a>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="col-lg-6">
+
+                    <div class="decor-category-card">
+
+                        <img src="{% static 'images/plant2.jpg' %}"
+                             alt="Bedroom Decor">
+
+                        <div class="decor-category-content">
+
+                            <span>02 · Personal Space</span>
+
+                            <h3>Bedroom Décor</h3>
+
+                            <a href="#decorCollection">
+                                Explore Collection →
+                            </a>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="col-lg-6">
+
+                    <div class="decor-category-card">
+
+                        <img src="{% static 'images/plant3.jpg' %}"
+                             alt="Table Decor">
+
+                        <div class="decor-category-content">
+
+                            <span>03 · Details</span>
+
+                            <h3>Table & Shelf Décor</h3>
+
+                            <a href="#decorCollection">
+                                Explore Collection →
+                            </a>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="col-lg-6">
+
+                    <div class="decor-category-card">
+
+                        <img src="{% static 'images/plant4.jpg' %}"
+                             alt="Natural Home Decor">
+
+                        <div class="decor-category-content">
+
+                            <span>04 · Natural Living</span>
+
+                            <h3>Natural Home Accents</h3>
+
+                            <a href="#decorCollection">
+                                Explore Collection →
+                            </a>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- ================= PRODUCTS ================= -->
+    <section class="decor-products" id="decorCollection">
+
+        <div class="container">
+
+            <div class="decor-heading">
+
+                <div class="decor-section-label">
+                    GreenNest Selection
+                </div>
+
+                <h2>Home Décor Favourites</h2>
+
+                <p>
+                    Elegant pieces selected to make your everyday space special.
+                </p>
+
+            </div>
+
+
+            <div class="row g-4">
+
+
+                <!-- Product 1 -->
+                <div class="col-xl-3 col-lg-4 col-md-6">
+
+                    <div class="decor-product-card">
+
+                        <div class="decor-product-image">
+
+                            <img src="{% static 'images/plant1.jpg' %}"
+                                 alt="Natural Green Decor">
+
+                            <div class="decor-product-badge">
+                                Bestseller
+                            </div>
+
+                            <div class="decor-heart">
+                                ♡
+                            </div>
+
+                        </div>
+
+                        <div class="decor-product-body">
+
+                            <div class="decor-product-category">
+                                Natural Decor
+                            </div>
+
+                            <h4>Botanical Accent</h4>
+
+                            <p>
+                                A fresh natural touch for modern interiors.
+                            </p>
+
+                            <div class="decor-rating">
+                                ★★★★★
+                            </div>
+
+                            <div class="decor-price">
+
+                                <strong>₹899</strong>
+
+                                <button class="decor-add">
+                                    +
+                                </button>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- Product 2 -->
+                <div class="col-xl-3 col-lg-4 col-md-6">
+
+                    <div class="decor-product-card">
+
+                        <div class="decor-product-image">
+
+                            <img src="{% static 'images/plant2.jpg' %}"
+                                 alt="Elegant Home Decor">
+
+                            <div class="decor-product-badge">
+                                New
+                            </div>
+
+                            <div class="decor-heart">
+                                ♡
+                            </div>
+
+                        </div>
+
+                        <div class="decor-product-body">
+
+                            <div class="decor-product-category">
+                                Home Accent
+                            </div>
+
+                            <h4>Elegant Green Corner</h4>
+
+                            <p>
+                                Designed for calm and stylish interiors.
+                            </p>
+
+                            <div class="decor-rating">
+                                ★★★★★
+                            </div>
+
+                            <div class="decor-price">
+
+                                <strong>₹1,299</strong>
+
+                                <button class="decor-add">
+                                    +
+                                </button>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- Product 3 -->
+                <div class="col-xl-3 col-lg-4 col-md-6">
+
+                    <div class="decor-product-card">
+
+                        <div class="decor-product-image">
+
+                            <img src="{% static 'images/plant3.jpg' %}"
+                                 alt="Modern Home Decor">
+
+                            <div class="decor-product-badge">
+                                Popular
+                            </div>
+
+                            <div class="decor-heart">
+                                ♡
+                            </div>
+
+                        </div>
+
+                        <div class="decor-product-body">
+
+                            <div class="decor-product-category">
+                                Modern Decor
+                            </div>
+
+                            <h4>Modern Green Accent</h4>
+
+                            <p>
+                                Minimal design with a naturally warm look.
+                            </p>
+
+                            <div class="decor-rating">
+                                ★★★★★
+                            </div>
+
+                            <div class="decor-price">
+
+                                <strong>₹1,099</strong>
+
+                                <button class="decor-add">
+                                    +
+                                </button>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- Product 4 -->
+                <div class="col-xl-3 col-lg-4 col-md-6">
+
+                    <div class="decor-product-card">
+
+                        <div class="decor-product-image">
+
+                            <img src="{% static 'images/plant4.jpg' %}"
+                                 alt="Premium Home Decor">
+
+                            <div class="decor-product-badge">
+                                Premium
+                            </div>
+
+                            <div class="decor-heart">
+                                ♡
+                            </div>
+
+                        </div>
+
+                        <div class="decor-product-body">
+
+                            <div class="decor-product-category">
+                                Premium Living
+                            </div>
+
+                            <h4>Signature Home Piece</h4>
+
+                            <p>
+                                A refined statement piece for your favourite corner.
+                            </p>
+
+                            <div class="decor-rating">
+                                ★★★★★
+                            </div>
+
+                            <div class="decor-price">
+
+                                <strong>₹1,599</strong>
+
+                                <button class="decor-add">
+                                    +
+                                </button>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- ================= FEATURES ================= -->
+    <section class="decor-features">
+
+        <div class="container">
+
+            <div class="row g-0">
+
+                <div class="col-lg-4">
+
+                    <div class="decor-feature">
+
+                        <div class="decor-feature-icon">
+                            ✦
+                        </div>
+
+                        <div>
+                            <h6>Curated Designs</h6>
+                            <p>Beautiful pieces selected for modern homes.</p>
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="col-lg-4">
+
+                    <div class="decor-feature">
+
+                        <div class="decor-feature-icon">
+                            ♡
+                        </div>
+
+                        <div>
+                            <h6>Made For Living</h6>
+                            <p>Comfort, beauty and nature in every detail.</p>
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="col-lg-4">
+
+                    <div class="decor-feature">
+
+                        <div class="decor-feature-icon">
+                            ✓
+                        </div>
+
+                        <div>
+                            <h6>Carefully Packed</h6>
+                            <p>Safe packaging for a beautiful delivery.</p>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- ================= WHY GREENNEST ================= -->
+    <section class="decor-why">
+
+        <div class="container">
+
+            <div class="decor-why-box">
+
+                <div class="row align-items-center g-5">
+
+                    <div class="col-lg-6">
+
+                        <div class="decor-section-label">
+                            Why GreenNest
+                        </div>
+
+                        <h2>
+                            Decorate less.
+                            <br>
+                            <span style="color:#c8a96b;font-family:Georgia,serif;font-style:italic;">
+                                Choose better.
+                            </span>
+                        </h2>
+
+                        <p class="mt-3">
+                            We believe your home should not simply look beautiful.
+                            It should feel beautiful too. That's why GreenNest
+                            focuses on timeless, natural and calming pieces.
+                        </p>
+
+                    </div>
+
+
+                    <div class="col-lg-6">
+
+                        <div class="decor-check">
+                            <span>✓</span>
+                            Elegant & timeless designs
+                        </div>
+
+                        <div class="decor-check">
+                            <span>✓</span>
+                            Nature-inspired collection
+                        </div>
+
+                        <div class="decor-check">
+                            <span>✓</span>
+                            Premium-looking finishes
+                        </div>
+
+                        <div class="decor-check">
+                            <span>✓</span>
+                            Perfect for modern homes
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- ================= CTA ================= -->
+    <section class="decor-cta">
+
+        <div class="decor-cta-content">
+
+            <div class="decor-section-label" style="color:#d8bd82;">
+                Bring Your Space To Life
+            </div>
+
+            <h2>
+                Your home deserves
+                <br>
+                a little more green.
+            </h2>
+
+            <p>
+                Explore GreenNest and create a warm, peaceful and
+                naturally beautiful space you'll love coming home to.
+            </p>
+
+            <a href="{% url 'plant' %}"
+               class="decor-btn-primary">
+                Shop GreenNest
+                <span>→</span>
+            </a>
+
+        </div>
+
+    </section>
+
+</div>
+
+{% endblock %}

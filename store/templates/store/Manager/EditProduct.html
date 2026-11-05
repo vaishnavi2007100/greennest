@@ -1,0 +1,608 @@
+{% extends "store/Manager/ManagerMaster.html" %}
+{% load static %}
+
+{% block title %}
+Edit Product | GreenNest Manager
+{% endblock %}
+
+{% block page_heading %}
+Edit Product
+{% endblock %}
+
+{% block content %}
+
+<style>
+
+/* =========================================================
+   EDIT PRODUCT
+========================================================= */
+
+.edit-product-wrapper {
+    max-width: 1150px;
+    margin: 0 auto;
+}
+
+.edit-product-card {
+    background: #ffffff;
+    border-radius: 22px;
+    padding: 32px;
+    border: 1px solid #e5ece7;
+    box-shadow: 0 12px 35px rgba(18, 61, 43, 0.08);
+}
+
+/* Header */
+
+.edit-product-header {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 28px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #e8eee9;
+}
+
+.edit-product-icon {
+    width: 52px;
+    height: 52px;
+    border-radius: 14px;
+    background: #e9f2ec;
+    color: #123d2b;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+}
+
+.edit-product-header h3 {
+    margin: 0;
+    color: #123d2b;
+    font-weight: 700;
+}
+
+.edit-product-header p {
+    margin: 4px 0 0;
+    color: #7a857f;
+    font-size: 14px;
+}
+
+/* Labels */
+
+.form-label {
+    color: #234334;
+    font-weight: 600;
+    margin-bottom: 8px;
+}
+
+/* Inputs */
+
+.form-control,
+.form-select {
+    min-height: 46px;
+    border-radius: 10px;
+    border: 1px solid #d8e2dc;
+    padding: 10px 14px;
+    color: #26382e;
+}
+
+.form-control:focus,
+.form-select:focus {
+    border-color: #286044;
+    box-shadow: 0 0 0 3px rgba(40, 96, 68, 0.10);
+}
+
+/* Description */
+
+textarea.form-control {
+    min-height: 150px;
+    resize: vertical;
+}
+
+/* Error */
+
+.error-box {
+    background: #fff2f2;
+    color: #a83232;
+    border: 1px solid #f0cccc;
+    border-radius: 10px;
+    padding: 13px 16px;
+    margin-bottom: 22px;
+    font-size: 14px;
+}
+
+/* Current Image */
+
+.current-image-box {
+    height: 100%;
+    min-height: 260px;
+    background: #f7faf8;
+    border: 1px solid #e2ebe5;
+    border-radius: 16px;
+    padding: 20px;
+    text-align: center;
+}
+
+.current-image-title {
+    color: #234334;
+    font-weight: 600;
+    margin-bottom: 15px;
+}
+
+.current-image-box img {
+    width: 190px;
+    height: 190px;
+    object-fit: cover;
+    border-radius: 14px;
+    border: 1px solid #dce6df;
+    background: #ffffff;
+}
+
+.no-image {
+    width: 190px;
+    height: 190px;
+    margin: auto;
+    border-radius: 14px;
+    background: #edf3ef;
+    color: #809088;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.no-image i {
+    font-size: 35px;
+}
+
+/* Image upload */
+
+.image-upload-box {
+    height: 100%;
+    min-height: 260px;
+    background: #ffffff;
+    border: 1px dashed #b8cabe;
+    border-radius: 16px;
+    padding: 25px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.image-upload-icon {
+    width: 55px;
+    height: 55px;
+    background: #edf5ef;
+    color: #286044;
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    margin-bottom: 15px;
+}
+
+.image-help {
+    color: #7b8780;
+    font-size: 13px;
+    margin-top: 8px;
+}
+
+/* Buttons */
+
+.edit-actions {
+    display: flex;
+    gap: 12px;
+    margin-top: 30px;
+    padding-top: 25px;
+    border-top: 1px solid #e8eee9;
+}
+
+.btn-update {
+    background: #123d2b;
+    color: #ffffff;
+    border: none;
+    border-radius: 10px;
+    padding: 12px 25px;
+    font-weight: 600;
+    transition: 0.2s;
+}
+
+.btn-update:hover {
+    background: #286044;
+    color: #ffffff;
+    transform: translateY(-1px);
+}
+
+.btn-cancel {
+    background: #eef2ef;
+    color: #234334;
+    border-radius: 10px;
+    padding: 12px 25px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: 0.2s;
+}
+
+.btn-cancel:hover {
+    background: #dfe8e2;
+    color: #123d2b;
+}
+
+/* Responsive */
+
+@media (max-width: 768px) {
+
+    .edit-product-card {
+        padding: 20px;
+    }
+
+    .edit-product-header {
+        align-items: flex-start;
+    }
+
+    .edit-actions {
+        flex-direction: column;
+    }
+
+    .btn-update,
+    .btn-cancel {
+        width: 100%;
+        text-align: center;
+    }
+
+}
+
+</style>
+
+
+<div class="edit-product-wrapper">
+
+    <div class="edit-product-card">
+
+        <!-- =================================================
+             HEADER
+        ================================================== -->
+
+        <div class="edit-product-header">
+
+            <div class="edit-product-icon">
+                <i class="bi bi-pencil-square"></i>
+            </div>
+
+            <div>
+
+                <h3>Edit Product</h3>
+
+                <p>
+                    Update product information, pricing, stock and image.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <!-- =================================================
+             ERROR MESSAGE
+        ================================================== -->
+
+        {% if error %}
+
+        <div class="error-box">
+
+            <i class="bi bi-exclamation-circle me-2"></i>
+
+            {{ error }}
+
+        </div>
+
+        {% endif %}
+
+
+        <!-- =================================================
+             FORM
+        ================================================== -->
+
+        <form method="POST"
+              enctype="multipart/form-data">
+
+            {% csrf_token %}
+
+
+            <div class="row g-4">
+
+
+                <!-- PRODUCT NAME -->
+
+                <div class="col-md-8">
+
+                    <label class="form-label">
+                        Product Name
+                    </label>
+
+                    <input type="text"
+                           name="name"
+                           class="form-control"
+                           value="{{ product.name }}"
+                           placeholder="Enter product name"
+                           required>
+
+                </div>
+
+
+                <!-- STATUS -->
+
+                <div class="col-md-4">
+
+                    <label class="form-label">
+                        Status
+                    </label>
+
+                    <select name="status"
+                            class="form-select">
+
+                        <option value="active"
+                            {% if product.status == "active" %}
+                            selected
+                            {% endif %}>
+                            Active
+                        </option>
+
+                        <option value="inactive"
+                            {% if product.status == "inactive" %}
+                            selected
+                            {% endif %}>
+                            Inactive
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <!-- CATEGORY -->
+
+                <div class="col-md-6">
+
+                    <label class="form-label">
+                        Category
+                    </label>
+
+                    <select name="category"
+                            class="form-select"
+                            required>
+
+                        <option value="">
+                            Select Category
+                        </option>
+
+                        {% for category in categories %}
+
+                        <option value="{{ category.category_name }}"
+                            {% if product.category == category.category_name %}
+                            selected
+                            {% endif %}>
+
+                            {{ category.category_name }}
+
+                        </option>
+
+                        {% endfor %}
+
+                    </select>
+
+                </div>
+
+
+                <!-- SUBCATEGORY -->
+
+                <div class="col-md-6">
+
+                    <label class="form-label">
+                        Subcategory
+                    </label>
+
+                    <select name="subcategory"
+                            class="form-select">
+
+                        <option value="">
+                            Select Subcategory
+                        </option>
+
+                        {% for subcategory in subcategories %}
+
+                        <option value="{{ subcategory.subcategory_name }}"
+                            {% if product.subcategory == subcategory.subcategory_name %}
+                            selected
+                            {% endif %}>
+
+                            {{ subcategory.subcategory_name }}
+
+                        </option>
+
+                        {% endfor %}
+
+                    </select>
+
+                </div>
+
+
+                <!-- PRICE -->
+
+                <div class="col-md-4">
+
+                    <label class="form-label">
+                        Price
+                    </label>
+
+                    <input type="number"
+                           name="price"
+                           class="form-control"
+                           value="{{ product.price }}"
+                           step="0.01"
+                           min="0"
+                           required>
+
+                </div>
+
+
+                <!-- OLD PRICE -->
+
+                <div class="col-md-4">
+
+                    <label class="form-label">
+                        Old Price
+                    </label>
+
+                    <input type="number"
+                           name="old_price"
+                           class="form-control"
+                           value="{{ product.old_price }}"
+                           step="0.01"
+                           min="0"
+                           placeholder="Optional">
+
+                </div>
+
+
+                <!-- STOCK -->
+
+                <div class="col-md-4">
+
+                    <label class="form-label">
+                        Stock
+                    </label>
+
+                    <input type="number"
+                           name="stock"
+                           class="form-control"
+                           value="{{ product.stock }}"
+                           min="0">
+
+                </div>
+
+
+                <!-- CURRENT IMAGE -->
+
+                <div class="col-md-6">
+
+                    <div class="current-image-box">
+
+                        <div class="current-image-title">
+
+                            <i class="bi bi-image me-1"></i>
+
+                            Current Product Image
+
+                        </div>
+
+
+                        {% if product.image %}
+
+                        <img src="{% static 'product_images/' %}{{ product.image }}"
+                             alt="{{ product.name }}">
+
+                        {% else %}
+
+                        <div class="no-image">
+
+                            <i class="bi bi-image"></i>
+
+                            <span>No Image</span>
+
+                        </div>
+
+                        {% endif %}
+
+                    </div>
+
+                </div>
+
+
+                <!-- NEW IMAGE -->
+
+                <div class="col-md-6">
+
+                    <div class="image-upload-box">
+
+                        <div class="image-upload-icon">
+
+                            <i class="bi bi-cloud-arrow-up"></i>
+
+                        </div>
+
+                        <label class="form-label">
+                            Change Product Image
+                        </label>
+
+                        <input type="file"
+                               name="image"
+                               class="form-control"
+                               accept="image/*">
+
+                        <div class="image-help">
+
+                            <i class="bi bi-info-circle me-1"></i>
+
+                            Leave empty to keep the current image.
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- DESCRIPTION -->
+
+                <div class="col-12">
+
+                    <label class="form-label">
+                        Product Description
+                    </label>
+
+                    <textarea name="description"
+                              class="form-control"
+                              placeholder="Enter product description">{{ product.description }}</textarea>
+
+                </div>
+
+
+            </div>
+
+
+            <!-- =================================================
+                 ACTION BUTTONS
+            ================================================== -->
+
+            <div class="edit-actions">
+
+                <button type="submit"
+                        class="btn-update">
+
+                    <i class="bi bi-check-circle me-1"></i>
+
+                    Update Product
+
+                </button>
+
+
+                <a href="{% url 'Productlist' %}"
+                   class="btn-cancel">
+
+                    <i class="bi bi-arrow-left me-1"></i>
+
+                    Cancel
+
+                </a>
+
+            </div>
+
+
+        </form>
+
+    </div>
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,4083 @@
+{% extends "store/base.html" %}
+{% load static %}
+
+{% block title %}
+About Us | GreenNest
+{% endblock %}
+
+{% block content %}
+
+<style>
+
+/* =========================================================
+   GREENNEST ABOUT PAGE
+========================================================= */
+
+:root{
+    --about-green:#12372a;
+    --about-green-light:#286849;
+    --about-gold:#c8a45d;
+    --about-bg:#f6f9f5;
+    --about-text:#263a31;
+    --about-muted:#75817b;
+    --about-white:#ffffff;
+}
+
+.about-page{
+    overflow:hidden;
+    background:#fff;
+}
+
+.about-page *{
+    box-sizing:border-box;
+}
+
+
+/* =========================================================
+   HERO
+========================================================= */
+
+.about-hero{
+    min-height:620px;
+    position:relative;
+    overflow:hidden;
+    display:flex;
+    align-items:center;
+    color:white;
+
+    background-image:
+        linear-gradient(
+            90deg,
+            rgba(6,39,26,.97) 0%,
+            rgba(10,50,34,.91) 30%,
+            rgba(18,55,42,.66) 55%,
+            rgba(18,55,42,.28) 80%,
+            rgba(18,55,42,.12) 100%
+        ),
+        url("{% static 'images/imag.jpg' %}");
+
+    background-size:cover;
+    background-position:center;
+    background-repeat:no-repeat;
+}
+
+.about-hero::before{
+    content:"";
+    position:absolute;
+    width:560px;
+    height:560px;
+    right:-190px;
+    top:-170px;
+    border:1px solid rgba(255,255,255,.12);
+    border-radius:50%;
+
+    box-shadow:
+        0 0 0 70px rgba(255,255,255,.025),
+        0 0 0 140px rgba(255,255,255,.015);
+}
+
+.about-hero::after{
+    content:"";
+    position:absolute;
+    left:0;
+    right:0;
+    bottom:0;
+    height:170px;
+
+    background:linear-gradient(
+        transparent,
+        rgba(5,35,24,.55)
+    );
+}
+
+
+/* =========================================================
+   HERO CONTENT
+========================================================= */
+
+.about-hero-content{
+    position:relative;
+    z-index:3;
+    max-width:720px;
+    padding:80px 0;
+}
+
+.about-label{
+    display:inline-flex;
+    align-items:center;
+    gap:10px;
+
+    padding:10px 19px;
+
+    border:1px solid rgba(255,255,255,.30);
+    border-radius:50px;
+
+    background:rgba(255,255,255,.07);
+
+    backdrop-filter:blur(10px);
+
+    color:#dfc47d;
+
+    font-size:12px;
+    font-weight:700;
+    letter-spacing:2.5px;
+}
+
+.about-label i{
+    font-size:16px;
+}
+
+.about-hero h1{
+    font-family:'Playfair Display',serif;
+
+    font-size:67px;
+    line-height:1.08;
+
+    font-weight:700;
+
+    margin:25px 0;
+
+    letter-spacing:-1px;
+}
+
+.about-hero h1 span{
+    color:#d9bd78;
+}
+
+.about-hero p{
+    max-width:630px;
+
+    color:#dce9e2;
+
+    font-size:17px;
+    line-height:1.9;
+
+    margin-bottom:0;
+}
+
+.about-buttons{
+    display:flex;
+    gap:15px;
+    flex-wrap:wrap;
+    margin-top:32px;
+}
+
+.about-btn-gold{
+    background:var(--about-gold);
+    color:white;
+    border:0;
+
+    padding:14px 29px;
+
+    border-radius:50px;
+
+    font-weight:600;
+
+    box-shadow:
+        0 12px 28px rgba(0,0,0,.18);
+
+    transition:.35s;
+}
+
+.about-btn-gold:hover{
+    background:#b28e49;
+    color:white;
+    transform:translateY(-4px);
+}
+
+.about-btn-outline{
+    color:white;
+
+    border:1px solid rgba(255,255,255,.48);
+
+    padding:14px 29px;
+
+    border-radius:50px;
+
+    transition:.35s;
+
+    backdrop-filter:blur(5px);
+}
+
+.about-btn-outline:hover{
+    background:white;
+    color:var(--about-green);
+    transform:translateY(-4px);
+}
+
+
+/* =========================================================
+   FLOATING CARD
+========================================================= */
+
+.about-floating-card{
+    position:absolute;
+    z-index:5;
+
+    right:8%;
+    bottom:55px;
+
+    width:240px;
+
+    padding:23px;
+
+    border-radius:24px;
+
+    background:rgba(255,255,255,.95);
+
+    backdrop-filter:blur(12px);
+
+    color:var(--about-green);
+
+    box-shadow:
+        0 25px 60px rgba(0,0,0,.28);
+
+    animation:aboutFloat 4s ease-in-out infinite;
+}
+
+@keyframes aboutFloat{
+
+    0%,100%{
+        transform:translateY(0);
+    }
+
+    50%{
+        transform:translateY(-10px);
+    }
+
+}
+
+.about-floating-icon{
+    width:50px;
+    height:50px;
+
+    border-radius:16px;
+
+    background:#edf5ef;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    font-size:22px;
+
+    margin-bottom:13px;
+}
+
+.about-floating-card strong{
+    display:block;
+    font-size:18px;
+}
+
+.about-floating-card small{
+    display:block;
+    margin-top:6px;
+    color:var(--about-muted);
+    line-height:1.5;
+}
+
+
+/* =========================================================
+   COMMON SECTION
+========================================================= */
+
+.about-section{
+    padding:100px 0;
+}
+
+.about-section-label{
+    color:var(--about-gold);
+
+    font-size:12px;
+
+    font-weight:700;
+
+    letter-spacing:3px;
+
+    text-transform:uppercase;
+}
+
+.about-title{
+    color:var(--about-green);
+
+    font-family:'Playfair Display',serif;
+
+    font-size:47px;
+
+    line-height:1.2;
+
+    margin:14px 0 20px;
+}
+
+.about-line{
+    width:70px;
+    height:3px;
+
+    background:var(--about-gold);
+
+    border-radius:50px;
+
+    margin:20px 0;
+}
+
+.about-text{
+    color:var(--about-muted);
+
+    line-height:1.9;
+
+    font-size:15px;
+}
+
+
+/* =========================================================
+   STORY
+========================================================= */
+
+.about-story-image{
+    width:100%;
+    height:560px;
+
+    object-fit:cover;
+
+    border-radius:30px;
+
+    box-shadow:
+        0 25px 65px rgba(18,55,42,.14);
+
+    transition:.6s;
+}
+
+.about-story-image:hover{
+    transform:scale(1.015);
+}
+
+.about-image-wrapper{
+    position:relative;
+}
+
+.about-image-badge{
+    position:absolute;
+
+    right:-20px;
+    bottom:35px;
+
+    background:white;
+
+    padding:20px 24px;
+
+    border-radius:20px;
+
+    box-shadow:
+        0 20px 45px rgba(18,55,42,.16);
+
+    color:var(--about-green);
+}
+
+.about-image-badge strong{
+    display:block;
+
+    font-family:'Playfair Display',serif;
+
+    font-size:26px;
+}
+
+.about-image-badge span{
+    color:var(--about-muted);
+
+    font-size:13px;
+}
+
+.about-highlights{
+    display:flex;
+
+    gap:30px;
+
+    flex-wrap:wrap;
+
+    margin-top:28px;
+}
+
+.about-highlight{
+    display:flex;
+
+    align-items:center;
+
+    gap:10px;
+
+    color:var(--about-green);
+
+    font-weight:600;
+
+    font-size:14px;
+}
+
+.about-highlight i{
+    color:var(--about-gold);
+    font-size:19px;
+}
+
+
+/* =========================================================
+   WHY GREENNEST
+========================================================= */
+
+.why-section{
+    background:var(--about-bg);
+    padding:100px 0;
+}
+
+.section-heading{
+    text-align:center;
+    margin-bottom:55px;
+}
+
+.section-heading h2{
+    color:var(--about-green);
+
+    font-family:'Playfair Display',serif;
+
+    font-size:47px;
+
+    margin:12px 0;
+}
+
+.section-heading p{
+    max-width:650px;
+
+    margin:auto;
+
+    color:var(--about-muted);
+
+    line-height:1.8;
+}
+
+.section-heading .about-line{
+    margin:18px auto;
+}
+
+.about-feature-card{
+    background:white;
+
+    border:1px solid #e6ece8;
+
+    border-radius:25px;
+
+    padding:35px 30px;
+
+    height:100%;
+
+    position:relative;
+
+    overflow:hidden;
+
+    transition:.4s;
+}
+
+.about-feature-card::after{
+    content:"";
+
+    position:absolute;
+
+    width:130px;
+    height:130px;
+
+    border-radius:50%;
+
+    right:-55px;
+    bottom:-55px;
+
+    background:rgba(40,104,73,.05);
+
+    transition:.4s;
+}
+
+.about-feature-card:hover{
+    transform:translateY(-10px);
+
+    box-shadow:
+        0 25px 55px rgba(18,55,42,.11);
+}
+
+.about-feature-card:hover::after{
+    transform:scale(1.3);
+}
+
+.about-feature-icon{
+    width:65px;
+    height:65px;
+
+    border-radius:18px;
+
+    background:var(--about-green);
+
+    color:white;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    font-size:27px;
+
+    margin-bottom:23px;
+
+    transition:.35s;
+}
+
+.about-feature-card:hover .about-feature-icon{
+    background:var(--about-green-light);
+    transform:rotate(-5deg) scale(1.06);
+}
+
+.about-feature-card h4{
+    color:var(--about-green);
+
+    font-family:'Playfair Display',serif;
+
+    font-size:24px;
+
+    position:relative;
+
+    z-index:2;
+}
+
+.about-feature-card p{
+    color:var(--about-muted);
+
+    font-size:14px;
+
+    line-height:1.8;
+
+    margin:0;
+
+    position:relative;
+
+    z-index:2;
+}
+
+
+/* =========================================================
+   PLANT CARE GUIDE
+========================================================= */
+
+.plant-care-section{
+    padding:110px 0;
+
+    background:
+        linear-gradient(
+            180deg,
+            #ffffff 0%,
+            #f5f9f5 100%
+        );
+}
+
+.care-intro{
+    max-width:720px;
+    margin:0 auto 55px;
+    text-align:center;
+}
+
+.care-intro h2{
+    color:var(--about-green);
+
+    font-family:'Playfair Display',serif;
+
+    font-size:48px;
+
+    margin:12px 0 18px;
+}
+
+.care-intro p{
+    color:var(--about-muted);
+
+    line-height:1.9;
+
+    margin:0;
+}
+
+
+/* Accordion */
+
+.care-accordion{
+    max-width:950px;
+    margin:auto;
+}
+
+.care-accordion-item{
+    background:#fff;
+
+    border:1px solid #e2eae4;
+
+    border-radius:22px;
+
+    margin-bottom:16px;
+
+    overflow:hidden;
+
+    box-shadow:
+        0 8px 25px rgba(18,55,42,.045);
+
+    transition:.4s;
+}
+
+.care-accordion-item:hover{
+    border-color:#cbdacf;
+
+    box-shadow:
+        0 15px 35px rgba(18,55,42,.08);
+}
+
+.care-accordion-item.active{
+    border-color:#c8a45d;
+
+    box-shadow:
+        0 18px 40px rgba(18,55,42,.10);
+}
+
+.care-accordion-btn{
+    width:100%;
+
+    border:0;
+
+    background:transparent;
+
+    padding:22px 25px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-between;
+
+    text-align:left;
+
+    cursor:pointer;
+
+    color:var(--about-green);
+}
+
+.care-accordion-left{
+    display:flex;
+
+    align-items:center;
+
+    gap:18px;
+}
+
+.care-guide-icon{
+    width:55px;
+    height:55px;
+
+    flex-shrink:0;
+
+    border-radius:17px;
+
+    background:#edf5ef;
+
+    color:var(--about-green);
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    font-size:23px;
+
+    transition:.4s;
+}
+
+.care-accordion-item.active .care-guide-icon{
+    background:var(--about-green);
+
+    color:white;
+
+    transform:rotate(-4deg) scale(1.05);
+}
+
+.care-number{
+    display:block;
+
+    color:var(--about-gold);
+
+    font-size:11px;
+
+    font-weight:800;
+
+    letter-spacing:2px;
+
+    margin-bottom:4px;
+}
+
+.care-title{
+    display:block;
+
+    font-family:'Playfair Display',serif;
+
+    font-size:22px;
+
+    font-weight:600;
+}
+
+.care-short{
+    display:block;
+
+    color:var(--about-muted);
+
+    font-size:13px;
+
+    margin-top:3px;
+}
+
+.care-chevron{
+    width:38px;
+    height:38px;
+
+    border-radius:50%;
+
+    background:#f1f5f2;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    color:var(--about-green);
+
+    transition:.4s;
+
+    flex-shrink:0;
+}
+
+.care-accordion-item.active .care-chevron{
+    background:var(--about-gold);
+
+    color:white;
+
+    transform:rotate(180deg);
+}
+
+
+/* Animated dropdown */
+
+.care-accordion-content{
+    display:grid;
+
+    grid-template-rows:0fr;
+
+    transition:
+        grid-template-rows .5s ease;
+}
+
+.care-accordion-content-inner{
+    overflow:hidden;
+
+    min-height:0;
+}
+
+.care-accordion-item.active
+.care-accordion-content{
+    grid-template-rows:1fr;
+}
+
+.care-summary{
+    padding:0 25px 27px 98px;
+
+    color:var(--about-muted);
+
+    line-height:1.8;
+
+    font-size:14px;
+}
+
+.care-summary strong{
+    color:var(--about-green);
+}
+
+.care-tip{
+    margin-top:16px;
+
+    padding:14px 17px;
+
+    background:#f5f8f4;
+
+    border-left:3px solid var(--about-gold);
+
+    border-radius:0 12px 12px 0;
+
+    color:var(--about-green);
+
+    font-size:13px;
+}
+
+
+/* =========================================================
+   CARE SNAPSHOT
+========================================================= */
+
+.care-snapshot-section{
+    padding:100px 0;
+
+    background:#12372a;
+}
+
+.care-snapshot-box{
+    background:
+        linear-gradient(
+            135deg,
+            #12372a,
+            #286849
+        );
+
+    border:1px solid rgba(255,255,255,.12);
+
+    border-radius:30px;
+
+    padding:55px;
+
+    box-shadow:
+        0 25px 60px rgba(18,55,42,.25);
+
+    color:white;
+}
+
+.snapshot-heading{
+    text-align:center;
+
+    margin-bottom:40px;
+}
+
+.snapshot-heading span{
+    color:#d9bd78;
+
+    font-size:11px;
+
+    font-weight:700;
+
+    letter-spacing:3px;
+}
+
+.snapshot-heading h2{
+    font-family:'Playfair Display',serif;
+
+    font-size:42px;
+
+    margin:10px 0;
+}
+
+.snapshot-heading p{
+    color:#d2e0d9;
+
+    margin:0;
+}
+
+.snapshot-card{
+    height:100%;
+
+    padding:25px;
+
+    border-radius:20px;
+
+    background:rgba(255,255,255,.08);
+
+    border:1px solid rgba(255,255,255,.10);
+
+    transition:.35s;
+}
+
+.snapshot-card:hover{
+    transform:translateY(-7px);
+
+    background:rgba(255,255,255,.13);
+}
+
+.snapshot-icon{
+    width:48px;
+    height:48px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    border-radius:15px;
+
+    background:rgba(255,255,255,.10);
+
+    color:#e0c77f;
+
+    font-size:21px;
+
+    margin-bottom:18px;
+}
+
+.snapshot-card small{
+    display:block;
+
+    color:#b9cbc2;
+
+    font-size:11px;
+
+    text-transform:uppercase;
+
+    letter-spacing:1.5px;
+}
+
+.snapshot-card strong{
+    display:block;
+
+    font-family:'Playfair Display',serif;
+
+    font-size:22px;
+
+    margin-top:5px;
+}
+
+.snapshot-card p{
+    color:#cfddd7;
+
+    font-size:13px;
+
+    line-height:1.7;
+
+    margin:8px 0 0;
+}
+
+
+/* =========================================================
+   PLANT DIAGNOSIS
+========================================================= */
+
+.diagnosis-section{
+    padding:110px 0;
+
+    background:#fff;
+}
+
+.diagnosis-card{
+    position:relative;
+
+    height:100%;
+
+    padding:30px;
+
+    border-radius:25px;
+
+    border:1px solid #e4ebe6;
+
+    background:#fff;
+
+    transition:.4s;
+
+    overflow:hidden;
+}
+
+.diagnosis-card::before{
+    content:"";
+
+    position:absolute;
+
+    width:90px;
+    height:90px;
+
+    right:-30px;
+    top:-30px;
+
+    border-radius:50%;
+
+    background:#eef5ef;
+
+    transition:.4s;
+}
+
+.diagnosis-card:hover{
+    transform:translateY(-9px);
+
+    box-shadow:
+        0 25px 50px rgba(18,55,42,.10);
+}
+
+.diagnosis-card:hover::before{
+    transform:scale(1.5);
+}
+
+.diagnosis-icon{
+    width:58px;
+    height:58px;
+
+    position:relative;
+    z-index:2;
+
+    display:flex;
+
+    align-items:center;
+    justify-content:center;
+
+    border-radius:18px;
+
+    background:var(--about-green);
+
+    color:white;
+
+    font-size:23px;
+
+    margin-bottom:22px;
+}
+
+.diagnosis-card h4{
+    color:var(--about-green);
+
+    font-family:'Playfair Display',serif;
+
+    font-size:23px;
+
+    position:relative;
+    z-index:2;
+}
+
+.diagnosis-card p{
+    color:var(--about-muted);
+
+    line-height:1.8;
+
+    font-size:14px;
+
+    position:relative;
+    z-index:2;
+}
+
+.diagnosis-solution{
+    display:inline-flex;
+
+    align-items:center;
+
+    gap:7px;
+
+    padding:8px 13px;
+
+    border-radius:50px;
+
+    background:#f0f6f1;
+
+    color:var(--about-green);
+
+    font-size:12px;
+
+    font-weight:700;
+
+    position:relative;
+    z-index:2;
+}
+
+
+/* =========================================================
+   NURSERY JOURNEY
+========================================================= */
+
+.journey-section{
+    padding:105px 0;
+
+    background:var(--about-bg);
+}
+
+.journey-line{
+    position:relative;
+}
+
+.journey-line::before{
+    content:"";
+
+    position:absolute;
+
+    left:8%;
+
+    right:8%;
+
+    top:44px;
+
+    height:2px;
+
+    background:#dbe5de;
+}
+
+.journey-step{
+    position:relative;
+
+    text-align:center;
+
+    padding:0 15px;
+}
+
+.journey-circle{
+    width:88px;
+    height:88px;
+
+    margin:0 auto 22px;
+
+    border-radius:50%;
+
+    background:white;
+
+    border:2px solid #d9e5dd;
+
+    display:flex;
+
+    align-items:center;
+    justify-content:center;
+
+    color:var(--about-green);
+
+    font-size:29px;
+
+    position:relative;
+
+    z-index:2;
+
+    transition:.4s;
+
+    box-shadow:
+        0 10px 25px rgba(18,55,42,.07);
+}
+
+.journey-step:hover .journey-circle{
+    background:var(--about-green);
+
+    color:white;
+
+    border-color:var(--about-green);
+
+    transform:translateY(-7px);
+}
+
+.journey-step h5{
+    color:var(--about-green);
+
+    font-family:'Playfair Display',serif;
+
+    font-size:21px;
+}
+
+.journey-step p{
+    color:var(--about-muted);
+
+    font-size:13px;
+
+    line-height:1.7;
+}
+
+
+/* =========================================================
+   SUSTAINABILITY
+========================================================= */
+
+.sustainability-section{
+    padding:105px 0;
+
+    background:white;
+}
+
+.sustainability-box{
+    border-radius:30px;
+
+    padding:60px;
+
+    background:#f2f7f3;
+
+    position:relative;
+
+    overflow:hidden;
+}
+
+.sustainability-box::after{
+    content:"";
+
+    position:absolute;
+
+    width:280px;
+    height:280px;
+
+    border-radius:50%;
+
+    right:-100px;
+    bottom:-120px;
+
+    background:rgba(40,104,73,.06);
+}
+
+.sustainability-content{
+    position:relative;
+
+    z-index:2;
+}
+
+.sustainability-list{
+    margin:28px 0 0;
+
+    padding:0;
+
+    list-style:none;
+}
+
+.sustainability-list li{
+    display:flex;
+
+    align-items:flex-start;
+
+    gap:13px;
+
+    margin-bottom:17px;
+
+    color:var(--about-muted);
+
+    font-size:14px;
+
+    line-height:1.7;
+}
+
+.sustainability-list i{
+    color:var(--about-green);
+
+    font-size:19px;
+}
+
+.sustainability-art{
+    min-height:300px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    position:relative;
+}
+
+.sustainability-art-main{
+    width:190px;
+    height:190px;
+
+    border-radius:50%;
+
+    background:white;
+
+    display:flex;
+
+    align-items:center;
+    justify-content:center;
+
+    box-shadow:
+        0 20px 50px rgba(18,55,42,.10);
+
+    font-size:85px;
+
+    animation:plantPulse 4s ease-in-out infinite;
+}
+
+@keyframes plantPulse{
+
+    0%,100%{
+        transform:scale(1);
+    }
+
+    50%{
+        transform:scale(1.05);
+    }
+
+}
+
+
+
+/* =========================================================
+   STATS
+========================================================= */
+
+.about-stats{
+    background:
+        radial-gradient(
+            circle at 50% -70%,
+            #286849,
+            transparent 55%
+        ),
+        #12372a;
+
+    padding:75px 0;
+
+    color:white;
+}
+
+.about-stat{
+    text-align:center;
+
+    padding:10px 20px;
+
+    border-right:1px solid rgba(255,255,255,.12);
+}
+
+.about-stat:last-child{
+    border-right:0;
+}
+
+.about-stat i{
+    color:#d3b16d;
+
+    font-size:24px;
+}
+
+.about-stat-number{
+    color:#d3b16d;
+
+    font-family:'Playfair Display',serif;
+
+    font-size:45px;
+
+    font-weight:700;
+
+    margin-top:5px;
+}
+
+.about-stat-text{
+    color:#c9d7d0;
+
+    font-size:14px;
+}
+
+
+/* =========================================================
+   MISSION
+========================================================= */
+
+.mission-section{
+    padding:100px 0;
+
+    background:white;
+}
+
+.mission-box{
+    background:
+        linear-gradient(
+            135deg,
+            #12372a,
+            #286849
+        );
+
+    border-radius:30px;
+
+    padding:65px;
+
+    color:white;
+
+    position:relative;
+
+    overflow:hidden;
+
+    box-shadow:
+        0 25px 60px rgba(18,55,42,.16);
+}
+
+.mission-box::after{
+    content:"🌿";
+
+    position:absolute;
+
+    right:15px;
+    bottom:-60px;
+
+    font-size:190px;
+
+    opacity:.07;
+}
+
+.mission-label{
+    color:#d9bd78;
+
+    text-transform:uppercase;
+
+    letter-spacing:3px;
+
+    font-size:12px;
+
+    font-weight:700;
+}
+
+.mission-box h2{
+    font-family:'Playfair Display',serif;
+
+    font-size:45px;
+
+    margin:15px 0;
+}
+
+.mission-box p{
+    color:#d8e5df;
+
+    line-height:1.9;
+
+    max-width:750px;
+
+    margin-bottom:0;
+}
+
+
+/* =========================================================
+   VALUES
+========================================================= */
+
+.values-section{
+    background:#f6f9f5;
+
+    padding:100px 0;
+}
+
+.value-card{
+    background:white;
+
+    padding:30px;
+
+    border-radius:22px;
+
+    height:100%;
+
+    border:1px solid #e5ece7;
+
+    transition:.35s;
+}
+
+.value-card:hover{
+    transform:translateY(-7px);
+
+    box-shadow:
+        0 20px 45px rgba(18,55,42,.10);
+}
+
+.value-number{
+    color:var(--about-gold);
+
+    font-size:13px;
+
+    font-weight:800;
+
+    letter-spacing:2px;
+
+    margin-bottom:18px;
+}
+
+.value-card h4{
+    color:var(--about-green);
+
+    font-family:'Playfair Display',serif;
+
+    font-size:23px;
+
+    margin-bottom:10px;
+}
+
+.value-card p{
+    color:var(--about-muted);
+
+    font-size:14px;
+
+    line-height:1.8;
+
+    margin:0;
+}
+
+
+/* =========================================================
+   FAQ
+========================================================= */
+
+.faq-section{
+    padding:105px 0;
+
+    background:white;
+}
+
+.faq-wrapper{
+    max-width:900px;
+
+    margin:auto;
+}
+
+.faq-item{
+    border-bottom:1px solid #e1e8e3;
+}
+
+.faq-question{
+    width:100%;
+
+    background:transparent;
+
+    border:0;
+
+    padding:23px 5px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-between;
+
+    text-align:left;
+
+    color:var(--about-green);
+
+    font-family:'Playfair Display',serif;
+
+    font-size:20px;
+
+    cursor:pointer;
+}
+
+.faq-question i{
+    width:34px;
+    height:34px;
+
+    border-radius:50%;
+
+    background:#eff5f0;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    font-size:14px;
+
+    transition:.35s;
+
+    flex-shrink:0;
+}
+
+.faq-item.active .faq-question i{
+    transform:rotate(180deg);
+
+    background:var(--about-green);
+
+    color:white;
+}
+
+.faq-answer{
+    display:grid;
+
+    grid-template-rows:0fr;
+
+    transition:grid-template-rows .45s ease;
+}
+
+.faq-answer-inner{
+    overflow:hidden;
+
+    min-height:0;
+}
+
+.faq-item.active .faq-answer{
+    grid-template-rows:1fr;
+}
+
+.faq-answer p{
+    padding:0 55px 23px 5px;
+
+    margin:0;
+
+    color:var(--about-muted);
+
+    font-size:14px;
+
+    line-height:1.9;
+}
+
+
+/* =========================================================
+   CTA
+========================================================= */
+
+.about-cta{
+    padding:110px 0;
+
+    background:
+        radial-gradient(
+            circle at 50% -50%,
+            #286849,
+            transparent 55%
+        ),
+        #102f24;
+
+    color:white;
+
+    text-align:center;
+
+    position:relative;
+
+    overflow:hidden;
+}
+
+.about-cta h2{
+    font-family:'Playfair Display',serif;
+
+    font-size:50px;
+
+    margin-top:15px;
+}
+
+.about-cta p{
+    max-width:650px;
+
+    margin:15px auto 30px;
+
+    color:#cbdcd3;
+
+    line-height:1.8;
+}
+
+
+/* =========================================================
+   SCROLL REVEAL
+========================================================= */
+
+.about-reveal{
+    opacity:0;
+
+    transform:translateY(35px);
+
+    transition:
+        opacity .8s ease,
+        transform .8s ease;
+}
+
+.about-reveal.show{
+    opacity:1;
+
+    transform:translateY(0);
+}
+
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media(max-width:991px){
+
+    .about-hero{
+        min-height:600px;
+    }
+
+    .about-hero h1{
+        font-size:54px;
+    }
+
+    .about-floating-card{
+        display:none;
+    }
+
+    .about-stat{
+        border-right:0;
+        margin-bottom:20px;
+    }
+
+    .about-title{
+        font-size:40px;
+    }
+
+    .care-summary{
+        padding-left:25px;
+    }
+
+    .journey-line::before{
+        display:none;
+    }
+
+    .sustainability-box{
+        padding:45px;
+    }
+
+    .mission-box{
+        padding:45px;
+    }
+
+}
+
+
+@media(max-width:767px){
+
+    .about-hero{
+        min-height:650px;
+
+        background-position:
+            65% center;
+    }
+
+    .about-hero h1{
+        font-size:42px;
+    }
+
+    .about-hero p{
+        font-size:15px;
+    }
+
+    .about-section,
+    .why-section,
+    .mission-section,
+    .values-section,
+    .plant-care-section,
+    .diagnosis-section,
+    .journey-section,
+    .sustainability-section,
+    .testimonial-section,
+    .faq-section{
+        padding:70px 0;
+    }
+
+    .section-heading h2{
+        font-size:35px;
+    }
+
+    .about-title{
+        font-size:35px;
+    }
+
+    .about-story-image{
+        height:420px;
+    }
+
+    .about-image-badge{
+        right:15px;
+        bottom:20px;
+    }
+
+    .mission-box{
+        padding:35px 25px;
+    }
+
+    .mission-box h2{
+        font-size:34px;
+    }
+
+    .about-cta h2{
+        font-size:37px;
+    }
+
+    .care-intro h2{
+        font-size:36px;
+    }
+
+    .care-accordion-btn{
+        padding:18px;
+    }
+
+    .care-accordion-left{
+        gap:12px;
+    }
+
+    .care-guide-icon{
+        width:47px;
+        height:47px;
+        font-size:19px;
+    }
+
+    .care-title{
+        font-size:18px;
+    }
+
+    .care-short{
+        font-size:11px;
+    }
+
+    .care-summary{
+        padding:0 18px 23px 18px;
+    }
+
+    .care-snapshot-box{
+        padding:35px 20px;
+    }
+
+    .snapshot-heading h2{
+        font-size:34px;
+    }
+
+    .sustainability-box{
+        padding:35px 25px;
+    }
+
+    .sustainability-art{
+        min-height:220px;
+    }
+
+    .journey-step{
+        margin-bottom:35px;
+    }
+
+}
+
+
+@media(max-width:480px){
+
+    .about-hero{
+        min-height:680px;
+
+        background-position:
+            68% center;
+    }
+
+    .about-hero h1{
+        font-size:37px;
+    }
+
+    .about-label{
+        font-size:10px;
+        letter-spacing:1.8px;
+    }
+
+    .about-buttons{
+        flex-direction:column;
+        align-items:flex-start;
+    }
+
+    .about-btn-gold,
+    .about-btn-outline{
+        padding:13px 23px;
+    }
+
+    .about-story-image{
+        height:350px;
+    }
+
+    .about-highlights{
+        flex-direction:column;
+        gap:14px;
+    }
+
+    .about-stat-number{
+        font-size:35px;
+    }
+
+    .faq-question{
+        font-size:17px;
+        gap:15px;
+    }
+
+}
+
+</style>
+
+
+<div class="about-page">
+
+
+<!-- =====================================================
+     HERO
+===================================================== -->
+
+<section class="about-hero">
+
+    <div class="container">
+
+        <div class="about-hero-content about-reveal">
+
+            <div class="about-label">
+
+                <i class="bi bi-flower1"></i>
+
+                OUR STORY
+
+            </div>
+
+
+            <h1>
+
+                Bringing Nature
+
+                <br>
+
+                <span>Closer to You.</span>
+
+            </h1>
+
+
+            <p>
+
+                At GreenNest, we believe every home deserves
+                a touch of nature. We make it simple to bring
+                beautiful, healthy plants into your everyday life.
+
+            </p>
+
+
+            <div class="about-buttons">
+
+                <a href="#ourStory"
+                   class="btn about-btn-gold">
+
+                    Discover Our Story
+
+                    <i class="bi bi-arrow-down ms-2"></i>
+
+                </a>
+
+
+                <a href="{% url 'plant' %}"
+                   class="btn about-btn-outline">
+
+                    Explore Plants
+
+                    <i class="bi bi-arrow-right ms-2"></i>
+
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div class="about-floating-card">
+
+        <div class="about-floating-icon">
+
+            <i class="bi bi-heart-fill"></i>
+
+        </div>
+
+        <strong>
+
+            Grown With Love
+
+        </strong>
+
+        <small>
+
+            Every plant is selected with care
+            for your home.
+
+        </small>
+
+    </div>
+
+</section>
+
+
+
+<!-- =====================================================
+     STORY
+===================================================== -->
+
+<section class="about-section"
+         id="ourStory">
+
+    <div class="container">
+
+        <div class="row align-items-center g-5">
+
+
+            <div class="col-lg-6 about-reveal">
+
+                <div class="about-image-wrapper">
+
+                    <img src="{% static 'images/ima.jpg' %}"
+                         class="about-story-image"
+                         alt="GreenNest Plants">
+
+                    <div class="about-image-badge">
+
+                        <strong>10K+</strong>
+
+                        <span>
+                            Happy Plant Lovers
+                        </span>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="col-lg-6 about-reveal">
+
+                <div class="about-section-label">
+
+                    ABOUT GREENNEST
+
+                </div>
+
+
+                <h2 class="about-title">
+
+                    More Than Plants,
+
+                    <br>
+
+                    We Create Green Spaces.
+
+                </h2>
+
+
+                <div class="about-line"></div>
+
+
+                <p class="about-text">
+
+                    GreenNest is a modern plant destination
+                    created for people who love nature and
+                    beautiful living spaces.
+
+                </p>
+
+
+                <p class="about-text">
+
+                    From elegant indoor plants to beautiful
+                    outdoor greens, every plant is carefully
+                    selected and nurtured before reaching
+                    your home.
+
+                </p>
+
+
+                <p class="about-text">
+
+                    Our mission is simple — make plant shopping
+                    beautiful, easy and enjoyable for everyone.
+
+                </p>
+
+
+                <div class="about-highlights">
+
+                    <div class="about-highlight">
+
+                        <i class="bi bi-check-circle-fill"></i>
+
+                        Healthy Plants
+
+                    </div>
+
+
+                    <div class="about-highlight">
+
+                        <i class="bi bi-check-circle-fill"></i>
+
+                        Thoughtful Packaging
+
+                    </div>
+
+
+                    <div class="about-highlight">
+
+                        <i class="bi bi-check-circle-fill"></i>
+
+                        Plant Care Support
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =====================================================
+     WHY GREENNEST
+===================================================== -->
+
+<section class="why-section">
+
+    <div class="container">
+
+
+        <div class="section-heading about-reveal">
+
+            <div class="about-section-label">
+
+                WHY GREENNEST
+
+            </div>
+
+            <h2>
+
+                Why People Choose Us
+
+            </h2>
+
+            <div class="about-line"></div>
+
+            <p>
+
+                We combine beautiful plants, thoughtful
+                service and simple guidance to make
+                bringing nature home easier.
+
+            </p>
+
+        </div>
+
+
+        <div class="row g-4">
+
+
+            <div class="col-lg-4 col-md-6 about-reveal">
+
+                <div class="about-feature-card">
+
+                    <div class="about-feature-icon">
+
+                        <i class="bi bi-flower1"></i>
+
+                    </div>
+
+                    <h4>
+
+                        Healthy Plants
+
+                    </h4>
+
+                    <p>
+
+                        Every plant is carefully selected,
+                        nurtured and prepared with care
+                        before reaching your doorstep.
+
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="col-lg-4 col-md-6 about-reveal">
+
+                <div class="about-feature-card">
+
+                    <div class="about-feature-icon">
+
+                        <i class="bi bi-box-seam"></i>
+
+                    </div>
+
+                    <h4>
+
+                        Safe Packaging
+
+                    </h4>
+
+                    <p>
+
+                        Plants are packed thoughtfully
+                        so they can travel safely and
+                        arrive ready for their new home.
+
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="col-lg-4 col-md-6 about-reveal">
+
+                <div class="about-feature-card">
+
+                    <div class="about-feature-icon">
+
+                        <i class="bi bi-heart"></i>
+
+                    </div>
+
+                    <h4>
+
+                        Grown With Love
+
+                    </h4>
+
+                    <p>
+
+                        We believe plants are more than
+                        products. They are living companions
+                        that make spaces happier.
+
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="col-lg-4 col-md-6 about-reveal">
+
+                <div class="about-feature-card">
+
+                    <div class="about-feature-icon">
+
+                        <i class="bi bi-lightbulb"></i>
+
+                    </div>
+
+                    <h4>
+
+                        Simple Guidance
+
+                    </h4>
+
+                    <p>
+
+                        Our plant-care guidance helps
+                        beginners understand their plants
+                        and care for them with confidence.
+
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="col-lg-4 col-md-6 about-reveal">
+
+                <div class="about-feature-card">
+
+                    <div class="about-feature-icon">
+
+                        <i class="bi bi-stars"></i>
+
+                    </div>
+
+                    <h4>
+
+                        Beautiful Selection
+
+                    </h4>
+
+                    <p>
+
+                        Discover a curated collection of
+                        plants designed to complement
+                        modern homes and workspaces.
+
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="col-lg-4 col-md-6 about-reveal">
+
+                <div class="about-feature-card">
+
+                    <div class="about-feature-icon">
+
+                        <i class="bi bi-headset"></i>
+
+                    </div>
+
+                    <h4>
+
+                        Customer Care
+
+                    </h4>
+
+                    <p>
+
+                        We care about your experience and
+                        aim to make every GreenNest journey
+                        simple and enjoyable.
+
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =====================================================
+     PLANT CARE ACCORDION
+===================================================== -->
+
+<section class="plant-care-section"
+         id="plantCareGuide">
+
+    <div class="container">
+
+
+        <div class="care-intro about-reveal">
+
+            <div class="about-section-label">
+
+                PLANT CARE GUIDE
+
+            </div>
+
+            <h2>
+
+                Plant Care, Made Simple.
+
+            </h2>
+
+            <div class="about-line"
+                 style="margin:18px auto;">
+            </div>
+
+            <p>
+
+                New to plants? No worries.
+                Open any topic below to get a quick,
+                simple summary of the care your plants need.
+
+            </p>
+
+        </div>
+
+
+        <div class="care-accordion about-reveal">
+
+
+            <!-- LIGHT -->
+
+            <div class="care-accordion-item active">
+
+                <button type="button"
+                        class="care-accordion-btn"
+                        aria-expanded="true">
+
+                    <span class="care-accordion-left">
+
+                        <span class="care-guide-icon">
+
+                            <i class="bi bi-sun"></i>
+
+                        </span>
+
+                        <span>
+
+                            <small class="care-number">
+                                01
+                            </small>
+
+                            <strong class="care-title">
+                                Light
+                            </strong>
+
+                            <small class="care-short">
+                                Give your plant the right amount of sunlight.
+                            </small>
+
+                        </span>
+
+                    </span>
+
+
+                    <span class="care-chevron">
+
+                        <i class="bi bi-chevron-down"></i>
+
+                    </span>
+
+                </button>
+
+
+                <div class="care-accordion-content">
+
+                    <div class="care-accordion-content-inner">
+
+                        <div class="care-summary">
+
+                            <strong>Summary:</strong>
+                            Most indoor plants prefer bright,
+                            indirect light. Avoid placing
+                            sensitive plants directly under
+                            harsh afternoon sunlight.
+
+                            <div class="care-tip">
+
+                                <i class="bi bi-lightbulb me-2"></i>
+
+                                GreenNest Tip:
+                                If the leaves look pale or growth
+                                becomes slow, check whether your
+                                plant is receiving enough light.
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- WATER -->
+
+            <div class="care-accordion-item">
+
+                <button type="button"
+                        class="care-accordion-btn"
+                        aria-expanded="false">
+
+                    <span class="care-accordion-left">
+
+                        <span class="care-guide-icon">
+
+                            <i class="bi bi-droplet"></i>
+
+                        </span>
+
+                        <span>
+
+                            <small class="care-number">
+                                02
+                            </small>
+
+                            <strong class="care-title">
+                                Water
+                            </strong>
+
+                            <small class="care-short">
+                                Water according to your plant and soil.
+                            </small>
+
+                        </span>
+
+                    </span>
+
+
+                    <span class="care-chevron">
+
+                        <i class="bi bi-chevron-down"></i>
+
+                    </span>
+
+                </button>
+
+
+                <div class="care-accordion-content">
+
+                    <div class="care-accordion-content-inner">
+
+                        <div class="care-summary">
+
+                            <strong>Summary:</strong>
+                            Don't follow a fixed watering schedule
+                            blindly. Check the soil first. If the
+                            top layer feels dry, your plant may need
+                            water.
+
+                            <div class="care-tip">
+
+                                <i class="bi bi-droplet-half me-2"></i>
+
+                                GreenNest Tip:
+                                Overwatering is one of the most
+                                common causes of indoor plant problems.
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- SOIL -->
+
+            <div class="care-accordion-item">
+
+                <button type="button"
+                        class="care-accordion-btn"
+                        aria-expanded="false">
+
+                    <span class="care-accordion-left">
+
+                        <span class="care-guide-icon">
+
+                            <i class="bi bi-moisture"></i>
+
+                        </span>
+
+                        <span>
+
+                            <small class="care-number">
+                                03
+                            </small>
+
+                            <strong class="care-title">
+                                Soil & Drainage
+                            </strong>
+
+                            <small class="care-short">
+                                Healthy roots start with healthy soil.
+                            </small>
+
+                        </span>
+
+                    </span>
+
+
+                    <span class="care-chevron">
+
+                        <i class="bi bi-chevron-down"></i>
+
+                    </span>
+
+                </button>
+
+
+                <div class="care-accordion-content">
+
+                    <div class="care-accordion-content-inner">
+
+                        <div class="care-summary">
+
+                            <strong>Summary:</strong>
+                            Use a suitable potting mix and make sure
+                            excess water can escape through drainage
+                            holes. Waterlogged soil can damage roots.
+
+                            <div class="care-tip">
+
+                                <i class="bi bi-flower1 me-2"></i>
+
+                                GreenNest Tip:
+                                A beautiful pot is great, but proper
+                                drainage is even more important.
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- HUMIDITY -->
+
+            <div class="care-accordion-item">
+
+                <button type="button"
+                        class="care-accordion-btn"
+                        aria-expanded="false">
+
+                    <span class="care-accordion-left">
+
+                        <span class="care-guide-icon">
+
+                            <i class="bi bi-cloud"></i>
+
+                        </span>
+
+                        <span>
+
+                            <small class="care-number">
+                                04
+                            </small>
+
+                            <strong class="care-title">
+                                Humidity
+                            </strong>
+
+                            <small class="care-short">
+                                Help tropical plants feel comfortable.
+                            </small>
+
+                        </span>
+
+                    </span>
+
+
+                    <span class="care-chevron">
+
+                        <i class="bi bi-chevron-down"></i>
+
+                    </span>
+
+                </button>
+
+
+                <div class="care-accordion-content">
+
+                    <div class="care-accordion-content-inner">
+
+                        <div class="care-summary">
+
+                            <strong>Summary:</strong>
+                            Many tropical plants enjoy moderate
+                            humidity. Dry indoor air can sometimes
+                            lead to brown leaf edges.
+
+                            <div class="care-tip">
+
+                                <i class="bi bi-cloud-haze2 me-2"></i>
+
+                                GreenNest Tip:
+                                Grouping plants together can help
+                                create a slightly more humid
+                                micro-environment.
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- FERTILIZER -->
+
+            <div class="care-accordion-item">
+
+                <button type="button"
+                        class="care-accordion-btn"
+                        aria-expanded="false">
+
+                    <span class="care-accordion-left">
+
+                        <span class="care-guide-icon">
+
+                            <i class="bi bi-stars"></i>
+
+                        </span>
+
+                        <span>
+
+                            <small class="care-number">
+                                05
+                            </small>
+
+                            <strong class="care-title">
+                                Fertilizer
+                            </strong>
+
+                            <small class="care-short">
+                                Feed your plant when it is actively growing.
+                            </small>
+
+                        </span>
+
+                    </span>
+
+
+                    <span class="care-chevron">
+
+                        <i class="bi bi-chevron-down"></i>
+
+                    </span>
+
+                </button>
+
+
+                <div class="care-accordion-content">
+
+                    <div class="care-accordion-content-inner">
+
+                        <div class="care-summary">
+
+                            <strong>Summary:</strong>
+                            Plants need nutrients for healthy growth.
+                            Follow the fertilizer instructions for
+                            your specific plant and avoid excessive
+                            feeding.
+
+                            <div class="care-tip">
+
+                                <i class="bi bi-info-circle me-2"></i>
+
+                                GreenNest Tip:
+                                More fertilizer does not always mean
+                                faster growth.
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- LEAF CARE -->
+
+            <div class="care-accordion-item">
+
+                <button type="button"
+                        class="care-accordion-btn"
+                        aria-expanded="false">
+
+                    <span class="care-accordion-left">
+
+                        <span class="care-guide-icon">
+
+                            <i class="bi bi-scissors"></i>
+
+                        </span>
+
+                        <span>
+
+                            <small class="care-number">
+                                06
+                            </small>
+
+                            <strong class="care-title">
+                                Leaf Care & Pruning
+                            </strong>
+
+                            <small class="care-short">
+                                Keep leaves clean and remove damaged growth.
+                            </small>
+
+                        </span>
+
+                    </span>
+
+
+                    <span class="care-chevron">
+
+                        <i class="bi bi-chevron-down"></i>
+
+                    </span>
+
+                </button>
+
+
+                <div class="care-accordion-content">
+
+                    <div class="care-accordion-content-inner">
+
+                        <div class="care-summary">
+
+                            <strong>Summary:</strong>
+                            Remove dead or damaged leaves with clean
+                            tools. Gently cleaning dusty leaves can
+                            also help keep your plant looking fresh.
+
+                            <div class="care-tip">
+
+                                <i class="bi bi-heart me-2"></i>
+
+                                GreenNest Tip:
+                                Always use clean scissors when
+                                pruning your plants.
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =====================================================
+     CARE SNAPSHOT
+===================================================== -->
+
+<section class="care-snapshot-section">
+
+    <div class="container">
+
+        <div class="care-snapshot-box about-reveal">
+
+
+            <div class="snapshot-heading">
+
+                <span>
+                    QUICK PLANT CHECK
+                </span>
+
+                <h2>
+                    Your Plant Care Snapshot
+                </h2>
+
+                <p>
+                    A simple starting point for everyday plant care.
+                </p>
+
+            </div>
+
+
+            <div class="row g-4">
+
+
+                <div class="col-md-6 col-lg-3">
+
+                    <div class="snapshot-card">
+
+                        <div class="snapshot-icon">
+
+                            <i class="bi bi-sun"></i>
+
+                        </div>
+
+                        <small>
+                            Light
+                        </small>
+
+                        <strong>
+                            Bright & Indirect
+                        </strong>
+
+                        <p>
+                            Keep most indoor plants near
+                            suitable natural light.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="col-md-6 col-lg-3">
+
+                    <div class="snapshot-card">
+
+                        <div class="snapshot-icon">
+
+                            <i class="bi bi-droplet"></i>
+
+                        </div>
+
+                        <small>
+                            Water
+                        </small>
+
+                        <strong>
+                            Check Soil First
+                        </strong>
+
+                        <p>
+                            Let the soil condition guide
+                            your watering routine.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="col-md-6 col-lg-3">
+
+                    <div class="snapshot-card">
+
+                        <div class="snapshot-icon">
+
+                            <i class="bi bi-flower1"></i>
+
+                        </div>
+
+                        <small>
+                            Soil
+                        </small>
+
+                        <strong>
+                            Good Drainage
+                        </strong>
+
+                        <p>
+                            Healthy roots need air,
+                            suitable soil and drainage.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="col-md-6 col-lg-3">
+
+                    <div class="snapshot-card">
+
+                        <div class="snapshot-icon">
+
+                            <i class="bi bi-heart"></i>
+
+                        </div>
+
+                        <small>
+                            Attention
+                        </small>
+
+                        <strong>
+                            Regular Check
+                        </strong>
+
+                        <p>
+                            Spend a few moments each week
+                            observing your plant.
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =====================================================
+     PLANT DIAGNOSIS
+===================================================== -->
+
+<section class="diagnosis-section">
+
+    <div class="container">
+
+
+        <div class="section-heading about-reveal">
+
+            <div class="about-section-label">
+
+                PLANT SOS
+
+            </div>
+
+            <h2>
+
+                When Your Plant Looks Unhappy
+
+            </h2>
+
+            <div class="about-line"></div>
+
+            <p>
+
+                Small changes in leaves can be useful clues.
+                Start by checking the basics before making
+                major changes to your plant's routine.
+
+            </p>
+
+        </div>
+
+
+        <div class="row g-4">
+
+
+            <div class="col-md-6 col-lg-3 about-reveal">
+
+                <div class="diagnosis-card">
+
+                    <div class="diagnosis-icon">
+
+                        <i class="bi bi-droplet-half"></i>
+
+                    </div>
+
+                    <h4>
+                        Droopy Leaves
+                    </h4>
+
+                    <p>
+                        Check soil moisture, light and
+                        recent watering before adjusting
+                        the routine.
+                    </p>
+
+                    <span class="diagnosis-solution">
+
+                        <i class="bi bi-search"></i>
+
+                        Check Soil
+
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <div class="col-md-6 col-lg-3 about-reveal">
+
+                <div class="diagnosis-card">
+
+                    <div class="diagnosis-icon">
+
+                        <i class="bi bi-circle-half"></i>
+
+                    </div>
+
+                    <h4>
+                        Yellow Leaves
+                    </h4>
+
+                    <p>
+                        Look at watering habits, drainage
+                        and the overall growing conditions.
+                    </p>
+
+                    <span class="diagnosis-solution">
+
+                        <i class="bi bi-search"></i>
+
+                        Check Watering
+
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <div class="col-md-6 col-lg-3 about-reveal">
+
+                <div class="diagnosis-card">
+
+                    <div class="diagnosis-icon">
+
+                        <i class="bi bi-sun"></i>
+
+                    </div>
+
+                    <h4>
+                        Brown Tips
+                    </h4>
+
+                    <p>
+                        Dry air, inconsistent watering or
+                        environmental stress can affect leaf tips.
+                    </p>
+
+                    <span class="diagnosis-solution">
+
+                        <i class="bi bi-search"></i>
+
+                        Check Humidity
+
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <div class="col-md-6 col-lg-3 about-reveal">
+
+                <div class="diagnosis-card">
+
+                    <div class="diagnosis-icon">
+
+                        <i class="bi bi-graph-up-arrow"></i>
+
+                    </div>
+
+                    <h4>
+                        Slow Growth
+                    </h4>
+
+                    <p>
+                        Check light, seasonal changes,
+                        nutrients and the plant's normal
+                        growth pattern.
+                    </p>
+
+                    <span class="diagnosis-solution">
+
+                        <i class="bi bi-search"></i>
+
+                        Check Light
+
+                    </span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =====================================================
+     NURSERY JOURNEY
+===================================================== -->
+
+<section class="journey-section">
+
+    <div class="container">
+
+
+        <div class="section-heading about-reveal">
+
+            <div class="about-section-label">
+
+                OUR JOURNEY
+
+            </div>
+
+            <h2>
+
+                From Nursery To Your Home
+
+            </h2>
+
+            <div class="about-line"></div>
+
+            <p>
+
+                Every GreenNest plant begins its journey
+                with care and ends with a new place to grow.
+
+            </p>
+
+        </div>
+
+
+        <div class="journey-line">
+
+            <div class="row g-4">
+
+
+                <div class="col-md-6 col-lg-3 about-reveal">
+
+                    <div class="journey-step">
+
+                        <div class="journey-circle">
+
+                            <i class="bi bi-flower1"></i>
+
+                        </div>
+
+                        <h5>
+                            Grown
+                        </h5>
+
+                        <p>
+                            Plants begin their journey
+                            in a nurturing environment.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="col-md-6 col-lg-3 about-reveal">
+
+                    <div class="journey-step">
+
+                        <div class="journey-circle">
+
+                            <i class="bi bi-heart"></i>
+
+                        </div>
+
+                        <h5>
+                            Nurtured
+                        </h5>
+
+                        <p>
+                            Plants are cared for and
+                            prepared for their next home.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="col-md-6 col-lg-3 about-reveal">
+
+                    <div class="journey-step">
+
+                        <div class="journey-circle">
+
+                            <i class="bi bi-box-seam"></i>
+
+                        </div>
+
+                        <h5>
+                            Packed
+                        </h5>
+
+                        <p>
+                            Thoughtful packaging helps
+                            protect the plant during its journey.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="col-md-6 col-lg-3 about-reveal">
+
+                    <div class="journey-step">
+
+                        <div class="journey-circle">
+
+                            <i class="bi bi-house-heart"></i>
+
+                        </div>
+
+                        <h5>
+                            Home
+                        </h5>
+
+                        <p>
+                            Finally, your new green companion
+                            arrives ready to grow with you.
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =====================================================
+     SUSTAINABILITY
+===================================================== -->
+
+<section class="sustainability-section">
+
+    <div class="container">
+
+        <div class="sustainability-box about-reveal">
+
+            <div class="row align-items-center g-5">
+
+
+                <div class="col-lg-7">
+
+                    <div class="sustainability-content">
+
+                        <div class="about-section-label">
+
+                            GROWING RESPONSIBLY
+
+                        </div>
+
+                        <h2 class="about-title">
+
+                            A Greener Home
+                            Starts With Greener Choices.
+
+                        </h2>
+
+                        <div class="about-line"></div>
+
+                        <p class="about-text">
+
+                            GreenNest believes that bringing
+                            nature home should also inspire
+                            thoughtful choices for the world
+                            around us.
+
+                        </p>
+
+
+                        <ul class="sustainability-list">
+
+                            <li>
+
+                                <i class="bi bi-check-circle-fill"></i>
+
+                                Thoughtful packaging choices.
+
+                            </li>
+
+                            <li>
+
+                                <i class="bi bi-check-circle-fill"></i>
+
+                                Encouraging reusable pots and planters.
+
+                            </li>
+
+                            <li>
+
+                                <i class="bi bi-check-circle-fill"></i>
+
+                                Helping people grow more greenery
+                                in everyday spaces.
+
+                            </li>
+
+                            <li>
+
+                                <i class="bi bi-check-circle-fill"></i>
+
+                                Promoting long-term plant care
+                                instead of disposable greenery.
+
+                            </li>
+
+                        </ul>
+
+                    </div>
+
+                </div>
+
+
+                <div class="col-lg-5">
+
+                    <div class="sustainability-art">
+
+                        <div class="sustainability-art-main">
+
+                            🌱
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- =====================================================
+     STATS
+===================================================== -->
+
+<section class="about-stats">
+
+    <div class="container">
+
+        <div class="row text-center g-4">
+
+
+            <div class="col-6 col-lg-3">
+
+                <div class="about-stat">
+
+                    <i class="bi bi-people"></i>
+
+                    <div class="about-stat-number">
+                        10K+
+                    </div>
+
+                    <div class="about-stat-text">
+                        Happy Plant Lovers
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="col-6 col-lg-3">
+
+                <div class="about-stat">
+
+                    <i class="bi bi-flower1"></i>
+
+                    <div class="about-stat-number">
+                        250+
+                    </div>
+
+                    <div class="about-stat-text">
+                        Plant Varieties
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="col-6 col-lg-3">
+
+                <div class="about-stat">
+
+                    <i class="bi bi-star-fill"></i>
+
+                    <div class="about-stat-number">
+                        4.9
+                    </div>
+
+                    <div class="about-stat-text">
+                        Customer Rating
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="col-6 col-lg-3">
+
+                <div class="about-stat">
+
+                    <i class="bi bi-calendar-heart"></i>
+
+                    <div class="about-stat-number">
+                        5+
+                    </div>
+
+                    <div class="about-stat-text">
+                        Years of Green
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =====================================================
+     MISSION
+===================================================== -->
+
+<section class="mission-section">
+
+    <div class="container">
+
+        <div class="mission-box about-reveal">
+
+            <div class="mission-label">
+
+                OUR MISSION
+
+            </div>
+
+            <h2>
+
+                Making Every Space
+                Feel More Alive.
+
+            </h2>
+
+            <p>
+
+                We want to make it easier for everyone to
+                experience the beauty and calm that plants
+                bring into everyday spaces. From your first
+                plant to your growing indoor jungle, GreenNest
+                is here to make the journey enjoyable.
+
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =====================================================
+     VALUES
+===================================================== -->
+
+<section class="values-section">
+
+    <div class="container">
+
+
+        <div class="section-heading about-reveal">
+
+            <div class="about-section-label">
+
+                WHAT WE BELIEVE
+
+            </div>
+
+            <h2>
+
+                Our Green Values
+
+            </h2>
+
+            <div class="about-line"></div>
+
+            <p>
+
+                The principles behind everything we do
+                at GreenNest.
+
+            </p>
+
+        </div>
+
+
+        <div class="row g-4">
+
+
+            <div class="col-lg-4 col-md-6 about-reveal">
+
+                <div class="value-card">
+
+                    <div class="value-number">
+                        01
+                    </div>
+
+                    <h4>
+                        Nature First
+                    </h4>
+
+                    <p>
+                        We celebrate the beauty of nature
+                        and encourage people to bring more
+                        greenery into their daily lives.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="col-lg-4 col-md-6 about-reveal">
+
+                <div class="value-card">
+
+                    <div class="value-number">
+                        02
+                    </div>
+
+                    <h4>
+                        Quality Matters
+                    </h4>
+
+                    <p>
+                        We focus on healthy plants and
+                        thoughtful experiences because
+                        quality should never be compromised.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="col-lg-4 col-md-6 about-reveal">
+
+                <div class="value-card">
+
+                    <div class="value-number">
+                        03
+                    </div>
+
+                    <h4>
+                        Grow Together
+                    </h4>
+
+                    <p>
+                        Every new plant owner is part of
+                        our growing community of people
+                        who love living with nature.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =====================================================
+     FAQ
+===================================================== -->
+
+<section class="faq-section">
+
+    <div class="container">
+
+
+        <div class="section-heading about-reveal">
+
+            <div class="about-section-label">
+
+                PLANT QUESTIONS
+
+            </div>
+
+            <h2>
+
+                Frequently Asked Questions
+
+            </h2>
+
+            <div class="about-line"></div>
+
+            <p>
+
+                Quick answers to common questions
+                from new plant parents.
+
+            </p>
+
+        </div>
+
+
+        <div class="faq-wrapper about-reveal">
+
+
+            <div class="faq-item active">
+
+                <button class="faq-question"
+                        type="button"
+                        aria-expanded="true">
+
+                    How often should I water my plant?
+
+                    <i class="bi bi-chevron-down"></i>
+
+                </button>
+
+
+                <div class="faq-answer">
+
+                    <div class="faq-answer-inner">
+
+                        <p>
+
+                            Check the soil before watering.
+                            The correct frequency depends on
+                            the plant type, pot, soil, light
+                            and surrounding conditions.
+
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <div class="faq-item">
+
+                <button class="faq-question"
+                        type="button"
+                        aria-expanded="false">
+
+                    Which plants are beginner friendly?
+
+                    <i class="bi bi-chevron-down"></i>
+
+                </button>
+
+
+                <div class="faq-answer">
+
+                    <div class="faq-answer-inner">
+
+                        <p>
+
+                            Beginner-friendly choices often
+                            include plants that can tolerate
+                            a range of indoor conditions.
+                            Always consider your available
+                            light and care routine.
+
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <div class="faq-item">
+
+                <button class="faq-question"
+                        type="button"
+                        aria-expanded="false">
+
+                    What should I check when my plant looks unhealthy?
+
+                    <i class="bi bi-chevron-down"></i>
+
+                </button>
+
+
+                <div class="faq-answer">
+
+                    <div class="faq-answer-inner">
+
+                        <p>
+
+                            Start with the basics: light,
+                            soil moisture, drainage and the
+                            recent care routine. Small changes
+                            can sometimes reveal what your
+                            plant needs.
+
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <div class="faq-item">
+
+                <button class="faq-question"
+                        type="button"
+                        aria-expanded="false">
+
+                    Do plants need fertilizer?
+
+                    <i class="bi bi-chevron-down"></i>
+
+                </button>
+
+
+                <div class="faq-answer">
+
+                    <div class="faq-answer-inner">
+
+                        <p>
+
+                            Plants use nutrients for healthy
+                            growth, but fertilizer needs vary
+                            by plant and season. Follow the
+                            instructions for the product and
+                            avoid overfeeding.
+
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <div class="faq-item">
+
+                <button class="faq-question"
+                        type="button"
+                        aria-expanded="false">
+
+                    How can I keep my plant healthy?
+
+                    <i class="bi bi-chevron-down"></i>
+
+                </button>
+
+
+                <div class="faq-answer">
+
+                    <div class="faq-answer-inner">
+
+                        <p>
+
+                            Give it suitable light, monitor
+                            soil moisture, provide good drainage,
+                            clean the leaves occasionally and
+                            observe the plant regularly.
+
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =====================================================
+     FINAL CTA
+===================================================== -->
+
+<section class="about-cta">
+
+    <div class="container">
+
+        <div class="about-reveal">
+
+            <div class="about-section-label">
+
+                BRING HOME GREEN
+
+            </div>
+
+            <h2>
+
+                Ready to Make Your
+                Space Greener?
+
+            </h2>
+
+            <p>
+
+                Explore our collection of beautiful plants
+                and find the perfect green companion for
+                your home or workspace.
+
+            </p>
+
+            <a href="{% url 'plant' %}"
+               class="btn about-btn-gold">
+
+                Explore Plants
+
+                <i class="bi bi-arrow-right ms-2"></i>
+
+            </a>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+</div>
+
+
+
+<!-- =====================================================
+     JAVASCRIPT
+===================================================== -->
+
+<script>
+
+document.addEventListener("DOMContentLoaded", function(){
+
+    /* =====================================================
+       SCROLL REVEAL
+    ===================================================== */
+
+    const elements =
+        document.querySelectorAll(".about-reveal");
+
+
+    function revealAbout(){
+
+        elements.forEach(function(element){
+
+            const position =
+                element.getBoundingClientRect().top;
+
+            const screen =
+                window.innerHeight;
+
+
+            if(position < screen - 70){
+
+                element.classList.add("show");
+
+            }
+
+        });
+
+    }
+
+
+    window.addEventListener(
+        "scroll",
+        revealAbout
+    );
+
+
+    revealAbout();
+
+
+
+    /* =====================================================
+       PLANT CARE ACCORDION
+    ===================================================== */
+
+    const careItems =
+        document.querySelectorAll(
+            ".care-accordion-item"
+        );
+
+
+    careItems.forEach(function(item){
+
+        const button =
+            item.querySelector(
+                ".care-accordion-btn"
+            );
+
+
+        button.addEventListener(
+            "click",
+            function(){
+
+                const isOpen =
+                    item.classList.contains("active");
+
+
+                careItems.forEach(function(otherItem){
+
+                    otherItem.classList.remove("active");
+
+
+                    const otherButton =
+                        otherItem.querySelector(
+                            ".care-accordion-btn"
+                        );
+
+
+                    otherButton.setAttribute(
+                        "aria-expanded",
+                        "false"
+                    );
+
+                });
+
+
+                if(!isOpen){
+
+                    item.classList.add("active");
+
+                    button.setAttribute(
+                        "aria-expanded",
+                        "true"
+                    );
+
+                }
+
+            }
+        );
+
+    });
+
+
+
+    /* =====================================================
+       FAQ ACCORDION
+    ===================================================== */
+
+    const faqItems =
+        document.querySelectorAll(
+            ".faq-item"
+        );
+
+
+    faqItems.forEach(function(item){
+
+        const button =
+            item.querySelector(
+                ".faq-question"
+            );
+
+
+        button.addEventListener(
+            "click",
+            function(){
+
+                const isOpen =
+                    item.classList.contains("active");
+
+
+                faqItems.forEach(function(otherItem){
+
+                    otherItem.classList.remove("active");
+
+
+                    const otherButton =
+                        otherItem.querySelector(
+                            ".faq-question"
+                        );
+
+
+                    otherButton.setAttribute(
+                        "aria-expanded",
+                        "false"
+                    );
+
+                });
+
+
+                if(!isOpen){
+
+                    item.classList.add("active");
+
+                    button.setAttribute(
+                        "aria-expanded",
+                        "true"
+                    );
+
+                }
+
+            }
+        );
+
+    });
+
+
+});
+
+</script>
+
+{% endblock %}

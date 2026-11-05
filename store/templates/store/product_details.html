@@ -1,0 +1,1110 @@
+{% extends "store/base.html" %}
+{% load static %}
+
+{% block title %}
+{{ product.name }} | GreenNest
+{% endblock %}
+
+{% block content %}
+
+<style>
+
+/* =========================================================
+   PRODUCT DETAIL
+========================================================= */
+
+.gn-product-detail {
+    background: #f8f7f2;
+    min-height: 100vh;
+    padding: 25px 0;
+}
+
+.gn-detail-card {
+    max-width: 980px;
+    margin: 0 auto;
+    background: #fff;
+    border-radius: 18px;
+    overflow: hidden;
+    box-shadow: 0 8px 28px rgba(11, 61, 46, .09);
+}
+
+.gn-detail-image {
+    height: 320px;
+    background: #f1f3ed;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.gn-detail-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.gn-no-image {
+    color: #6c8c78;
+    font-size: 70px;
+}
+
+.gn-detail-content {
+    padding: 22px;
+}
+
+.gn-category {
+    color: #6c8c78;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .9px;
+}
+
+.gn-product-title {
+    color: #173d2b;
+    font-family: Georgia, serif;
+    font-size: 30px;
+    font-weight: 700;
+    margin-top: 7px;
+    margin-bottom: 10px;
+    line-height: 1.15;
+}
+
+.gn-rating {
+    font-size: 15px;
+    letter-spacing: 1px;
+}
+
+.gn-rating .filled-star {
+    color: #c8a96b;
+}
+
+.gn-rating .empty-star {
+    color: #d9d9d9;
+}
+
+.gn-rating-number {
+    color: #777;
+    font-size: 12px;
+    margin-left: 6px;
+}
+
+.gn-price-box {
+    margin-top: 13px;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.gn-price {
+    color: #0b3d2e;
+    font-size: 25px;
+    font-weight: 700;
+}
+
+.gn-old-price {
+    color: #999;
+    text-decoration: line-through;
+    font-size: 14px;
+}
+
+.gn-description {
+    color: #68756e;
+    line-height: 1.5;
+    font-size: 13px;
+    margin-top: 12px;
+}
+
+/* =========================================================
+   STOCK
+========================================================= */
+
+.gn-stock {
+    margin-top: 12px;
+    font-size: 12px;
+}
+
+.gn-out-stock {
+    display: inline-block;
+    background: #6c757d;
+    color: #fff;
+    padding: 6px 11px;
+    border-radius: 7px;
+    font-size: 11px;
+    font-weight: 600;
+}
+
+/* =========================================================
+   ACTION AREA
+========================================================= */
+
+.gn-action-area {
+    margin-top: 16px;
+}
+
+/* =========================================================
+   QUANTITY
+========================================================= */
+
+.gn-quantity-title {
+    color: #173d2b;
+    font-size: 12px;
+    font-weight: 700;
+    margin-bottom: 7px;
+}
+
+.gn-quantity-box {
+    display: flex;
+    align-items: center;
+    width: fit-content;
+    height: 38px;
+    border: 1px solid #d9e1d9;
+    border-radius: 9px;
+    overflow: hidden;
+    background: #fff;
+    margin-bottom: 12px;
+}
+
+.gn-qty-btn {
+    width: 38px;
+    height: 38px;
+    border: none;
+    background: #f1f5f0;
+    color: #0b3d2e;
+    font-size: 18px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: .2s;
+}
+
+.gn-qty-btn:hover {
+    background: #dfeae1;
+}
+
+.gn-qty-input {
+    width: 48px;
+    height: 38px;
+    border: none;
+    outline: none;
+    text-align: center;
+    font-size: 13px;
+    font-weight: 700;
+    color: #173d2b;
+    background: #fff;
+}
+
+/* Remove browser arrows */
+
+.gn-qty-input::-webkit-outer-spin-button,
+.gn-qty-input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.gn-qty-input[type=number] {
+    -moz-appearance: textfield;
+}
+
+/* =========================================================
+   BUTTONS
+========================================================= */
+
+.gn-action-buttons {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.gn-buy-btn,
+.gn-cart-btn,
+.gn-wishlist-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 40px;
+    border-radius: 9px;
+    padding: 9px 15px;
+    font-weight: 600;
+    font-size: 12px;
+    transition: .3s;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+/* ADD CART */
+
+.gn-cart-btn {
+    background: #0b3d2e;
+    color: #fff;
+    border: 1px solid #0b3d2e;
+}
+
+.gn-cart-btn:hover {
+    background: #286044;
+    border-color: #286044;
+    color: #fff;
+    transform: translateY(-2px);
+}
+
+/* BUY NOW */
+
+.gn-buy-btn {
+    background: #c8a96b;
+    color: #fff;
+    border: 1px solid #c8a96b;
+}
+
+.gn-buy-btn:hover {
+    background: #b29255;
+    border-color: #b29255;
+    color: #fff;
+    transform: translateY(-2px);
+}
+
+/* WISHLIST */
+
+.gn-wishlist-btn {
+    background: #fff;
+    color: #0b3d2e;
+    border: 1px solid #0b3d2e;
+}
+
+.gn-wishlist-btn:hover {
+    background: #0b3d2e;
+    color: #fff;
+    transform: translateY(-2px);
+}
+
+/* =========================================================
+   BACK BUTTON
+========================================================= */
+
+.gn-back-btn {
+    display: inline-flex;
+    align-items: center;
+    color: #0b3d2e;
+    text-decoration: none;
+    margin-top: 14px;
+    font-weight: 600;
+    font-size: 12px;
+    transition: .3s;
+}
+
+.gn-back-btn:hover {
+    color: #286044;
+    padding-left: 4px;
+}
+
+
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media(max-width:991px) {
+
+    .gn-detail-card {
+        max-width: 900px;
+    }
+
+    .gn-detail-image {
+        height: 300px;
+    }
+
+    .gn-detail-content {
+        padding: 20px;
+    }
+
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media(max-width:768px) {
+
+    .gn-product-detail {
+        padding: 20px 0;
+    }
+
+    .gn-detail-card {
+        max-width: 100%;
+    }
+
+    .gn-detail-image {
+        height: 280px;
+    }
+
+    .gn-detail-content {
+        padding: 20px;
+    }
+
+    .gn-product-title {
+        font-size: 28px;
+    }
+
+    .gn-price {
+        font-size: 24px;
+    }
+
+}
+
+
+/* =========================================================
+   SMALL MOBILE
+========================================================= */
+
+@media(max-width:480px) {
+
+    .gn-detail-content {
+        padding: 17px;
+    }
+
+    .gn-detail-image {
+        height: 240px;
+    }
+
+    .gn-product-title {
+        font-size: 25px;
+    }
+
+    .gn-action-buttons {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .gn-cart-btn,
+    .gn-buy-btn,
+    .gn-wishlist-btn {
+        width: 100%;
+    }
+
+}
+/* =========================================================
+   REVIEW / RATING BOX
+========================================================= */
+
+.gn-review-section {
+    max-width: 980px;
+    margin: 25px auto 0;
+    background: #fff;
+    border-radius: 18px;
+    padding: 25px;
+    box-shadow: 0 8px 28px rgba(11, 61, 46, .09);
+}
+
+.gn-review-title {
+    color: #173d2b;
+    font-family: Georgia, serif;
+    font-size: 24px;
+    font-weight: 700;
+    margin-bottom: 5px;
+}
+
+.gn-review-subtitle {
+    color: #777;
+    font-size: 12px;
+    margin-bottom: 18px;
+}
+
+.gn-review-stars {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: flex-end;
+    gap: 4px;
+    width: fit-content;
+    margin-bottom: 15px;
+}
+
+.gn-review-stars input {
+    display: none;
+}
+
+.gn-review-stars label {
+    color: #d9d9d9;
+    font-size: 28px;
+    cursor: pointer;
+    transition: .2s;
+}
+
+.gn-review-stars label:hover,
+.gn-review-stars label:hover ~ label,
+.gn-review-stars input:checked ~ label {
+    color: #c8a96b;
+}
+
+.gn-review-label {
+    display: block;
+    color: #173d2b;
+    font-size: 12px;
+    font-weight: 700;
+    margin-bottom: 7px;
+}
+
+.gn-review-textarea {
+    width: 100%;
+    min-height: 100px;
+    border: 1px solid #d9e1d9;
+    border-radius: 10px;
+    padding: 12px;
+    resize: vertical;
+    outline: none;
+    font-size: 12px;
+    color: #173d2b;
+}
+
+.gn-review-textarea:focus {
+    border-color: #0b3d2e;
+    box-shadow: 0 0 0 3px rgba(11,61,46,.07);
+}
+
+.gn-submit-review {
+    margin-top: 12px;
+    background: #0b3d2e;
+    color: #fff;
+    border: 1px solid #0b3d2e;
+    border-radius: 9px;
+    padding: 10px 18px;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: .3s;
+}
+
+.gn-submit-review:hover {
+    background: #286044;
+    border-color: #286044;
+}
+
+.gn-review-message {
+    padding: 10px 13px;
+    border-radius: 8px;
+    font-size: 12px;
+    margin-bottom: 15px;
+}
+
+.gn-review-success {
+    background: #edf7ef;
+    color: #21633c;
+}
+
+.gn-review-error {
+    background: #fff0f0;
+    color: #a33a3a;
+}
+</style>
+
+
+<section class="gn-product-detail">
+
+    <div class="container">
+
+        <div class="gn-detail-card">
+
+            <div class="row g-0 align-items-center">
+
+                <!-- =====================================================
+                     PRODUCT IMAGE
+                ====================================================== -->
+
+                <div class="col-lg-6">
+
+                    <div class="gn-detail-image">
+
+                        {% if product.image %}
+
+                            <img
+                                src="{% static 'product_images/' %}{{ product.image }}"
+                                alt="{{ product.name }}"
+                            >
+
+                        {% else %}
+
+                            <i class="bi bi-flower1 gn-no-image"></i>
+
+                        {% endif %}
+
+                    </div>
+
+                </div>
+
+
+                <!-- =====================================================
+                     PRODUCT INFORMATION
+                ====================================================== -->
+
+                <div class="col-lg-6">
+
+                    <div class="gn-detail-content">
+
+                        <!-- CATEGORY -->
+
+                        {% if product.category %}
+
+                            <div class="gn-category">
+                                {{ product.category }}
+                            </div>
+
+                        {% endif %}
+
+
+                        <!-- PRODUCT NAME -->
+
+                        <h1 class="gn-product-title">
+                            {{ product.name }}
+                        </h1>
+
+
+                        <!-- =================================================
+                             RATING
+                        ================================================== -->
+
+                        <div>
+
+                            <span class="gn-rating">
+
+                                {% for star in filled_stars %}
+                                    <span class="filled-star">★</span>
+                                {% endfor %}
+
+                                {% for star in empty_stars %}
+                                    <span class="empty-star">★</span>
+                                {% endfor %}
+
+                            </span>
+
+                            <span class="gn-rating-number">
+                                {{ average_rating }}/5
+                            </span>
+
+                        </div>
+
+
+                        <!-- =================================================
+                             PRICE
+                        ================================================== -->
+
+                        <div class="gn-price-box">
+
+                            <span class="gn-price">
+                                ₹{{ product.price }}
+                            </span>
+
+                            {% if product.old_price %}
+
+                                <span class="gn-old-price">
+                                    ₹{{ product.old_price }}
+                                </span>
+
+                            {% endif %}
+
+                        </div>
+
+
+                        <!-- =================================================
+                             DESCRIPTION
+                        ================================================== -->
+
+                        {% if product.description %}
+
+                            <div class="gn-description">
+                                {{ product.description }}
+                            </div>
+
+                        {% endif %}
+
+
+                        <!-- =================================================
+                             STOCK
+                        ================================================== -->
+
+                        <div class="gn-stock">
+
+                            {% if product.stock and product.stock > 0 %}
+
+                                <span class="badge bg-success">
+
+                                    <i class="bi bi-check-circle me-1"></i>
+
+                                    In Stock
+
+                                </span>
+
+                                <span class="text-muted ms-2">
+
+                                    {{ product.stock }} available
+
+                                </span>
+
+                            {% else %}
+
+                                <span class="gn-out-stock">
+
+                                    <i class="bi bi-x-circle me-1"></i>
+
+                                    Out of Stock
+
+                                </span>
+
+                            {% endif %}
+
+                        </div>
+
+
+                        <!-- =================================================
+                             PRODUCT ACTIONS
+                        ================================================== -->
+
+                        {% if product.stock and product.stock > 0 %}
+
+                            <div class="gn-action-area">
+
+                                <!-- QUANTITY TITLE -->
+
+                                <div class="gn-quantity-title">
+                                    Quantity
+                                </div>
+
+
+                                <!-- =================================================
+                                     ADD TO CART FORM
+                                ================================================== -->
+
+                                <form
+                                    method="POST"
+                                    action="{% url 'AddToCart' product.id %}"
+                                >
+
+                                    {% csrf_token %}
+
+
+                                    <!-- QUANTITY -->
+
+                                    <div class="gn-quantity-box">
+
+                                        <button
+                                            type="button"
+                                            class="gn-qty-btn"
+                                            onclick="decreaseQuantity()"
+                                        >
+                                            −
+                                        </button>
+
+
+                                        <input
+                                            type="number"
+                                            id="productQuantity"
+                                            name="quantity"
+                                            class="gn-qty-input"
+                                            value="1"
+                                            min="1"
+                                            max="{{ product.stock }}"
+                                        >
+
+
+                                        <button
+                                            type="button"
+                                            class="gn-qty-btn"
+                                            onclick="increaseQuantity()"
+                                        >
+                                            +
+                                        </button>
+
+                                    </div>
+
+
+                                    <!-- =================================================
+                                         ACTION BUTTONS
+                                    ================================================== -->
+
+                                    <div class="gn-action-buttons">
+
+                                        <!-- ADD TO CART -->
+
+                                        <button
+                                            type="submit"
+                                            class="gn-cart-btn"
+                                        >
+
+                                            <i class="bi bi-cart-plus me-2"></i>
+
+                                            Add to Cart
+
+                                        </button>
+
+
+                                        <!-- BUY NOW -->
+
+                                        <button
+                                            type="button"
+                                            class="gn-buy-btn"
+                                            onclick="buyNowProduct()"
+                                        >
+
+                                            <i class="bi bi-lightning-fill me-2"></i>
+
+                                            Buy Now
+
+                                        </button>
+
+                                    </div>
+
+                                </form>
+
+
+                                <!-- =================================================
+                                     BUY NOW CHECKOUT FORM
+                                     Separate form - not nested
+                                ================================================== -->
+
+                                <form
+                                    id="buyNowForm"
+                                    method="GET"
+                                    action="{% url 'BuyNow' product.id %}"
+                                    style="display:none;"
+                                >
+
+                                    <input
+                                        type="hidden"
+                                        name="quantity"
+                                        id="buyNowQuantity"
+                                        value="1"
+                                    >
+
+                                </form>
+
+
+                                <!-- =================================================
+                                     WISHLIST
+                                ================================================== -->
+
+                                <div class="mt-2">
+
+                                    <a
+                                        href="{% url 'AddToWishlist' product.id %}"
+                                        class="gn-wishlist-btn"
+                                    >
+
+                                        <i class="bi bi-heart me-2"></i>
+
+                                        Add to Wishlist
+
+                                    </a>
+
+                                </div>
+
+                            </div>
+
+                        {% endif %}
+
+
+                        <!-- =================================================
+                             BACK
+                        ================================================== -->
+
+                        <a
+                            href="{% url 'plant' %}"
+                            class="gn-back-btn"
+                        >
+
+                            <i class="bi bi-arrow-left me-1"></i>
+
+                            Back to Plants
+
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+</section>
+<!-- =========================================================
+     WRITE A REVIEW
+========================================================= -->
+
+<section class="gn-review-section">
+
+    <div class="gn-review-title">
+        Write a Review
+    </div>
+
+    <div class="gn-review-subtitle">
+        Share your experience with this product.
+    </div>
+
+
+    {% if review_success %}
+
+        <div class="gn-review-message gn-review-success">
+
+            <i class="bi bi-check-circle me-1"></i>
+
+            {{ review_success }}
+
+        </div>
+
+    {% endif %}
+
+
+    {% if review_error %}
+
+        <div class="gn-review-message gn-review-error">
+
+            <i class="bi bi-exclamation-circle me-1"></i>
+
+            {{ review_error }}
+
+        </div>
+
+    {% endif %}
+
+
+    <form method="POST">
+
+        {% csrf_token %}
+
+
+        <!-- RATING -->
+
+        <label class="gn-review-label">
+            Your Rating
+        </label>
+
+
+        <div class="gn-review-stars">
+
+            <input
+                type="radio"
+                name="rating"
+                id="star5"
+                value="5"
+            >
+
+            <label for="star5">★</label>
+
+
+            <input
+                type="radio"
+                name="rating"
+                id="star4"
+                value="4"
+            >
+
+            <label for="star4">★</label>
+
+
+            <input
+                type="radio"
+                name="rating"
+                id="star3"
+                value="3"
+            >
+
+            <label for="star3">★</label>
+
+
+            <input
+                type="radio"
+                name="rating"
+                id="star2"
+                value="2"
+            >
+
+            <label for="star2">★</label>
+
+
+            <input
+                type="radio"
+                name="rating"
+                id="star1"
+                value="1"
+            >
+
+            <label for="star1">★</label>
+
+        </div>
+
+
+        <!-- REVIEW -->
+
+        <label
+            for="review_text"
+            class="gn-review-label"
+        >
+            Your Review
+        </label>
+
+
+        <textarea
+            id="review_text"
+            name="review_text"
+            class="gn-review-textarea"
+            placeholder="Write your experience..."
+        ></textarea>
+
+
+        <!-- SUBMIT -->
+
+        <button
+            type="submit"
+            class="gn-submit-review"
+        >
+
+            <i class="bi bi-star-fill me-1"></i>
+
+            Submit Review
+
+        </button>
+
+    </form>
+
+</section>
+
+<!-- =========================================================
+     QUANTITY + BUY NOW JAVASCRIPT
+========================================================= -->
+
+<script>
+
+function increaseQuantity() {
+
+    const input = document.getElementById("productQuantity");
+
+    if (!input) {
+        return;
+    }
+
+    let current = parseInt(input.value) || 1;
+
+    let max = parseInt(input.max) || 1;
+
+    if (current < max) {
+
+        input.value = current + 1;
+
+    }
+
+}
+
+
+function decreaseQuantity() {
+
+    const input = document.getElementById("productQuantity");
+
+    if (!input) {
+        return;
+    }
+
+    let current = parseInt(input.value) || 1;
+
+    if (current > 1) {
+
+        input.value = current - 1;
+
+    }
+
+}
+
+
+/* =========================================================
+   MANUAL QUANTITY VALIDATION
+========================================================= */
+
+document.addEventListener("DOMContentLoaded", function() {
+
+    const input = document.getElementById("productQuantity");
+
+    if (!input) {
+        return;
+    }
+
+    input.addEventListener("input", function() {
+
+        let value = parseInt(this.value) || 1;
+
+        let min = parseInt(this.min) || 1;
+
+        let max = parseInt(this.max) || 1;
+
+        if (value < min) {
+
+            value = min;
+
+        }
+
+        if (value > max) {
+
+            value = max;
+
+        }
+
+        this.value = value;
+
+    });
+
+});
+
+
+/* =========================================================
+   BUY NOW
+========================================================= */
+
+function buyNowProduct() {
+
+    const quantityInput =
+        document.getElementById("productQuantity");
+
+    const buyNowQuantity =
+        document.getElementById("buyNowQuantity");
+
+    const buyNowForm =
+        document.getElementById("buyNowForm");
+
+
+    if (!quantityInput || !buyNowQuantity || !buyNowForm) {
+
+        return;
+
+    }
+
+
+    let quantity =
+        parseInt(quantityInput.value) || 1;
+
+    let max =
+        parseInt(quantityInput.max) || 1;
+
+
+    if (quantity < 1) {
+
+        quantity = 1;
+
+    }
+
+
+    if (quantity > max) {
+
+        quantity = max;
+
+    }
+
+
+    buyNowQuantity.value = quantity;
+
+
+    buyNowForm.submit();
+
+}
+
+</script>
+
+{% endblock %}

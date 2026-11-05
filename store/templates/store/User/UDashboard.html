@@ -1,0 +1,1314 @@
+{% extends "store/User/usermaster.html" %}
+
+{% block title %}
+User Dashboard | GreenNest
+{% endblock %}
+
+{% block page_heading %}
+User Dashboard
+{% endblock %}
+
+{% block content %}
+
+<style>
+
+/* =====================================================
+   GREENNEST USER DASHBOARD
+===================================================== */
+
+.gn-user-dashboard {
+    padding: 10px 5px 35px;
+}
+
+
+/* =====================================================
+   WELCOME BANNER
+===================================================== */
+
+.gn-welcome-box {
+    position: relative;
+    overflow: hidden;
+
+    background: linear-gradient(
+        135deg,
+        #173d2b,
+        #285c42
+    );
+
+    border-radius: 24px;
+
+    padding: 32px 35px;
+
+    color: white;
+
+    margin-bottom: 30px;
+
+    box-shadow:
+        0 12px 30px rgba(23, 61, 43, 0.15);
+}
+
+
+.gn-welcome-box::before {
+    content: "";
+
+    position: absolute;
+
+    width: 180px;
+    height: 180px;
+
+    border: 1px solid rgba(255,255,255,0.12);
+
+    border-radius: 50%;
+
+    right: -50px;
+    top: -70px;
+}
+
+
+.gn-welcome-box::after {
+    content: "";
+
+    position: absolute;
+
+    width: 130px;
+    height: 130px;
+
+    border: 1px solid rgba(255,255,255,0.08);
+
+    border-radius: 50%;
+
+    right: 70px;
+    bottom: -90px;
+}
+
+
+.gn-welcome-content {
+    position: relative;
+
+    z-index: 2;
+}
+
+
+.gn-welcome-label {
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 7px;
+
+    font-size: 13px;
+
+    letter-spacing: 1px;
+
+    text-transform: uppercase;
+
+    color: #d8b76a;
+
+    font-weight: 600;
+
+    margin-bottom: 10px;
+}
+
+
+.gn-welcome-title {
+    font-size: 30px;
+
+    font-weight: 700;
+
+    margin-bottom: 8px;
+}
+
+
+.gn-welcome-text {
+    margin: 0;
+
+    color: rgba(255,255,255,0.78);
+
+    font-size: 15px;
+}
+
+
+.gn-welcome-email {
+    margin-top: 14px;
+
+    color: rgba(255,255,255,0.85);
+
+    font-size: 14px;
+}
+
+
+/* =====================================================
+   DASHBOARD CARDS
+===================================================== */
+
+.gn-dashboard-card {
+    position: relative;
+
+    background: #ffffff;
+
+    border: 1px solid #e3ebe5;
+
+    border-radius: 22px;
+
+    padding: 26px 24px 24px;
+
+    height: 100%;
+
+    overflow: hidden;
+
+    box-shadow:
+        0 6px 18px rgba(23, 61, 43, 0.06);
+
+    transition:
+        transform 0.35s ease,
+        box-shadow 0.35s ease,
+        border-color 0.35s ease;
+}
+
+
+/* TOP LINE */
+
+.gn-dashboard-card::before {
+    content: "";
+
+    position: absolute;
+
+    left: 0;
+    top: 0;
+
+    width: 100%;
+
+    height: 4px;
+
+    background: linear-gradient(
+        90deg,
+        #173d2b,
+        #d8b76a,
+        #173d2b
+    );
+
+    opacity: 0.85;
+}
+
+
+/* DECORATIVE CIRCLE */
+
+.gn-dashboard-card::after {
+    content: "";
+
+    position: absolute;
+
+    width: 105px;
+    height: 105px;
+
+    border-radius: 50%;
+
+    background: #f3f8f4;
+
+    right: -42px;
+    top: -42px;
+
+    transition: 0.35s ease;
+}
+
+
+/* HOVER */
+
+.gn-dashboard-card:hover {
+    transform: translateY(-8px);
+
+    border-color: #cdded2;
+
+    box-shadow:
+        0 18px 40px rgba(23, 61, 43, 0.13);
+}
+
+
+.gn-dashboard-card:hover::after {
+    transform: scale(1.25);
+
+    background: #edf5ef;
+}
+
+
+/* =====================================================
+   CARD ICON
+===================================================== */
+
+.gn-card-icon {
+    position: relative;
+
+    z-index: 2;
+
+    width: 62px;
+    height: 62px;
+
+    border-radius: 18px;
+
+    background: #edf5ef;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    color: #173d2b;
+
+    font-size: 28px;
+
+    margin-bottom: 20px;
+
+    border: 1px solid #dce9df;
+
+    transition: all 0.35s ease;
+}
+
+
+.gn-dashboard-card:hover .gn-card-icon {
+    background: #173d2b;
+
+    color: #d8b76a;
+
+    border-color: #173d2b;
+
+    transform:
+        rotate(-3deg)
+        scale(1.05);
+}
+
+
+/* =====================================================
+   CARD TITLE
+===================================================== */
+
+.gn-dashboard-card h5 {
+    position: relative;
+
+    z-index: 2;
+
+    color: #173d2b;
+
+    font-size: 18px;
+
+    font-weight: 700;
+
+    margin-bottom: 9px;
+}
+
+
+/* =====================================================
+   CARD TEXT
+===================================================== */
+
+.gn-dashboard-card p {
+    position: relative;
+
+    z-index: 2;
+
+    color: #7a877f;
+
+    font-size: 13.5px;
+
+    line-height: 1.7;
+
+    min-height: 47px;
+
+    margin-bottom: 22px;
+}
+
+
+/* =====================================================
+   DASHBOARD BUTTON
+===================================================== */
+
+.gn-dashboard-btn {
+    position: relative;
+
+    z-index: 2;
+
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 8px;
+
+    width: 100%;
+
+    background: #f4f8f5;
+
+    border: 1px solid #dce8df;
+
+    color: #173d2b;
+
+    border-radius: 11px;
+
+    padding: 11px 15px;
+
+    font-size: 13.5px;
+
+    font-weight: 700;
+
+    text-decoration: none;
+
+    transition: all 0.3s ease;
+}
+
+
+.gn-dashboard-btn i {
+    font-size: 16px;
+}
+
+
+.gn-dashboard-btn:hover {
+    background: #173d2b;
+
+    border-color: #173d2b;
+
+    color: #ffffff;
+
+    box-shadow:
+        0 7px 18px rgba(23,61,43,0.18);
+}
+
+
+/* =====================================================
+   ADDRESS SECTION
+===================================================== */
+
+.gn-address-dashboard {
+    background: #ffffff;
+
+    border: 1px solid #e7eee9;
+
+    border-radius: 20px;
+
+    padding: 25px 28px;
+
+    box-shadow:
+        0 8px 25px rgba(23, 61, 43, 0.05);
+}
+
+
+.gn-address-dashboard:hover {
+    border-color: #cdded2;
+
+    box-shadow:
+        0 12px 30px rgba(23,61,43,0.09);
+}
+
+
+.gn-address-icon {
+    width: 55px;
+    height: 55px;
+
+    border-radius: 15px;
+
+    background: #edf5ef;
+
+    color: #173d2b;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    font-size: 25px;
+
+    border: 1px solid #dce9df;
+}
+
+
+.gn-address-title {
+    color: #173d2b;
+
+    font-size: 19px;
+
+    font-weight: 700;
+
+    margin-bottom: 5px;
+}
+
+
+.gn-address-description {
+    color: #89938d;
+
+    font-size: 13.5px;
+
+    margin: 0;
+
+    line-height: 1.6;
+}
+
+
+/* =====================================================
+   ADDRESS BUTTON
+===================================================== */
+
+.gn-profile-btn {
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 8px;
+
+    background: #173d2b;
+
+    color: white;
+
+    border-radius: 10px;
+
+    padding: 11px 20px;
+
+    text-decoration: none;
+
+    font-size: 14px;
+
+    font-weight: 600;
+
+    transition: all 0.3s ease;
+}
+
+
+.gn-profile-btn:hover {
+    background: #d8b76a;
+
+    color: #173d2b;
+}
+
+
+/* =====================================================
+   SECTION CARD
+===================================================== */
+
+.gn-section-card {
+    background: #ffffff;
+
+    border: 1px solid #e7eee9;
+
+    border-radius: 20px;
+
+    padding: 28px;
+
+    box-shadow:
+        0 8px 25px rgba(23, 61, 43, 0.05);
+}
+
+
+.gn-section-heading {
+    display: flex;
+
+    align-items: center;
+
+    gap: 11px;
+
+    color: #173d2b;
+
+    font-size: 20px;
+
+    font-weight: 700;
+
+    margin-bottom: 5px;
+}
+
+
+.gn-section-heading i {
+    color: #b69245;
+
+    font-size: 22px;
+}
+
+
+.gn-section-subtitle {
+    color: #89938d;
+
+    font-size: 13px;
+
+    margin-bottom: 20px;
+}
+
+
+/* =====================================================
+   ACCOUNT INFORMATION
+===================================================== */
+
+.gn-info-box {
+    background: #f7faf8;
+
+    border: 1px solid #e5ece7;
+
+    border-radius: 13px;
+
+    padding: 15px 17px;
+
+    height: 100%;
+}
+
+
+.gn-info-label {
+    display: block;
+
+    color: #7c8880;
+
+    font-size: 12px;
+
+    font-weight: 600;
+
+    text-transform: uppercase;
+
+    letter-spacing: 0.5px;
+
+    margin-bottom: 7px;
+}
+
+
+.gn-info-value {
+    color: #173d2b;
+
+    font-size: 15px;
+
+    font-weight: 600;
+
+    word-break: break-word;
+}
+
+
+.gn-info-value i {
+    color: #b69245;
+
+    margin-right: 7px;
+}
+
+
+/* =====================================================
+   RECENT ACTIVITY
+===================================================== */
+
+.gn-activity-box {
+    display: flex;
+
+    align-items: center;
+
+    gap: 15px;
+
+    background: #f8faf9;
+
+    border: 1px dashed #d9e3dc;
+
+    border-radius: 14px;
+
+    padding: 18px;
+}
+
+
+.gn-activity-icon {
+    width: 45px;
+    height: 45px;
+
+    min-width: 45px;
+
+    border-radius: 12px;
+
+    background: #edf5ef;
+
+    color: #173d2b;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    font-size: 20px;
+}
+
+
+.gn-activity-box p {
+    margin: 0;
+
+    color: #7b867f;
+
+    font-size: 14px;
+}
+
+
+/* =====================================================
+   RESPONSIVE
+===================================================== */
+
+@media (max-width: 1199px) {
+
+    .gn-dashboard-card {
+        padding: 24px 20px;
+    }
+
+}
+
+
+@media (max-width: 991px) {
+
+    .gn-dashboard-card {
+        margin-bottom: 5px;
+    }
+
+}
+
+
+@media (max-width: 767px) {
+
+    .gn-user-dashboard {
+        padding: 5px 0 25px;
+    }
+
+
+    .gn-welcome-box {
+        padding: 25px 22px;
+
+        border-radius: 18px;
+    }
+
+
+    .gn-welcome-title {
+        font-size: 24px;
+    }
+
+
+    .gn-section-card {
+        padding: 20px;
+
+        border-radius: 16px;
+    }
+
+
+    .gn-address-dashboard {
+        padding: 20px;
+    }
+
+
+    .gn-dashboard-card {
+        padding: 24px 20px 21px;
+
+        border-radius: 18px;
+    }
+
+
+    .gn-address-dashboard .gn-profile-btn {
+        width: 100%;
+    }
+
+
+    .gn-activity-box {
+        align-items: flex-start;
+    }
+
+}
+
+</style>
+
+
+<!-- =====================================================
+     MAIN DASHBOARD
+====================================================== -->
+
+<div class="container-fluid gn-user-dashboard">
+
+
+    <!-- =================================================
+         WELCOME SECTION
+    ================================================== -->
+
+    <div class="gn-welcome-box">
+
+        <div class="gn-welcome-content">
+
+            <div class="gn-welcome-label">
+
+                <i class="bi bi-flower1"></i>
+
+                GreenNest Account
+
+            </div>
+
+
+            {% if user_data %}
+
+                <h2 class="gn-welcome-title">
+
+                    Welcome, {{ user_data.0 }} 🌿
+
+                </h2>
+
+
+                <p class="gn-welcome-text">
+
+                    Welcome back to your GreenNest dashboard.
+                    Manage your plants, orders and account from here.
+
+                </p>
+
+
+                <div class="gn-welcome-email">
+
+                    <i class="bi bi-envelope me-2"></i>
+
+                    {{ user_data.1 }}
+
+                </div>
+
+
+            {% else %}
+
+                <h2 class="gn-welcome-title">
+
+                    Welcome to GreenNest 🌿
+
+                </h2>
+
+
+                <p class="gn-welcome-text">
+
+                    Manage your profile, orders, wishlist and
+                    shopping activity from your dashboard.
+
+                </p>
+
+            {% endif %}
+
+        </div>
+
+    </div>
+
+
+
+    <!-- =================================================
+         4 MAIN DASHBOARD CARDS
+    ================================================== -->
+
+    <div class="row g-4">
+
+
+        <!-- =============================================
+             MY PROFILE
+        ============================================== -->
+
+        <div class="col-xl-3 col-lg-3 col-md-6">
+
+            <div class="gn-dashboard-card">
+
+                <div class="gn-card-icon">
+
+                    <i class="bi bi-person-circle"></i>
+
+                </div>
+
+
+                <h5>
+
+                    My Profile
+
+                </h5>
+
+
+                <p>
+
+                    View and manage your personal account
+                    information and profile details.
+
+                </p>
+
+
+                <a
+                    href="{% url 'viewprofile' %}"
+                    class="gn-dashboard-btn"
+                >
+
+                    <i class="bi bi-person"></i>
+
+                    View Profile
+
+                </a>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- =============================================
+             MY ORDERS
+        ============================================== -->
+
+        <div class="col-xl-3 col-lg-3 col-md-6">
+
+            <div class="gn-dashboard-card">
+
+                <div class="gn-card-icon">
+
+                    <i class="bi bi-box-seam"></i>
+
+                </div>
+
+
+                <h5>
+
+                    My Orders
+
+                </h5>
+
+
+                <p>
+
+                    Check your recent orders and keep track
+                    of your GreenNest purchases.
+
+                </p>
+
+
+                <a
+                    href="{% url 'myorders' %}"
+                    class="gn-dashboard-btn"
+                >
+
+                    <i class="bi bi-arrow-right-circle"></i>
+
+                    View Orders
+
+                </a>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- =============================================
+             WISHLIST
+        ============================================== -->
+
+        <div class="col-xl-3 col-lg-3 col-md-6">
+
+            <div class="gn-dashboard-card">
+
+                <div class="gn-card-icon">
+
+                    <i class="bi bi-heart"></i>
+
+                </div>
+
+
+                <h5>
+
+                    Wishlist
+
+                </h5>
+
+
+                <p>
+
+                    Keep your favourite plants saved
+                    and ready for your next purchase.
+
+                </p>
+
+
+                <a
+                    href="{% url 'wishlist' %}"
+                    class="gn-dashboard-btn"
+                >
+
+                    <i class="bi bi-arrow-right-circle"></i>
+
+                    View Wishlist
+
+                </a>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- =============================================
+             MY CART
+        ============================================== -->
+
+        <div class="col-xl-3 col-lg-3 col-md-6">
+
+            <div class="gn-dashboard-card">
+
+                <div class="gn-card-icon">
+
+                    <i class="bi bi-bag-check"></i>
+
+                </div>
+
+
+                <h5>
+
+                    My Cart
+
+                </h5>
+
+
+                <p>
+
+                    Review the plants in your cart and
+                    continue your shopping journey.
+
+                </p>
+
+
+                <a
+                    href="{% url 'mycart' %}"
+                    class="gn-dashboard-btn"
+                >
+
+                    <i class="bi bi-arrow-right-circle"></i>
+
+                    View Cart
+
+                </a>
+
+            </div>
+
+        </div>
+
+
+    </div>
+
+
+
+    <!-- =================================================
+         MY ADDRESS
+    ================================================== -->
+
+    <div class="gn-address-dashboard mt-4">
+
+        <div class="row align-items-center">
+
+
+            <!-- LEFT -->
+
+            <div class="col-md-8">
+
+                <div class="d-flex align-items-center gap-3">
+
+                    <div class="gn-address-icon">
+
+                        <i class="bi bi-geo-alt-fill"></i>
+
+                    </div>
+
+
+                    <div>
+
+                        <div class="gn-address-title">
+
+                            My Address
+
+                        </div>
+
+
+                        <p class="gn-address-description">
+
+                            Add or update your delivery address
+                            for GreenNest orders and purchases.
+
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- RIGHT -->
+
+            <div class="col-md-4 text-md-end mt-3 mt-md-0">
+
+                <a
+                    href="{% url 'MyAddress' %}"
+                    class="gn-profile-btn"
+                >
+
+                    <i class="bi bi-geo-alt"></i>
+
+                    Manage Address
+
+                </a>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+
+
+    <!-- =================================================
+         ACCOUNT INFORMATION
+    ================================================== -->
+
+    {% if user_data %}
+
+    <div class="gn-section-card mt-5">
+
+
+        <!-- SECTION HEADING -->
+
+        <div class="gn-section-heading">
+
+            <i class="bi bi-person-vcard"></i>
+
+            Account Information
+
+        </div>
+
+
+        <div class="gn-section-subtitle">
+
+            Your basic GreenNest account details
+
+        </div>
+
+
+
+        <div class="row g-3">
+
+
+            <!-- =========================================
+                 FULL NAME
+            ========================================== -->
+
+            <div class="col-lg-6 col-md-6">
+
+                <div class="gn-info-box">
+
+                    <span class="gn-info-label">
+
+                        Full Name
+
+                    </span>
+
+
+                    <div class="gn-info-value">
+
+                        <i class="bi bi-person"></i>
+
+                        {{ user_data.0 }}
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- =========================================
+                 EMAIL
+            ========================================== -->
+
+            <div class="col-lg-6 col-md-6">
+
+                <div class="gn-info-box">
+
+                    <span class="gn-info-label">
+
+                        Email Address
+
+                    </span>
+
+
+                    <div class="gn-info-value">
+
+                        <i class="bi bi-envelope"></i>
+
+                        {{ user_data.1 }}
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- =========================================
+                 MOBILE
+            ========================================== -->
+
+            <div class="col-lg-6 col-md-6">
+
+                <div class="gn-info-box">
+
+                    <span class="gn-info-label">
+
+                        Mobile Number
+
+                    </span>
+
+
+                    <div class="gn-info-value">
+
+                        <i class="bi bi-phone"></i>
+
+
+                        {% if user_data.2 %}
+
+                            {{ user_data.2 }}
+
+                        {% else %}
+
+                            Not added yet
+
+                        {% endif %}
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- =========================================
+                 ADDRESS
+            ========================================== -->
+
+            <div class="col-lg-6 col-md-6">
+
+                <div class="gn-info-box">
+
+                    <span class="gn-info-label">
+
+                        Delivery Address
+
+                    </span>
+
+
+                    <div class="gn-info-value">
+
+                        <i class="bi bi-geo-alt"></i>
+
+
+                        {% if address_data %}
+
+                            {{ address_data.1 }},
+                            {{ address_data.2 }},
+                            {{ address_data.3 }} -
+                            {{ address_data.4 }}
+
+                        {% else %}
+
+                            Address not added yet
+
+                        {% endif %}
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+
+
+        <!-- =========================================
+             PROFILE BUTTONS
+        ========================================== -->
+
+        <div class="mt-4">
+
+
+            <a
+                href="{% url 'viewprofile' %}"
+                class="gn-profile-btn"
+            >
+
+                <i class="bi bi-person-circle"></i>
+
+                View Full Profile
+
+            </a>
+
+
+            <a
+                href="{% url 'MyAddress' %}"
+                class="gn-profile-btn ms-2"
+            >
+
+                <i class="bi bi-geo-alt"></i>
+
+                Manage Address
+
+            </a>
+
+
+        </div>
+
+    </div>
+
+    {% endif %}
+
+
+
+    <!-- =================================================
+         RECENT ACTIVITY
+    ================================================== -->
+
+    <div class="gn-section-card mt-4">
+
+
+        <div class="gn-section-heading">
+
+            <i class="bi bi-clock-history"></i>
+
+            Recent Activity
+
+        </div>
+
+
+        <div class="gn-section-subtitle">
+
+            Keep track of your latest shopping activity
+
+        </div>
+
+
+        <div class="gn-activity-box">
+
+
+            <div class="gn-activity-icon">
+
+                <i class="bi bi-info-circle"></i>
+
+            </div>
+
+
+            <p>
+
+                Your recent shopping activity will appear here
+                once you start exploring GreenNest.
+
+            </p>
+
+
+        </div>
+
+    </div>
+
+
+</div>
+
+{% endblock %}

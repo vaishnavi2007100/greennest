@@ -1,0 +1,4165 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>
+        {% block title %}
+        GreenNest | Bring Nature Home
+        {% endblock %}
+    </title>
+
+    <meta name="description"
+          content="GreenNest - Bring Nature Home. Plants, Pots, Plant Accessories and Home Decor.">
+
+
+    <!-- =========================================================
+         BOOTSTRAP
+    ========================================================== -->
+
+    <link rel="stylesheet"
+          href="{% static 'css/bootstrap.min.css' %}">
+
+    <link rel="stylesheet"
+          href="{% static 'css/bootstrap-icons.css' %}">
+
+
+    <!-- =========================================================
+         GOOGLE FONTS
+    ========================================================== -->
+
+    <link rel="preconnect"
+          href="https://fonts.googleapis.com">
+
+    <link rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Montserrat:wght@400;500;600;700&display=swap"
+          rel="stylesheet">
+
+
+    {% block extra_css %}
+    {% endblock %}
+
+
+    <!-- =========================================================
+         GLOBAL CSS
+    ========================================================== -->
+
+    <style>
+
+        /* =========================================================
+           GREENNEST GLOBAL CSS
+        ========================================================= */
+
+        :root {
+
+            --green-dark: #0b3d2e;
+            --green-deep: #073527;
+            --green: #1d6848;
+            --green-light: #e9f4ed;
+            --green-soft: #f4faf6;
+
+            --gold: #c8a96b;
+
+            --cream: #faf9f5;
+            --white: #ffffff;
+
+            --text: #24332c;
+            --muted: #718078;
+
+            --border: #e3ebe6;
+
+        }
+
+
+        /* =========================================================
+           RESET
+        ========================================================== */
+
+        * {
+
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+
+        }
+
+
+        html {
+
+            scroll-behavior: smooth;
+
+        }
+
+
+        body {
+
+            background: var(--cream);
+
+            color: var(--text);
+
+            font-family:
+                'Montserrat',
+                Arial,
+                Helvetica,
+                sans-serif;
+
+            overflow-x: hidden;
+
+        }
+
+
+        a {
+
+            text-decoration: none;
+
+        }
+
+
+        img {
+
+            max-width: 100%;
+            display: block;
+
+        }
+
+
+        button,
+        a {
+
+            -webkit-tap-highlight-color: transparent;
+
+        }
+
+
+        /* =========================================================
+           TOP BAR
+        ========================================================== */
+
+        .gn-topbar {
+
+            background: var(--green-deep);
+
+            color: rgba(255,255,255,.85);
+
+            padding: 8px 0;
+
+            font-size: 12px;
+
+            letter-spacing: .2px;
+
+        }
+
+
+        .gn-topbar-inner {
+
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+
+            gap: 20px;
+
+        }
+
+
+        .gn-topbar-left,
+        .gn-topbar-right {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 18px;
+
+        }
+
+
+        .gn-topbar-item {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 6px;
+
+            white-space: nowrap;
+
+        }
+
+
+        .gn-topbar-item i {
+
+            color: var(--gold);
+
+            font-size: 13px;
+
+        }
+
+
+        /* =========================================================
+           NAVBAR
+        ========================================================== */
+
+        .gn-navbar {
+
+            background: rgba(255,255,255,.97);
+
+            border-bottom: 1px solid var(--border);
+
+            position: sticky;
+
+            top: 0;
+
+            z-index: 1000;
+
+            transition: .3s ease;
+
+            overflow: visible;
+
+        }
+
+
+        .gn-navbar.scrolled {
+
+            box-shadow:
+                0 8px 30px rgba(11,61,46,.08);
+
+        }
+
+
+        .gn-navbar-inner {
+
+            min-height: 78px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            gap: 25px;
+
+            position: relative;
+
+            overflow: visible;
+
+        }
+
+
+        /* =========================================================
+           LOGO
+        ========================================================== */
+
+        .gn-logo {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 10px;
+
+            color: var(--green-dark);
+
+            flex-shrink: 0;
+
+        }
+
+
+        .gn-logo-icon {
+
+            width: 42px;
+
+            height: 42px;
+
+            border-radius: 50%;
+
+            background: var(--green-dark);
+
+            color: var(--gold);
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            font-size: 21px;
+
+            box-shadow:
+                0 7px 20px rgba(11,61,46,.18);
+
+        }
+
+
+        .gn-logo-text {
+
+            line-height: 1;
+
+        }
+
+
+        .gn-logo-name {
+
+            font-family:
+                'DM Serif Display',
+                Georgia,
+                serif;
+
+            font-size: 26px;
+
+            letter-spacing: .2px;
+
+        }
+
+
+        .gn-logo-tagline {
+
+            font-size: 8px;
+
+            letter-spacing: 2px;
+
+            text-transform: uppercase;
+
+            color: var(--muted);
+
+            margin-top: 4px;
+
+        }
+
+
+        /* =========================================================
+           DESKTOP MENU
+        ========================================================== */
+
+        .gn-menu {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 3px;
+
+            list-style: none;
+
+            margin: 0;
+
+            padding: 0;
+
+            position: relative;
+
+            overflow: visible;
+
+        }
+
+
+        .gn-menu > li {
+
+            position: relative;
+
+            overflow: visible;
+
+        }
+
+
+        .gn-menu-link {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 5px;
+
+            padding: 29px 12px;
+
+            color: var(--text);
+
+            font-size: 12px;
+
+            font-weight: 600;
+
+            letter-spacing: .4px;
+
+            text-transform: uppercase;
+
+            transition: .25s ease;
+
+            white-space: nowrap;
+
+        }
+
+
+        .gn-menu-link:hover {
+
+            color: var(--green);
+
+        }
+
+
+        .gn-menu-link.active {
+
+            color: var(--green);
+
+        }
+
+
+        .gn-menu-link i {
+
+            font-size: 10px;
+
+        }
+
+
+        /* =========================================================
+           MAIN DROPDOWN
+        ========================================================== */
+
+        .gn-dropdown {
+
+            position: absolute;
+
+            top: calc(100% - 2px);
+
+            left: 0;
+
+            min-width: 245px;
+
+            width: max-content;
+
+            max-width: 320px;
+
+            overflow: visible;
+
+            background: var(--white);
+
+            border: 1px solid var(--border);
+
+            border-radius: 0 0 14px 14px;
+
+            box-shadow:
+                0 18px 45px rgba(7,53,39,.13);
+
+            padding: 10px;
+
+            opacity: 0;
+
+            visibility: hidden;
+
+            transform: translateY(10px);
+
+            transition:
+                opacity .25s ease,
+                transform .25s ease,
+                visibility .25s ease;
+
+            z-index: 1200;
+
+        }
+
+
+        /* =========================================================
+           MAIN DROPDOWN HOVER
+        ========================================================== */
+
+        .gn-dropdown-parent:hover > .gn-dropdown {
+
+            opacity: 1;
+
+            visibility: visible;
+
+            transform: translateY(0);
+
+        }
+
+
+        /* =========================================================
+           DROPDOWN ITEM
+        ========================================================== */
+
+        .gn-dropdown-item {
+
+            position: relative;
+
+            overflow: visible;
+
+        }
+
+
+        /* =========================================================
+           DROPDOWN LINK
+        ========================================================== */
+
+        .gn-dropdown-link {
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            gap: 15px;
+
+            min-height: 42px;
+
+            padding: 11px 13px;
+
+            border-radius: 8px;
+
+            color: var(--text);
+
+            font-size: 12px;
+
+            font-weight: 600;
+
+            transition: .2s ease;
+
+            white-space: nowrap;
+
+        }
+
+
+        .gn-dropdown-link:hover {
+
+            background: var(--green-soft);
+
+            color: var(--green);
+
+        }
+
+
+        .gn-dropdown-link i {
+
+            font-size: 10px;
+
+            color: var(--muted);
+
+            flex-shrink: 0;
+
+        }
+
+
+        /* =========================================================
+           SECOND LEVEL DROPDOWN
+        ========================================================== */
+
+        .gn-dropdown .gn-dropdown {
+
+            top: -10px;
+
+            left: calc(100% + 6px);
+
+            min-width: 235px;
+
+            width: max-content;
+
+            max-width: 300px;
+
+            border-radius: 12px;
+
+            padding: 10px;
+
+            overflow: visible;
+
+        }
+
+
+        /* =========================================================
+           SECOND LEVEL HOVER
+        ========================================================== */
+
+        .gn-dropdown-item:hover > .gn-dropdown {
+
+            opacity: 1;
+
+            visibility: visible;
+
+            transform: translateY(0);
+
+        }
+
+
+        /* =========================================================
+           DROPDOWN HEADER
+        ========================================================== */
+
+        .gn-dropdown-title {
+
+            padding: 10px 13px 7px;
+
+            color: var(--green);
+
+            font-size: 10px;
+
+            font-weight: 700;
+
+            text-transform: uppercase;
+
+            letter-spacing: 1.2px;
+
+            white-space: nowrap;
+
+        }
+
+
+        /* =========================================================
+           CATEGORIES DROPDOWN
+        ========================================================== */
+
+        .gn-menu > li.gn-dropdown-parent:first-of-type
+        > .gn-dropdown {
+
+            min-width: 245px;
+
+        }
+
+
+        /* =========================================================
+           COLLECTION DROPDOWN
+        ========================================================== */
+
+        .gn-menu > li.gn-dropdown-parent
+        > .gn-dropdown {
+
+            overflow: visible;
+
+        }
+
+
+        /* =========================================================
+           SECOND LEVEL COLLECTION
+        ========================================================== */
+
+        .gn-dropdown .gn-dropdown-item
+        > .gn-dropdown {
+
+            top: -10px;
+
+            left: calc(100% + 6px);
+
+        }
+
+
+        /* =========================================================
+           NAV ACTIONS
+        ========================================================== */
+
+        .gn-actions {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 5px;
+
+            flex-shrink: 0;
+
+        }
+
+
+        .gn-action {
+
+            width: 39px;
+
+            height: 39px;
+
+            border-radius: 50%;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            color: var(--green-dark);
+
+            transition: .25s ease;
+
+            position: relative;
+
+        }
+
+
+        .gn-action:hover {
+
+            background: var(--green-light);
+
+            color: var(--green);
+
+            transform: translateY(-2px);
+
+        }
+
+
+        .gn-action i {
+
+            font-size: 17px;
+
+        }
+
+
+        /* =========================================================
+           CART / WISHLIST COUNT
+        ========================================================== */
+
+        .gn-cart-count {
+
+            position: absolute;
+
+            top: 0;
+
+            right: -2px;
+
+            min-width: 17px;
+
+            height: 17px;
+
+            padding: 0 4px;
+
+            border-radius: 50px;
+
+            background: var(--gold);
+
+            color: var(--green-deep);
+
+            font-size: 8px;
+
+            font-weight: 700;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            line-height: 1;
+
+            border: 2px solid var(--white);
+
+        }
+
+
+        /* =========================================================
+           LOGIN BUTTON
+        ========================================================== */
+
+        .gn-login-btn {
+
+            margin-left: 7px;
+
+            border: 1px solid var(--green-dark);
+
+            color: var(--green-dark);
+
+            border-radius: 50px;
+
+            padding: 10px 17px;
+
+            font-size: 10px;
+
+            font-weight: 700;
+
+            text-transform: uppercase;
+
+            letter-spacing: .5px;
+
+            transition: .25s ease;
+
+            white-space: nowrap;
+
+        }
+
+
+        .gn-login-btn:hover {
+
+            background: var(--green-dark);
+
+            color: var(--white);
+
+        }
+
+
+        /* =========================================================
+           SHOP NOW BUTTON
+        ========================================================== */
+
+        .gn-shop-btn {
+
+            position: relative;
+
+            display: inline-flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            min-width: 125px;
+
+            height: 44px;
+
+            padding: 0 20px;
+
+            border-radius: 50px;
+
+            background: #ffffff;
+
+            color: #12372a;
+
+            border: 1px solid #c8a96b;
+
+            text-decoration: none;
+
+            overflow: hidden;
+
+            cursor: pointer;
+
+            box-shadow:
+                0 5px 16px rgba(18,55,42,.08);
+
+            transition:
+                transform .35s cubic-bezier(.2,.8,.2,1),
+                box-shadow .35s ease,
+                border-color .35s ease;
+
+        }
+
+
+        .gn-shop-content {
+
+            position: relative;
+
+            z-index: 5;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            gap: 8px;
+
+            white-space: nowrap;
+
+            transition:
+                color .35s ease;
+
+        }
+
+
+        .gn-shop-content > i:first-child {
+
+            font-size: 16px;
+
+            transition:
+                transform .45s cubic-bezier(.2,.8,.2,1);
+
+        }
+
+
+        .gn-shop-arrow {
+
+            font-size: 14px;
+
+            opacity: .7;
+
+            transform: translateX(0);
+
+            transition:
+                transform .4s ease,
+                opacity .4s ease;
+
+        }
+
+
+        /* =========================================================
+           SHOP GOLD BACKGROUND
+        ========================================================== */
+
+        .gn-shop-btn::before {
+
+            content: "";
+
+            position: absolute;
+
+            inset: 0;
+
+            border-radius: inherit;
+
+            background:
+                linear-gradient(
+                    120deg,
+                    #b89558,
+                    #d9bb7e,
+                    #c8a96b
+                );
+
+            transform: scaleX(0);
+
+            transform-origin: left;
+
+            transition:
+                transform .45s cubic-bezier(.65,0,.35,1);
+
+            z-index: 1;
+
+        }
+
+
+        /* =========================================================
+           SHOP SHINE
+        ========================================================== */
+
+        .gn-shop-shine {
+
+            position: absolute;
+
+            top: 0;
+
+            left: -80px;
+
+            width: 45px;
+
+            height: 100%;
+
+            background:
+                linear-gradient(
+                    90deg,
+                    transparent,
+                    rgba(255,255,255,.8),
+                    transparent
+                );
+
+            transform: skewX(-20deg);
+
+            z-index: 4;
+
+            pointer-events: none;
+
+        }
+
+
+        /* =========================================================
+           SHOP HOVER
+        ========================================================== */
+
+        .gn-shop-btn:hover {
+
+            transform:
+                translateY(-3px)
+                scale(1.035);
+
+            border-color: #c8a96b;
+
+            box-shadow:
+                0 10px 25px rgba(18,55,42,.16),
+                0 0 20px rgba(200,169,107,.20);
+
+        }
+
+
+        .gn-shop-btn:hover::before {
+
+            transform: scaleX(1);
+
+        }
+
+
+        .gn-shop-btn:hover .gn-shop-content {
+
+            color: #ffffff;
+
+        }
+
+
+        .gn-shop-btn:hover
+        .gn-shop-content > i:first-child {
+
+            transform:
+                rotate(-10deg)
+                scale(1.15);
+
+        }
+
+
+        .gn-shop-btn:hover
+        .gn-shop-arrow {
+
+            opacity: 1;
+
+            transform:
+                translateX(5px);
+
+        }
+
+
+        .gn-shop-btn:hover
+        .gn-shop-shine {
+
+            animation:
+                gnShopShine .65s ease forwards;
+
+        }
+
+
+        @keyframes gnShopShine {
+
+            0% {
+                left: -80px;
+            }
+
+            100% {
+                left: 150%;
+            }
+
+        }
+
+
+        /* =========================================================
+           SHOP CLICK
+        ========================================================== */
+
+        .gn-shop-btn:active {
+
+            transform:
+                translateY(0)
+                scale(.96);
+
+            box-shadow:
+                0 4px 10px rgba(18,55,42,.12);
+
+        }
+
+
+        /* =========================================================
+           SHOP RIPPLE
+        ========================================================== */
+
+        .gn-shop-ripple {
+
+            position: absolute;
+
+            width: 10px;
+
+            height: 10px;
+
+            border-radius: 50%;
+
+            background: rgba(255,255,255,.65);
+
+            transform:
+                translate(-50%,-50%)
+                scale(1);
+
+            animation:
+                gnShopRipple .6s ease-out forwards;
+
+            pointer-events: none;
+
+            z-index: 10;
+
+        }
+
+
+        @keyframes gnShopRipple {
+
+            0% {
+
+                width: 10px;
+
+                height: 10px;
+
+                opacity: .8;
+
+            }
+
+            100% {
+
+                width: 180px;
+
+                height: 180px;
+
+                opacity: 0;
+
+            }
+
+        }
+
+
+        /* =========================================================
+           USER PROFILE DROPDOWN
+        ========================================================== */
+
+        .gn-user-dropdown {
+
+            position: relative;
+
+            margin-left: 7px;
+
+        }
+
+
+        .gn-profile-btn {
+
+            width: 42px;
+
+            height: 42px;
+
+            border: 1px solid var(--border);
+
+            border-radius: 50%;
+
+            background: var(--white);
+
+            color: var(--green-dark);
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            cursor: pointer;
+
+            transition: .25s ease;
+
+        }
+
+
+        .gn-profile-btn:hover {
+
+            background: var(--green-light);
+
+            color: var(--green);
+
+            border-color: var(--green);
+
+            transform: translateY(-2px);
+
+        }
+
+
+        .gn-profile-btn i {
+
+            font-size: 22px;
+
+        }
+
+
+        .gn-profile-menu {
+
+            position: absolute;
+
+            top: calc(100% + 12px);
+
+            right: 0;
+
+            width: 270px;
+
+            background: var(--white);
+
+            border: 1px solid var(--border);
+
+            border-radius: 14px;
+
+            box-shadow:
+                0 18px 45px rgba(7,53,39,.15);
+
+            padding: 10px;
+
+            opacity: 0;
+
+            visibility: hidden;
+
+            transform: translateY(10px);
+
+            transition:
+                opacity .25s ease,
+                transform .25s ease,
+                visibility .25s ease;
+
+            z-index: 1500;
+
+        }
+
+
+        .gn-user-dropdown:hover .gn-profile-menu {
+
+            opacity: 1;
+
+            visibility: visible;
+
+            transform: translateY(0);
+
+        }
+
+
+        .gn-profile-header {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 12px;
+
+            padding: 10px;
+
+        }
+
+
+        .gn-profile-icon {
+
+            width: 43px;
+
+            height: 43px;
+
+            border-radius: 50%;
+
+            background: var(--green-light);
+
+            color: var(--green);
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            flex-shrink: 0;
+
+        }
+
+
+        .gn-profile-icon i {
+
+            font-size: 20px;
+
+        }
+
+
+        .gn-profile-title {
+
+            font-size: 12px;
+
+            font-weight: 700;
+
+            color: var(--green-dark);
+
+        }
+
+
+        .gn-profile-email {
+
+            max-width: 175px;
+
+            overflow: hidden;
+
+            text-overflow: ellipsis;
+
+            white-space: nowrap;
+
+            margin-top: 3px;
+
+            font-size: 9px;
+
+            color: var(--muted);
+
+        }
+
+
+        .gn-profile-divider {
+
+            height: 1px;
+
+            background: var(--border);
+
+            margin: 5px 0 8px;
+
+        }
+
+
+        .gn-profile-link {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 11px;
+
+            padding: 11px 12px;
+
+            border-radius: 9px;
+
+            color: var(--text);
+
+            font-size: 11px;
+
+            font-weight: 600;
+
+            transition: .2s ease;
+
+        }
+
+
+        .gn-profile-link i {
+
+            width: 18px;
+
+            text-align: center;
+
+            font-size: 15px;
+
+            color: var(--green);
+
+        }
+
+
+        .gn-profile-link:hover {
+
+            background: var(--green-soft);
+
+            color: var(--green);
+
+        }
+
+
+        .gn-profile-link.logout-link {
+
+            color: #9b3d3d;
+
+        }
+
+
+        .gn-profile-link.logout-link i {
+
+            color: #9b3d3d;
+
+        }
+
+
+        .gn-profile-link.logout-link:hover {
+
+            background: #fff3f3;
+
+            color: #8b2929;
+
+        }
+
+
+        /* =========================================================
+           MOBILE BUTTON
+        ========================================================== */
+
+        .gn-mobile-toggle {
+
+            width: 42px;
+
+            height: 42px;
+
+            border: 1px solid var(--border);
+
+            border-radius: 10px;
+
+            background: var(--white);
+
+            color: var(--green-dark);
+
+            display: none;
+
+            align-items: center;
+
+            justify-content: center;
+
+            font-size: 21px;
+
+        }
+
+
+        /* =========================================================
+           MOBILE MENU
+        ========================================================== */
+
+        .gn-mobile-menu {
+
+            display: none;
+
+            background: var(--white);
+
+            border-top: 1px solid var(--border);
+
+            max-height: calc(100vh - 70px);
+
+            overflow-y: auto;
+
+        }
+
+
+        .gn-mobile-menu.show {
+
+            display: block;
+
+        }
+
+
+        .gn-mobile-link {
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            padding: 14px 18px;
+
+            color: var(--text);
+
+            border-bottom: 1px solid #eef2ef;
+
+            font-size: 12px;
+
+            font-weight: 600;
+
+            text-transform: uppercase;
+
+            letter-spacing: .4px;
+
+        }
+
+
+        .gn-mobile-link:hover {
+
+            color: var(--green);
+
+            background: var(--green-soft);
+
+        }
+
+
+        .gn-mobile-sub {
+
+            background: #fbfdfb;
+
+            border-bottom: 1px solid #eef2ef;
+
+        }
+
+
+        .gn-mobile-sub a {
+
+            display: block;
+
+            padding: 10px 32px;
+
+            color: var(--muted);
+
+            font-size: 11px;
+
+            border-bottom: 1px solid #f0f3f1;
+
+        }
+
+
+        .gn-mobile-sub a:hover {
+
+            color: var(--green);
+
+            background: var(--green-light);
+
+        }
+
+
+        .gn-mobile-heading {
+
+            padding: 12px 32px 7px;
+
+            color: var(--green);
+
+            font-size: 10px;
+
+            font-weight: 700;
+
+            text-transform: uppercase;
+
+            letter-spacing: 1px;
+
+        }
+
+
+        .gn-mobile-action {
+
+            padding: 13px 18px;
+
+        }
+
+
+        .gn-mobile-action a {
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            gap: 8px;
+
+            text-align: center;
+
+            padding: 12px;
+
+            border-radius: 50px;
+
+            background: var(--green-dark);
+
+            color: var(--white);
+
+            font-size: 11px;
+
+            font-weight: 700;
+
+            text-transform: uppercase;
+
+        }
+
+
+        /* =========================================================
+           MOBILE CART / WISHLIST
+        ========================================================== */
+
+        .gn-mobile-icons {
+
+            display: grid;
+
+            grid-template-columns: 1fr 1fr;
+
+            gap: 10px;
+
+            padding: 14px 18px;
+
+            border-bottom: 1px solid var(--border);
+
+        }
+
+
+        .gn-mobile-icon-link {
+
+            position: relative;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            gap: 8px;
+
+            padding: 12px;
+
+            border: 1px solid var(--border);
+
+            border-radius: 12px;
+
+            color: var(--green-dark);
+
+            background: var(--white);
+
+            font-size: 11px;
+
+            font-weight: 700;
+
+        }
+
+
+        .gn-mobile-icon-link:hover {
+
+            background: var(--green-light);
+
+            color: var(--green);
+
+        }
+
+
+        .gn-mobile-icon-link i {
+
+            font-size: 17px;
+
+        }
+
+
+        .gn-mobile-count {
+
+            min-width: 17px;
+
+            height: 17px;
+
+            padding: 0 4px;
+
+            border-radius: 50px;
+
+            background: var(--gold);
+
+            color: var(--green-deep);
+
+            font-size: 8px;
+
+            display: inline-flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            font-weight: 700;
+
+        }
+
+
+        /* =========================================================
+           MAIN CONTENT
+        ========================================================== */
+
+        main {
+
+            min-height: 60vh;
+
+        }
+
+
+        /* =========================================================
+           FOOTER
+        ========================================================== */
+
+        .gn-footer {
+
+            background: var(--green-deep);
+
+            color: rgba(255,255,255,.78);
+
+            margin-top: 70px;
+
+        }
+
+
+        .gn-footer-main {
+
+            padding: 70px 0 45px;
+
+        }
+
+
+        .gn-footer-brand {
+
+            max-width: 310px;
+
+        }
+
+
+        .gn-footer-logo {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 10px;
+
+            color: var(--white);
+
+            margin-bottom: 18px;
+
+        }
+
+
+        .gn-footer-logo-icon {
+
+            width: 42px;
+
+            height: 42px;
+
+            border-radius: 50%;
+
+            background: rgba(255,255,255,.1);
+
+            color: var(--gold);
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            font-size: 21px;
+
+        }
+
+
+        .gn-footer-logo-name {
+
+            font-family:
+                'DM Serif Display',
+                Georgia,
+                serif;
+
+            font-size: 25px;
+
+        }
+
+
+        .gn-footer-description {
+
+            font-size: 12px;
+
+            line-height: 1.9;
+
+            color: rgba(255,255,255,.62);
+
+        }
+
+
+        .gn-footer-title {
+
+            color: var(--white);
+
+            font-size: 11px;
+
+            font-weight: 700;
+
+            text-transform: uppercase;
+
+            letter-spacing: 1.2px;
+
+            margin-bottom: 20px;
+
+        }
+
+
+        .gn-footer-links {
+
+            list-style: none;
+
+            margin: 0;
+
+            padding: 0;
+
+        }
+
+
+        .gn-footer-links li {
+
+            margin-bottom: 10px;
+
+        }
+
+
+        .gn-footer-links a {
+
+            color: rgba(255,255,255,.62);
+
+            font-size: 11px;
+
+            transition: .2s ease;
+
+        }
+
+
+        .gn-footer-links a:hover {
+
+            color: var(--gold);
+
+            padding-left: 3px;
+
+        }
+
+
+        .gn-footer-newsletter {
+
+            display: flex;
+
+            margin-top: 15px;
+
+            border: 1px solid rgba(255,255,255,.15);
+
+            border-radius: 50px;
+
+            overflow: hidden;
+
+        }
+
+
+        .gn-footer-newsletter input {
+
+            flex: 1;
+
+            min-width: 0;
+
+            border: 0;
+
+            outline: 0;
+
+            background: transparent;
+
+            color: var(--white);
+
+            padding: 11px 15px;
+
+            font-size: 11px;
+
+        }
+
+
+        .gn-footer-newsletter input::placeholder {
+
+            color: rgba(255,255,255,.4);
+
+        }
+
+
+        .gn-footer-newsletter button {
+
+            border: 0;
+
+            background: var(--gold);
+
+            color: var(--green-deep);
+
+            width: 44px;
+
+            font-size: 14px;
+
+        }
+
+
+        .gn-footer-social {
+
+            display: flex;
+
+            gap: 8px;
+
+            margin-top: 22px;
+
+        }
+
+
+        .gn-social {
+
+            width: 35px;
+
+            height: 35px;
+
+            border: 1px solid rgba(255,255,255,.15);
+
+            border-radius: 50%;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            color: rgba(255,255,255,.7);
+
+            transition: .25s ease;
+
+        }
+
+
+        .gn-social:hover {
+
+            background: var(--gold);
+
+            border-color: var(--gold);
+
+            color: var(--green-deep);
+
+            transform: translateY(-3px);
+
+        }
+
+
+        .gn-footer-bottom {
+
+            border-top: 1px solid rgba(255,255,255,.09);
+
+            padding: 18px 0;
+
+        }
+
+
+        .gn-footer-bottom-inner {
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            gap: 15px;
+
+        }
+
+
+        .gn-footer-copy {
+
+            font-size: 10px;
+
+            color: rgba(255,255,255,.45);
+
+        }
+
+
+        .gn-footer-badges {
+
+            display: flex;
+
+            gap: 16px;
+
+            font-size: 10px;
+
+            color: rgba(255,255,255,.45);
+
+        }
+
+
+        .gn-footer-badges i {
+
+            color: var(--gold);
+
+            margin-right: 4px;
+
+        }
+
+
+        /* =========================================================
+           SCROLL TOP
+        ========================================================== */
+
+        #gnScrollTop {
+
+            position: fixed;
+
+            right: 22px;
+
+            bottom: 22px;
+
+            width: 42px;
+
+            height: 42px;
+
+            border: 0;
+
+            border-radius: 50%;
+
+            background: var(--green-dark);
+
+            color: var(--white);
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            box-shadow:
+                0 8px 25px rgba(7,53,39,.2);
+
+            opacity: 0;
+
+            visibility: hidden;
+
+            transform: translateY(15px);
+
+            transition: .3s ease;
+
+            z-index: 999;
+
+        }
+
+
+        #gnScrollTop.show {
+
+            opacity: 1;
+
+            visibility: visible;
+
+            transform: translateY(0);
+
+        }
+
+
+        #gnScrollTop:hover {
+
+            background: var(--gold);
+
+            color: var(--green-deep);
+
+        }
+
+
+        /* =========================================================
+           DESKTOP DROPDOWN POSITIONING
+        ========================================================== */
+
+        @media (min-width: 993px) {
+
+            .gn-menu > li.gn-dropdown-parent:nth-child(2)
+            > .gn-dropdown {
+
+                left: 0;
+
+            }
+
+
+            .gn-menu > li.gn-dropdown-parent:nth-child(3)
+            > .gn-dropdown {
+
+                left: 0;
+
+            }
+
+
+            .gn-dropdown-item > .gn-dropdown {
+
+                top: -10px;
+
+                left: calc(100% + 6px);
+
+            }
+
+        }
+
+
+        /* =========================================================
+           LARGE SCREEN
+        ========================================================== */
+
+        @media (min-width: 1201px) {
+
+            .gn-menu-link {
+
+                padding-left: 12px;
+
+                padding-right: 12px;
+
+                font-size: 12px;
+
+            }
+
+        }
+
+
+        /* =========================================================
+           1200px
+        ========================================================== */
+
+        @media (max-width: 1200px) {
+
+            .gn-menu {
+
+                gap: 0;
+
+            }
+
+
+            .gn-menu-link {
+
+                padding-left: 8px;
+
+                padding-right: 8px;
+
+                font-size: 10px;
+
+            }
+
+
+            .gn-login-btn,
+            .gn-shop-btn {
+
+                display: none;
+
+            }
+
+
+            .gn-navbar-inner {
+
+                gap: 12px;
+
+            }
+
+
+            .gn-dropdown {
+
+                min-width: 225px;
+
+            }
+
+
+            .gn-dropdown .gn-dropdown {
+
+                min-width: 220px;
+
+            }
+
+        }
+
+
+        /* =========================================================
+           TABLET
+        ========================================================== */
+
+        @media (max-width: 992px) {
+
+            .gn-menu,
+            .gn-actions {
+
+                display: none;
+
+            }
+
+
+            .gn-mobile-toggle {
+
+                display: flex;
+
+            }
+
+
+            .gn-navbar-inner {
+
+                min-height: 68px;
+
+            }
+
+
+            .gn-topbar-left {
+
+                display: none;
+
+            }
+
+
+            .gn-topbar-inner {
+
+                justify-content: center;
+
+            }
+
+
+            .gn-dropdown {
+
+                display: none !important;
+
+            }
+
+        }
+
+
+        /* =========================================================
+           MOBILE
+        ========================================================== */
+
+        @media (max-width: 768px) {
+
+            .gn-shop-btn {
+
+                min-width: 115px;
+
+                height: 40px;
+
+                padding: 0 16px;
+
+                font-size: 12px;
+
+            }
+
+
+            .gn-shop-content > i:first-child {
+
+                font-size: 14px;
+
+            }
+
+
+            .gn-shop-arrow {
+
+                font-size: 13px;
+
+            }
+
+
+            .gn-topbar {
+
+                font-size: 10px;
+
+            }
+
+        }
+
+
+        /* =========================================================
+           SMALL MOBILE
+        ========================================================== */
+
+        @media (max-width: 576px) {
+
+            .gn-topbar {
+
+                font-size: 10px;
+
+            }
+
+
+            .gn-topbar-right {
+
+                gap: 10px;
+
+            }
+
+
+            .gn-logo-name {
+
+                font-size: 23px;
+
+            }
+
+
+            .gn-logo-icon {
+
+                width: 38px;
+
+                height: 38px;
+
+            }
+
+
+            .gn-logo-tagline {
+
+                font-size: 7px;
+
+            }
+
+
+            .gn-navbar-inner {
+
+                padding-left: 14px;
+
+                padding-right: 14px;
+
+            }
+
+
+            .gn-footer-main {
+
+                padding: 50px 0 35px;
+
+            }
+
+
+            .gn-footer-bottom-inner {
+
+                flex-direction: column;
+
+                text-align: center;
+
+            }
+
+
+            .gn-footer-badges {
+
+                justify-content: center;
+
+                flex-wrap: wrap;
+
+            }
+
+        }
+
+
+        /* =========================================================
+           EXTRA SMALL MOBILE
+        ========================================================== */
+
+        @media (max-width: 380px) {
+
+            .gn-logo {
+
+                gap: 7px;
+
+            }
+
+
+            .gn-logo-name {
+
+                font-size: 21px;
+
+            }
+
+
+            .gn-logo-icon {
+
+                width: 36px;
+
+                height: 36px;
+
+                font-size: 18px;
+
+            }
+
+
+            .gn-mobile-toggle {
+
+                width: 39px;
+
+                height: 39px;
+
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- =========================================================
+         TOP BAR
+    ========================================================== -->
+
+    <div class="gn-topbar">
+
+        <div class="container">
+
+            <div class="gn-topbar-inner">
+
+                <div class="gn-topbar-left">
+
+                    <div class="gn-topbar-item">
+
+                        <i class="bi bi-envelope"></i>
+
+                        support@greennest.com
+
+                    </div>
+
+                    <div class="gn-topbar-item">
+
+                        <i class="bi bi-telephone"></i>
+
+                        +91 98765 43210
+
+                    </div>
+
+                </div>
+
+
+                <div class="gn-topbar-right">
+
+                    <div class="gn-topbar-item">
+
+                        <i class="bi bi-truck"></i>
+
+                        Free delivery on orders above ₹999
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- =========================================================
+         NAVBAR
+    ========================================================== -->
+
+    <nav class="gn-navbar"
+         id="gnNavbar">
+
+        <div class="container">
+
+            <div class="gn-navbar-inner">
+
+
+                <!-- LOGO -->
+
+                <a href="{% url 'home' %}"
+                   class="gn-logo">
+
+                    <div class="gn-logo-icon">
+
+                        <i class="bi bi-flower1"></i>
+
+                    </div>
+
+                    <div class="gn-logo-text">
+
+                        <div class="gn-logo-name">
+                            GreenNest
+                        </div>
+
+                        <div class="gn-logo-tagline">
+                            Bring Nature Home
+                        </div>
+
+                    </div>
+
+                </a>
+
+
+
+                <!-- =================================================
+                     DESKTOP MENU
+                ================================================== -->
+
+                <ul class="gn-menu">
+
+
+                    <!-- HOME -->
+
+                    <li>
+
+                        <a href="{% url 'home' %}"
+                           class="gn-menu-link">
+
+                            Home
+
+                        </a>
+
+                    </li>
+
+
+
+                    <!-- =================================================
+                         CATEGORIES
+                    ================================================== -->
+
+                    <li class="gn-dropdown-parent">
+
+                        <a href="{% url 'plant' %}"
+                           class="gn-menu-link">
+
+                            Categories
+
+                            <i class="bi bi-chevron-down"></i>
+
+                        </a>
+
+
+                        <div class="gn-dropdown">
+
+                            <div class="gn-dropdown-title">
+                                Shop By Category
+                            </div>
+
+
+                            <!-- INDOOR PLANTS -->
+
+                            <div class="gn-dropdown-item">
+
+                                <a href="{% url 'plant' %}?category=Indoor%20Plants"
+                                   class="gn-dropdown-link">
+
+                                    <span>
+                                        <i class="bi bi-house-heart me-2"></i>
+                                        Indoor Plants
+                                    </span>
+
+                                    <i class="bi bi-chevron-right"></i>
+
+                                </a>
+
+
+                                <div class="gn-dropdown">
+
+                                    <div class="gn-dropdown-title">
+                                        Indoor Plant Collection
+                                    </div>
+
+                                    <a href="{% url 'plant' %}?category=Indoor%20Plants&subcategory=Low%20Light%20Plants"
+                                       class="gn-dropdown-link">
+                                        Snake Plant
+                                    </a>
+
+                                    <a href="{% url 'plant' %}?category=Indoor%20Plants&subcategory=Money%20Plant"
+                                       class="gn-dropdown-link">
+                                        Money Plant
+                                    </a>
+
+                                    <a href="{% url 'plant' %}?category=Indoor%20Plants&subcategory=Peace%20Lily"
+                                       class="gn-dropdown-link">
+                                        Peace Lily
+                                    </a>
+
+                                    <a href="{% url 'plant' %}?category=Indoor%20Plants&subcategory=Spider%20Plant"
+                                       class="gn-dropdown-link">
+                                        Spider Plant
+                                    </a>
+
+                                    <a href="{% url 'plant' %}?category=Indoor%20Plants&subcategory=Areca%20Palm"
+                                       class="gn-dropdown-link">
+                                        Areca Palm
+                                    </a>
+
+                                    <a href="{% url 'plant' %}?category=Indoor%20Plants&subcategory=ZZ%20Plant"
+                                       class="gn-dropdown-link">
+                                        ZZ Plant
+                                    </a>
+
+                                    <a href="{% url 'plant' %}?category=Indoor%20Plants&subcategory=Rubber%20Plant"
+                                       class="gn-dropdown-link">
+                                        Rubber Plant
+                                    </a>
+
+                                    <a href="{% url 'plant' %}?category=Indoor%20Plants&subcategory=Monstera%20Plant"
+                                       class="gn-dropdown-link">
+                                        Monstera Plant
+                                    </a>
+
+                                    <a href="{% url 'plant' %}?category=Indoor%20Plants&subcategory=Aglaonema"
+                                       class="gn-dropdown-link">
+                                        Aglaonema
+                                    </a>
+
+                                    <a href="{% url 'plant' %}?category=Indoor%20Plants&subcategory=Lucky%20Bamboo"
+                                       class="gn-dropdown-link">
+                                        Lucky Bamboo
+                                    </a>
+
+                                </div>
+
+                            </div>
+
+
+
+                            <!-- OUTDOOR PLANTS -->
+
+                            <div class="gn-dropdown-item">
+
+                                <a href="{% url 'plant' %}?category=Outdoor%20Plants"
+                                   class="gn-dropdown-link">
+
+                                    <span>
+                                        <i class="bi bi-sun me-2"></i>
+                                        Outdoor Plants
+                                    </span>
+
+                                    <i class="bi bi-chevron-right"></i>
+
+                                </a>
+
+
+                                <div class="gn-dropdown">
+
+                                    <div class="gn-dropdown-title">
+                                        Outdoor Plant Collection
+                                    </div>
+
+                                    <a href="{% url 'plant' %}?category=Outdoor%20Plants&subcategory=Bougainvillea"
+                                       class="gn-dropdown-link">
+                                        Bougainvillea
+                                    </a>
+
+                                    <a href="{% url 'plant' %}?category=Outdoor%20Plants&subcategory=Hibiscus"
+                                       class="gn-dropdown-link">
+                                        Hibiscus
+                                    </a>
+
+                                    <a href="{% url 'plant' %}?category=Outdoor%20Plants&subcategory=Croton%20Plant"
+                                       class="gn-dropdown-link">
+                                        Croton Plant
+                                    </a>
+
+                                    <a href="{% url 'plant' %}?category=Outdoor%20Plants&subcategory=Ficus%20Plant"
+                                       class="gn-dropdown-link">
+                                        Ficus Plant
+                                    </a>
+
+                                    <a href="{% url 'plant' %}?category=Outdoor%20Plants&subcategory=Palm%20Plant"
+                                       class="gn-dropdown-link">
+                                        Palm Plant
+                                    </a>
+
+                                    <a href="{% url 'plant' %}?category=Outdoor%20Plants&subcategory=Jasmine"
+                                       class="gn-dropdown-link">
+                                        Jasmine
+                                    </a>
+
+                                    <a href="{% url 'plant' %}?category=Outdoor%20Plants&subcategory=Rose%20Bush"
+                                       class="gn-dropdown-link">
+                                        Rose Bush
+                                    </a>
+
+                                    <a href="{% url 'plant' %}?category=Outdoor%20Plants&subcategory=Ashoka%20Plant"
+                                       class="gn-dropdown-link">
+                                        Ashoka Plant
+                                    </a>
+
+                                    <a href="{% url 'plant' %}?category=Outdoor%20Plants&subcategory=Bamboo%20Plant"
+                                       class="gn-dropdown-link">
+                                        Bamboo Plant
+                                    </a>
+
+                                    <a href="{% url 'plant' %}?category=Outdoor%20Plants&subcategory=Plumeria"
+                                       class="gn-dropdown-link">
+                                        Plumeria
+                                    </a>
+
+                                </div>
+
+                            </div>
+
+
+
+                            <!-- FLOWER PLANTS -->
+
+                            <div class="gn-dropdown-item">
+
+                                <a href="{% url 'plant' %}?category=Flower%20Plants"
+                                   class="gn-dropdown-link">
+
+                                    <span>
+                                        <i class="bi bi-flower2 me-2"></i>
+                                        Flower Plants
+                                    </span>
+
+                                    <i class="bi bi-chevron-right"></i>
+
+                                </a>
+
+
+                                <div class="gn-dropdown">
+
+                                    <div class="gn-dropdown-title">
+                                        Flower Plant Collection
+                                    </div>
+
+                                    <a href="{% url 'plant' %}?category=Flower%20Plants&subcategory=Rose%20Plant"
+                                       class="gn-dropdown-link">
+                                        Rose Plant
+                                    </a>
+
+                                    <a href="{% url 'plant' %}?category=Flower%20Plants&subcategory=Marigold"
+                                       class="gn-dropdown-link">
+                                        Marigold
+                                    </a>
+
+                                    <a href="{% url 'plant' %}?category=Flower%20Plants&subcategory=Jasmine"
+                                       class="gn-dropdown-link">
+                                        Jasmine
+                                    </a>
+
+                                    <a href="{% url 'plant' %}?category=Flower%20Plants&subcategory=Petunia"
+                                       class="gn-dropdown-link">
+                                        Petunia
+                                    </a>
+
+                                    <a href="{% url 'plant' %}?category=Flower%20Plants&subcategory=Hibiscus"
+                                       class="gn-dropdown-link">
+                                        Hibiscus
+                                    </a>
+
+                                    <a href="{% url 'plant' %}?category=Flower%20Plants&subcategory=Anthurium"
+                                       class="gn-dropdown-link">
+                                        Anthurium
+                                    </a>
+
+                                    <a href="{% url 'plant' %}?category=Flower%20Plants&subcategory=Gerbera"
+                                       class="gn-dropdown-link">
+                                        Gerbera
+                                    </a>
+
+                                    <a href="{% url 'plant' %}?category=Flower%20Plants&subcategory=Chrysanthemum"
+                                       class="gn-dropdown-link">
+                                        Chrysanthemum
+                                    </a>
+
+                                    <a href="{% url 'plant' %}?category=Flower%20Plants&subcategory=Dahlia"
+                                       class="gn-dropdown-link">
+                                        Dahlia
+                                    </a>
+
+                                    <a href="{% url 'plant' %}?category=Flower%20Plants&subcategory=Ixora"
+                                       class="gn-dropdown-link">
+                                        Ixora
+                                    </a>
+
+                                </div>
+
+                            </div>
+
+
+                            <!-- =================================================
+                                 TABLE PLANT
+                            ================================================== -->
+
+                            <div class="gn-dropdown-item">
+
+                                <a href="{% url 'tablep' %}"
+                                   class="gn-dropdown-link">
+
+                                    <span>
+                                        <i class="bi bi-flower1 me-2"></i>
+                                        Table Plant
+                                    </span>
+
+                                </a>
+
+                            </div>
+
+                        </div>
+
+                    </li>
+
+
+
+                    <!-- =================================================
+                         COLLECTION
+                    ================================================== -->
+
+                    <li class="gn-dropdown-parent">
+
+                        <a href="{% url 'collection' %}"
+                           class="gn-menu-link">
+
+                            Collection
+
+                            <i class="bi bi-chevron-down"></i>
+
+                        </a>
+
+
+                        <div class="gn-dropdown">
+
+                            <!-- NEW ARRIVALS -->
+
+                            <a href="{% url 'collection' %}?collection_id=1"
+                               class="gn-dropdown-link">
+
+                                New Arrivals
+
+                            </a>
+
+
+                            <!-- BEST SELLERS -->
+
+                            <a href="{% url 'collection' %}?collection_id=2"
+                               class="gn-dropdown-link">
+
+                                Best Sellers
+
+                            </a>
+
+
+                            <!-- PREMIUM PLANTS -->
+
+                            <a href="{% url 'collection' %}?collection_id=3"
+                               class="gn-dropdown-link">
+
+                                Premium Plants
+
+                            </a>
+
+
+                            <!-- BEGINNER COLLECTION -->
+
+                            <a href="{% url 'collection' %}?collection_id=4"
+                               class="gn-dropdown-link">
+
+                                Beginner Collection
+
+                            </a>
+
+
+                            <!-- FLOWERING COLLECTION -->
+
+                            <a href="{% url 'collection' %}?collection_id=5"
+                               class="gn-dropdown-link">
+
+                                Flowering Collection
+
+                            </a>
+
+
+                            <!-- SEASONAL COLLECTION -->
+
+                            <div class="gn-dropdown-item">
+
+                                <a href="{% url 'collection' %}?collection_id=6"
+                                   class="gn-dropdown-link">
+
+                                    Seasonal Collection
+
+                                    <i class="bi bi-chevron-right"></i>
+
+                                </a>
+
+
+                                <!-- SEASONAL CHILDREN -->
+
+                                <div class="gn-dropdown">
+
+                                    <a href="{% url 'collection' %}?collection_id=7"
+                                       class="gn-dropdown-link">
+                                        Spring
+                                    </a>
+
+                                    <a href="{% url 'collection' %}?collection_id=8"
+                                       class="gn-dropdown-link">
+                                        Summer
+                                    </a>
+
+                                    <a href="{% url 'collection' %}?collection_id=9"
+                                       class="gn-dropdown-link">
+                                        Autumn
+                                    </a>
+
+                                    <a href="{% url 'collection' %}?collection_id=10"
+                                       class="gn-dropdown-link">
+                                        Winter
+                                    </a>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </li>
+
+
+
+                    <!-- =================================================
+                         ABOUT
+                    ================================================== -->
+
+                    <li>
+
+                        <a href="{% url 'about' %}"
+                           class="gn-menu-link">
+
+                            About
+
+                        </a>
+
+                    </li>
+
+
+
+                    <!-- =================================================
+                         CONTACT
+                    ================================================== -->
+
+                    <li>
+
+                        <a href="{% url 'contact' %}"
+                           class="gn-menu-link">
+
+                            Contact
+
+                        </a>
+
+                    </li>
+
+                </ul>
+
+
+
+                <!-- =================================================
+                     DESKTOP ACTIONS
+                ================================================== -->
+
+                <div class="gn-actions">
+
+
+                    <!-- SEARCH -->
+
+                    <a href="#search"
+                       class="gn-action"
+                       title="Search">
+
+                        <i class="bi bi-search"></i>
+
+                    </a>
+
+
+                    <!-- WISHLIST -->
+
+                    <a href="{% url 'wishlist' %}"
+                       class="gn-action"
+                       title="Wishlist">
+
+                        <i class="bi bi-heart"></i>
+
+                        {% if wishlist_count|default:0 > 0 %}
+
+                            <span class="gn-cart-count">
+                                {{ wishlist_count }}
+                            </span>
+
+                        {% endif %}
+
+                    </a>
+
+
+                    <!-- CART -->
+
+                    <a href="{% url 'mycart' %}"
+                       class="gn-action"
+                       title="Cart">
+
+                        <i class="bi bi-cart3"></i>
+
+                        {% if cart_count|default:0 > 0 %}
+
+                            <span class="gn-cart-count">
+                                {{ cart_count }}
+                            </span>
+
+                        {% endif %}
+
+                    </a>
+
+
+                    <!-- LOGIN / PROFILE -->
+
+                    {% if request.session.user %}
+
+                        <div class="gn-user-dropdown">
+
+                            <button type="button"
+                                    class="gn-profile-btn">
+
+                                <i class="bi bi-person-circle"></i>
+
+                            </button>
+
+
+                            <div class="gn-profile-menu">
+
+                                <div class="gn-profile-header">
+
+                                    <div class="gn-profile-icon">
+
+                                        <i class="bi bi-person-fill"></i>
+
+                                    </div>
+
+                                    <div>
+
+                                        <div class="gn-profile-title">
+                                            My Account
+                                        </div>
+
+                                        <div class="gn-profile-email">
+                                            {{ request.session.user }}
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+
+                                <div class="gn-profile-divider"></div>
+
+
+                                <a href="{% url 'UDashboard' %}"
+                                   class="gn-profile-link">
+
+                                    <i class="bi bi-speedometer2"></i>
+
+                                    <span>
+                                        Go to Dashboard
+                                    </span>
+
+                                </a>
+
+
+                                <a href="{% url 'wishlist' %}"
+                                   class="gn-profile-link">
+
+                                    <i class="bi bi-heart"></i>
+
+                                    <span>
+                                        My Wishlist
+                                    </span>
+
+                                    {% if wishlist_count|default:0 > 0 %}
+
+                                        <span class="gn-cart-count"
+                                              style="position:static; margin-left:auto;">
+
+                                            {{ wishlist_count }}
+
+                                        </span>
+
+                                    {% endif %}
+
+                                </a>
+
+
+                                <a href="{% url 'mycart' %}"
+                                   class="gn-profile-link">
+
+                                    <i class="bi bi-cart3"></i>
+
+                                    <span>
+                                        My Cart
+                                    </span>
+
+                                    {% if cart_count|default:0 > 0 %}
+
+                                        <span class="gn-cart-count"
+                                              style="position:static; margin-left:auto;">
+
+                                            {{ cart_count }}
+
+                                        </span>
+
+                                    {% endif %}
+
+                                </a>
+
+
+                                <a href="{% url 'logout' %}"
+                                   class="gn-profile-link logout-link">
+
+                                    <i class="bi bi-box-arrow-right"></i>
+
+                                    <span>
+                                        Logout
+                                    </span>
+
+                                </a>
+
+                            </div>
+
+                        </div>
+
+                    {% else %}
+
+                        <a href="{% url 'login' %}"
+                           class="gn-login-btn">
+
+                            Sign In
+
+                        </a>
+
+                    {% endif %}
+
+
+                    <!-- SHOP NOW -->
+
+                    <a href="{% url 'plant' %}"
+                       class="gn-shop-btn"
+                       id="shopNowBtn">
+
+                        <span class="gn-shop-content">
+
+                            <i class="bi bi-bag-heart"></i>
+
+                            <span>
+                                Shop Now
+                            </span>
+
+                            <i class="bi bi-arrow-right gn-shop-arrow"></i>
+
+                        </span>
+
+                        <span class="gn-shop-shine"></span>
+
+                    </a>
+
+                </div>
+
+
+                <!-- =================================================
+                     MOBILE TOGGLE
+                ================================================== -->
+
+                <button class="gn-mobile-toggle"
+                        id="gnMobileToggle"
+                        type="button">
+
+                    <i class="bi bi-list"></i>
+
+                </button>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- =========================================================
+             MOBILE MENU
+        ========================================================== -->
+
+        <div class="gn-mobile-menu"
+             id="gnMobileMenu">
+
+
+            <!-- HOME -->
+
+            <a href="{% url 'home' %}"
+               class="gn-mobile-link">
+
+                Home
+
+            </a>
+
+
+            <!-- MOBILE CART / WISHLIST -->
+
+            <div class="gn-mobile-icons">
+
+                <a href="{% url 'wishlist' %}"
+                   class="gn-mobile-icon-link">
+
+                    <i class="bi bi-heart"></i>
+
+                    <span>
+                        Wishlist
+                    </span>
+
+                    {% if wishlist_count|default:0 > 0 %}
+
+                        <span class="gn-mobile-count">
+                            {{ wishlist_count }}
+                        </span>
+
+                    {% endif %}
+
+                </a>
+
+
+                <a href="{% url 'mycart' %}"
+                   class="gn-mobile-icon-link">
+
+                    <i class="bi bi-cart3"></i>
+
+                    <span>
+                        Cart
+                    </span>
+
+                    {% if cart_count|default:0 > 0 %}
+
+                        <span class="gn-mobile-count">
+                            {{ cart_count }}
+                        </span>
+
+                    {% endif %}
+
+                </a>
+
+            </div>
+
+
+
+            <!-- =====================================================
+                 MOBILE CATEGORIES
+            ====================================================== -->
+
+            <div>
+
+                <div class="gn-mobile-link">
+
+                    Categories
+
+                    <i class="bi bi-chevron-down"></i>
+
+                </div>
+
+
+                <div class="gn-mobile-sub">
+
+
+                    <!-- INDOOR -->
+
+                    <div class="gn-mobile-heading">
+                        Indoor Plants
+                    </div>
+
+
+                    <a href="{% url 'plant' %}?category=Indoor%20Plants&subcategory=Low%20Light%20Plants">
+                        Snake Plant
+                    </a>
+
+                    <a href="{% url 'plant' %}?category=Indoor%20Plants&subcategory=Money%20Plant">
+                        Money Plant
+                    </a>
+
+                    <a href="{% url 'plant' %}?category=Indoor%20Plants&subcategory=Peace%20Lily">
+                        Peace Lily
+                    </a>
+
+                    <a href="{% url 'plant' %}?category=Indoor%20Plants&subcategory=Spider%20Plant">
+                        Spider Plant
+                    </a>
+
+                    <a href="{% url 'plant' %}?category=Indoor%20Plants&subcategory=Areca%20Palm">
+                        Areca Palm
+                    </a>
+
+                    <a href="{% url 'plant' %}?category=Indoor%20Plants&subcategory=ZZ%20Plant">
+                        ZZ Plant
+                    </a>
+
+                    <a href="{% url 'plant' %}?category=Indoor%20Plants&subcategory=Rubber%20Plant">
+                        Rubber Plant
+                    </a>
+
+                    <a href="{% url 'plant' %}?category=Indoor%20Plants&subcategory=Monstera%20Plant">
+                        Monstera Plant
+                    </a>
+
+                    <a href="{% url 'plant' %}?category=Indoor%20Plants&subcategory=Aglaonema">
+                        Aglaonema
+                    </a>
+
+                    <a href="{% url 'plant' %}?category=Indoor%20Plants&subcategory=Lucky%20Bamboo">
+                        Lucky Bamboo
+                    </a>
+
+
+
+                    <!-- OUTDOOR -->
+
+                    <div class="gn-mobile-heading">
+                        Outdoor Plants
+                    </div>
+
+
+                    <a href="{% url 'plant' %}?category=Outdoor%20Plants&subcategory=Bougainvillea">
+                        Bougainvillea
+                    </a>
+
+                    <a href="{% url 'plant' %}?category=Outdoor%20Plants&subcategory=Hibiscus">
+                        Hibiscus
+                    </a>
+
+                    <a href="{% url 'plant' %}?category=Outdoor%20Plants&subcategory=Croton%20Plant">
+                        Croton Plant
+                    </a>
+
+                    <a href="{% url 'plant' %}?category=Outdoor%20Plants&subcategory=Ficus%20Plant">
+                        Ficus Plant
+                    </a>
+
+                    <a href="{% url 'plant' %}?category=Outdoor%20Plants&subcategory=Palm%20Plant">
+                        Palm Plant
+                    </a>
+
+                    <a href="{% url 'plant' %}?category=Outdoor%20Plants&subcategory=Jasmine">
+                        Jasmine
+                    </a>
+
+                    <a href="{% url 'plant' %}?category=Outdoor%20Plants&subcategory=Rose%20Bush">
+                        Rose Bush
+                    </a>
+
+                    <a href="{% url 'plant' %}?category=Outdoor%20Plants&subcategory=Ashoka%20Plant">
+                        Ashoka Plant
+                    </a>
+
+                    <a href="{% url 'plant' %}?category=Outdoor%20Plants&subcategory=Bamboo%20Plant">
+                        Bamboo Plant
+                    </a>
+
+                    <a href="{% url 'plant' %}?category=Outdoor%20Plants&subcategory=Plumeria">
+                        Plumeria
+                    </a>
+
+
+
+                    <!-- FLOWER -->
+
+                    <div class="gn-mobile-heading">
+                        Flower Plants
+                    </div>
+
+
+                    <a href="{% url 'plant' %}?category=Flower%20Plants&subcategory=Rose%20Plant">
+                        Rose Plant
+                    </a>
+
+                    <a href="{% url 'plant' %}?category=Flower%20Plants&subcategory=Marigold">
+                        Marigold
+                    </a>
+
+                    <a href="{% url 'plant' %}?category=Flower%20Plants&subcategory=Jasmine">
+                        Jasmine
+                    </a>
+
+                    <a href="{% url 'plant' %}?category=Flower%20Plants&subcategory=Petunia">
+                        Petunia
+                    </a>
+
+                    <a href="{% url 'plant' %}?category=Flower%20Plants&subcategory=Hibiscus">
+                        Hibiscus
+                    </a>
+
+                    <a href="{% url 'plant' %}?category=Flower%20Plants&subcategory=Anthurium">
+                        Anthurium
+                    </a>
+
+                    <a href="{% url 'plant' %}?category=Flower%20Plants&subcategory=Gerbera">
+                        Gerbera
+                    </a>
+
+                    <a href="{% url 'plant' %}?category=Flower%20Plants&subcategory=Chrysanthemum">
+                        Chrysanthemum
+                    </a>
+
+                    <a href="{% url 'plant' %}?category=Flower%20Plants&subcategory=Dahlia">
+                        Dahlia
+                    </a>
+
+                    <a href="{% url 'plant' %}?category=Flower%20Plants&subcategory=Ixora">
+                        Ixora
+                    </a>
+
+
+
+                    <!-- TABLE PLANT -->
+
+                    <div class="gn-mobile-heading">
+                        Table Plants
+                    </div>
+
+
+                    <a href="{% url 'tablep' %}">
+                        Table Plants
+                    </a>
+
+
+
+                    <!-- MORE CATEGORIES -->
+
+                    <div class="gn-mobile-heading">
+                        More Categories
+                    </div>
+
+
+                    <a href="{% url 'plantcare' %}">
+                        Plant Care
+                    </a>
+
+                    <a href="{% url 'plant' %}?category=Easy%20Care%20Plants">
+                        Easy Care Plants
+                    </a>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- COLLECTION -->
+
+            <a href="{% url 'collection' %}"
+               class="gn-mobile-link">
+
+                Collection
+
+                <i class="bi bi-chevron-right"></i>
+
+            </a>
+
+
+
+            <!-- PRODUCTS -->
+
+            <a href="{% url 'plant' %}"
+               class="gn-mobile-link">
+
+                Products
+
+            </a>
+
+
+
+            <!-- ABOUT -->
+
+            <a href="{% url 'about' %}"
+               class="gn-mobile-link">
+
+                About
+
+            </a>
+
+
+
+            <!-- CONTACT -->
+
+            <a href="{% url 'contact' %}"
+               class="gn-mobile-link">
+
+                Contact
+
+            </a>
+
+
+
+            <!-- =====================================================
+                 MOBILE ACCOUNT
+            ====================================================== -->
+
+            {% if request.session.user %}
+
+                <div class="gn-mobile-action">
+
+                    <a href="{% url 'UDashboard' %}">
+
+                        <i class="bi bi-person-circle"></i>
+
+                        My Dashboard
+
+                    </a>
+
+                </div>
+
+
+                <div class="gn-mobile-action">
+
+                    <a href="{% url 'logout' %}">
+
+                        <i class="bi bi-box-arrow-right"></i>
+
+                        Logout
+
+                    </a>
+
+                </div>
+
+            {% else %}
+
+                <div class="gn-mobile-action">
+
+                    <a href="{% url 'login' %}">
+
+                        <i class="bi bi-box-arrow-in-right"></i>
+
+                        Sign In
+
+                    </a>
+
+                </div>
+
+            {% endif %}
+
+
+
+            <!-- SHOP NOW -->
+
+            <div class="gn-mobile-action">
+
+                <a href="{% url 'plant' %}">
+
+                    <i class="bi bi-shop"></i>
+
+                    Shop Now
+
+                </a>
+
+            </div>
+
+        </div>
+
+    </nav>
+
+
+
+    <!-- =========================================================
+         MAIN CONTENT
+    ========================================================== -->
+
+    <main>
+
+        {% block content %}
+
+        {% endblock %}
+
+    </main>
+
+
+
+    <!-- =========================================================
+         FOOTER
+    ========================================================== -->
+
+    <footer class="gn-footer">
+
+
+        <div class="gn-footer-main">
+
+            <div class="container">
+
+                <div class="row g-5">
+
+
+                    <!-- BRAND -->
+
+                    <div class="col-lg-4 col-md-6">
+
+                        <div class="gn-footer-brand">
+
+                            <div class="gn-footer-logo">
+
+                                <div class="gn-footer-logo-icon">
+
+                                    <i class="bi bi-flower1"></i>
+
+                                </div>
+
+                                <div class="gn-footer-logo-name">
+
+                                    GreenNest
+
+                                </div>
+
+                            </div>
+
+
+                            <p class="gn-footer-description">
+
+                                Bring nature home with beautiful plants,
+                                elegant pots and thoughtful home decor.
+                                GreenNest helps you create spaces that
+                                feel fresh, calm and alive.
+
+                            </p>
+
+
+                            <div class="gn-footer-social">
+
+                                <a href="#"
+                                   class="gn-social">
+
+                                    <i class="bi bi-instagram"></i>
+
+                                </a>
+
+                                <a href="#"
+                                   class="gn-social">
+
+                                    <i class="bi bi-facebook"></i>
+
+                                </a>
+
+                                <a href="#"
+                                   class="gn-social">
+
+                                    <i class="bi bi-pinterest"></i>
+
+                                </a>
+
+                                <a href="#"
+                                   class="gn-social">
+
+                                    <i class="bi bi-youtube"></i>
+
+                                </a>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- QUICK LINKS -->
+
+                    <div class="col-lg-2 col-md-6">
+
+                        <div class="gn-footer-title">
+                            Quick Links
+                        </div>
+
+
+                        <ul class="gn-footer-links">
+
+                            <li>
+                                <a href="{% url 'home' %}">
+                                    Home
+                                </a>
+                            </li>
+
+                            <li>
+                                <a href="{% url 'about' %}">
+                                    About Us
+                                </a>
+                            </li>
+
+                            <li>
+                                <a href="{% url 'plant' %}">
+                                    Products
+                                </a>
+                            </li>
+
+                            <li>
+                                <a href="{% url 'collection' %}">
+                                    Collection
+                                </a>
+                            </li>
+
+                            <li>
+                                <a href="{% url 'contact' %}">
+                                    Contact
+                                </a>
+                            </li>
+
+                        </ul>
+
+                    </div>
+
+
+
+                    <!-- PLANTS -->
+
+                    <div class="col-lg-2 col-md-6">
+
+                        <div class="gn-footer-title">
+                            Plants
+                        </div>
+
+
+                        <ul class="gn-footer-links">
+
+                            <li>
+                                <a href="{% url 'plant' %}?category=Indoor%20Plants">
+                                    Indoor Plants
+                                </a>
+                            </li>
+
+                            <li>
+                                <a href="{% url 'plant' %}?category=Outdoor%20Plants">
+                                    Outdoor Plants
+                                </a>
+                            </li>
+
+                            <li>
+                                <a href="{% url 'plant' %}?category=Flower%20Plants">
+                                    Flower Plants
+                                </a>
+                            </li>
+
+                            <li>
+                                <a href="{% url 'tablep' %}">
+                                    Table Plants
+                                </a>
+                            </li>
+
+                            <li>
+                                <a href="{% url 'plantcare' %}">
+                                    Plant Care
+                                </a>
+                            </li>
+
+                            <li>
+                                <a href="{% url 'plant' %}?category=Easy%20Care%20Plants">
+                                    Easy Care
+                                </a>
+                            </li>
+
+                        </ul>
+
+                    </div>
+
+
+
+                    <!-- NEWSLETTER -->
+
+                    <div class="col-lg-4 col-md-6">
+
+                        <div class="gn-footer-title">
+                            Stay Connected
+                        </div>
+
+
+                        <p class="gn-footer-description">
+
+                            Get plant care tips, new arrivals,
+                            seasonal collections and GreenNest
+                            updates directly in your inbox.
+
+                        </p>
+
+
+                        <div class="gn-footer-newsletter">
+
+                            <input type="email"
+                                   id="gnNewsletterEmail"
+                                   placeholder="Your email address">
+
+                            <button type="button"
+                                    id="gnNewsletterBtn">
+
+                                <i class="bi bi-arrow-right"></i>
+
+                            </button>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- FOOTER BOTTOM -->
+
+        <div class="gn-footer-bottom">
+
+            <div class="container">
+
+                <div class="gn-footer-bottom-inner">
+
+                    <div class="gn-footer-copy">
+
+                        © 2026 GreenNest.
+                        All Rights Reserved.
+
+                    </div>
+
+
+                    <div class="gn-footer-badges">
+
+                        <span>
+
+                            <i class="bi bi-shield-check"></i>
+
+                            Secure Shopping
+
+                        </span>
+
+                        <span>
+
+                            <i class="bi bi-truck"></i>
+
+                            Safe Delivery
+
+                        </span>
+
+                        <span>
+
+                            <i class="bi bi-heart"></i>
+
+                            Plant Happiness
+
+                        </span>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </footer>
+
+
+
+    <!-- =========================================================
+         SCROLL TOP
+    ========================================================== -->
+
+    <button id="gnScrollTop"
+            type="button"
+            title="Back to top">
+
+        <i class="bi bi-arrow-up"></i>
+
+    </button>
+
+
+
+    <!-- =========================================================
+         JQUERY
+    ========================================================== -->
+
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+
+    <!-- =========================================================
+         BOOTSTRAP JS
+    ========================================================== -->
+
+    <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+
+
+
+    <!-- =========================================================
+         GLOBAL JS
+    ========================================================== -->
+
+    <script>
+
+        document.addEventListener("DOMContentLoaded", function () {
+
+
+            /* =====================================================
+               NAVBAR SCROLL EFFECT
+            ====================================================== */
+
+            const navbar =
+                document.getElementById("gnNavbar");
+
+
+            window.addEventListener("scroll", function () {
+
+                if (window.scrollY > 20) {
+
+                    navbar.classList.add("scrolled");
+
+                } else {
+
+                    navbar.classList.remove("scrolled");
+
+                }
+
+            });
+
+
+
+            /* =====================================================
+               MOBILE MENU
+            ====================================================== */
+
+            const mobileToggle =
+                document.getElementById("gnMobileToggle");
+
+            const mobileMenu =
+                document.getElementById("gnMobileMenu");
+
+
+            if (mobileToggle && mobileMenu) {
+
+                mobileToggle.addEventListener(
+                    "click",
+                    function () {
+
+                        mobileMenu.classList.toggle("show");
+
+
+                        const icon =
+                            mobileToggle.querySelector("i");
+
+
+                        if (
+                            mobileMenu.classList.contains("show")
+                        ) {
+
+                            icon.classList.remove("bi-list");
+
+                            icon.classList.add("bi-x-lg");
+
+                        } else {
+
+                            icon.classList.remove("bi-x-lg");
+
+                            icon.classList.add("bi-list");
+
+                        }
+
+                    }
+                );
+
+
+                /* =================================================
+                   CLOSE MOBILE MENU
+                ================================================== */
+
+                mobileMenu
+                    .querySelectorAll("a")
+                    .forEach(function (link) {
+
+                        link.addEventListener(
+                            "click",
+                            function () {
+
+                                mobileMenu.classList.remove(
+                                    "show"
+                                );
+
+
+                                const icon =
+                                    mobileToggle.querySelector("i");
+
+
+                                icon.classList.remove(
+                                    "bi-x-lg"
+                                );
+
+                                icon.classList.add(
+                                    "bi-list"
+                                );
+
+                            }
+                        );
+
+                    });
+
+            }
+
+
+
+            /* =====================================================
+               CLOSE DROPDOWN WHEN CLICKING OUTSIDE
+            ====================================================== */
+
+            document.addEventListener(
+                "click",
+                function (event) {
+
+                    if (
+                        !event.target.closest(
+                            ".gn-dropdown-parent"
+                        )
+                    ) {
+
+                        document
+                            .querySelectorAll(
+                                ".gn-dropdown-parent"
+                            )
+                            .forEach(function (item) {
+
+                                item.classList.remove("open");
+
+                            });
+
+                    }
+
+                }
+            );
+
+
+
+            /* =====================================================
+               SCROLL TOP
+            ====================================================== */
+
+            const scrollTop =
+                document.getElementById("gnScrollTop");
+
+
+            if (scrollTop) {
+
+                window.addEventListener(
+                    "scroll",
+                    function () {
+
+                        if (window.scrollY > 400) {
+
+                            scrollTop.classList.add("show");
+
+                        } else {
+
+                            scrollTop.classList.remove("show");
+
+                        }
+
+                    }
+                );
+
+
+                scrollTop.addEventListener(
+                    "click",
+                    function () {
+
+                        window.scrollTo({
+
+                            top: 0,
+
+                            behavior: "smooth"
+
+                        });
+
+                    }
+                );
+
+            }
+
+
+
+            /* =====================================================
+               NEWSLETTER
+            ====================================================== */
+
+            const newsletterBtn =
+                document.getElementById(
+                    "gnNewsletterBtn"
+                );
+
+
+            if (newsletterBtn) {
+
+                newsletterBtn.addEventListener(
+                    "click",
+                    function () {
+
+                        const email =
+                            document
+                                .getElementById(
+                                    "gnNewsletterEmail"
+                                )
+                                .value
+                                .trim();
+
+
+                        if (email === "") {
+
+                            alert(
+                                "Please enter your email address."
+                            );
+
+                            return;
+
+                        }
+
+
+                        alert(
+                            "Thank you for subscribing to GreenNest!"
+                        );
+
+                    }
+                );
+
+            }
+
+        });
+
+
+
+        /* =========================================================
+           PREMIUM SHOP NOW EFFECT
+        ========================================================= */
+
+        const shopNowBtn =
+            document.getElementById("shopNowBtn");
+
+
+        if (shopNowBtn) {
+
+
+            /* -----------------------------------------------------
+               MOUSE MOVE GLOW / 3D EFFECT
+            ----------------------------------------------------- */
+
+            shopNowBtn.addEventListener(
+                "mousemove",
+                function(e){
+
+                    const rect =
+                        shopNowBtn.getBoundingClientRect();
+
+                    const x =
+                        e.clientX - rect.left;
+
+                    const y =
+                        e.clientY - rect.top;
+
+                    const centerX =
+                        rect.width / 2;
+
+                    const centerY =
+                        rect.height / 2;
+
+                    const rotateX =
+                        (y - centerY) / 12;
+
+                    const rotateY =
+                        (centerX - x) / 12;
+
+                    shopNowBtn.style.transform =
+                        "translateY(-3px) scale(1.035) " +
+                        "perspective(500px) " +
+                        "rotateX(" + rotateX + "deg) " +
+                        "rotateY(" + rotateY + "deg)";
+
+                }
+            );
+
+
+            /* -----------------------------------------------------
+               MOUSE LEAVE
+            ----------------------------------------------------- */
+
+            shopNowBtn.addEventListener(
+                "mouseleave",
+                function(){
+
+                    shopNowBtn.style.transform =
+                        "translateY(0) scale(1)";
+
+                }
+            );
+
+
+            /* -----------------------------------------------------
+               CLICK RIPPLE
+            ----------------------------------------------------- */
+
+            shopNowBtn.addEventListener(
+                "click",
+                function(e){
+
+                    const ripple =
+                        document.createElement("span");
+
+                    ripple.classList.add(
+                        "gn-shop-ripple"
+                    );
+
+
+                    const rect =
+                        shopNowBtn.getBoundingClientRect();
+
+
+                    ripple.style.left =
+                        (e.clientX - rect.left) + "px";
+
+
+                    ripple.style.top =
+                        (e.clientY - rect.top) + "px";
+
+
+                    shopNowBtn.appendChild(ripple);
+
+
+                    setTimeout(function(){
+
+                        ripple.remove();
+
+                    }, 600);
+
+                }
+            );
+
+        }
+
+    </script>
+
+
+    {% block extra_js %}
+    {% endblock %}
+
+</body>
+
+</html>

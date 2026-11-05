@@ -1,0 +1,162 @@
+{% extends "store/Admin/AdminMaster.html" %}
+
+{% block title %}Reviews & Ratings | GreenNest Admin{% endblock %}
+
+{% block page_heading %}Reviews & Ratings{% endblock %}
+
+{% block content %}
+
+<style>
+    .review-card {
+        background: white;
+        border-radius: 20px;
+        padding: 25px;
+        box-shadow: 0 8px 30px rgba(18,55,42,.08);
+    }
+
+    .stars {
+        color: #c8a96b;
+        font-size: 18px;
+        letter-spacing: 2px;
+    }
+
+    .review-text {
+        max-width: 450px;
+    }
+</style>
+
+<div class="review-card">
+
+    <div class="mb-4">
+
+        <h3 class="fw-bold">
+            Customer Reviews
+        </h3>
+
+        <p class="text-muted">
+            Monitor customer ratings and product reviews.
+        </p>
+
+    </div>
+
+    <div class="table-responsive">
+
+        <table class="table table-hover align-middle">
+
+            <thead class="table-dark">
+
+                <tr>
+                    <th>ID</th>
+                    <th>Customer</th>
+                    <th>Email</th>
+                    <th>Product</th>
+                    <th>Rating</th>
+                    <th>Review</th>
+                    <th>Date</th>
+                    <th>Action</th>
+                </tr>
+
+            </thead>
+
+            <tbody>
+
+            {% for review in reviews %}
+
+                <tr>
+
+                    <td>
+                        #{{ review.id }}
+                    </td>
+
+                    <td>
+                        <strong>
+                            {{ review.user_name }}
+                        </strong>
+                    </td>
+
+                    <td>
+                        {{ review.user_email }}
+                    </td>
+
+                    <td>
+                        {{ review.product_name }}
+                    </td>
+
+                    <td>
+
+                        <span class="stars">
+
+                            {% for i in "12345" %}
+
+                                {% if forloop.counter <= review.rating %}
+                                    ★
+                                {% else %}
+                                    ☆
+                                {% endif %}
+
+                            {% endfor %}
+
+                        </span>
+
+                        <small>
+                            ({{ review.rating }}/5)
+                        </small>
+
+                    </td>
+
+                    <td>
+
+                        <div class="review-text">
+                            {{ review.review_text }}
+                        </div>
+
+                    </td>
+
+                    <td>
+                        {{ review.created_at }}
+                    </td>
+
+                    <td>
+
+                        <a
+                            href="{% url 'AdminDeleteReview' review.id %}"
+                            class="btn btn-sm btn-outline-danger"
+                            onclick="return confirm('Delete this review?');"
+                        >
+                            <i class="bi bi-trash"></i>
+                        </a>
+
+                    </td>
+
+                </tr>
+
+            {% empty %}
+
+                <tr>
+
+                    <td
+                        colspan="8"
+                        class="text-center py-5"
+                    >
+
+                        <i class="bi bi-star fs-1 text-muted"></i>
+
+                        <h5 class="mt-3">
+                            No reviews found
+                        </h5>
+
+                    </td>
+
+                </tr>
+
+            {% endfor %}
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</div>
+
+{% endblock %}

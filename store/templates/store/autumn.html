@@ -1,0 +1,1362 @@
+{% extends "store/base.html" %}
+{% load static %}
+
+{% block title %}Autumn Collection | GreenNest{% endblock %}
+
+{% block content %}
+
+<style>
+
+/* =====================================================
+   GREENNEST AUTUMN COLLECTION
+===================================================== */
+
+.autumn-page{
+    background:#fcf8f3;
+    color:#332b25;
+}
+
+
+/* =====================================================
+   HERO
+===================================================== */
+
+.autumn-hero{
+    min-height:540px;
+    display:flex;
+    align-items:center;
+    position:relative;
+    overflow:hidden;
+
+    background:
+        linear-gradient(
+            90deg,
+            rgba(67,43,28,.95),
+            rgba(67,43,28,.72),
+            rgba(67,43,28,.15)
+        ),
+        url("https://images.unsplash.com/photo-1509423350716-97f9360b4e09?auto=format&fit=crop&w=1900&q=90")
+        center/cover;
+}
+
+.autumn-hero-content{
+    max-width:1250px;
+    width:100%;
+    margin:auto;
+    padding:80px 25px;
+    color:white;
+}
+
+.autumn-label{
+    display:inline-block;
+    padding:9px 18px;
+    border:1px solid rgba(255,255,255,.4);
+    background:rgba(255,255,255,.12);
+    border-radius:30px;
+    font-size:11px;
+    font-weight:800;
+    letter-spacing:2px;
+    text-transform:uppercase;
+    margin-bottom:22px;
+}
+
+.autumn-hero h1{
+    font-family:Georgia,serif;
+    font-size:clamp(48px,7vw,78px);
+    line-height:1.05;
+    max-width:760px;
+    margin:0 0 20px;
+}
+
+.autumn-hero p{
+    max-width:650px;
+    color:#f2e9df;
+    line-height:1.8;
+    font-size:17px;
+    margin-bottom:30px;
+}
+
+.autumn-btn{
+    display:inline-block;
+    padding:14px 30px;
+    border-radius:30px;
+    background:#b8753e;
+    color:white;
+    text-decoration:none;
+    font-size:13px;
+    font-weight:700;
+    transition:.3s;
+}
+
+.autumn-btn:hover{
+    background:white;
+    color:#704528;
+    transform:translateY(-3px);
+}
+
+
+/* =====================================================
+   INTRO
+===================================================== */
+
+.autumn-intro{
+    max-width:900px;
+    margin:auto;
+    text-align:center;
+    padding:75px 20px 55px;
+}
+
+.autumn-intro small,
+.autumn-heading small{
+    color:#b8753e;
+    font-size:11px;
+    font-weight:800;
+    letter-spacing:3px;
+    text-transform:uppercase;
+}
+
+.autumn-intro h2,
+.autumn-heading h2{
+    font-family:Georgia,serif;
+    color:#684328;
+    font-size:43px;
+    margin:12px 0 15px;
+}
+
+.autumn-intro p,
+.autumn-heading p{
+    color:#7d746d;
+    line-height:1.8;
+    max-width:700px;
+    margin:auto;
+}
+
+
+/* =====================================================
+   HIGHLIGHTS
+===================================================== */
+
+.autumn-highlights{
+    max-width:1200px;
+    margin:0 auto 75px;
+    padding:0 20px;
+}
+
+.autumn-highlight-grid{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:16px;
+}
+
+.autumn-highlight{
+    background:white;
+    border:1px solid #eadfd3;
+    border-radius:18px;
+    padding:25px 15px;
+    text-align:center;
+    transition:.3s;
+}
+
+.autumn-highlight:hover{
+    transform:translateY(-5px);
+    box-shadow:0 12px 28px rgba(104,67,40,.10);
+}
+
+.autumn-highlight-icon{
+    font-size:27px;
+    margin-bottom:10px;
+}
+
+.autumn-highlight strong{
+    display:block;
+    color:#684328;
+    font-size:14px;
+    margin-bottom:5px;
+}
+
+.autumn-highlight span{
+    color:#887e75;
+    font-size:11px;
+}
+
+
+/* =====================================================
+   PRODUCT SECTION
+===================================================== */
+
+.autumn-section{
+    max-width:1250px;
+    margin:auto;
+    padding:20px 20px 80px;
+}
+
+.autumn-heading{
+    text-align:center;
+    margin-bottom:42px;
+}
+
+.autumn-products{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:22px;
+}
+
+.autumn-card{
+    background:white;
+    border:1px solid #eadfd3;
+    border-radius:18px;
+    overflow:hidden;
+    transition:.35s;
+}
+
+.autumn-card:hover{
+    transform:translateY(-8px);
+    box-shadow:0 18px 40px rgba(104,67,40,.13);
+}
+
+.autumn-img{
+    height:280px;
+    position:relative;
+    overflow:hidden;
+    background:#f4ede5;
+}
+
+.autumn-img img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    transition:.5s;
+}
+
+.autumn-card:hover .autumn-img img{
+    transform:scale(1.07);
+}
+
+.autumn-badge{
+    position:absolute;
+    left:13px;
+    top:13px;
+    z-index:2;
+    padding:7px 12px;
+    background:#684328;
+    color:white;
+    border-radius:20px;
+    font-size:9px;
+    font-weight:800;
+    letter-spacing:1px;
+}
+
+.autumn-heart{
+    position:absolute;
+    right:13px;
+    top:13px;
+    z-index:2;
+
+    width:38px;
+    height:38px;
+
+    border-radius:50%;
+    background:rgba(255,255,255,.95);
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    color:#6f6259;
+    text-decoration:none;
+    font-size:20px;
+
+    transition:.3s;
+}
+
+.autumn-heart:hover{
+    background:#684328;
+    color:white;
+    transform:scale(1.08);
+}
+
+.autumn-body{
+    padding:18px;
+}
+
+.autumn-category{
+    color:#8c827a;
+    font-size:10px;
+    font-weight:800;
+    letter-spacing:1.2px;
+    text-transform:uppercase;
+}
+
+.autumn-body h3{
+    font-family:Georgia,serif;
+    color:#684328;
+    font-size:19px;
+    margin:7px 0;
+}
+
+.autumn-stars{
+    color:#c19a56;
+    font-size:13px;
+    margin-bottom:10px;
+}
+
+.autumn-stars span{
+    color:#8b817a;
+    font-size:11px;
+    margin-left:4px;
+}
+
+.autumn-price{
+    display:flex;
+    flex-wrap:wrap;
+    gap:7px;
+    align-items:center;
+    margin-bottom:15px;
+}
+
+.autumn-price strong{
+    color:#684328;
+    font-size:18px;
+}
+
+.autumn-price del{
+    color:#a49a92;
+    font-size:12px;
+}
+
+.autumn-off{
+    color:#ad6c36;
+    font-size:10px;
+    font-weight:800;
+}
+
+.autumn-cart{
+    display:block;
+    text-align:center;
+    padding:11px;
+
+    background:#684328;
+    color:white;
+
+    border-radius:9px;
+    text-decoration:none;
+
+    font-size:12px;
+    font-weight:700;
+
+    transition:.3s;
+}
+
+.autumn-cart:hover{
+    background:#a66535;
+    color:white;
+    transform:translateY(-2px);
+}
+
+
+/* =====================================================
+   FLOWERS
+===================================================== */
+
+.autumn-flower-area{
+    background:#f6eee6;
+    padding:80px 20px;
+    margin-bottom:75px;
+}
+
+.autumn-flower-inner{
+    max-width:1250px;
+    margin:auto;
+}
+
+.autumn-flower-grid{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:22px;
+}
+
+.autumn-flower{
+    background:white;
+    border-radius:18px;
+    overflow:hidden;
+    border:1px solid #eadfd3;
+    transition:.35s;
+}
+
+.autumn-flower:hover{
+    transform:translateY(-7px);
+    box-shadow:0 15px 35px rgba(104,67,40,.12);
+}
+
+.autumn-flower img{
+    width:100%;
+    height:245px;
+    object-fit:cover;
+    display:block;
+}
+
+.autumn-flower-body{
+    padding:20px;
+}
+
+.autumn-flower-body small{
+    color:#b8753e;
+    font-size:10px;
+    font-weight:800;
+    letter-spacing:2px;
+    text-transform:uppercase;
+}
+
+.autumn-flower-body h3{
+    color:#684328;
+    font-family:Georgia,serif;
+    font-size:20px;
+    margin:8px 0;
+}
+
+.autumn-flower-body p{
+    color:#7d746d;
+    font-size:12px;
+    line-height:1.7;
+}
+
+
+/* =====================================================
+   DECOR
+===================================================== */
+
+.autumn-decor{
+    max-width:1250px;
+    margin:auto;
+    padding:0 20px 80px;
+}
+
+.autumn-decor-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:23px;
+}
+
+.autumn-decor-card{
+    min-height:350px;
+    position:relative;
+    overflow:hidden;
+    border-radius:20px;
+}
+
+.autumn-decor-card img{
+    width:100%;
+    height:100%;
+
+    position:absolute;
+    inset:0;
+
+    object-fit:cover;
+    transition:.6s;
+}
+
+.autumn-decor-card:hover img{
+    transform:scale(1.08);
+}
+
+.autumn-overlay{
+    position:absolute;
+    inset:0;
+
+    background:
+        linear-gradient(
+            to top,
+            rgba(54,33,21,.92),
+            rgba(54,33,21,.05)
+        );
+}
+
+.autumn-decor-content{
+    position:absolute;
+    bottom:0;
+    left:0;
+    right:0;
+
+    padding:28px;
+
+    color:white;
+    z-index:2;
+}
+
+.autumn-decor-content small{
+    color:#dfb17d;
+    font-size:10px;
+    font-weight:800;
+    letter-spacing:2px;
+}
+
+.autumn-decor-content h3{
+    font-family:Georgia,serif;
+    font-size:27px;
+    margin:7px 0;
+}
+
+.autumn-decor-content p{
+    color:#e9ddd2;
+    font-size:12px;
+    line-height:1.6;
+}
+
+.autumn-decor-content a{
+    display:inline-block;
+    color:white;
+    text-decoration:none;
+    font-size:12px;
+    font-weight:700;
+    margin-top:5px;
+    transition:.3s;
+}
+
+.autumn-decor-content a:hover{
+    color:#dfb17d;
+    transform:translateX(4px);
+}
+
+
+/* =====================================================
+   FINAL CTA
+===================================================== */
+
+.autumn-final{
+    max-width:1250px;
+    margin:0 auto 75px;
+
+    padding:75px 25px;
+
+    text-align:center;
+
+    border-radius:25px;
+
+    background:
+        linear-gradient(
+            rgba(91,57,34,.93),
+            rgba(91,57,34,.93)
+        ),
+        url("https://images.unsplash.com/photo-1509423350716-97f9360b4e09?auto=format&fit=crop&w=1600&q=90")
+        center/cover;
+
+    color:white;
+}
+
+.autumn-final h2{
+    font-family:Georgia,serif;
+    font-size:42px;
+    margin-bottom:12px;
+}
+
+.autumn-final p{
+    max-width:650px;
+    margin:0 auto 25px;
+    color:#eadfd5;
+    line-height:1.7;
+}
+
+
+/* =====================================================
+   RESPONSIVE
+===================================================== */
+
+@media(max-width:1050px){
+
+    .autumn-products,
+    .autumn-flower-grid{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+    .autumn-highlight-grid{
+        grid-template-columns:repeat(2,1fr);
+    }
+}
+
+
+@media(max-width:800px){
+
+    .autumn-decor-grid{
+        grid-template-columns:1fr;
+    }
+
+    .autumn-decor-card{
+        min-height:320px;
+    }
+}
+
+
+@media(max-width:600px){
+
+    .autumn-hero{
+        min-height:540px;
+    }
+
+    .autumn-hero-content{
+        padding:60px 20px;
+    }
+
+    .autumn-hero h1{
+        font-size:45px;
+    }
+
+    .autumn-hero p{
+        font-size:15px;
+    }
+
+    .autumn-intro h2,
+    .autumn-heading h2{
+        font-size:34px;
+    }
+
+    .autumn-products,
+    .autumn-flower-grid{
+        grid-template-columns:1fr;
+    }
+
+    .autumn-highlight-grid{
+        grid-template-columns:1fr 1fr;
+    }
+
+    .autumn-final{
+        margin-left:15px;
+        margin-right:15px;
+        padding:60px 20px;
+    }
+
+    .autumn-final h2{
+        font-size:34px;
+    }
+}
+
+</style>
+
+
+<div class="autumn-page">
+
+
+<!-- =====================================================
+     HERO
+===================================================== -->
+
+<section class="autumn-hero">
+
+    <div class="autumn-hero-content">
+
+        <span class="autumn-label">
+            GreenNest • Autumn Collection
+        </span>
+
+        <h1>
+            Warm Tones. Cozy Greens. Natural Beauty.
+        </h1>
+
+        <p>
+            Create a warm and inviting home with elegant indoor
+            plants, autumn flowers, earthy planters and
+            nature-inspired décor.
+        </p>
+
+        <!-- ALL PLANTS URL -->
+
+        <a href="{% url 'plant' %}" class="autumn-btn">
+            Shop Autumn
+        </a>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     INTRO
+===================================================== -->
+
+<section class="autumn-intro">
+
+    <small>
+        Autumn Collection
+    </small>
+
+    <h2>
+        Bring The Warmth Of Nature Home
+    </h2>
+
+    <p>
+        Discover plants and décor that complement the rich,
+        warm feeling of autumn and create beautiful cozy corners.
+    </p>
+
+</section>
+
+
+<!-- =====================================================
+     HIGHLIGHTS
+===================================================== -->
+
+<section class="autumn-highlights">
+
+    <div class="autumn-highlight-grid">
+
+        <div class="autumn-highlight">
+
+            <div class="autumn-highlight-icon">
+                🍂
+            </div>
+
+            <strong>
+                Warm Colours
+            </strong>
+
+            <span>
+                Earth-inspired styling
+            </span>
+
+        </div>
+
+
+        <div class="autumn-highlight">
+
+            <div class="autumn-highlight-icon">
+                🌿
+            </div>
+
+            <strong>
+                Indoor Greens
+            </strong>
+
+            <span>
+                Beautiful home plants
+            </span>
+
+        </div>
+
+
+        <div class="autumn-highlight">
+
+            <div class="autumn-highlight-icon">
+                🌼
+            </div>
+
+            <strong>
+                Autumn Blooms
+            </strong>
+
+            <span>
+                Seasonal flowers
+            </span>
+
+        </div>
+
+
+        <div class="autumn-highlight">
+
+            <div class="autumn-highlight-icon">
+                🪴
+            </div>
+
+            <strong>
+                Earthy Décor
+            </strong>
+
+            <span>
+                Warm natural textures
+            </span>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     AUTUMN PLANTS
+===================================================== -->
+
+<section class="autumn-section" id="autumn-plants">
+
+    <div class="autumn-heading">
+
+        <small>
+            Autumn Plants
+        </small>
+
+        <h2>
+            Cozy Green Favorites
+        </h2>
+
+        <p>
+            Add rich greenery and elegant foliage to your home
+            for a warm seasonal atmosphere.
+        </p>
+
+    </div>
+
+
+    <div class="autumn-products">
+
+
+        <!-- PRODUCT 1 -->
+
+        <div class="autumn-card">
+
+            <div class="autumn-img">
+
+                <span class="autumn-badge">
+                    AUTUMN PICK
+                </span>
+
+                <a href="#" class="autumn-heart">
+                    ♡
+                </a>
+
+                <img
+                    src="https://images.unsplash.com/photo-1509423350716-97f9360b4e09?auto=format&fit=crop&w=800&q=90"
+                    alt="ZZ Plant"
+                >
+
+            </div>
+
+            <div class="autumn-body">
+
+                <span class="autumn-category">
+                    Indoor Plant
+                </span>
+
+                <h3>
+                    ZZ Plant
+                </h3>
+
+                <div class="autumn-stars">
+                    ★★★★★ <span>(121)</span>
+                </div>
+
+                <div class="autumn-price">
+
+                    <strong>
+                        ₹749
+                    </strong>
+
+                    <del>
+                        ₹949
+                    </del>
+
+                    <span class="autumn-off">
+                        21% OFF
+                    </span>
+
+                </div>
+
+                <!-- ADD TO CART = # -->
+
+                <a href="#" class="autumn-cart">
+                    Add to Cart
+                </a>
+
+            </div>
+
+        </div>
+
+
+        <!-- PRODUCT 2 -->
+
+        <div class="autumn-card">
+
+            <div class="autumn-img">
+
+                <span class="autumn-badge">
+                    BESTSELLER
+                </span>
+
+                <a href="#" class="autumn-heart">
+                    ♡
+                </a>
+
+                <img
+                    src="https://images.unsplash.com/photo-1598880940080-ff9a29891b85?auto=format&fit=crop&w=800&q=90"
+                    alt="Rubber Plant"
+                >
+
+            </div>
+
+            <div class="autumn-body">
+
+                <span class="autumn-category">
+                    Indoor Plant
+                </span>
+
+                <h3>
+                    Rubber Plant
+                </h3>
+
+                <div class="autumn-stars">
+                    ★★★★★ <span>(165)</span>
+                </div>
+
+                <div class="autumn-price">
+
+                    <strong>
+                        ₹799
+                    </strong>
+
+                    <del>
+                        ₹999
+                    </del>
+
+                    <span class="autumn-off">
+                        20% OFF
+                    </span>
+
+                </div>
+
+                <a href="#" class="autumn-cart">
+                    Add to Cart
+                </a>
+
+            </div>
+
+        </div>
+
+
+        <!-- PRODUCT 3 -->
+
+        <div class="autumn-card">
+
+            <div class="autumn-img">
+
+                <span class="autumn-badge">
+                    POPULAR
+                </span>
+
+                <a href="#" class="autumn-heart">
+                    ♡
+                </a>
+
+                <img
+                    src="https://images.unsplash.com/photo-1501004318641-b39e6451bec6?auto=format&fit=crop&w=800&q=90"
+                    alt="Monstera Plant"
+                >
+
+            </div>
+
+            <div class="autumn-body">
+
+                <span class="autumn-category">
+                    Indoor Plant
+                </span>
+
+                <h3>
+                    Monstera Deliciosa
+                </h3>
+
+                <div class="autumn-stars">
+                    ★★★★★ <span>(184)</span>
+                </div>
+
+                <div class="autumn-price">
+
+                    <strong>
+                        ₹699
+                    </strong>
+
+                    <del>
+                        ₹899
+                    </del>
+
+                    <span class="autumn-off">
+                        22% OFF
+                    </span>
+
+                </div>
+
+                <a href="#" class="autumn-cart">
+                    Add to Cart
+                </a>
+
+            </div>
+
+        </div>
+
+
+        <!-- PRODUCT 4 -->
+
+        <div class="autumn-card">
+
+            <div class="autumn-img">
+
+                <span class="autumn-badge">
+                    EASY CARE
+                </span>
+
+                <a href="#" class="autumn-heart">
+                    ♡
+                </a>
+
+                <img
+                    src="https://images.unsplash.com/photo-1545241047-6083a3684587?auto=format&fit=crop&w=800&q=90"
+                    alt="Snake Plant"
+                >
+
+            </div>
+
+            <div class="autumn-body">
+
+                <span class="autumn-category">
+                    Easy Care
+                </span>
+
+                <h3>
+                    Snake Plant
+                </h3>
+
+                <div class="autumn-stars">
+                    ★★★★★ <span>(156)</span>
+                </div>
+
+                <div class="autumn-price">
+
+                    <strong>
+                        ₹549
+                    </strong>
+
+                    <del>
+                        ₹699
+                    </del>
+
+                    <span class="autumn-off">
+                        21% OFF
+                    </span>
+
+                </div>
+
+                <a href="#" class="autumn-cart">
+                    Add to Cart
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     AUTUMN FLOWERS
+===================================================== -->
+
+<section class="autumn-flower-area">
+
+    <div class="autumn-flower-inner">
+
+        <div class="autumn-heading">
+
+            <small>
+                Autumn Flowers
+            </small>
+
+            <h2>
+                Seasonal Blooms
+            </h2>
+
+            <p>
+                Add warm seasonal colour with flowering plants
+                selected for autumn-inspired spaces.
+            </p>
+
+        </div>
+
+
+        <div class="autumn-flower-grid">
+
+
+            <!-- FLOWER 1 -->
+
+            <div class="autumn-flower">
+
+                <img
+                    src="https://images.unsplash.com/photo-1509423350716-97f9360b4e09?auto=format&fit=crop&w=700&q=90"
+                    alt="Chrysanthemum"
+                >
+
+                <div class="autumn-flower-body">
+
+                    <small>
+                        Autumn Favourite
+                    </small>
+
+                    <h3>
+                        Chrysanthemum
+                    </h3>
+
+                    <p>
+                        Classic seasonal flowers with beautiful
+                        rich colours.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <!-- FLOWER 2 -->
+
+            <div class="autumn-flower">
+
+                <img
+                    src="https://images.unsplash.com/photo-1490750967868-88aa4486c946?auto=format&fit=crop&w=700&q=90"
+                    alt="Dahlia"
+                >
+
+                <div class="autumn-flower-body">
+
+                    <small>
+                        Statement Bloom
+                    </small>
+
+                    <h3>
+                        Dahlia
+                    </h3>
+
+                    <p>
+                        Elegant blooms that make beautiful
+                        seasonal displays.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <!-- FLOWER 3 -->
+
+            <div class="autumn-flower">
+
+                <img
+                    src="https://images.unsplash.com/photo-1469259943454-aa100abba749?auto=format&fit=crop&w=700&q=90"
+                    alt="Autumn Flower"
+                >
+
+                <div class="autumn-flower-body">
+
+                    <small>
+                        Seasonal Bloom
+                    </small>
+
+                    <h3>
+                        Autumn Flower Mix
+                    </h3>
+
+                    <p>
+                        Warm tones and natural beauty for your
+                        favourite corners.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <!-- FLOWER 4 -->
+
+            <div class="autumn-flower">
+
+                <img
+                    src="https://images.unsplash.com/photo-1495231916356-a86217efff12?auto=format&fit=crop&w=700&q=90"
+                    alt="Garden Flower"
+                >
+
+                <div class="autumn-flower-body">
+
+                    <small>
+                        Garden Favourite
+                    </small>
+
+                    <h3>
+                        Golden Bloom
+                    </h3>
+
+                    <p>
+                        Bright golden tones that beautifully
+                        complement autumn décor.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     AUTUMN STYLING
+===================================================== -->
+
+<section class="autumn-decor">
+
+    <div class="autumn-heading">
+
+        <small>
+            Autumn Styling
+        </small>
+
+        <h2>
+            Warm Up Your Space
+        </h2>
+
+        <p>
+            Complete your autumn look with earthy planters,
+            natural textures and elegant décor.
+        </p>
+
+    </div>
+
+
+    <div class="autumn-decor-grid">
+
+
+        <!-- PLANTERS -->
+
+        <div class="autumn-decor-card">
+
+            <img
+                src="https://images.unsplash.com/photo-1485955900006-10f4d324d411?auto=format&fit=crop&w=900&q=90"
+                alt="Earthy Pots"
+            >
+
+            <div class="autumn-overlay"></div>
+
+            <div class="autumn-decor-content">
+
+                <small>
+                    Autumn Pots
+                </small>
+
+                <h3>
+                    Earth Tone Planters
+                </h3>
+
+                <p>
+                    Warm ceramic tones for seasonal greenery.
+                </p>
+
+                <!-- PLANTER URL -->
+
+                <a href="{% url 'plantp' %}">
+                    Shop Planters →
+                </a>
+
+            </div>
+
+        </div>
+
+
+        <!-- HOME DECOR -->
+
+        <div class="autumn-decor-card">
+
+            <img
+                src="https://images.unsplash.com/photo-1512428813834-c702c7702b78?auto=format&fit=crop&w=900&q=90"
+                alt="Natural Home Decor"
+            >
+
+            <div class="autumn-overlay"></div>
+
+            <div class="autumn-decor-content">
+
+                <small>
+                    Home Décor
+                </small>
+
+                <h3>
+                    Natural Textures
+                </h3>
+
+                <p>
+                    Bring warmth and character into your home.
+                </p>
+
+                <!-- HOME DECOR URL -->
+
+                <a href="{% url 'homedecore' %}">
+                    Shop Décor →
+                </a>
+
+            </div>
+
+        </div>
+
+
+        <!-- ALL PLANTS -->
+
+        <div class="autumn-decor-card">
+
+            <img
+                src="https://images.unsplash.com/photo-1497250681960-ef046c08a56e?auto=format&fit=crop&w=900&q=90"
+                alt="Autumn Greenery"
+            >
+
+            <div class="autumn-overlay"></div>
+
+            <div class="autumn-decor-content">
+
+                <small>
+                    Green Living
+                </small>
+
+                <h3>
+                    Cozy Green Corners
+                </h3>
+
+                <p>
+                    Create calm spaces with beautiful indoor plants.
+                </p>
+
+                <!-- ALL PLANTS URL -->
+
+                <a href="{% url 'plant' %}">
+                    Shop Collection →
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     FINAL CTA
+===================================================== -->
+
+<section class="autumn-final">
+
+    <h2>
+        Welcome Autumn Into Your Home
+    </h2>
+
+    <p>
+        Discover warm seasonal plants, beautiful blooms and
+        earthy décor from GreenNest.
+    </p>
+
+    <!-- ALL PLANTS URL -->
+
+    <a href="{% url 'plant' %}" class="autumn-btn">
+        Shop Autumn Collection
+    </a>
+
+</section>
+
+
+</div>
+
+{% endblock %}

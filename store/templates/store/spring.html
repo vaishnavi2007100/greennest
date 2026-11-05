@@ -1,0 +1,1879 @@
+{% extends "store/base.html" %}
+{% load static %}
+
+{% block title %}Spring Collection | GreenNest{% endblock %}
+
+{% block content %}
+
+<style>
+
+/* =====================================================
+   GREENNEST SPRING COLLECTION
+===================================================== */
+
+.spring-page{
+    background:#fffafc;
+    color:#24332c;
+    overflow:hidden;
+}
+
+
+/* =====================================================
+   HERO
+===================================================== */
+
+.spring-hero{
+    min-height:590px;
+    display:flex;
+    align-items:center;
+    position:relative;
+    overflow:hidden;
+
+    background:
+        linear-gradient(
+            90deg,
+            rgba(54,31,40,.96) 0%,
+            rgba(75,39,51,.83) 38%,
+            rgba(75,39,51,.42) 68%,
+            rgba(75,39,51,.12) 100%
+        ),
+        url("https://images.unsplash.com/photo-1490750967868-88aa4486c946?auto=format&fit=crop&w=2000&q=90")
+        center/cover;
+}
+
+.spring-hero-content{
+    max-width:1300px;
+    width:100%;
+    margin:auto;
+    padding:90px 30px;
+    color:white;
+}
+
+.spring-label{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+
+    padding:10px 19px;
+
+    border:1px solid rgba(255,255,255,.35);
+    background:rgba(255,255,255,.11);
+
+    border-radius:30px;
+
+    font-size:10px;
+    font-weight:800;
+    letter-spacing:2px;
+    text-transform:uppercase;
+
+    margin-bottom:24px;
+
+    backdrop-filter:blur(6px);
+}
+
+.spring-hero h1{
+    font-family:Georgia,serif;
+
+    font-size:clamp(48px,7vw,82px);
+
+    line-height:1.02;
+
+    max-width:800px;
+
+    margin:0 0 22px;
+}
+
+.spring-hero h1 span{
+    color:#e6a8b8;
+}
+
+.spring-hero p{
+    max-width:670px;
+
+    color:#f8e9ee;
+
+    line-height:1.85;
+
+    font-size:16px;
+
+    margin-bottom:32px;
+}
+
+.spring-btn{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+
+    padding:14px 30px;
+
+    border-radius:30px;
+
+    background:#d69aaa;
+    color:white;
+
+    text-decoration:none;
+
+    font-size:12px;
+    font-weight:800;
+
+    transition:.3s;
+}
+
+.spring-btn:hover{
+    background:white;
+    color:#663b49;
+
+    transform:translateY(-4px);
+
+    box-shadow:0 12px 30px rgba(0,0,0,.18);
+}
+
+.spring-hero-note{
+    display:flex;
+    flex-wrap:wrap;
+    gap:12px;
+
+    margin-top:28px;
+}
+
+.spring-hero-note span{
+    padding:8px 13px;
+
+    border-radius:20px;
+
+    background:rgba(255,255,255,.09);
+    border:1px solid rgba(255,255,255,.16);
+
+    color:#f6e9ed;
+
+    font-size:10px;
+}
+
+
+/* =====================================================
+   INTRO
+===================================================== */
+
+.spring-intro{
+    max-width:920px;
+
+    margin:auto;
+
+    text-align:center;
+
+    padding:85px 20px 60px;
+}
+
+.spring-intro small,
+.spring-heading small{
+    color:#b86f82;
+
+    font-size:10px;
+
+    font-weight:800;
+
+    letter-spacing:3px;
+
+    text-transform:uppercase;
+}
+
+.spring-intro h2,
+.spring-heading h2{
+    font-family:Georgia,serif;
+
+    color:#563541;
+
+    font-size:clamp(34px,4vw,48px);
+
+    margin:12px 0 17px;
+}
+
+.spring-intro p,
+.spring-heading p{
+    color:#7c7075;
+
+    line-height:1.85;
+
+    max-width:720px;
+
+    margin:auto;
+
+    font-size:14px;
+}
+
+
+/* =====================================================
+   HIGHLIGHTS
+===================================================== */
+
+.spring-highlights{
+    max-width:1200px;
+
+    margin:0 auto 80px;
+
+    padding:0 20px;
+}
+
+.spring-highlight-grid{
+    display:grid;
+
+    grid-template-columns:repeat(4,1fr);
+
+    gap:17px;
+}
+
+.spring-highlight{
+    position:relative;
+
+    background:white;
+
+    border:1px solid #f0dfe4;
+
+    border-radius:20px;
+
+    padding:28px 17px;
+
+    text-align:center;
+
+    transition:.35s;
+
+    box-shadow:0 7px 25px rgba(94,53,65,.04);
+}
+
+.spring-highlight:hover{
+    transform:translateY(-8px);
+
+    box-shadow:0 18px 40px rgba(94,53,65,.11);
+}
+
+.spring-highlight-icon{
+    width:58px;
+    height:58px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    margin:0 auto 14px;
+
+    border-radius:50%;
+
+    background:#fdf0f4;
+
+    font-size:26px;
+}
+
+.spring-highlight strong{
+    display:block;
+
+    color:#563541;
+
+    font-family:Georgia,serif;
+
+    font-size:17px;
+
+    margin-bottom:6px;
+}
+
+.spring-highlight span{
+    color:#8b7c82;
+
+    font-size:10px;
+}
+
+
+/* =====================================================
+   MAIN SECTION
+===================================================== */
+
+.spring-section{
+    max-width:1300px;
+
+    margin:auto;
+
+    padding:20px 25px 90px;
+}
+
+.spring-heading{
+    text-align:center;
+
+    margin-bottom:45px;
+}
+
+
+/* =====================================================
+   PRODUCT GRID
+===================================================== */
+
+.spring-products{
+    display:grid;
+
+    grid-template-columns:repeat(4,1fr);
+
+    gap:23px;
+}
+
+.spring-card{
+    background:white;
+
+    border:1px solid #f0dfe4;
+
+    border-radius:20px;
+
+    overflow:hidden;
+
+    transition:.4s;
+
+    box-shadow:0 8px 25px rgba(94,53,65,.04);
+}
+
+.spring-card:hover{
+    transform:translateY(-10px);
+
+    box-shadow:0 22px 45px rgba(94,53,65,.14);
+}
+
+.spring-img{
+    height:285px;
+
+    position:relative;
+
+    overflow:hidden;
+
+    background:#f9edf1;
+}
+
+.spring-img img{
+    width:100%;
+    height:100%;
+
+    object-fit:cover;
+
+    transition:.6s;
+}
+
+.spring-card:hover .spring-img img{
+    transform:scale(1.08);
+}
+
+.spring-badge{
+    position:absolute;
+
+    left:14px;
+    top:14px;
+
+    z-index:2;
+
+    padding:7px 12px;
+
+    background:#704352;
+    color:white;
+
+    border-radius:20px;
+
+    font-size:8px;
+
+    font-weight:800;
+
+    letter-spacing:1px;
+}
+
+.spring-heart{
+    position:absolute;
+
+    right:14px;
+    top:14px;
+
+    z-index:2;
+
+    width:39px;
+    height:39px;
+
+    border-radius:50%;
+
+    background:rgba(255,255,255,.95);
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    color:#6d5960;
+
+    text-decoration:none;
+
+    font-size:20px;
+
+    transition:.3s;
+}
+
+.spring-heart:hover{
+    background:#704352;
+    color:white;
+
+    transform:scale(1.08);
+}
+
+.spring-body{
+    padding:20px;
+}
+
+.spring-category{
+    color:#9a858c;
+
+    font-size:9px;
+
+    font-weight:800;
+
+    letter-spacing:1.5px;
+
+    text-transform:uppercase;
+}
+
+.spring-body h3{
+    font-family:Georgia,serif;
+
+    color:#563541;
+
+    font-size:21px;
+
+    margin:7px 0 8px;
+}
+
+.spring-stars{
+    color:#c39a4e;
+
+    font-size:13px;
+
+    margin-bottom:11px;
+}
+
+.spring-stars span{
+    color:#91858a;
+
+    font-size:10px;
+
+    margin-left:4px;
+}
+
+.spring-price{
+    display:flex;
+
+    flex-wrap:wrap;
+
+    align-items:center;
+
+    gap:8px;
+
+    margin-bottom:16px;
+}
+
+.spring-price strong{
+    color:#563541;
+
+    font-size:19px;
+}
+
+.spring-price del{
+    color:#aaa0a4;
+
+    font-size:12px;
+}
+
+.spring-off{
+    color:#ad6579;
+
+    font-size:9px;
+
+    font-weight:800;
+}
+
+.spring-cart{
+    display:block;
+
+    width:100%;
+
+    text-align:center;
+
+    padding:12px;
+
+    background:#704352;
+
+    color:white;
+
+    border-radius:10px;
+
+    text-decoration:none;
+
+    font-size:11px;
+
+    font-weight:800;
+
+    transition:.3s;
+}
+
+.spring-cart:hover{
+    background:#a76578;
+
+    color:white;
+
+    transform:translateY(-2px);
+}
+
+
+/* =====================================================
+   VIEW ALL PLANTS
+===================================================== */
+
+.spring-view-all{
+    text-align:center;
+
+    margin-top:38px;
+}
+
+.spring-outline-btn{
+    display:inline-flex;
+
+    align-items:center;
+    justify-content:center;
+
+    padding:13px 28px;
+
+    border:1px solid #704352;
+
+    border-radius:30px;
+
+    color:#704352;
+
+    text-decoration:none;
+
+    font-size:11px;
+
+    font-weight:800;
+
+    transition:.3s;
+}
+
+.spring-outline-btn:hover{
+    background:#704352;
+
+    color:white;
+
+    transform:translateY(-3px);
+}
+
+
+/* =====================================================
+   FLOWERS
+===================================================== */
+
+.spring-flower-area{
+    background:#fdf1f5;
+
+    padding:90px 20px;
+
+    margin-bottom:85px;
+}
+
+.spring-flower-inner{
+    max-width:1300px;
+
+    margin:auto;
+}
+
+.spring-flower-grid{
+    display:grid;
+
+    grid-template-columns:repeat(4,1fr);
+
+    gap:23px;
+}
+
+.spring-flower{
+    background:white;
+
+    border-radius:20px;
+
+    overflow:hidden;
+
+    border:1px solid #f0dfe4;
+
+    transition:.4s;
+}
+
+.spring-flower:hover{
+    transform:translateY(-8px);
+
+    box-shadow:0 18px 40px rgba(94,53,65,.12);
+}
+
+.spring-flower img{
+    width:100%;
+
+    height:250px;
+
+    object-fit:cover;
+
+    transition:.5s;
+}
+
+.spring-flower:hover img{
+    transform:scale(1.06);
+}
+
+.spring-flower-body{
+    padding:21px;
+}
+
+.spring-flower-body small{
+    color:#b86f82;
+
+    font-size:9px;
+
+    font-weight:800;
+
+    letter-spacing:2px;
+
+    text-transform:uppercase;
+}
+
+.spring-flower-body h3{
+    color:#563541;
+
+    font-family:Georgia,serif;
+
+    font-size:21px;
+
+    margin:8px 0;
+}
+
+.spring-flower-body p{
+    color:#7c7075;
+
+    font-size:11px;
+
+    line-height:1.7;
+
+    margin:0;
+}
+
+
+/* =====================================================
+   SHOP ALL PLANTS BANNER
+===================================================== */
+
+.spring-plant-banner{
+    max-width:1250px;
+
+    margin:0 auto 90px;
+
+    padding:0 25px;
+}
+
+.spring-plant-banner-box{
+    min-height:330px;
+
+    border-radius:25px;
+
+    overflow:hidden;
+
+    position:relative;
+
+    display:flex;
+
+    align-items:center;
+
+    background:
+        linear-gradient(
+            90deg,
+            rgba(55,32,40,.95),
+            rgba(55,32,40,.62),
+            rgba(55,32,40,.18)
+        ),
+        url("https://images.unsplash.com/photo-1497250681960-ef046c08a56e?auto=format&fit=crop&w=1600&q=90")
+        center/cover;
+}
+
+.spring-plant-banner-content{
+    padding:45px;
+
+    color:white;
+}
+
+.spring-plant-banner-content small{
+    color:#e4b4c1;
+
+    font-size:10px;
+
+    font-weight:800;
+
+    letter-spacing:2px;
+}
+
+.spring-plant-banner-content h2{
+    max-width:600px;
+
+    font-family:Georgia,serif;
+
+    font-size:40px;
+
+    line-height:1.2;
+
+    margin:10px 0 13px;
+}
+
+.spring-plant-banner-content p{
+    max-width:560px;
+
+    color:#f0e0e5;
+
+    font-size:13px;
+
+    line-height:1.75;
+
+    margin-bottom:23px;
+}
+
+
+/* =====================================================
+   POTS & DECOR
+===================================================== */
+
+.spring-decor{
+    max-width:1300px;
+
+    margin:auto;
+
+    padding:0 25px 90px;
+}
+
+.spring-decor-grid{
+    display:grid;
+
+    grid-template-columns:repeat(3,1fr);
+
+    gap:23px;
+}
+
+.spring-decor-card{
+    min-height:370px;
+
+    position:relative;
+
+    overflow:hidden;
+
+    border-radius:22px;
+}
+
+.spring-decor-card img{
+    width:100%;
+    height:100%;
+
+    position:absolute;
+
+    inset:0;
+
+    object-fit:cover;
+
+    transition:.6s;
+}
+
+.spring-decor-card:hover img{
+    transform:scale(1.08);
+}
+
+.spring-overlay{
+    position:absolute;
+
+    inset:0;
+
+    background:
+        linear-gradient(
+            to top,
+            rgba(55,32,40,.94),
+            rgba(55,32,40,.07)
+        );
+}
+
+.spring-decor-content{
+    position:absolute;
+
+    bottom:0;
+    left:0;
+    right:0;
+
+    padding:30px;
+
+    color:white;
+
+    z-index:2;
+}
+
+.spring-decor-content small{
+    color:#e4b4c1;
+
+    font-size:9px;
+
+    font-weight:800;
+
+    letter-spacing:2px;
+}
+
+.spring-decor-content h3{
+    font-family:Georgia,serif;
+
+    font-size:29px;
+
+    margin:7px 0;
+}
+
+.spring-decor-content p{
+    color:#eee0e5;
+
+    font-size:11px;
+
+    line-height:1.7;
+
+    margin-bottom:15px;
+}
+
+.spring-decor-content a{
+    color:white;
+
+    text-decoration:none;
+
+    font-size:11px;
+
+    font-weight:800;
+}
+
+.spring-decor-content a:hover{
+    color:#e4b4c1;
+}
+
+
+/* =====================================================
+   FINAL CTA
+===================================================== */
+
+.spring-final{
+    max-width:1250px;
+
+    margin:0 auto 85px;
+
+    padding:85px 25px;
+
+    text-align:center;
+
+    border-radius:28px;
+
+    background:
+        linear-gradient(
+            rgba(91,49,62,.94),
+            rgba(91,49,62,.94)
+        ),
+        url("https://images.unsplash.com/photo-1490750967868-88aa4486c946?auto=format&fit=crop&w=1800&q=90")
+        center/cover;
+
+    color:white;
+
+    box-shadow:0 20px 50px rgba(91,49,62,.12);
+}
+
+.spring-final small{
+    color:#e4b4c1;
+
+    font-size:10px;
+
+    font-weight:800;
+
+    letter-spacing:3px;
+
+    text-transform:uppercase;
+}
+
+.spring-final h2{
+    font-family:Georgia,serif;
+
+    font-size:clamp(34px,5vw,50px);
+
+    margin:12px 0 15px;
+}
+
+.spring-final p{
+    max-width:650px;
+
+    margin:0 auto 27px;
+
+    color:#f0dfe5;
+
+    font-size:13px;
+
+    line-height:1.8;
+}
+
+
+/* =====================================================
+   RESPONSIVE
+===================================================== */
+
+@media(max-width:1100px){
+
+    .spring-products{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+    .spring-flower-grid{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+    .spring-highlight-grid{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+}
+
+@media(max-width:850px){
+
+    .spring-decor-grid{
+        grid-template-columns:1fr;
+    }
+
+    .spring-plant-banner-box{
+        min-height:360px;
+    }
+
+}
+
+@media(max-width:600px){
+
+    .spring-hero{
+        min-height:570px;
+
+        background:
+            linear-gradient(
+                rgba(60,34,44,.84),
+                rgba(60,34,44,.95)
+            ),
+            url("https://images.unsplash.com/photo-1490750967868-88aa4486c946?auto=format&fit=crop&w=1200&q=90")
+            center/cover;
+    }
+
+    .spring-hero-content{
+        padding:70px 20px;
+    }
+
+    .spring-hero h1{
+        font-size:45px;
+    }
+
+    .spring-hero p{
+        font-size:14px;
+    }
+
+    .spring-intro{
+        padding:65px 20px 50px;
+    }
+
+    .spring-intro h2,
+    .spring-heading h2{
+        font-size:34px;
+    }
+
+    .spring-section{
+        padding-left:15px;
+        padding-right:15px;
+    }
+
+    .spring-products{
+        grid-template-columns:1fr;
+    }
+
+    .spring-flower-area{
+        padding:65px 15px;
+    }
+
+    .spring-flower-grid{
+        grid-template-columns:1fr;
+    }
+
+    .spring-highlight-grid{
+        grid-template-columns:1fr 1fr;
+        gap:10px;
+    }
+
+    .spring-highlight{
+        padding:22px 10px;
+    }
+
+    .spring-highlight strong{
+        font-size:14px;
+    }
+
+    .spring-plant-banner{
+        padding:0 15px;
+    }
+
+    .spring-plant-banner-box{
+        min-height:430px;
+    }
+
+    .spring-plant-banner-content{
+        padding:30px 24px;
+    }
+
+    .spring-plant-banner-content h2{
+        font-size:32px;
+    }
+
+    .spring-decor{
+        padding:0 15px 65px;
+    }
+
+    .spring-decor-card{
+        min-height:330px;
+    }
+
+    .spring-final{
+        margin:0 15px 60px;
+
+        padding:65px 20px;
+    }
+
+}
+
+
+/* =====================================================
+   SMALL MOBILE
+===================================================== */
+
+@media(max-width:390px){
+
+    .spring-highlight-grid{
+        grid-template-columns:1fr;
+    }
+
+    .spring-hero h1{
+        font-size:40px;
+    }
+
+}
+
+</style>
+
+
+<div class="spring-page">
+
+
+<!-- =====================================================
+     HERO
+===================================================== -->
+
+<section class="spring-hero">
+
+    <div class="spring-hero-content">
+
+        <span class="spring-label">
+            🌸 GreenNest • Spring Collection
+        </span>
+
+        <h1>
+            Fresh Beginnings,
+            <span>Beautiful Blooms.</span>
+        </h1>
+
+        <p>
+            Welcome the beauty of spring into your home with
+            colourful flowers, fresh green plants and elegant
+            planters carefully selected for a brighter,
+            happier space.
+        </p>
+
+        <a href="#spring-plants" class="spring-btn">
+            Shop Spring Collection →
+        </a>
+
+        <div class="spring-hero-note">
+
+            <span>🌱 Fresh Plants</span>
+
+            <span>🌸 Colourful Blooms</span>
+
+            <span>🪴 Stylish Planters</span>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     INTRO
+===================================================== -->
+
+<section class="spring-intro">
+
+    <small>
+        Spring Collection
+    </small>
+
+    <h2>
+        Let Your Home Bloom
+    </h2>
+
+    <p>
+        Spring is the perfect time to refresh your surroundings.
+        Discover beautiful plants, flowering favourites and
+        nature-inspired pieces that bring freshness and colour
+        into every corner of your home.
+    </p>
+
+</section>
+
+
+<!-- =====================================================
+     HIGHLIGHTS
+===================================================== -->
+
+<section class="spring-highlights">
+
+    <div class="spring-highlight-grid">
+
+        <div class="spring-highlight">
+
+            <div class="spring-highlight-icon">
+                🌱
+            </div>
+
+            <strong>
+                Fresh Greenery
+            </strong>
+
+            <span>
+                New season plants
+            </span>
+
+        </div>
+
+
+        <div class="spring-highlight">
+
+            <div class="spring-highlight-icon">
+                🌸
+            </div>
+
+            <strong>
+                Colourful Blooms
+            </strong>
+
+            <span>
+                Beautiful flowers
+            </span>
+
+        </div>
+
+
+        <div class="spring-highlight">
+
+            <div class="spring-highlight-icon">
+                🪴
+            </div>
+
+            <strong>
+                Pretty Planters
+            </strong>
+
+            <span>
+                Fresh spring styles
+            </span>
+
+        </div>
+
+
+        <div class="spring-highlight">
+
+            <div class="spring-highlight-icon">
+                🏡
+            </div>
+
+            <strong>
+                Home Refresh
+            </strong>
+
+            <span>
+                Brighten every corner
+            </span>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     SPRING PLANTS
+===================================================== -->
+
+<section class="spring-section" id="spring-plants">
+
+    <div class="spring-heading">
+
+        <small>
+            Spring Plants
+        </small>
+
+        <h2>
+            Fresh Green Favorites
+        </h2>
+
+        <p>
+            Bring the freshness of spring indoors with
+            beautiful plants selected for modern homes.
+        </p>
+
+    </div>
+
+
+    <div class="spring-products">
+
+
+        <!-- PRODUCT 1 -->
+
+        <div class="spring-card">
+
+            <div class="spring-img">
+
+                <span class="spring-badge">
+                    SPRING PICK
+                </span>
+
+                <a href="#"
+                   class="spring-heart">
+                    ♡
+                </a>
+
+                <img
+                    src="https://images.unsplash.com/photo-1501004318641-b39e6451bec6?auto=format&fit=crop&w=800&q=90"
+                    alt="Peace Lily"
+                >
+
+            </div>
+
+
+            <div class="spring-body">
+
+                <span class="spring-category">
+                    Indoor Plant
+                </span>
+
+                <h3>
+                    Peace Lily
+                </h3>
+
+                <div class="spring-stars">
+                    ★★★★★
+                    <span>(203)</span>
+                </div>
+
+                <div class="spring-price">
+
+                    <strong>
+                        ₹649
+                    </strong>
+
+                    <del>
+                        ₹799
+                    </del>
+
+                    <span class="spring-off">
+                        19% OFF
+                    </span>
+
+                </div>
+
+                <!-- ADD TO CART = # -->
+
+                <a href="#"
+                   class="spring-cart">
+                    Add to Cart
+                </a>
+
+            </div>
+
+        </div>
+
+
+        <!-- PRODUCT 2 -->
+
+        <div class="spring-card">
+
+            <div class="spring-img">
+
+                <span class="spring-badge">
+                    NEW
+                </span>
+
+                <a href="#"
+                   class="spring-heart">
+                    ♡
+                </a>
+
+                <img
+                    src="https://images.unsplash.com/photo-1466692476868-aef1dfb1e735?auto=format&fit=crop&w=800&q=90"
+                    alt="Calathea Plant"
+                >
+
+            </div>
+
+
+            <div class="spring-body">
+
+                <span class="spring-category">
+                    Indoor Plant
+                </span>
+
+                <h3>
+                    Calathea Green
+                </h3>
+
+                <div class="spring-stars">
+                    ★★★★★
+                    <span>(167)</span>
+                </div>
+
+                <div class="spring-price">
+
+                    <strong>
+                        ₹749
+                    </strong>
+
+                    <del>
+                        ₹949
+                    </del>
+
+                    <span class="spring-off">
+                        21% OFF
+                    </span>
+
+                </div>
+
+                <a href="#"
+                   class="spring-cart">
+                    Add to Cart
+                </a>
+
+            </div>
+
+        </div>
+
+
+        <!-- PRODUCT 3 -->
+
+        <div class="spring-card">
+
+            <div class="spring-img">
+
+                <span class="spring-badge">
+                    POPULAR
+                </span>
+
+                <a href="#"
+                   class="spring-heart">
+                    ♡
+                </a>
+
+                <img
+                    src="https://images.unsplash.com/photo-1545241047-6083a3684587?auto=format&fit=crop&w=800&q=90"
+                    alt="Spider Plant"
+                >
+
+            </div>
+
+
+            <div class="spring-body">
+
+                <span class="spring-category">
+                    Easy Care
+                </span>
+
+                <h3>
+                    Spider Plant
+                </h3>
+
+                <div class="spring-stars">
+                    ★★★★★
+                    <span>(137)</span>
+                </div>
+
+                <div class="spring-price">
+
+                    <strong>
+                        ₹549
+                    </strong>
+
+                    <del>
+                        ₹699
+                    </del>
+
+                    <span class="spring-off">
+                        21% OFF
+                    </span>
+
+                </div>
+
+                <a href="#"
+                   class="spring-cart">
+                    Add to Cart
+                </a>
+
+            </div>
+
+        </div>
+
+
+        <!-- PRODUCT 4 -->
+
+        <div class="spring-card">
+
+            <div class="spring-img">
+
+                <span class="spring-badge">
+                    BESTSELLER
+                </span>
+
+                <a href="#"
+                   class="spring-heart">
+                    ♡
+                </a>
+
+                <img
+                    src="https://images.unsplash.com/photo-1525498128493-380d1990a112?auto=format&fit=crop&w=800&q=90"
+                    alt="Jade Plant"
+                >
+
+            </div>
+
+
+            <div class="spring-body">
+
+                <span class="spring-category">
+                    Succulent
+                </span>
+
+                <h3>
+                    Jade Plant
+                </h3>
+
+                <div class="spring-stars">
+                    ★★★★★
+                    <span>(132)</span>
+                </div>
+
+                <div class="spring-price">
+
+                    <strong>
+                        ₹499
+                    </strong>
+
+                    <del>
+                        ₹649
+                    </del>
+
+                    <span class="spring-off">
+                        23% OFF
+                    </span>
+
+                </div>
+
+                <a href="#"
+                   class="spring-cart">
+                    Add to Cart
+                </a>
+
+            </div>
+
+        </div>
+
+
+    </div>
+
+
+    <!-- ALL PLANTS BUTTON -->
+
+    <div class="spring-view-all">
+
+        <a href="{% url 'plant' %}"
+           class="spring-outline-btn">
+
+            Explore All Plants →
+
+        </a>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     FLOWERS
+===================================================== -->
+
+<section class="spring-flower-area">
+
+    <div class="spring-flower-inner">
+
+        <div class="spring-heading">
+
+            <small>
+                Spring Flowers
+            </small>
+
+            <h2>
+                Let The Colours Bloom
+            </h2>
+
+            <p>
+                Add natural colour and freshness to balconies,
+                windows, gardens and favourite corners.
+            </p>
+
+        </div>
+
+
+        <div class="spring-flower-grid">
+
+
+            <!-- FLOWER 1 -->
+
+            <div class="spring-flower">
+
+                <img
+                    src="https://images.unsplash.com/photo-1490750967868-88aa4486c946?auto=format&fit=crop&w=700&q=90"
+                    alt="Gerbera Spring Flowers"
+                >
+
+                <div class="spring-flower-body">
+
+                    <small>
+                        Spring Favourite
+                    </small>
+
+                    <h3>
+                        Gerbera Mix
+                    </h3>
+
+                    <p>
+                        Bright and cheerful blooms for a
+                        colourful spring corner.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <!-- FLOWER 2 -->
+
+            <div class="spring-flower">
+
+                <img
+                    src="https://images.unsplash.com/photo-1455659817273-f96807779a8a?auto=format&fit=crop&w=700&q=90"
+                    alt="Petunia Flowers"
+                >
+
+                <div class="spring-flower-body">
+
+                    <small>
+                        Colourful Bloom
+                    </small>
+
+                    <h3>
+                        Petunia
+                    </h3>
+
+                    <p>
+                        Beautiful flowers perfect for balconies
+                        and sunny spaces.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <!-- FLOWER 3 -->
+
+            <div class="spring-flower">
+
+                <img
+                    src="https://images.unsplash.com/photo-1495231916356-a86217efff12?auto=format&fit=crop&w=700&q=90"
+                    alt="Mini Rose"
+                >
+
+                <div class="spring-flower-body">
+
+                    <small>
+                        Classic Flower
+                    </small>
+
+                    <h3>
+                        Mini Rose
+                    </h3>
+
+                    <p>
+                        Elegant rose plants for a timeless
+                        spring garden.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <!-- FLOWER 4 -->
+
+            <div class="spring-flower">
+
+                <img
+                    src="https://images.unsplash.com/photo-1469259943454-aa100abba749?auto=format&fit=crop&w=700&q=90"
+                    alt="Spring Flower Mix"
+                >
+
+                <div class="spring-flower-body">
+
+                    <small>
+                        Fresh Bloom
+                    </small>
+
+                    <h3>
+                        Spring Flower Mix
+                    </h3>
+
+                    <p>
+                        A colourful mix created to brighten
+                        your home naturally.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     SHOP ALL PLANTS BANNER
+===================================================== -->
+
+<section class="spring-plant-banner">
+
+    <div class="spring-plant-banner-box">
+
+        <div class="spring-plant-banner-content">
+
+            <small>
+                GREENNEST PLANT COLLECTION
+            </small>
+
+            <h2>
+                More Plants.
+                More Green.
+                More Life.
+            </h2>
+
+            <p>
+                Explore our complete plant collection and find
+                beautiful greenery for every room, balcony and
+                garden.
+            </p>
+
+            <a href="{% url 'plant' %}"
+               class="spring-btn">
+
+                Explore All Plants →
+
+            </a>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     POTS & DECOR
+===================================================== -->
+
+<section class="spring-decor">
+
+    <div class="spring-heading">
+
+        <small>
+            Spring Styling
+        </small>
+
+        <h2>
+            Complete Your Spring Look
+        </h2>
+
+        <p>
+            Pair your favourite plants with elegant planters
+            and nature-inspired décor.
+        </p>
+
+    </div>
+
+
+    <div class="spring-decor-grid">
+
+
+        <!-- CARD 1 -->
+
+        <div class="spring-decor-card">
+
+            <img
+                src="https://images.unsplash.com/photo-1485955900006-10f4d324d411?auto=format&fit=crop&w=900&q=90"
+                alt="Spring Planters"
+            >
+
+            <div class="spring-overlay"></div>
+
+            <div class="spring-decor-content">
+
+                <small>
+                    SPRING POTS
+                </small>
+
+                <h3>
+                    Pastel Planters
+                </h3>
+
+                <p>
+                    Soft colours that beautifully complement
+                    your spring flowers.
+                </p>
+
+                <a href="{% url 'plant' %}">
+                    Explore Plants →
+                </a>
+
+            </div>
+
+        </div>
+
+
+        <!-- CARD 2 -->
+
+        <div class="spring-decor-card">
+
+            <img
+                src="https://images.unsplash.com/photo-1512428813834-c702c7702b78?auto=format&fit=crop&w=900&q=90"
+                alt="Spring Home Decor"
+            >
+
+            <div class="spring-overlay"></div>
+
+            <div class="spring-decor-content">
+
+                <small>
+                    HOME STYLING
+                </small>
+
+                <h3>
+                    Fresh Green Décor
+                </h3>
+
+                <p>
+                    Add natural beauty and a refreshing
+                    touch to your favourite corners.
+                </p>
+
+                <a href="{% url 'homedecore' %}">
+                    Shop Décor →
+                </a>
+
+            </div>
+
+        </div>
+
+
+        <!-- CARD 3 -->
+
+        <div class="spring-decor-card">
+
+            <img
+                src="https://images.unsplash.com/photo-1501004318641-b39e6451bec6?auto=format&fit=crop&w=900&q=90"
+                alt="Spring Plant Collection"
+            >
+
+            <div class="spring-overlay"></div>
+
+            <div class="spring-decor-content">
+
+                <small>
+                    SPRING COLLECTION
+                </small>
+
+                <h3>
+                    Green Corners
+                </h3>
+
+                <p>
+                    Create a peaceful and refreshing
+                    indoor space with beautiful greenery.
+                </p>
+
+                <a href="{% url 'plant' %}">
+                    Shop Plants →
+                </a>
+
+            </div>
+
+        </div>
+
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     FINAL CTA
+===================================================== -->
+
+<section class="spring-final">
+
+    <small>
+        GREENNEST • SPRING LIVING
+    </small>
+
+    <h2>
+        Bring Spring Into Your Home
+    </h2>
+
+    <p>
+        Discover fresh plants, colourful flowers and
+        beautiful nature-inspired décor curated to make
+        your home feel alive.
+    </p>
+
+    <a href="{% url 'plant' %}"
+       class="spring-btn">
+
+        Shop All Plants →
+
+    </a>
+
+</section>
+
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,341 @@
+{% extends "store/Manager/managermaster.html" %}
+{% load static %}
+
+{% block title %}
+Subcategory List | GreenNest Manager
+{% endblock %}
+
+{% block page_heading %}
+Subcategory List
+{% endblock %}
+
+{% block content %}
+
+<style>
+    .subcategory-list-wrapper {
+        width: 100%;
+    }
+
+    .top-section {
+        background: #ffffff;
+        padding: 22px 25px;
+        border-radius: 16px;
+        margin-bottom: 20px;
+        box-shadow: 0 6px 25px rgba(0,0,0,0.06);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .top-section h4 {
+        margin: 0;
+        color: #234d32;
+        font-weight: 700;
+    }
+
+    .add-btn {
+        background: #2d6a4f;
+        color: white;
+        text-decoration: none;
+        padding: 11px 20px;
+        border-radius: 9px;
+        font-weight: 600;
+    }
+
+    .add-btn:hover {
+        background: #1b4332;
+        color: white;
+    }
+
+    .table-card {
+        background: #ffffff;
+        border-radius: 16px;
+        padding: 20px;
+        box-shadow: 0 6px 25px rgba(0,0,0,0.06);
+        overflow-x: auto;
+    }
+
+    .subcategory-table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    .subcategory-table th {
+        background: #2d6a4f;
+        color: white;
+        padding: 14px;
+        text-align: left;
+        white-space: nowrap;
+    }
+
+    .subcategory-table td {
+        padding: 14px;
+        border-bottom: 1px solid #edf1ef;
+        color: #40513f;
+        vertical-align: middle;
+    }
+
+    .subcategory-table tbody tr:hover {
+        background: #f7faf8;
+    }
+
+    .status-active {
+        background: #d8f3dc;
+        color: #1b4332;
+        padding: 6px 12px;
+        border-radius: 20px;
+        font-size: 13px;
+        font-weight: 600;
+    }
+
+    .status-inactive {
+        background: #ffe5e5;
+        color: #9b2226;
+        padding: 6px 12px;
+        border-radius: 20px;
+        font-size: 13px;
+        font-weight: 600;
+    }
+
+    .action-btn {
+        width: 38px;
+        height: 38px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 8px;
+        text-decoration: none;
+        margin-right: 5px;
+    }
+
+    .edit-btn {
+        background: #e7f5ff;
+        color: #1971c2;
+    }
+
+    .edit-btn:hover {
+        background: #1971c2;
+        color: white;
+    }
+
+    .delete-btn {
+        background: #fff0f0;
+        color: #c92a2a;
+    }
+
+    .delete-btn:hover {
+        background: #c92a2a;
+        color: white;
+    }
+
+    .empty-row {
+        text-align: center;
+        padding: 40px !important;
+        color: #777;
+    }
+
+    @media(max-width: 768px) {
+
+        .top-section {
+            flex-direction: column;
+            gap: 15px;
+            align-items: flex-start;
+        }
+
+    }
+</style>
+
+
+<div class="subcategory-list-wrapper">
+
+
+    <!-- TOP SECTION -->
+
+    <div class="top-section">
+
+        <h4>
+            <i class="bi bi-diagram-3 me-2"></i>
+            All Subcategories
+        </h4>
+
+        <a href="{% url 'Addsubcategory' %}"
+           class="add-btn">
+
+            <i class="bi bi-plus-circle me-1"></i>
+            Add Subcategory
+
+        </a>
+
+    </div>
+
+
+    <!-- MESSAGES -->
+
+    {% if messages %}
+
+        {% for message in messages %}
+
+            <div class="alert alert-{{ message.tags }} alert-dismissible fade show">
+
+                {{ message }}
+
+                <button type="button"
+                        class="btn-close"
+                        data-bs-dismiss="alert">
+                </button>
+
+            </div>
+
+        {% endfor %}
+
+    {% endif %}
+
+
+    <!-- TABLE -->
+
+    <div class="table-card">
+
+        <table class="subcategory-table">
+
+            <thead>
+
+                <tr>
+
+                    <th>#</th>
+
+                    <th>Category</th>
+
+                    <th>Subcategory</th>
+
+                    <th>Description</th>
+
+                    <th>Status</th>
+
+                    <th>Action</th>
+
+                </tr>
+
+            </thead>
+
+
+            <tbody>
+
+                {% for subcategory in subcategories %}
+
+                    <tr>
+
+                        <!-- ID -->
+
+                        <td>
+                            {{ subcategory.id }}
+                        </td>
+
+
+                        <!-- CATEGORY NAME -->
+
+                        <td>
+                            <strong>
+                                {{ subcategory.category_name }}
+                            </strong>
+                        </td>
+
+
+                        <!-- SUBCATEGORY -->
+
+                        <td>
+                            {{ subcategory.subcategory_name }}
+                        </td>
+
+
+                        <!-- DESCRIPTION -->
+
+                        <td>
+
+                            {% if subcategory.description %}
+
+                                {{ subcategory.description }}
+
+                            {% else %}
+
+                                <span class="text-muted">
+                                    No description
+                                </span>
+
+                            {% endif %}
+
+                        </td>
+
+
+                        <!-- STATUS -->
+
+                        <td>
+
+                            {% if subcategory.status == "Active" %}
+
+                                <span class="status-active">
+                                    Active
+                                </span>
+
+                            {% else %}
+
+                                <span class="status-inactive">
+                                    Inactive
+                                </span>
+
+                            {% endif %}
+
+                        </td>
+
+
+                        <!-- ACTION -->
+
+                        <td>
+
+                            <a href="{% url 'Editsubcategory' subcategory.id %}"
+                               class="action-btn edit-btn"
+                               title="Edit">
+
+                                <i class="bi bi-pencil"></i>
+
+                            </a>
+
+
+                            <a href="{% url 'Deletesubcategory' subcategory.id %}"
+                               class="action-btn delete-btn"
+                               title="Delete"
+                               onclick="return confirm('Are you sure you want to delete this subcategory?');">
+
+                                <i class="bi bi-trash"></i>
+
+                            </a>
+
+                        </td>
+
+                    </tr>
+
+                {% empty %}
+
+                    <tr>
+
+                        <td colspan="6"
+                            class="empty-row">
+
+                            <i class="bi bi-inbox fs-2 d-block mb-2"></i>
+
+                            No subcategories found.
+
+                        </td>
+
+                    </tr>
+
+                {% endfor %}
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</div>
+
+{% endblock %}

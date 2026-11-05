@@ -1,0 +1,636 @@
+{% extends "store/Manager/ManagerMaster.html" %}
+
+{% block title %}
+User Details | GreenNest
+{% endblock %}
+
+{% block page_heading %}
+User Details
+{% endblock %}
+
+{% block content %}
+
+<style>
+
+/* =====================================================
+   USER DETAIL PAGE
+===================================================== */
+
+.user-detail-page {
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+
+/* =====================================================
+   MAIN CARD
+===================================================== */
+
+.user-detail-card {
+
+    background: #ffffff;
+
+    border: 1px solid #e5ece6;
+
+    border-radius: 20px;
+
+    padding: 35px;
+
+    box-shadow:
+        0 10px 30px
+        rgba(25, 70, 45, 0.06);
+}
+
+
+/* =====================================================
+   HEADER
+===================================================== */
+
+.user-detail-header {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 18px;
+
+    padding-bottom: 25px;
+
+    margin-bottom: 10px;
+
+    border-bottom: 1px solid #edf1ee;
+}
+
+
+.user-detail-icon {
+
+    width: 65px;
+
+    height: 65px;
+
+    border-radius: 18px;
+
+    background: #edf5ef;
+
+    color: #24613f;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    font-size: 28px;
+}
+
+
+.user-detail-header h3 {
+
+    margin: 0;
+
+    color: #173d2b;
+
+    font-family:
+        'DM Serif Display',
+        serif;
+
+    font-size: 25px;
+}
+
+
+.user-detail-header p {
+
+    margin: 5px 0 0;
+
+    color: #8a958e;
+
+    font-size: 12px;
+}
+
+
+/* =====================================================
+   DETAIL ROW
+===================================================== */
+
+.user-info {
+
+    margin-top: 15px;
+}
+
+
+.user-info-row {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: flex-start;
+
+    gap: 30px;
+
+    padding: 18px 5px;
+
+    border-bottom:
+        1px solid #edf1ee;
+}
+
+
+.user-info-row:last-child {
+
+    border-bottom: none;
+}
+
+
+.user-info-label {
+
+    color: #7d8982;
+
+    font-size: 13px;
+
+    font-weight: 600;
+
+    min-width: 150px;
+}
+
+
+.user-info-value {
+
+    color: #173d2b;
+
+    font-size: 14px;
+
+    font-weight: 600;
+
+    text-align: right;
+
+    max-width: 65%;
+
+    word-break: break-word;
+}
+
+
+/* =====================================================
+   USER ID BADGE
+===================================================== */
+
+.user-id-badge {
+
+    background: #edf5ef;
+
+    color: #24613f;
+
+    padding: 6px 12px;
+
+    border-radius: 8px;
+
+    font-size: 12px;
+
+    font-weight: 700;
+}
+
+
+/* =====================================================
+   EMAIL
+===================================================== */
+
+.user-email {
+
+    color: #286044;
+
+    font-weight: 600;
+}
+
+
+/* =====================================================
+   MOBILE
+===================================================== */
+
+.user-phone {
+
+    color: #286044;
+
+    font-weight: 600;
+}
+
+
+/* =====================================================
+   ADDRESS
+===================================================== */
+
+.user-address {
+
+    line-height: 1.7;
+
+}
+
+
+/* =====================================================
+   EMPTY VALUE
+===================================================== */
+
+.empty-value {
+
+    color: #a3aaa6;
+
+    font-weight: 500;
+
+    font-style: italic;
+}
+
+
+/* =====================================================
+   BACK BUTTON
+===================================================== */
+
+.user-back {
+
+    margin-top: 25px;
+
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 8px;
+
+    padding: 11px 20px;
+
+    background: #173d2b;
+
+    color: white;
+
+    border-radius: 10px;
+
+    text-decoration: none;
+
+    font-size: 12px;
+
+    font-weight: 600;
+
+    transition: 0.3s ease;
+}
+
+
+.user-back:hover {
+
+    background: #286044;
+
+    color: white;
+
+    transform:
+        translateY(-2px);
+}
+
+
+/* =====================================================
+   RESPONSIVE
+===================================================== */
+
+@media (max-width: 576px) {
+
+    .user-detail-card {
+
+        padding: 22px;
+    }
+
+
+    .user-info-row {
+
+        flex-direction: column;
+
+        align-items: flex-start;
+
+        gap: 8px;
+
+    }
+
+
+    .user-info-label {
+
+        min-width: auto;
+
+    }
+
+
+    .user-info-value {
+
+        text-align: left;
+
+        max-width: 100%;
+
+    }
+
+}
+
+</style>
+
+
+<!-- =====================================================
+     USER DETAIL PAGE
+===================================================== -->
+
+<div class="user-detail-page">
+
+
+    <div class="user-detail-card">
+
+
+        <!-- =================================================
+             HEADER
+        ================================================== -->
+
+        <div class="user-detail-header">
+
+            <div class="user-detail-icon">
+
+                <i class="bi bi-person-fill"></i>
+
+            </div>
+
+
+            <div>
+
+                <h3>
+                    User Information
+                </h3>
+
+                <p>
+                    Registered customer details
+                </p>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- =================================================
+             USER INFORMATION
+        ================================================== -->
+
+        <div class="user-info">
+
+
+            <!-- USER ID -->
+
+            <div class="user-info-row">
+
+                <span class="user-info-label">
+
+                    <i class="bi bi-hash"></i>
+                    User ID
+
+                </span>
+
+
+                <span class="user-info-value">
+
+                    <span class="user-id-badge">
+
+                        #{{ user.id }}
+
+                    </span>
+
+                </span>
+
+            </div>
+
+
+
+            <!-- NAME -->
+
+            <div class="user-info-row">
+
+                <span class="user-info-label">
+
+                    <i class="bi bi-person"></i>
+                    Full Name
+
+                </span>
+
+
+                <span class="user-info-value">
+
+                    {% if user.name %}
+                        {{ user.name }}
+                    {% else %}
+                        <span class="empty-value">
+                            Not Available
+                        </span>
+                    {% endif %}
+
+                </span>
+
+            </div>
+
+
+
+            <!-- EMAIL -->
+
+            <div class="user-info-row">
+
+                <span class="user-info-label">
+
+                    <i class="bi bi-envelope"></i>
+                    Email Address
+
+                </span>
+
+
+                <span class="user-info-value user-email">
+
+                    {% if user.email %}
+                        {{ user.email }}
+                    {% else %}
+                        <span class="empty-value">
+                            Not Available
+                        </span>
+                    {% endif %}
+
+                </span>
+
+            </div>
+
+
+
+            <!-- MOBILE -->
+
+            <div class="user-info-row">
+
+                <span class="user-info-label">
+
+                    <i class="bi bi-phone"></i>
+                    Mobile Number
+
+                </span>
+
+
+                <span class="user-info-value user-phone">
+
+                    {% if user.mobile %}
+
+                        {{ user.mobile }}
+
+                    {% else %}
+
+                        <span class="empty-value">
+                            Not Available
+                        </span>
+
+                    {% endif %}
+
+                </span>
+
+            </div>
+
+
+
+            <!-- ADDRESS -->
+
+            <div class="user-info-row">
+
+                <span class="user-info-label">
+
+                    <i class="bi bi-geo-alt"></i>
+                    Address
+
+                </span>
+
+
+                <span class="user-info-value user-address">
+
+                    {% if user.address %}
+
+                        {{ user.address }}
+
+                    {% else %}
+
+                        <span class="empty-value">
+                            Not Available
+                        </span>
+
+                    {% endif %}
+
+                </span>
+
+            </div>
+
+
+
+            <!-- CITY -->
+
+            <div class="user-info-row">
+
+                <span class="user-info-label">
+
+                    <i class="bi bi-building"></i>
+                    City
+
+                </span>
+
+
+                <span class="user-info-value">
+
+                    {% if user.city %}
+
+                        {{ user.city }}
+
+                    {% else %}
+
+                        <span class="empty-value">
+                            Not Available
+                        </span>
+
+                    {% endif %}
+
+                </span>
+
+            </div>
+
+
+
+            <!-- STATE -->
+
+            <div class="user-info-row">
+
+                <span class="user-info-label">
+
+                    <i class="bi bi-map"></i>
+                    State
+
+                </span>
+
+
+                <span class="user-info-value">
+
+                    {% if user.state %}
+
+                        {{ user.state }}
+
+                    {% else %}
+
+                        <span class="empty-value">
+                            Not Available
+                        </span>
+
+                    {% endif %}
+
+                </span>
+
+            </div>
+
+
+
+            <!-- PINCODE -->
+
+            <div class="user-info-row">
+
+                <span class="user-info-label">
+
+                    <i class="bi bi-mailbox"></i>
+                    Pincode
+
+                </span>
+
+
+                <span class="user-info-value">
+
+                    {% if user.pincode %}
+
+                        {{ user.pincode }}
+
+                    {% else %}
+
+                        <span class="empty-value">
+                            Not Available
+                        </span>
+
+                    {% endif %}
+
+                </span>
+
+            </div>
+
+
+        </div>
+
+
+
+        <!-- =================================================
+             BACK BUTTON
+        ================================================== -->
+
+        <a href="{% url 'Userlist' %}"
+           class="user-back">
+
+            <i class="bi bi-arrow-left"></i>
+
+            Back to User List
+
+        </a>
+
+
+    </div>
+
+</div>
+
+{% endblock %}

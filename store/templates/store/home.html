@@ -1,0 +1,2489 @@
+{% extends "store/base.html" %}
+
+{% load static %}
+
+{% block title %}GreenNest | Bring Nature Home{% endblock %}
+
+
+{% block extra_css %}
+
+<style>
+
+/* =========================================================
+   GLOBAL
+========================================================= */
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    background: #ffffff;
+    color: #263f32;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+a {
+    text-decoration: none;
+}
+
+
+/* =========================================================
+   HERO
+========================================================= */
+
+.gn-hero {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    background: #172c21;
+}
+
+.gn-carousel {
+    width: 100%;
+}
+
+.gn-slide {
+    position: relative;
+    width: 100%;
+    height: 650px;
+    overflow: hidden;
+}
+
+.gn-slide img {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: cover;
+    object-position: center;
+}
+
+.gn-slide::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    background:
+        linear-gradient(
+            90deg,
+            rgba(12, 30, 21, 0.88) 0%,
+            rgba(12, 30, 21, 0.60) 42%,
+            rgba(12, 30, 21, 0.15) 75%,
+            rgba(12, 30, 21, 0.10) 100%
+        );
+}
+
+.gn-hero-content {
+    position: absolute;
+    z-index: 5;
+    top: 50%;
+    left: 8%;
+    transform: translateY(-50%);
+    width: calc(100% - 16%);
+    max-width: 650px;
+    color: #ffffff;
+}
+
+.gn-small-label {
+    display: inline-block;
+    padding: 8px 16px;
+    margin-bottom: 20px;
+    border: 1px solid rgba(255,255,255,0.35);
+    border-radius: 50px;
+    background: rgba(255,255,255,0.10);
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+
+.gn-hero-title {
+    margin: 0 0 20px;
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: clamp(42px, 5vw, 76px);
+    line-height: 1.05;
+    font-weight: 700;
+    color: #ffffff;
+}
+
+.gn-hero-title span {
+    color: #b9d89b;
+}
+
+.gn-hero-text {
+    max-width: 570px;
+    margin-bottom: 30px;
+    color: rgba(255,255,255,0.88);
+    font-size: 17px;
+    line-height: 1.8;
+}
+
+.gn-hero-buttons {
+    display: flex;
+    gap: 14px;
+    flex-wrap: wrap;
+}
+
+.gn-btn-primary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 14px 27px;
+    border-radius: 50px;
+    background: #d7e9bd;
+    color: #243c2d;
+    font-size: 15px;
+    font-weight: 700;
+    transition: 0.3s ease;
+}
+
+.gn-btn-primary:hover {
+    background: #ffffff;
+    color: #243c2d;
+    transform: translateY(-3px);
+}
+
+.gn-btn-outline {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 13px 27px;
+    border: 1px solid rgba(255,255,255,0.65);
+    border-radius: 50px;
+    color: #ffffff;
+    font-size: 15px;
+    font-weight: 600;
+    transition: 0.3s ease;
+}
+
+.gn-btn-outline:hover {
+    background: #ffffff;
+    color: #263f32;
+    transform: translateY(-3px);
+}
+
+
+/* =========================================================
+   HERO CARD
+========================================================= */
+
+.gn-hero-card {
+    position: absolute;
+    z-index: 6;
+    right: 7%;
+    bottom: 55px;
+    width: 230px;
+    padding: 22px;
+    border: 1px solid rgba(255,255,255,0.25);
+    border-radius: 20px;
+    background: rgba(255,255,255,0.13);
+    color: #ffffff;
+}
+
+.gn-hero-card-icon {
+    width: 44px;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 12px;
+    border-radius: 50%;
+    background: #d7e9bd;
+    color: #294331;
+    font-size: 20px;
+}
+
+.gn-hero-card h5 {
+    margin: 0 0 7px;
+    font-size: 17px;
+}
+
+.gn-hero-card p {
+    margin: 0;
+    color: rgba(255,255,255,0.78);
+    font-size: 13px;
+    line-height: 1.6;
+}
+
+
+/* =========================================================
+   CAROUSEL
+========================================================= */
+
+.gn-carousel .carousel-indicators {
+    z-index: 10;
+    margin-bottom: 25px;
+}
+
+.gn-carousel .carousel-indicators button {
+    width: 32px;
+    height: 4px;
+    margin: 0 4px;
+    border: 0;
+    border-radius: 20px;
+}
+
+.gn-carousel .carousel-control-prev,
+.gn-carousel .carousel-control-next {
+    z-index: 8;
+    width: 7%;
+}
+
+.gn-carousel .carousel-control-prev-icon,
+.gn-carousel .carousel-control-next-icon {
+    width: 45px;
+    height: 45px;
+    padding: 10px;
+    border-radius: 50%;
+    background-color: rgba(0,0,0,0.25);
+    background-size: 50%;
+}
+
+
+/* =========================================================
+   STATS
+========================================================= */
+
+.gn-stats {
+    padding: 35px 20px;
+    background: #f5f7f1;
+    border-bottom: 1px solid #e6ebe1;
+}
+
+.gn-stat {
+    text-align: center;
+    padding: 10px 15px;
+}
+
+.gn-stat-number {
+    margin-bottom: 5px;
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 30px;
+    font-weight: 700;
+    color: #31553d;
+}
+
+.gn-stat-label {
+    color: #718078;
+    font-size: 13px;
+}
+
+
+/* =========================================================
+   COMMON SECTION
+========================================================= */
+
+.gn-section {
+    padding: 90px 0;
+}
+
+.gn-section-light {
+    background: #fbfcf9;
+}
+
+.gn-section-heading {
+    max-width: 680px;
+    margin: 0 auto 55px;
+    text-align: center;
+}
+
+.gn-section-label {
+    display: inline-block;
+    margin-bottom: 12px;
+    color: #668a58;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+
+.gn-section-title {
+    margin-bottom: 15px;
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: clamp(32px, 4vw, 50px);
+    line-height: 1.15;
+    color: #263f32;
+}
+
+.gn-section-text {
+    margin: 0 auto;
+    color: #718078;
+    font-size: 16px;
+    line-height: 1.8;
+}
+
+
+/* =========================================================
+   WHY GREENNEST
+========================================================= */
+
+.gn-why {
+    background: #ffffff;
+}
+
+.gn-why-row {
+    display: grid;
+    grid-template-columns: 1fr 460px 1fr;
+    align-items: center;
+    gap: 55px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+
+/* =========================================================
+   BENEFITS
+========================================================= */
+
+.gn-benefits {
+    display: flex;
+    flex-direction: column;
+    gap: 38px;
+}
+
+.gn-benefit {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    width: 100%;
+}
+
+.gn-benefit-icon {
+    flex: 0 0 52px;
+    width: 52px;
+    height: 52px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 15px;
+    background: #edf4e7;
+    color: #52734b;
+    font-size: 22px;
+}
+
+.gn-benefit-content {
+    flex: 1;
+    min-width: 0;
+}
+
+.gn-benefit h5 {
+    margin: 0 0 7px;
+    color: #294433;
+    font-size: 18px;
+    font-weight: 700;
+}
+
+.gn-benefit p {
+    margin: 0;
+    color: #7b8780;
+    font-size: 14px;
+    line-height: 1.7;
+}
+
+
+/* =========================================================
+   CENTER IMAGE
+========================================================= */
+
+.gn-center-wrapper {
+    width: 460px;
+    height: 460px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+    position: relative;
+}
+
+.gn-center-image {
+    width: 440px;
+    height: 440px;
+    overflow: hidden;
+    border-radius: 50%;
+    border: 10px solid #edf3e8;
+    background: #edf3e8;
+    box-shadow:
+        0 20px 55px rgba(39, 62, 48, 0.16),
+        0 0 0 1px rgba(100, 130, 95, 0.08);
+}
+
+.gn-center-image img {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: cover;
+    object-position: center;
+    transition: transform 0.6s ease;
+}
+
+.gn-center-image:hover img {
+    transform: scale(1.04);
+}
+
+
+/* =========================================================
+   CATEGORIES
+========================================================= */
+
+.gn-categories {
+    background: #f8faf6;
+}
+
+.gn-category-card {
+    position: relative;
+    height: 390px;
+    overflow: hidden;
+    border-radius: 24px;
+    background: #e9eee6;
+    box-shadow:
+        0 8px 25px rgba(37, 62, 47, 0.08);
+    transition: 0.35s ease;
+}
+
+.gn-category-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.6s ease;
+}
+
+.gn-category-card::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background:
+        linear-gradient(
+            to top,
+            rgba(15, 32, 22, 0.82),
+            rgba(15, 32, 22, 0.05) 65%
+        );
+}
+
+.gn-category-card:hover img {
+    transform: scale(1.07);
+}
+
+.gn-category-content {
+    position: absolute;
+    z-index: 3;
+    left: 25px;
+    right: 25px;
+    bottom: 25px;
+    color: #ffffff;
+}
+
+.gn-category-content span {
+    display: block;
+    margin-bottom: 6px;
+    font-size: 12px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    opacity: 0.8;
+}
+
+.gn-category-content h4 {
+    margin: 0 0 13px;
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 27px;
+}
+
+.gn-category-link {
+    display: inline-flex;
+    color: #ffffff;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+
+/* =========================================================
+   PRODUCTS
+========================================================= */
+
+.gn-products {
+    background: #ffffff;
+}
+
+
+/* PRODUCT CARD */
+
+.gn-product-card {
+    position: relative;
+    height: 100%;
+    overflow: hidden;
+    border: 1px solid #e8eee7;
+    border-radius: 20px;
+    background: #ffffff;
+    transition: 0.35s ease;
+}
+
+.gn-product-card:hover {
+    transform: translateY(-6px);
+    box-shadow:
+        0 14px 30px rgba(35, 60, 45, 0.10);
+}
+
+
+/* PRODUCT IMAGE */
+
+.gn-product-image {
+    position: relative;
+    height: 260px;
+    overflow: hidden;
+    background: #f4f6f1;
+}
+
+.gn-product-image img {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.gn-product-card:hover .gn-product-image img {
+    transform: scale(1.04);
+}
+
+
+/* PRODUCT IMAGE LINK */
+
+.gn-product-image-link {
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+
+
+/* SALE BADGE */
+
+
+
+/* WISHLIST */
+
+.gn-heart {
+    position: absolute;
+    z-index: 4;
+    top: 15px;
+    right: 15px;
+    width: 42px;
+    height: 42px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 0;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.95);
+    color: #54705c;
+    font-size: 21px;
+    cursor: pointer;
+    box-shadow:
+        0 4px 15px rgba(0,0,0,0.08);
+    transition: 0.3s ease;
+}
+
+.gn-heart:hover,
+.gn-heart.active {
+    background: #e8f0df;
+    color: #b15b68;
+}
+
+
+/* PRODUCT INFO */
+
+.gn-product-info {
+    padding: 17px 18px 18px;
+}
+
+.gn-product-category {
+    margin-bottom: 7px;
+    color: #b08b49;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1.2px;
+    text-transform: uppercase;
+}
+
+.gn-product-info h4 {
+    margin: 0 0 7px;
+    color: #2b4435;
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 20px;
+    line-height: 1.25;
+}
+
+
+/* PRODUCT NAME LINK */
+
+.gn-product-name-link {
+    color: #2b4435;
+    transition: 0.3s ease;
+}
+
+.gn-product-name-link:hover {
+    color: #52734b;
+}
+
+
+/* DESCRIPTION */
+
+.gn-product-description {
+    min-height: 38px;
+    margin: 0 0 12px;
+    color: #7d8881;
+    font-size: 13px;
+    line-height: 1.5;
+}
+
+
+/* =========================================================
+   RATING
+========================================================= */
+
+.gn-product-rating {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    margin-bottom: 12px;
+}
+
+.gn-product-stars {
+    color: #d4a847;
+    font-size: 13px;
+    letter-spacing: 1px;
+    white-space: nowrap;
+}
+
+.gn-product-rating-number {
+    color: #7d8881;
+    font-size: 13px;
+}
+
+
+/* =========================================================
+   PRODUCT BOTTOM
+========================================================= */
+
+.gn-product-bottom {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+}
+
+.gn-price-box {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+}
+
+.gn-price {
+    color: #174b39;
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 1.2;
+}
+
+.gn-old-price {
+    margin-top: 3px;
+    color: #a0a5a1;
+    font-size: 11px;
+    text-decoration: line-through;
+}
+
+
+/* =========================================================
+   VIEW + ADD BUTTONS
+========================================================= */
+
+.gn-product-actions {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-shrink: 0;
+}
+
+
+/* VIEW BUTTON */
+
+.gn-view {
+    width: 43px;
+    height: 43px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #dce5df;
+    border-radius: 50%;
+    background: #ffffff;
+    color: #174b39;
+    font-size: 17px;
+    transition: 0.3s ease;
+}
+
+.gn-view:hover {
+    background: #edf4e7;
+    border-color: #cbdccc;
+    color: #174b39;
+    transform: translateY(-2px);
+}
+
+
+/* ADD TO CART */
+
+.gn-add {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    border: 0;
+    padding: 11px 17px;
+    min-width: 82px;
+    white-space: nowrap;
+    border-radius: 50px;
+    background: #174b39;
+    color: #ffffff;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.3s ease;
+}
+
+.gn-add:hover {
+    background: #0e382a;
+    color: #ffffff;
+    transform: translateY(-2px);
+}
+
+
+/* =========================================================
+   PROMO
+========================================================= */
+
+.gn-promo {
+    position: relative;
+    min-height: 400px;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    background:
+        linear-gradient(
+            90deg,
+            rgba(26,52,37,0.92),
+            rgba(26,52,37,0.40)
+        ),
+        url("{% static 'images/promo.jpg' %}")
+        center/cover no-repeat;
+}
+
+.gn-promo-content {
+    max-width: 600px;
+    color: #ffffff;
+}
+
+.gn-promo-label {
+    display: inline-block;
+    margin-bottom: 14px;
+    color: #cfe4b8;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+
+.gn-promo h2 {
+    margin-bottom: 18px;
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: clamp(34px, 4vw, 55px);
+}
+
+.gn-promo p {
+    margin-bottom: 25px;
+    color: rgba(255,255,255,0.82);
+    line-height: 1.8;
+}
+
+
+/* =========================================================
+   REVIEWS
+========================================================= */
+
+.gn-reviews {
+    background: #f8faf6;
+}
+
+.gn-review-card {
+    height: 100%;
+    padding: 30px;
+    border: 1px solid #e8eee5;
+    border-radius: 22px;
+    background: #ffffff;
+    transition: 0.3s ease;
+}
+
+.gn-review-card:hover {
+    transform: translateY(-5px);
+    box-shadow:
+        0 12px 30px rgba(39,62,48,0.08);
+}
+
+.gn-stars {
+    margin-bottom: 15px;
+    color: #d4a847;
+    letter-spacing: 2px;
+}
+
+.gn-review-text {
+    margin-bottom: 22px;
+    color: #68776d;
+    font-size: 14px;
+    line-height: 1.8;
+}
+
+.gn-review-user {
+    display: flex;
+    align-items: center;
+    gap: 13px;
+}
+
+.gn-review-user img {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.gn-review-user strong {
+    display: block;
+    color: #294433;
+    font-size: 14px;
+}
+
+.gn-review-user span {
+    color: #8b968f;
+    font-size: 12px;
+}
+
+
+/* =========================================================
+   NEWSLETTER
+========================================================= */
+
+.gn-newsletter-section {
+    position: relative;
+    padding: 90px 20px;
+    overflow: hidden;
+    background:
+        linear-gradient(
+            rgba(30,55,40,0.90),
+            rgba(30,55,40,0.90)
+        ),
+        url("{% static 'images/newsletter.jpg' %}")
+        center/cover no-repeat;
+}
+
+.gn-newsletter-content {
+    max-width: 700px;
+    margin: auto;
+    text-align: center;
+    color: #ffffff;
+}
+
+.gn-newsletter-content h2 {
+    margin-bottom: 15px;
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: clamp(32px, 4vw, 48px);
+}
+
+.gn-newsletter-content p {
+    margin-bottom: 28px;
+    color: rgba(255,255,255,0.80);
+    line-height: 1.7;
+}
+
+.gn-newsletter-form {
+    max-width: 530px;
+    margin: auto;
+    display: flex;
+    padding: 6px;
+    border-radius: 50px;
+    background: #ffffff;
+}
+
+.gn-newsletter-form input {
+    flex: 1;
+    min-width: 0;
+    padding: 13px 18px;
+    border: 0;
+    outline: none;
+    border-radius: 50px;
+    color: #314a3a;
+}
+
+.gn-newsletter-form button {
+    border: 0;
+    padding: 12px 25px;
+    border-radius: 50px;
+    background: #31553d;
+    color: #ffffff;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+
+/* =========================================================
+   BLOG
+========================================================= */
+
+.gn-blog {
+    background: #ffffff;
+}
+
+.gn-blog-card {
+    overflow: hidden;
+    border: 1px solid #e8eee5;
+    border-radius: 22px;
+    background: #ffffff;
+    transition: 0.3s ease;
+}
+
+.gn-blog-card:hover {
+    transform: translateY(-7px);
+    box-shadow:
+        0 15px 30px rgba(35,60,45,0.10);
+}
+
+.gn-blog-image {
+    height: 230px;
+    overflow: hidden;
+}
+
+.gn-blog-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.gn-blog-card:hover .gn-blog-image img {
+    transform: scale(1.06);
+}
+
+.gn-blog-content {
+    padding: 22px;
+}
+
+.gn-blog-date {
+    margin-bottom: 8px;
+    color: #78936d;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+.gn-blog-content h4 {
+    margin-bottom: 10px;
+    color: #2d4636;
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 21px;
+}
+
+.gn-blog-content p {
+    margin-bottom: 15px;
+    color: #78837c;
+    font-size: 13px;
+    line-height: 1.7;
+}
+
+.gn-read-more {
+    color: #52734b;
+    font-size: 13px;
+    font-weight: 700;
+}
+
+
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media (max-width: 1100px) {
+
+    .gn-why-row {
+        grid-template-columns: 1fr 380px 1fr;
+        gap: 25px;
+    }
+
+    .gn-center-wrapper {
+        width: 380px;
+        height: 380px;
+    }
+
+    .gn-center-image {
+        width: 360px;
+        height: 360px;
+    }
+
+    .gn-benefit {
+        gap: 10px;
+    }
+
+    .gn-benefit-icon {
+        flex-basis: 46px;
+        width: 46px;
+        height: 46px;
+        font-size: 19px;
+    }
+
+    .gn-benefit h5 {
+        font-size: 16px;
+    }
+
+    .gn-benefit p {
+        font-size: 13px;
+    }
+}
+
+
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media (max-width: 991px) {
+
+    .gn-slide {
+        height: 560px;
+    }
+
+    .gn-hero-content {
+        left: 6%;
+        width: 60%;
+    }
+
+    .gn-hero-card {
+        right: 5%;
+        bottom: 35px;
+        width: 200px;
+    }
+
+    .gn-section {
+        padding: 70px 0;
+    }
+
+    .gn-why-row {
+        grid-template-columns: 1fr;
+        gap: 35px;
+        max-width: 650px;
+    }
+
+    .gn-center-wrapper {
+        order: 1;
+        width: 440px;
+        height: 440px;
+    }
+
+    .gn-center-image {
+        width: 420px;
+        height: 420px;
+    }
+
+    .gn-benefits-left {
+        order: 2;
+    }
+
+    .gn-benefits-right {
+        order: 3;
+    }
+
+    .gn-benefits {
+        gap: 28px;
+    }
+
+    .gn-category-card {
+        height: 340px;
+    }
+
+    .gn-product-image {
+        height: 250px;
+    }
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 767px) {
+
+    .gn-slide {
+        height: 620px;
+    }
+
+    .gn-slide::after {
+        background:
+            linear-gradient(
+                90deg,
+                rgba(12,30,21,0.83),
+                rgba(12,30,21,0.55)
+            );
+    }
+
+    .gn-hero-content {
+        top: 43%;
+        left: 25px;
+        right: 25px;
+        width: auto;
+        max-width: none;
+    }
+
+    .gn-hero-title {
+        font-size: 43px;
+    }
+
+    .gn-hero-text {
+        font-size: 14px;
+    }
+
+    .gn-hero-card {
+        display: none;
+    }
+
+    .gn-carousel .carousel-control-prev,
+    .gn-carousel .carousel-control-next {
+        width: 12%;
+    }
+
+    .gn-stats {
+        padding: 25px 10px;
+    }
+
+    .gn-stat-number {
+        font-size: 24px;
+    }
+
+    .gn-stat-label {
+        font-size: 11px;
+    }
+
+    .gn-section {
+        padding: 60px 0;
+    }
+
+    .gn-section-heading {
+        margin-bottom: 35px;
+        padding: 0 15px;
+    }
+
+    .gn-why-row {
+        display: flex;
+        flex-direction: column;
+        gap: 35px;
+        padding: 0 20px;
+    }
+
+    .gn-center-wrapper {
+        width: min(90vw, 400px);
+        height: min(90vw, 400px);
+        order: 1;
+    }
+
+    .gn-center-image {
+        width: min(86vw, 380px);
+        height: min(86vw, 380px);
+        border-width: 8px;
+    }
+
+    .gn-benefits-left {
+        order: 2;
+    }
+
+    .gn-benefits-right {
+        order: 3;
+    }
+
+    .gn-benefits {
+        width: 100%;
+        gap: 25px;
+    }
+
+    .gn-benefit {
+        width: 100%;
+    }
+
+    .gn-category-card {
+        height: 330px;
+    }
+
+    .gn-product-image {
+        height: 250px;
+    }
+
+    .gn-promo {
+        min-height: 450px;
+    }
+
+    .gn-newsletter-form {
+        flex-direction: column;
+        padding: 8px;
+        border-radius: 18px;
+    }
+
+    .gn-newsletter-form input {
+        width: 100%;
+        padding: 14px;
+    }
+
+    .gn-newsletter-form button {
+        width: 100%;
+    }
+}
+
+
+/* =========================================================
+   SMALL MOBILE
+========================================================= */
+
+@media (max-width: 480px) {
+
+    .gn-slide {
+        height: 650px;
+    }
+
+    .gn-hero-content {
+        top: 42%;
+        left: 20px;
+        right: 20px;
+    }
+
+    .gn-small-label {
+        padding: 7px 12px;
+        font-size: 10px;
+    }
+
+    .gn-hero-title {
+        font-size: 38px;
+    }
+
+    .gn-hero-text {
+        font-size: 13px;
+        line-height: 1.7;
+    }
+
+    .gn-hero-buttons {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .gn-btn-primary,
+    .gn-btn-outline {
+        width: 100%;
+    }
+
+    .gn-center-wrapper {
+        width: 320px;
+        height: 320px;
+    }
+
+    .gn-center-image {
+        width: 300px;
+        height: 300px;
+    }
+
+    .gn-category-card {
+        height: 300px;
+    }
+
+    .gn-product-image {
+        height: 250px;
+    }
+
+    .gn-product-info {
+        padding: 15px;
+    }
+
+    .gn-product-bottom {
+        align-items: center;
+    }
+
+    .gn-product-actions {
+        gap: 6px;
+    }
+
+    .gn-view {
+        width: 40px;
+        height: 40px;
+    }
+
+    .gn-add {
+        min-width: 72px;
+        padding: 10px 12px;
+        font-size: 11px;
+    }
+
+    .gn-review-card {
+        padding: 23px;
+    }
+}
+
+</style>
+
+{% endblock %}
+
+
+{% block content %}
+
+
+<!-- =====================================================
+     HERO
+===================================================== -->
+
+<section class="gn-hero">
+
+    <div id="greenNestCarousel"
+         class="carousel slide gn-carousel"
+         data-bs-ride="carousel"
+         data-bs-interval="5000">
+
+        <div class="carousel-indicators">
+
+            <button type="button"
+                    data-bs-target="#greenNestCarousel"
+                    data-bs-slide-to="0"
+                    class="active"
+                    aria-current="true"
+                    aria-label="Slide 1">
+            </button>
+
+            <button type="button"
+                    data-bs-target="#greenNestCarousel"
+                    data-bs-slide-to="1"
+                    aria-label="Slide 2">
+            </button>
+
+            <button type="button"
+                    data-bs-target="#greenNestCarousel"
+                    data-bs-slide-to="2"
+                    aria-label="Slide 3">
+            </button>
+
+        </div>
+
+
+        <div class="carousel-inner">
+
+
+            <!-- SLIDE 1 -->
+
+            <div class="carousel-item active">
+
+                <div class="gn-slide">
+
+                    <img src="{% static 'images/imag.jpg' %}"
+                         alt="Beautiful indoor plants">
+
+                    <div class="gn-hero-content">
+
+                        <span class="gn-small-label">
+                            Bring Nature Home
+                        </span>
+
+                        <h1 class="gn-hero-title">
+
+                            A little green
+
+                            <span>
+                                changes everything.
+                            </span>
+
+                        </h1>
+
+                        <p class="gn-hero-text">
+
+                            Discover beautiful indoor plants, elegant
+                            pots and everything you need to create a
+                            peaceful green space at home.
+
+                        </p>
+
+                        <div class="gn-hero-buttons">
+
+                            <a href="{% url 'plant' %}"
+                               class="gn-btn-primary">
+
+                                Shop Plants
+
+                            </a>
+
+                            <a href="{% url 'collection' %}"
+                               class="gn-btn-outline">
+
+                                Explore Collection
+
+                            </a>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="gn-hero-card">
+
+                        <div class="gn-hero-card-icon">
+                            🌿
+                        </div>
+
+                        <h5>
+                            Fresh & Healthy
+                        </h5>
+
+                        <p>
+                            Carefully selected plants,
+                            packed with love and delivered safely.
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- SLIDE 2 -->
+
+            <div class="carousel-item">
+
+                <div class="gn-slide">
+
+                    <img src="{% static 'images/imag1.jpg' %}"
+                         alt="Green plants collection">
+
+                    <div class="gn-hero-content">
+
+                        <span class="gn-small-label">
+                            Grow Beautifully
+                        </span>
+
+                        <h1 class="gn-hero-title">
+
+                            Make your home
+
+                            <span>
+                                feel alive.
+                            </span>
+
+                        </h1>
+
+                        <p class="gn-hero-text">
+
+                            From easy-care plants to statement
+                            greenery, find the perfect plant for
+                            every corner of your home.
+
+                        </p>
+
+                        <div class="gn-hero-buttons">
+
+                            <a href="{% url 'plant' %}"
+                               class="gn-btn-primary">
+
+                                Shop Now
+
+                            </a>
+
+                            <a href="{% url 'about' %}"
+                               class="gn-btn-outline">
+
+                                Why GreenNest
+
+                            </a>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- SLIDE 3 -->
+
+            <div class="carousel-item">
+
+                <div class="gn-slide">
+
+                    <img src="{% static 'images/imag2.jpg' %}"
+                         alt="Premium plants for home">
+
+                    <div class="gn-hero-content">
+
+                        <span class="gn-small-label">
+                            Your Green Corner
+                        </span>
+
+                        <h1 class="gn-hero-title">
+
+                            Grow joy,
+
+                            <span>
+                                one plant at a time.
+                            </span>
+
+                        </h1>
+
+                        <p class="gn-hero-text">
+
+                            Bring freshness, beauty and a touch
+                            of nature into your everyday surroundings
+                            with GreenNest.
+
+                        </p>
+
+                        <div class="gn-hero-buttons">
+
+                            <a href="{% url 'plant' %}"
+                               class="gn-btn-primary">
+
+                                View Collection
+
+                            </a>
+
+                            <a href="#reviews"
+                               class="gn-btn-outline">
+
+                                Customer Stories
+
+                            </a>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <button class="carousel-control-prev"
+                type="button"
+                data-bs-target="#greenNestCarousel"
+                data-bs-slide="prev">
+
+            <span class="carousel-control-prev-icon"
+                  aria-hidden="true">
+            </span>
+
+            <span class="visually-hidden">
+                Previous
+            </span>
+
+        </button>
+
+
+        <button class="carousel-control-next"
+                type="button"
+                data-bs-target="#greenNestCarousel"
+                data-bs-slide="next">
+
+            <span class="carousel-control-next-icon"
+                  aria-hidden="true">
+            </span>
+
+            <span class="visually-hidden">
+                Next
+            </span>
+
+        </button>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     STATS
+===================================================== -->
+
+<section class="gn-stats">
+
+    <div class="container">
+
+        <div class="row g-3">
+
+            <div class="col-6 col-lg-3">
+
+                <div class="gn-stat">
+
+                    <div class="gn-stat-number">
+                        1,900+
+                    </div>
+
+                    <div class="gn-stat-label">
+                        Happy Plant Parents
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="col-6 col-lg-3">
+
+                <div class="gn-stat">
+
+                    <div class="gn-stat-number">
+                        8,000+
+                    </div>
+
+                    <div class="gn-stat-label">
+                        Plants Delivered
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="col-6 col-lg-3">
+
+                <div class="gn-stat">
+
+                    <div class="gn-stat-number">
+                        520+
+                    </div>
+
+                    <div class="gn-stat-label">
+                        Plant Varieties
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="col-6 col-lg-3">
+
+                <div class="gn-stat">
+
+                    <div class="gn-stat-number">
+                        4.9 ★
+                    </div>
+
+                    <div class="gn-stat-label">
+                        Customer Rating
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     PRODUCTS
+===================================================== -->
+
+<section class="gn-section gn-products"
+         id="plants">
+
+    <div class="container">
+
+        <div class="gn-section-heading">
+
+            <span class="gn-section-label">
+                Best Sellers
+            </span>
+
+            <h2 class="gn-section-title">
+                Plants everyone loves.
+            </h2>
+
+            <p class="gn-section-text">
+
+                Beautiful, healthy and easy-to-care plants
+                selected for modern homes.
+
+            </p>
+
+        </div>
+
+
+        <div class="row g-4">
+
+
+            {% if home_products %}
+
+                {% for product in home_products|slice:":4" %}
+
+                    <div class="col-sm-6 col-lg-3">
+
+                        <div class="gn-product-card">
+
+
+                            <!-- PRODUCT IMAGE -->
+
+                            <div class="gn-product-image">
+
+                                {% if product.old_price and product.old_price > product.price %}
+
+                                    
+
+                                {% endif %}
+
+
+                                <a href="{% url 'product_details' product.id %}"
+                                   class="gn-product-image-link">
+
+                                    {% if product.image %}
+
+                                        <img
+                                            src="{% static 'product_images/' %}{{ product.image }}"
+                                            alt="{{ product.name }}"
+                                        >
+
+                                    {% else %}
+
+                                        <img
+                                            src="{% static 'images/plant1.jpg' %}"
+                                            alt="{{ product.name }}"
+                                        >
+
+                                    {% endif %}
+
+                                </a>
+
+
+                                <!-- WISHLIST -->
+
+                                <a href="{% url 'AddToWishlist' product.id %}"
+                                   class="gn-heart"
+                                   aria-label="Add to wishlist">
+
+                                    ♡
+
+                                </a>
+
+                            </div>
+
+
+                            <!-- PRODUCT INFO -->
+
+                            <div class="gn-product-info">
+
+
+                                <!-- CATEGORY -->
+
+                                <div class="gn-product-category">
+
+                                    {{ product.category }}
+
+                                    {% if product.subcategory %}
+                                        · {{ product.subcategory }}
+                                    {% endif %}
+
+                                </div>
+
+
+                                <!-- NAME -->
+
+                                <h4>
+
+                                    <a
+                                        href="{% url 'product_details' product.id %}"
+                                        class="gn-product-name-link"
+                                    >
+
+                                        {{ product.name }}
+
+                                    </a>
+
+                                </h4>
+
+
+                                <!-- DESCRIPTION -->
+
+                                <p class="gn-product-description">
+
+                                    {% if product.description %}
+
+                                        {{ product.description|truncatechars:55 }}
+
+                                    {% else %}
+
+                                        Beautiful and healthy plant
+                                        perfect for your home.
+
+                                    {% endif %}
+
+                                </p>
+
+
+                                <!-- RATING -->
+
+                                <div class="gn-product-rating">
+
+                                    <span class="gn-product-stars">
+
+                                        ★★★★★
+
+                                    </span>
+
+                                    <span class="gn-product-rating-number">
+
+                                        {{ product.rating|default:"4.8" }}
+
+                                    </span>
+
+                                </div>
+
+
+                                <!-- PRICE + VIEW + ADD -->
+
+                                <div class="gn-product-bottom">
+
+
+                                    <!-- PRICE -->
+
+                                    <div class="gn-price-box">
+
+                                        <span class="gn-price">
+
+                                            ₹{{ product.price }}
+
+                                        </span>
+
+
+                                        {% if product.old_price and product.old_price > product.price %}
+
+                                            <span class="gn-old-price">
+
+                                                ₹{{ product.old_price }}
+
+                                            </span>
+
+                                        {% endif %}
+
+                                    </div>
+
+
+                                    <!-- ACTION BUTTONS -->
+
+                                    <div class="gn-product-actions">
+
+
+                                        <!-- VIEW -->
+
+                                        <a
+                                            href="{% url 'product_details' product.id %}"
+                                            class="gn-view"
+                                            title="View Product"
+                                            aria-label="View Product"
+                                            onclick="event.stopPropagation();"
+                                        >
+
+                                            <i class="bi bi-eye"></i>
+
+                                        </a>
+
+
+                                        <!-- ADD TO CART -->
+
+                                        {% if product.stock and product.stock > 0 %}
+
+                                            <a
+                                                href="{% url 'AddToCart' product.id %}"
+                                                class="gn-add"
+                                                onclick="event.stopPropagation();"
+                                            >
+
+                                                <i class="bi bi-cart-plus"></i>
+
+                                                Add
+
+                                            </a>
+
+                                        {% else %}
+
+                                            <a
+                                                href="javascript:void(0);"
+                                                class="gn-add"
+                                                style="background:#999; cursor:not-allowed;"
+                                            >
+
+                                                Out
+
+                                            </a>
+
+                                        {% endif %}
+
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                {% endfor %}
+
+
+            {% else %}
+
+
+                <!-- NO PRODUCTS -->
+
+                <div class="col-12">
+
+                    <div class="text-center py-5">
+
+                        <h4 style="color:#31553d;">
+
+                            No products available
+
+                        </h4>
+
+                        <p style="color:#718078;">
+
+                            Products will appear here when
+                            they are added from the backend.
+
+                        </p>
+
+                    </div>
+
+                </div>
+
+            {% endif %}
+
+
+        </div>
+
+
+        <!-- VIEW ALL -->
+
+        <div class="text-center mt-5">
+
+            <a
+                href="{% url 'plant' %}"
+                class="gn-btn-primary"
+            >
+
+                View All Plants
+
+            </a>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     CATEGORIES
+===================================================== -->
+
+<section class="gn-section gn-categories"
+         id="categories">
+
+    <div class="container">
+
+        <div class="gn-section-heading">
+
+            <span class="gn-section-label">
+                Explore Plants
+            </span>
+
+            <h2 class="gn-section-title">
+
+                Find your perfect green companion.
+
+            </h2>
+
+            <p class="gn-section-text">
+
+                Explore our carefully selected plant collections
+                for every room and lifestyle.
+
+            </p>
+
+        </div>
+
+
+        <div class="row g-4">
+
+
+            <!-- INDOOR PLANTS -->
+
+            <div class="col-md-4">
+
+                <a href="{% url 'indoorp' %}"
+                   class="gn-category-card d-block">
+
+                    <img
+                        src="{% static 'images/category1.jpg' %}"
+                        alt="Indoor Plants"
+                    >
+
+                    <div class="gn-category-content">
+
+                        <span>
+                            Collection
+                        </span>
+
+                        <h4>
+                            Indoor Plants
+                        </h4>
+
+                        <span class="gn-category-link">
+                            Explore Plants →
+                        </span>
+
+                    </div>
+
+                </a>
+
+            </div>
+
+
+            <!-- TABLE PLANTS -->
+
+            <div class="col-md-4">
+
+                <a href="{% url 'tablep' %}"
+                   class="gn-category-card d-block">
+
+                    <img
+                        src="{% static 'images/category2.jpg' %}"
+                        alt="Table Plants"
+                    >
+
+                    <div class="gn-category-content">
+
+                        <span>
+                            Collection
+                        </span>
+
+                        <h4>
+                            Table Plants
+                        </h4>
+
+                        <span class="gn-category-link">
+                            Explore Plants →
+                        </span>
+
+                    </div>
+
+                </a>
+
+            </div>
+
+
+            <!-- FLOWER PLANTS -->
+
+            <div class="col-md-4">
+
+                <a href="{% url 'flowerp' %}"
+                   class="gn-category-card d-block">
+
+                    <img
+                        src="{% static 'images/category3.jpg' %}"
+                        alt="Flower Plants"
+                    >
+
+                    <div class="gn-category-content">
+
+                        <span>
+                            Collection
+                        </span>
+
+                        <h4>
+                            Flower Plants
+                        </h4>
+
+                        <span class="gn-category-link">
+                            Explore Plants →
+                        </span>
+
+                    </div>
+
+                </a>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     PROMO
+===================================================== -->
+
+<section class="gn-promo">
+
+    <div class="container">
+
+        <div class="gn-promo-content">
+
+            <span class="gn-promo-label">
+                GreenNest Special
+            </span>
+
+            <h2>
+
+                Turn your corner
+                into a green sanctuary.
+
+            </h2>
+
+            <p>
+
+                Discover beautiful plants and stylish planters
+                designed to make your home feel calmer and more alive.
+
+            </p>
+
+            <a href="{% url 'plant' %}"
+               class="gn-btn-primary">
+
+                Shop The Collection
+
+            </a>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     REVIEWS
+===================================================== -->
+
+<section class="gn-section gn-reviews"
+         id="reviews">
+
+    <div class="container">
+
+        <div class="gn-section-heading">
+
+            <span class="gn-section-label">
+                Happy Plant Parents
+            </span>
+
+            <h2 class="gn-section-title">
+                Loved by plant lovers.
+            </h2>
+
+            <p class="gn-section-text">
+
+                See what our customers have to say about
+                their GreenNest experience.
+
+            </p>
+
+        </div>
+
+
+        <div class="row g-4">
+
+
+            {% if reviews %}
+
+                {% for review in reviews %}
+
+                    <div class="col-md-6 col-lg-4">
+
+                        <div class="gn-review-card">
+
+
+                            <!-- RATING -->
+
+                            <div class="gn-stars">
+
+                                {% for i in "12345" %}
+
+                                    {% if forloop.counter <= review.rating %}
+
+                                        ★
+
+                                    {% else %}
+
+                                        ☆
+
+                                    {% endif %}
+
+                                {% endfor %}
+
+                            </div>
+
+
+                            <!-- REVIEW TEXT -->
+
+                            <p class="gn-review-text">
+
+                                "{{ review.review_text }}"
+
+                            </p>
+
+
+                            <!-- USER -->
+
+                            <div class="gn-review-user">
+
+                                <div
+                                    style="
+                                        width:48px;
+                                        height:48px;
+                                        border-radius:50%;
+                                        background:#edf4e7;
+                                        display:flex;
+                                        align-items:center;
+                                        justify-content:center;
+                                        color:#52734b;
+                                        font-size:20px;
+                                        flex-shrink:0;
+                                    "
+                                >
+
+                                    <i class="bi bi-person-fill"></i>
+
+                                </div>
+
+
+                                <div>
+
+                                    <strong>
+                                        {{ review.user_name }}
+                                    </strong>
+
+                                    <span>
+                                        Verified Customer
+                                    </span>
+
+                                </div>
+
+                            </div>
+
+
+                        </div>
+
+                    </div>
+
+                {% endfor %}
+
+
+            {% else %}
+
+
+                <!-- NO REVIEWS -->
+
+                <div class="col-12">
+
+                    <div class="text-center py-5">
+
+                        <h4 style="color:#31553d;">
+
+                            No reviews yet
+
+                        </h4>
+
+                        <p style="color:#718078;">
+
+                            Customer reviews will appear here
+                            after they are submitted.
+
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+            {% endif %}
+
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     NEWSLETTER
+===================================================== -->
+
+<section class="gn-newsletter-section">
+
+    <div class="gn-newsletter-content">
+
+        <h2>
+            Stay rooted with GreenNest.
+        </h2>
+
+        <p>
+
+            Get plant care tips, new arrivals and special
+            offers directly in your inbox.
+
+        </p>
+
+        <form
+            class="gn-newsletter-form"
+            id="gnNewsletterForm"
+        >
+
+            <input
+                type="email"
+                id="gnNewsletterEmail"
+                placeholder="Enter your email address"
+                aria-label="Email address"
+                required
+            >
+
+            <button type="submit">
+                Join GreenNest
+            </button>
+
+        </form>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     BLOG
+===================================================== -->
+
+
+{% endblock %}
+
+
+{% block extra_js %}
+
+<script>
+
+$(document).ready(function () {
+
+
+    /* =====================================================
+       NEWSLETTER
+    ===================================================== */
+
+    $("#gnNewsletterForm").on("submit", function (event) {
+
+        event.preventDefault();
+
+        const email =
+            $("#gnNewsletterEmail").val().trim();
+
+        const button =
+            $(this).find("button");
+
+        if (email === "") {
+            return;
+        }
+
+        button.text("✓ Subscribed");
+
+        $("#gnNewsletterEmail").val("");
+
+        setTimeout(function () {
+
+            button.text("Join GreenNest");
+
+        }, 2000);
+
+    });
+
+
+    /* =====================================================
+       CAROUSEL PAUSE ON HOVER
+    ===================================================== */
+
+    $("#greenNestCarousel").on("mouseenter", function () {
+
+        const carousel =
+            bootstrap.Carousel.getInstance(this);
+
+        if (carousel) {
+
+            carousel.pause();
+
+        }
+
+    });
+
+
+    $("#greenNestCarousel").on("mouseleave", function () {
+
+        const carousel =
+            bootstrap.Carousel.getInstance(this);
+
+        if (carousel) {
+
+            carousel.cycle();
+
+        }
+
+    });
+
+
+    /* =====================================================
+       SMOOTH INTERNAL LINKS
+    ===================================================== */
+
+    $('a[href^="#"]').on("click", function (event) {
+
+        const target =
+            $(this).attr("href");
+
+        if (target && target !== "#") {
+
+            const element =
+                $(target);
+
+            if (element.length) {
+
+                event.preventDefault();
+
+                $("html, body").animate({
+
+                    scrollTop:
+                        element.offset().top - 70
+
+                }, 600);
+
+            }
+
+        }
+
+    });
+
+
+});
+
+</script>
+
+{% endblock %}

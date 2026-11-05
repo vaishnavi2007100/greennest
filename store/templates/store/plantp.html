@@ -1,0 +1,2406 @@
+{% extends "store/base.html" %}
+{% load static %}
+
+{% block title %}Plant Pots | GreenNest{% endblock %}
+
+{% block content %}
+
+<style>
+
+/* =========================================================
+   GREENNEST PLANT POTS PAGE
+========================================================= */
+
+.pot-page {
+    --pot-dark: #0b3d2e;
+    --pot-deep: #073527;
+    --pot-green: #1d6848;
+    --pot-green-2: #2d805c;
+    --pot-light: #e9f4ed;
+    --pot-soft: #f5faf7;
+    --pot-gold: #c8a96b;
+    --pot-gold-light: #ead9b5;
+    --pot-text: #263a31;
+    --pot-muted: #718078;
+    --pot-border: #dfeae4;
+
+    background: #fbfcfa;
+    color: var(--pot-text);
+}
+
+
+/* =========================================================
+   HERO
+========================================================= */
+
+.pot-hero {
+    position: relative;
+
+    min-height: 650px;
+
+    display: flex;
+    align-items: center;
+
+    overflow: hidden;
+
+    background:
+        linear-gradient(
+            90deg,
+            rgba(5,42,31,.97) 0%,
+            rgba(7,53,39,.91) 32%,
+            rgba(11,61,46,.65) 62%,
+            rgba(11,61,46,.18) 100%
+        ),
+        url("{% static 'images/plant-center.jpg' %}")
+        center / cover no-repeat;
+}
+
+
+/* decorative circle */
+
+.pot-hero::before {
+    content: "";
+
+    position: absolute;
+
+    width: 520px;
+    height: 520px;
+
+    right: -190px;
+    top: -190px;
+
+    border: 1px solid rgba(255,255,255,.13);
+
+    border-radius: 50%;
+
+    box-shadow:
+        0 0 0 60px rgba(255,255,255,.025),
+        0 0 0 120px rgba(255,255,255,.012);
+}
+
+
+.pot-hero::after {
+    content: "";
+
+    position: absolute;
+
+    width: 260px;
+    height: 260px;
+
+    left: -140px;
+    bottom: -150px;
+
+    border: 1px solid rgba(200,169,107,.22);
+
+    border-radius: 50%;
+}
+
+
+/* =========================================================
+   HERO INNER
+========================================================= */
+
+.pot-hero-inner {
+    position: relative;
+
+    z-index: 5;
+
+    width: 100%;
+}
+
+
+.pot-hero-content {
+    max-width: 720px;
+
+    padding: 85px 0;
+
+    color: white;
+}
+
+
+/* =========================================================
+   EYEBROW
+========================================================= */
+
+.pot-eyebrow {
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 10px;
+
+    padding: 9px 17px;
+
+    border: 1px solid rgba(255,255,255,.20);
+
+    border-radius: 50px;
+
+    background: rgba(255,255,255,.08);
+
+    color: #e6f0ea;
+
+    font-size: 10px;
+
+    font-weight: 800;
+
+    letter-spacing: 2.5px;
+
+    text-transform: uppercase;
+
+    backdrop-filter: blur(10px);
+}
+
+
+.pot-eyebrow-dot {
+    width: 8px;
+    height: 8px;
+
+    border-radius: 50%;
+
+    background: var(--pot-gold);
+
+    box-shadow:
+        0 0 0 5px rgba(200,169,107,.12),
+        0 0 16px rgba(200,169,107,.35);
+}
+
+
+/* =========================================================
+   HERO TITLE
+========================================================= */
+
+.pot-hero h1 {
+    margin: 25px 0 20px;
+
+    color: white;
+
+    font-family: Georgia, "Times New Roman", serif;
+
+    font-size: clamp(48px, 6.2vw, 82px);
+
+    font-weight: 400;
+
+    line-height: 1.02;
+
+    letter-spacing: -3px;
+}
+
+
+.pot-hero h1 span {
+    color: #dceee3;
+}
+
+
+.pot-hero h1 strong {
+    display: inline-block;
+
+    color: #d6b879;
+
+    font-family: Arial, sans-serif;
+
+    font-size: .84em;
+
+    font-weight: 800;
+
+    letter-spacing: -2px;
+}
+
+
+/* =========================================================
+   HERO DESCRIPTION
+========================================================= */
+
+.pot-hero-description {
+    max-width: 590px;
+
+    margin: 0;
+
+    color: rgba(255,255,255,.76);
+
+    font-size: 15px;
+
+    line-height: 1.9;
+}
+
+
+/* =========================================================
+   HERO ACTIONS
+========================================================= */
+
+.pot-hero-actions {
+    display: flex;
+
+    align-items: center;
+
+    gap: 13px;
+
+    margin-top: 32px;
+
+    flex-wrap: wrap;
+}
+
+
+.pot-primary-btn {
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 10px;
+
+    padding: 14px 25px;
+
+    border-radius: 50px;
+
+    background: white;
+
+    color: var(--pot-dark);
+
+    text-decoration: none;
+
+    font-size: 12px;
+
+    font-weight: 800;
+
+    box-shadow:
+        0 10px 30px rgba(0,0,0,.16);
+
+    transition: all .3s ease;
+}
+
+
+.pot-primary-btn:hover {
+    background: var(--pot-gold-light);
+
+    color: var(--pot-dark);
+
+    transform: translateY(-4px);
+}
+
+
+.pot-secondary-btn {
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    padding: 13px 24px;
+
+    border: 1px solid rgba(255,255,255,.30);
+
+    border-radius: 50px;
+
+    background: rgba(255,255,255,.06);
+
+    color: white;
+
+    text-decoration: none;
+
+    font-size: 12px;
+
+    font-weight: 700;
+
+    backdrop-filter: blur(8px);
+
+    transition: all .3s ease;
+}
+
+
+.pot-secondary-btn:hover {
+    background: white;
+
+    color: var(--pot-dark);
+
+    transform: translateY(-4px);
+}
+
+
+/* =========================================================
+   HERO STATS
+========================================================= */
+
+.pot-hero-stats {
+    display: flex;
+
+    gap: 35px;
+
+    margin-top: 42px;
+
+    flex-wrap: wrap;
+}
+
+
+.pot-stat {
+    display: flex;
+
+    align-items: center;
+
+    gap: 11px;
+}
+
+
+.pot-stat-icon {
+    width: 40px;
+    height: 40px;
+
+    display: grid;
+
+    place-items: center;
+
+    border-radius: 12px;
+
+    background: rgba(255,255,255,.08);
+
+    color: var(--pot-gold);
+
+    border: 1px solid rgba(255,255,255,.12);
+}
+
+
+.pot-stat-icon svg {
+    width: 18px;
+    height: 18px;
+}
+
+
+.pot-stat-text strong {
+    display: block;
+
+    color: white;
+
+    font-size: 13px;
+
+    font-weight: 800;
+}
+
+
+.pot-stat-text span {
+    display: block;
+
+    margin-top: 2px;
+
+    color: rgba(255,255,255,.53);
+
+    font-size: 9px;
+}
+
+
+/* =========================================================
+   FLOATING POT CARD
+========================================================= */
+
+.pot-floating-card {
+    position: absolute;
+
+    z-index: 7;
+
+    right: 7%;
+
+    bottom: 55px;
+
+    width: 255px;
+
+    padding: 21px;
+
+    border: 1px solid rgba(255,255,255,.20);
+
+    border-radius: 23px;
+
+    background: rgba(255,255,255,.10);
+
+    backdrop-filter: blur(18px);
+
+    box-shadow:
+        0 22px 55px rgba(0,0,0,.22);
+
+    animation: potFloat 4s ease-in-out infinite;
+}
+
+
+@keyframes potFloat {
+
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-10px);
+    }
+}
+
+
+.pot-floating-top {
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    margin-bottom: 15px;
+}
+
+
+.pot-floating-label {
+    color: rgba(255,255,255,.55);
+
+    font-size: 9px;
+
+    letter-spacing: 1.5px;
+
+    text-transform: uppercase;
+}
+
+
+.pot-floating-badge {
+    padding: 5px 9px;
+
+    border-radius: 50px;
+
+    background: rgba(200,169,107,.18);
+
+    color: #e9d39e;
+
+    font-size: 8px;
+
+    font-weight: 800;
+}
+
+
+.pot-floating-card h4 {
+    margin: 0 0 7px;
+
+    color: white;
+
+    font-family: Georgia, serif;
+
+    font-size: 22px;
+
+    font-weight: 400;
+}
+
+
+.pot-floating-card p {
+    margin: 0;
+
+    color: rgba(255,255,255,.57);
+
+    font-size: 10px;
+
+    line-height: 1.7;
+}
+
+
+.pot-floating-line {
+    height: 1px;
+
+    margin: 15px 0;
+
+    background: rgba(255,255,255,.12);
+}
+
+
+.pot-floating-bottom {
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+}
+
+
+.pot-floating-price {
+    color: white;
+
+    font-size: 17px;
+
+    font-weight: 800;
+}
+
+
+.pot-floating-rating {
+    color: #d6b879;
+
+    font-size: 10px;
+}
+
+
+/* =========================================================
+   COLLECTION
+========================================================= */
+
+.pot-section {
+    padding: 95px 0;
+}
+
+
+/* =========================================================
+   INTRO
+========================================================= */
+
+.pot-intro {
+    max-width: 760px;
+
+    margin: 0 auto 60px;
+
+    text-align: center;
+}
+
+
+.pot-intro-label {
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 9px;
+
+    color: var(--pot-green);
+
+    font-size: 10px;
+
+    font-weight: 800;
+
+    letter-spacing: 2.5px;
+
+    text-transform: uppercase;
+}
+
+
+.pot-intro-label::before,
+.pot-intro-label::after {
+    content: "";
+
+    width: 24px;
+
+    height: 1px;
+
+    background: var(--pot-gold);
+}
+
+
+.pot-intro h2 {
+    margin: 14px 0 15px;
+
+    color: var(--pot-dark);
+
+    font-family: Georgia, serif;
+
+    font-size: clamp(35px, 4vw, 51px);
+
+    font-weight: 400;
+
+    line-height: 1.15;
+
+    letter-spacing: -1px;
+}
+
+
+.pot-intro h2 strong {
+    color: var(--pot-green);
+
+    font-weight: 600;
+}
+
+
+.pot-intro p {
+    max-width: 650px;
+
+    margin: auto;
+
+    color: var(--pot-muted);
+
+    font-size: 14px;
+
+    line-height: 1.9;
+}
+
+
+/* =========================================================
+   PRODUCT CARD
+========================================================= */
+
+.pot-card {
+    height: 100%;
+
+    overflow: hidden;
+
+    border: 1px solid var(--pot-border);
+
+    border-radius: 22px;
+
+    background: white;
+
+    box-shadow:
+        0 8px 30px rgba(11,61,46,.055);
+
+    transition:
+        transform .35s ease,
+        box-shadow .35s ease,
+        border-color .35s ease;
+}
+
+
+.pot-card:hover {
+    transform: translateY(-10px);
+
+    border-color: #bdd6c7;
+
+    box-shadow:
+        0 22px 55px rgba(11,61,46,.13);
+}
+
+
+/* =========================================================
+   IMAGE
+========================================================= */
+
+.pot-image-wrap {
+    position: relative;
+
+    height: 295px;
+
+    overflow: hidden;
+
+    background: #edf4ef;
+}
+
+
+.pot-image {
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+
+    transition:
+        transform .65s ease;
+}
+
+
+.pot-card:hover .pot-image {
+    transform: scale(1.08);
+}
+
+
+/* =========================================================
+   BADGE
+========================================================= */
+
+.pot-badge {
+    position: absolute;
+
+    top: 15px;
+    left: 15px;
+
+    padding: 7px 13px;
+
+    border-radius: 50px;
+
+    background: rgba(255,255,255,.95);
+
+    color: var(--pot-green);
+
+    font-size: 9px;
+
+    font-weight: 800;
+
+    letter-spacing: .6px;
+
+    box-shadow:
+        0 6px 18px rgba(0,0,0,.08);
+}
+
+
+/* =========================================================
+   WISHLIST
+========================================================= */
+
+.pot-wishlist {
+    position: absolute;
+
+    top: 14px;
+    right: 14px;
+
+    width: 41px;
+    height: 41px;
+
+    display: grid;
+
+    place-items: center;
+
+    border-radius: 50%;
+
+    background: rgba(255,255,255,.96);
+
+    color: var(--pot-green);
+
+    text-decoration: none;
+
+    box-shadow:
+        0 6px 18px rgba(0,0,0,.08);
+
+    transition: all .3s ease;
+}
+
+
+.pot-wishlist:hover {
+    background: var(--pot-dark);
+
+    color: white;
+
+    transform: scale(1.08);
+}
+
+
+.pot-wishlist svg {
+    width: 18px;
+    height: 18px;
+}
+
+
+/* =========================================================
+   QUICK VIEW
+========================================================= */
+
+.pot-quick {
+    position: absolute;
+
+    left: 15px;
+    right: 15px;
+
+    bottom: 15px;
+
+    padding: 10px;
+
+    border: 1px solid rgba(255,255,255,.45);
+
+    border-radius: 12px;
+
+    background: rgba(7,53,39,.82);
+
+    color: white;
+
+    text-align: center;
+
+    text-decoration: none;
+
+    font-size: 10px;
+
+    font-weight: 800;
+
+    opacity: 0;
+
+    transform: translateY(10px);
+
+    transition: all .3s ease;
+
+    backdrop-filter: blur(8px);
+}
+
+
+.pot-card:hover .pot-quick {
+    opacity: 1;
+
+    transform: translateY(0);
+}
+
+
+.pot-quick:hover {
+    background: white;
+
+    color: var(--pot-dark);
+}
+
+
+/* =========================================================
+   PRODUCT INFO
+========================================================= */
+
+.pot-info {
+    padding: 23px;
+}
+
+
+.pot-category {
+    display: block;
+
+    margin-bottom: 7px;
+
+    color: #8a9b92;
+
+    font-size: 9px;
+
+    font-weight: 800;
+
+    letter-spacing: 1.5px;
+
+    text-transform: uppercase;
+}
+
+
+.pot-info h3 {
+    margin: 0 0 9px;
+
+    color: var(--pot-dark);
+
+    font-size: 20px;
+
+    font-weight: 800;
+}
+
+
+.pot-info p {
+    min-height: 44px;
+
+    margin: 0 0 16px;
+
+    color: var(--pot-muted);
+
+    font-size: 13px;
+
+    line-height: 1.7;
+}
+
+
+/* =========================================================
+   RATING
+========================================================= */
+
+.pot-rating {
+    display: flex;
+
+    align-items: center;
+
+    gap: 7px;
+
+    margin-bottom: 15px;
+}
+
+
+.pot-stars {
+    color: var(--pot-gold);
+
+    font-size: 13px;
+
+    letter-spacing: 1px;
+}
+
+
+.pot-rating-count {
+    color: #8b9992;
+
+    font-size: 10px;
+}
+
+
+/* =========================================================
+   PRICE
+========================================================= */
+
+.pot-price-row {
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+}
+
+
+.pot-price {
+    color: var(--pot-green);
+
+    font-size: 22px;
+
+    font-weight: 800;
+}
+
+
+.pot-old-price {
+    margin-left: 6px;
+
+    color: #a5b0aa;
+
+    font-size: 11px;
+
+    text-decoration: line-through;
+}
+
+
+/* =========================================================
+   CART
+========================================================= */
+
+.pot-cart-btn {
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 8px;
+
+    width: 100%;
+
+    margin-top: 17px;
+
+    padding: 12px;
+
+    border-radius: 12px;
+
+    background: var(--pot-dark);
+
+    color: white;
+
+    text-decoration: none;
+
+    font-size: 12px;
+
+    font-weight: 800;
+
+    transition: all .3s ease;
+}
+
+
+.pot-cart-btn:hover {
+    background: var(--pot-green-2);
+
+    color: white;
+
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 8px 20px rgba(29,104,72,.18);
+}
+
+
+.pot-cart-btn svg {
+    width: 16px;
+    height: 16px;
+}
+
+
+/* =========================================================
+   FEATURES
+========================================================= */
+
+.pot-features {
+    margin-top: 75px;
+
+    padding: 30px 20px;
+
+    border: 1px solid var(--pot-border);
+
+    border-radius: 24px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #f5faf7,
+            #edf6f0
+        );
+}
+
+
+.pot-feature {
+    display: flex;
+
+    align-items: center;
+
+    gap: 13px;
+
+    padding: 10px 18px;
+}
+
+
+.pot-feature-icon {
+    width: 46px;
+    height: 46px;
+
+    flex-shrink: 0;
+
+    display: grid;
+
+    place-items: center;
+
+    border-radius: 14px;
+
+    background: white;
+
+    color: var(--pot-green);
+
+    border: 1px solid #dcebe2;
+
+    box-shadow:
+        0 6px 15px rgba(11,61,46,.06);
+}
+
+
+.pot-feature-icon svg {
+    width: 20px;
+    height: 20px;
+}
+
+
+.pot-feature h5 {
+    margin: 0 0 3px;
+
+    color: var(--pot-dark);
+
+    font-size: 13px;
+
+    font-weight: 800;
+}
+
+
+.pot-feature p {
+    margin: 0;
+
+    color: var(--pot-muted);
+
+    font-size: 10px;
+}
+
+
+/* =========================================================
+   CTA
+========================================================= */
+
+.pot-cta {
+    position: relative;
+
+    overflow: hidden;
+
+    margin-top: 85px;
+
+    padding: 72px 35px;
+
+    border-radius: 30px;
+
+    text-align: center;
+
+    background:
+        linear-gradient(
+            135deg,
+            #073527,
+            #145b40,
+            #0b3d2e
+        );
+
+    box-shadow:
+        0 20px 55px rgba(7,53,39,.16);
+}
+
+
+.pot-cta::before {
+    content: "";
+
+    position: absolute;
+
+    width: 360px;
+    height: 360px;
+
+    top: -220px;
+    left: -120px;
+
+    border: 1px solid rgba(200,169,107,.22);
+
+    border-radius: 50%;
+}
+
+
+.pot-cta::after {
+    content: "";
+
+    position: absolute;
+
+    width: 250px;
+    height: 250px;
+
+    right: -130px;
+    bottom: -170px;
+
+    border: 1px solid rgba(255,255,255,.10);
+
+    border-radius: 50%;
+}
+
+
+.pot-cta-content {
+    position: relative;
+
+    z-index: 3;
+}
+
+
+.pot-cta-label {
+    color: #d6c18e;
+
+    font-size: 9px;
+
+    font-weight: 800;
+
+    letter-spacing: 2.5px;
+
+    text-transform: uppercase;
+}
+
+
+.pot-cta h2 {
+    margin: 12px 0;
+
+    color: white;
+
+    font-family: Georgia, serif;
+
+    font-size: 44px;
+
+    font-weight: 400;
+}
+
+
+.pot-cta p {
+    max-width: 570px;
+
+    margin: 0 auto 27px;
+
+    color: rgba(255,255,255,.68);
+
+    font-size: 13px;
+
+    line-height: 1.8;
+}
+
+
+.pot-cta-btn {
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    padding: 14px 27px;
+
+    border-radius: 50px;
+
+    background: white;
+
+    color: var(--pot-dark);
+
+    text-decoration: none;
+
+    font-size: 12px;
+
+    font-weight: 800;
+
+    transition: all .3s ease;
+}
+
+
+.pot-cta-btn:hover {
+    background: var(--pot-gold-light);
+
+    color: var(--pot-dark);
+
+    transform: translateY(-4px);
+}
+
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media (max-width: 1199px) {
+
+    .pot-floating-card {
+        right: 3%;
+    }
+
+}
+
+
+@media (max-width: 991px) {
+
+    .pot-hero {
+        min-height: 590px;
+    }
+
+    .pot-floating-card {
+        display: none;
+    }
+
+    .pot-image-wrap {
+        height: 275px;
+    }
+
+}
+
+
+@media (max-width: 767px) {
+
+    .pot-hero {
+
+        min-height: 610px;
+
+        background:
+            linear-gradient(
+                90deg,
+                rgba(5,42,31,.95),
+                rgba(7,53,39,.72)
+            ),
+            url("{% static 'images/plant-center.jpg' %}")
+            center / cover no-repeat;
+    }
+
+
+    .pot-hero-content {
+        padding: 65px 15px;
+    }
+
+
+    .pot-hero h1 {
+        font-size: 48px;
+
+        letter-spacing: -1.5px;
+    }
+
+
+    .pot-hero-description {
+        font-size: 14px;
+    }
+
+
+    .pot-hero-stats {
+        gap: 18px;
+
+        margin-top: 30px;
+    }
+
+
+    .pot-stat {
+        gap: 8px;
+    }
+
+
+    .pot-stat-icon {
+        width: 35px;
+        height: 35px;
+    }
+
+
+    .pot-section {
+        padding: 70px 0;
+    }
+
+
+    .pot-intro {
+        margin-bottom: 40px;
+    }
+
+
+    .pot-intro h2 {
+        font-size: 37px;
+    }
+
+
+    .pot-image-wrap {
+        height: 285px;
+    }
+
+
+    .pot-features {
+        padding: 20px 10px;
+    }
+
+
+    .pot-feature {
+        padding: 12px 5px;
+    }
+
+
+    .pot-cta {
+        margin-top: 60px;
+
+        padding: 55px 20px;
+    }
+
+
+    .pot-cta h2 {
+        font-size: 35px;
+    }
+
+}
+
+
+@media (max-width: 400px) {
+
+    .pot-hero h1 {
+        font-size: 41px;
+    }
+
+
+    .pot-hero-actions {
+        flex-direction: column;
+
+        align-items: stretch;
+    }
+
+
+    .pot-primary-btn,
+    .pot-secondary-btn {
+        width: 100%;
+    }
+
+}
+
+
+.pot-page ::selection {
+    background: var(--pot-green);
+
+    color: white;
+}
+
+</style>
+
+
+<div class="pot-page">
+
+
+    <!-- =====================================================
+         HERO
+    ====================================================== -->
+
+    <section class="pot-hero">
+
+        <div class="container pot-hero-inner">
+
+            <div class="pot-hero-content">
+
+
+                <div class="pot-eyebrow">
+
+                    <span class="pot-eyebrow-dot"></span>
+
+                    GreenNest Pot Collection
+
+                </div>
+
+
+                <h1>
+
+                    Give your plants
+
+                    <br>
+
+                    <span>a beautiful</span>
+
+                    <strong>home.</strong>
+
+                </h1>
+
+
+                <p class="pot-hero-description">
+
+                    Complete your green space with elegant plant pots
+                    designed to make every plant look better.
+                    Discover modern, classic and natural styles
+                    for every corner of your home.
+
+                </p>
+
+
+                <div class="pot-hero-actions">
+
+
+                    <a
+                        href="#potCollection"
+                        class="pot-primary-btn"
+                    >
+
+                        Explore Pots
+
+                        <span>→</span>
+
+                    </a>
+
+
+                    <a
+                        href="{% url 'plant' %}"
+                        class="pot-secondary-btn"
+                    >
+
+                        Shop Plants
+
+                    </a>
+
+                </div>
+
+
+                <!-- HERO STATS -->
+
+                <div class="pot-hero-stats">
+
+
+                    <div class="pot-stat">
+
+                        <div class="pot-stat-icon">
+
+                            <svg
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                stroke="currentColor"
+                                stroke-width="1.7"
+                            >
+
+                                <path
+                                    d="M5 8h14"
+                                />
+
+                                <path
+                                    d="M7 8v11h10V8"
+                                />
+
+                                <path
+                                    d="M9 5h6l2 3H7l2-3z"
+                                />
+
+                            </svg>
+
+                        </div>
+
+
+                        <div class="pot-stat-text">
+
+                            <strong>Premium Pots</strong>
+
+                            <span>Beautiful designs</span>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <div class="pot-stat">
+
+                        <div class="pot-stat-icon">
+
+                            <svg
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                stroke="currentColor"
+                                stroke-width="1.7"
+                            >
+
+                                <path d="M3 7h12v10H3z"/>
+
+                                <path d="M15 10h4l3 3v4h-7z"/>
+
+                                <circle cx="7" cy="19" r="2"/>
+
+                                <circle cx="18" cy="19" r="2"/>
+
+                            </svg>
+
+                        </div>
+
+
+                        <div class="pot-stat-text">
+
+                            <strong>Safe Delivery</strong>
+
+                            <span>Securely packed</span>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <div class="pot-stat">
+
+                        <div class="pot-stat-icon">
+
+                            <svg
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                stroke="currentColor"
+                                stroke-width="1.7"
+                            >
+
+                                <circle
+                                    cx="12"
+                                    cy="12"
+                                    r="8"
+                                />
+
+                                <path d="M12 8v8"/>
+
+                                <path d="M8 12h8"/>
+
+                            </svg>
+
+                        </div>
+
+
+                        <div class="pot-stat-text">
+
+                            <strong>Easy Selection</strong>
+
+                            <span>For every plant</span>
+
+                        </div>
+
+                    </div>
+
+
+                </div>
+
+            </div>
+
+
+
+            <!-- FLOATING FEATURE CARD -->
+
+            <div class="pot-floating-card">
+
+
+                <div class="pot-floating-top">
+
+                    <span class="pot-floating-label">
+                        Featured Pot
+                    </span>
+
+                    <span class="pot-floating-badge">
+                        Bestseller
+                    </span>
+
+                </div>
+
+
+                <h4>
+                    Ceramic Planter
+                </h4>
+
+
+                <p>
+
+                    Minimal design with a natural
+                    finish for modern plant spaces.
+
+                </p>
+
+
+                <div class="pot-floating-line"></div>
+
+
+                <div class="pot-floating-bottom">
+
+                    <span class="pot-floating-price">
+                        ₹699
+                    </span>
+
+                    <span class="pot-floating-rating">
+                        ★ 4.9
+                    </span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =====================================================
+         COLLECTION
+    ====================================================== -->
+
+    <section
+        class="pot-section"
+        id="potCollection"
+    >
+
+        <div class="container">
+
+
+            <!-- INTRO -->
+
+            <div class="pot-intro">
+
+                <div class="pot-intro-label">
+                    Premium Planters
+                </div>
+
+
+                <h2>
+
+                    The perfect pot for
+
+                    <br>
+
+                    <strong>your favourite plant.</strong>
+
+                </h2>
+
+
+                <p>
+
+                    Choose from elegant ceramic planters, modern
+                    indoor pots and natural outdoor designs made
+                    to complement your plants and your home.
+
+                </p>
+
+            </div>
+
+
+
+            <!-- =================================================
+                 PRODUCTS
+            ================================================== -->
+
+            <div class="row g-4">
+
+
+                <!-- POT 1 -->
+
+                <div class="col-xl-3 col-lg-4 col-md-6">
+
+                    <div class="pot-card">
+
+
+                        <div class="pot-image-wrap">
+
+                            <img
+                                src="{% static 'images/plant1.jpg' %}"
+                                class="pot-image"
+                                alt="Classic Ceramic Pot"
+                            >
+
+
+                            <span class="pot-badge">
+                                Bestseller
+                            </span>
+
+
+                            <a
+                                href="#"
+                                class="pot-wishlist"
+                                aria-label="Add Classic Ceramic Pot to wishlist"
+                            >
+
+                                <svg
+                                    viewBox="0 0 24 24"
+                                    fill="none"
+                                    stroke="currentColor"
+                                    stroke-width="1.7"
+                                >
+
+                                    <path
+                                        d="M20.8 8.7c0 5.5-8.8 10.2-8.8 10.2S3.2 14.2 3.2 8.7A4.7 4.7 0 0 1 12 6.4a4.7 4.7 0 0 1 8.8 2.3z"
+                                    />
+
+                                </svg>
+
+                            </a>
+
+
+                            <a
+                                href="#"
+                                class="pot-quick"
+                            >
+                                Quick View
+                            </a>
+
+                        </div>
+
+
+                        <div class="pot-info">
+
+
+                            <span class="pot-category">
+                                Ceramic Collection
+                            </span>
+
+
+                            <h3>
+                                Classic Ceramic Pot
+                            </h3>
+
+
+                            <p>
+                                Elegant ceramic planter for
+                                beautiful indoor plants.
+                            </p>
+
+
+                            <div class="pot-rating">
+
+                                <span class="pot-stars">
+                                    ★★★★★
+                                </span>
+
+                                <span class="pot-rating-count">
+                                    4.9 (142)
+                                </span>
+
+                            </div>
+
+
+                            <div class="pot-price-row">
+
+                                <div>
+
+                                    <span class="pot-price">
+                                        ₹699
+                                    </span>
+
+                                    <span class="pot-old-price">
+                                        ₹849
+                                    </span>
+
+                                </div>
+
+                            </div>
+
+
+                            <a
+                                href="#"
+                                class="pot-cart-btn"
+                            >
+
+                                <svg
+                                    viewBox="0 0 24 24"
+                                    fill="none"
+                                    stroke="currentColor"
+                                    stroke-width="1.7"
+                                >
+
+                                    <path d="M6 8h12l1 12H5L6 8z"/>
+
+                                    <path d="M9 8a3 3 0 0 1 6 0"/>
+
+                                </svg>
+
+                                Add to Cart
+
+                            </a>
+
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- POT 2 -->
+
+                <div class="col-xl-3 col-lg-4 col-md-6">
+
+                    <div class="pot-card">
+
+
+                        <div class="pot-image-wrap">
+
+                            <img
+                                src="{% static 'images/plant2.jpg' %}"
+                                class="pot-image"
+                                alt="Modern Green Planter"
+                            >
+
+
+                            <span class="pot-badge">
+                                New
+                            </span>
+
+
+                            <a
+                                href="#"
+                                class="pot-wishlist"
+                                aria-label="Add Modern Green Planter to wishlist"
+                            >
+
+                                <svg
+                                    viewBox="0 0 24 24"
+                                    fill="none"
+                                    stroke="currentColor"
+                                    stroke-width="1.7"
+                                >
+
+                                    <path
+                                        d="M20.8 8.7c0 5.5-8.8 10.2-8.8 10.2S3.2 14.2 3.2 8.7A4.7 4.7 0 0 1 12 6.4a4.7 4.7 0 0 1 8.8 2.3z"
+                                    />
+
+                                </svg>
+
+                            </a>
+
+
+                            <a
+                                href="#"
+                                class="pot-quick"
+                            >
+                                Quick View
+                            </a>
+
+                        </div>
+
+
+                        <div class="pot-info">
+
+
+                            <span class="pot-category">
+                                Indoor Collection
+                            </span>
+
+
+                            <h3>
+                                Modern Green Planter
+                            </h3>
+
+
+                            <p>
+                                Clean modern shape designed
+                                for stylish interiors.
+                            </p>
+
+
+                            <div class="pot-rating">
+
+                                <span class="pot-stars">
+                                    ★★★★★
+                                </span>
+
+                                <span class="pot-rating-count">
+                                    4.8 (96)
+                                </span>
+
+                            </div>
+
+
+                            <div class="pot-price-row">
+
+                                <div>
+
+                                    <span class="pot-price">
+                                        ₹599
+                                    </span>
+
+                                    <span class="pot-old-price">
+                                        ₹749
+                                    </span>
+
+                                </div>
+
+                            </div>
+
+
+                            <a
+                                href="#"
+                                class="pot-cart-btn"
+                            >
+
+                                <svg
+                                    viewBox="0 0 24 24"
+                                    fill="none"
+                                    stroke="currentColor"
+                                    stroke-width="1.7"
+                                >
+
+                                    <path d="M6 8h12l1 12H5L6 8z"/>
+
+                                    <path d="M9 8a3 3 0 0 1 6 0"/>
+
+                                </svg>
+
+                                Add to Cart
+
+                            </a>
+
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- POT 3 -->
+
+                <div class="col-xl-3 col-lg-4 col-md-6">
+
+                    <div class="pot-card">
+
+
+                        <div class="pot-image-wrap">
+
+                            <img
+                                src="{% static 'images/plant3.jpg' %}"
+                                class="pot-image"
+                                alt="Natural Clay Pot"
+                            >
+
+
+                            <span class="pot-badge">
+                                Eco Pick
+                            </span>
+
+
+                            <a
+                                href="#"
+                                class="pot-wishlist"
+                                aria-label="Add Natural Clay Pot to wishlist"
+                            >
+
+                                <svg
+                                    viewBox="0 0 24 24"
+                                    fill="none"
+                                    stroke="currentColor"
+                                    stroke-width="1.7"
+                                >
+
+                                    <path
+                                        d="M20.8 8.7c0 5.5-8.8 10.2-8.8 10.2S3.2 14.2 3.2 8.7A4.7 4.7 0 0 1 12 6.4a4.7 4.7 0 0 1 8.8 2.3z"
+                                    />
+
+                                </svg>
+
+                            </a>
+
+
+                            <a
+                                href="#"
+                                class="pot-quick"
+                            >
+                                Quick View
+                            </a>
+
+                        </div>
+
+
+                        <div class="pot-info">
+
+
+                            <span class="pot-category">
+                                Natural Collection
+                            </span>
+
+
+                            <h3>
+                                Natural Clay Pot
+                            </h3>
+
+
+                            <p>
+                                Earthy clay finish perfect for
+                                natural outdoor spaces.
+                            </p>
+
+
+                            <div class="pot-rating">
+
+                                <span class="pot-stars">
+                                    ★★★★★
+                                </span>
+
+                                <span class="pot-rating-count">
+                                    4.7 (83)
+                                </span>
+
+                            </div>
+
+
+                            <div class="pot-price-row">
+
+                                <div>
+
+                                    <span class="pot-price">
+                                        ₹449
+                                    </span>
+
+                                    <span class="pot-old-price">
+                                        ₹549
+                                    </span>
+
+                                </div>
+
+                            </div>
+
+
+                            <a
+                                href="#"
+                                class="pot-cart-btn"
+                            >
+
+                                <svg
+                                    viewBox="0 0 24 24"
+                                    fill="none"
+                                    stroke="currentColor"
+                                    stroke-width="1.7"
+                                >
+
+                                    <path d="M6 8h12l1 12H5L6 8z"/>
+
+                                    <path d="M9 8a3 3 0 0 1 6 0"/>
+
+                                </svg>
+
+                                Add to Cart
+
+                            </a>
+
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- POT 4 -->
+
+                <div class="col-xl-3 col-lg-4 col-md-6">
+
+                    <div class="pot-card">
+
+
+                        <div class="pot-image-wrap">
+
+                            <img
+                                src="{% static 'images/plant4.jpg' %}"
+                                class="pot-image"
+                                alt="Premium Tall Planter"
+                            >
+
+
+                            <span class="pot-badge">
+                                Trending
+                            </span>
+
+
+                            <a
+                                href="#"
+                                class="pot-wishlist"
+                                aria-label="Add Premium Tall Planter to wishlist"
+                            >
+
+                                <svg
+                                    viewBox="0 0 24 24"
+                                    fill="none"
+                                    stroke="currentColor"
+                                    stroke-width="1.7"
+                                >
+
+                                    <path
+                                        d="M20.8 8.7c0 5.5-8.8 10.2-8.8 10.2S3.2 14.2 3.2 8.7A4.7 4.7 0 0 1 12 6.4a4.7 4.7 0 0 1 8.8 2.3z"
+                                    />
+
+                                </svg>
+
+                            </a>
+
+
+                            <a
+                                href="#"
+                                class="pot-quick"
+                            >
+                                Quick View
+                            </a>
+
+                        </div>
+
+
+                        <div class="pot-info">
+
+
+                            <span class="pot-category">
+                                Premium Collection
+                            </span>
+
+
+                            <h3>
+                                Premium Tall Planter
+                            </h3>
+
+
+                            <p>
+                                Statement planter for corners,
+                                balconies and entrances.
+                            </p>
+
+
+                            <div class="pot-rating">
+
+                                <span class="pot-stars">
+                                    ★★★★★
+                                </span>
+
+                                <span class="pot-rating-count">
+                                    4.9 (117)
+                                </span>
+
+                            </div>
+
+
+                            <div class="pot-price-row">
+
+                                <div>
+
+                                    <span class="pot-price">
+                                        ₹899
+                                    </span>
+
+                                    <span class="pot-old-price">
+                                        ₹1,099
+                                    </span>
+
+                                </div>
+
+                            </div>
+
+
+                            <a
+                                href="#"
+                                class="pot-cart-btn"
+                            >
+
+                                <svg
+                                    viewBox="0 0 24 24"
+                                    fill="none"
+                                    stroke="currentColor"
+                                    stroke-width="1.7"
+                                >
+
+                                    <path d="M6 8h12l1 12H5L6 8z"/>
+
+                                    <path d="M9 8a3 3 0 0 1 6 0"/>
+
+                                </svg>
+
+                                Add to Cart
+
+                            </a>
+
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+            </div>
+
+
+
+            <!-- =================================================
+                 FEATURES
+            ================================================== -->
+
+            <div class="pot-features">
+
+                <div class="row g-3">
+
+
+                    <div class="col-lg-4 col-md-6">
+
+                        <div class="pot-feature">
+
+
+                            <div class="pot-feature-icon">
+
+                                <svg
+                                    viewBox="0 0 24 24"
+                                    fill="none"
+                                    stroke="currentColor"
+                                    stroke-width="1.7"
+                                >
+
+                                    <path d="M5 8h14"/>
+
+                                    <path d="M7 8v11h10V8"/>
+
+                                    <path
+                                        d="M9 5h6l2 3H7l2-3z"
+                                    />
+
+                                </svg>
+
+                            </div>
+
+
+                            <div>
+
+                                <h5>
+                                    Premium Quality
+                                </h5>
+
+                                <p>
+                                    Durable and beautiful designs
+                                </p>
+
+                            </div>
+
+
+                        </div>
+
+                    </div>
+
+
+
+                    <div class="col-lg-4 col-md-6">
+
+                        <div class="pot-feature">
+
+
+                            <div class="pot-feature-icon">
+
+                                <svg
+                                    viewBox="0 0 24 24"
+                                    fill="none"
+                                    stroke="currentColor"
+                                    stroke-width="1.7"
+                                >
+
+                                    <path d="M3 7h12v10H3z"/>
+
+                                    <path d="M15 10h4l3 3v4h-7z"/>
+
+                                    <circle cx="7" cy="19" r="2"/>
+
+                                    <circle cx="18" cy="19" r="2"/>
+
+                                </svg>
+
+                            </div>
+
+
+                            <div>
+
+                                <h5>
+                                    Safe Delivery
+                                </h5>
+
+                                <p>
+                                    Carefully packed for shipping
+                                </p>
+
+                            </div>
+
+
+                        </div>
+
+                    </div>
+
+
+
+                    <div class="col-lg-4 col-md-6">
+
+                        <div class="pot-feature">
+
+
+                            <div class="pot-feature-icon">
+
+                                <svg
+                                    viewBox="0 0 24 24"
+                                    fill="none"
+                                    stroke="currentColor"
+                                    stroke-width="1.7"
+                                >
+
+                                    <circle
+                                        cx="12"
+                                        cy="12"
+                                        r="8"
+                                    />
+
+                                    <path d="M12 8v8"/>
+
+                                    <path d="M8 12h8"/>
+
+                                </svg>
+
+                            </div>
+
+
+                            <div>
+
+                                <h5>
+                                    Perfect Fit
+                                </h5>
+
+                                <p>
+                                    Pots for every plant style
+                                </p>
+
+                            </div>
+
+
+                        </div>
+
+                    </div>
+
+
+                </div>
+
+            </div>
+
+
+
+            <!-- =================================================
+                 CTA
+            ================================================== -->
+
+            <div class="pot-cta">
+
+                <div class="pot-cta-content">
+
+
+                    <div class="pot-cta-label">
+                        GreenNest Plant Living
+                    </div>
+
+
+                    <h2>
+                        A beautiful pot changes everything.
+                    </h2>
+
+
+                    <p>
+
+                        Give your favourite plants the home they
+                        deserve with a planter that matches your
+                        space and your style.
+
+                    </p>
+
+
+                    <a
+                        href="{% url 'plant' %}"
+                        class="pot-cta-btn"
+                    >
+
+                        Explore Plants →
+
+                    </a>
+
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+    </section>
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,164 @@
+{% extends "store/Admin/AdminMaster.html" %}
+
+{% block title %}
+Category List | GreenNest Admin
+{% endblock %}
+
+{% block page_heading %}
+Category List
+{% endblock %}
+
+{% block content %}
+
+<div class="container-fluid">
+
+    <div class="card border-0 shadow-sm">
+
+        <div class="card-header bg-success text-white
+                    d-flex justify-content-between
+                    align-items-center">
+
+            <h5 class="mb-0">
+
+                <i class="bi bi-grid"></i>
+
+                Category List
+
+            </h5>
+
+
+            <a
+                href="{% url 'AdminAddcategory' %}"
+                class="btn btn-light btn-sm">
+
+                <i class="bi bi-plus-circle"></i>
+
+                Add Category
+
+            </a>
+
+        </div>
+
+
+        <div class="card-body">
+
+            <div class="table-responsive">
+
+                <table class="table table-hover align-middle">
+
+                    <thead class="table-light">
+
+                        <tr>
+
+                            <th>ID</th>
+
+                            <th>Category Name</th>
+
+                            <th>Type</th>
+
+                            <th>Description</th>
+
+                            <th>Status</th>
+
+                            <th>Action</th>
+
+                        </tr>
+
+                    </thead>
+
+
+                    <tbody>
+
+                        {% for category in categories %}
+
+                        <tr>
+
+                            <td>
+                                {{ category.id }}
+                            </td>
+
+                            <td>
+                                <strong>
+                                    {{ category.category_name }}
+                                </strong>
+                            </td>
+
+                            <td>
+                                {{ category.category_type|default:"-" }}
+                            </td>
+
+                            <td>
+                                {{ category.description|default:"-" }}
+                            </td>
+
+                            <td>
+
+                                {% if category.status == "Active" %}
+
+                                <span class="badge bg-success">
+                                    Active
+                                </span>
+
+                                {% else %}
+
+                                <span class="badge bg-secondary">
+                                    Inactive
+                                </span>
+
+                                {% endif %}
+
+                            </td>
+
+                            <td>
+
+                                <a
+                                    href="{% url 'AdminEditcategory' category.id %}"
+                                    class="btn btn-sm btn-outline-primary">
+
+                                    <i class="bi bi-pencil"></i>
+
+                                </a>
+
+
+                                <a
+                                    href="{% url 'AdminDeletecategory' category.id %}"
+                                    class="btn btn-sm btn-outline-danger"
+                                    onclick="return confirm('Delete this category and its subcategories?');">
+
+                                    <i class="bi bi-trash"></i>
+
+                                </a>
+
+                            </td>
+
+                        </tr>
+
+                        {% empty %}
+
+                        <tr>
+
+                            <td
+                                colspan="6"
+                                class="text-center text-muted py-4">
+
+                                No categories found.
+
+                            </td>
+
+                        </tr>
+
+                        {% endfor %}
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

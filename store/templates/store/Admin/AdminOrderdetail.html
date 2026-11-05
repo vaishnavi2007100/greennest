@@ -1,0 +1,257 @@
+{% extends "store/Admin/AdminMaster.html" %}
+
+{% block title %}
+Order Details | GreenNest
+{% endblock %}
+
+{% block content %}
+
+<div class="container-fluid py-4">
+
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+
+    <div>
+        <h2 class="fw-bold mb-1">
+            Order Details
+        </h2>
+
+        <p class="text-muted mb-0">
+            View complete order information
+        </p>
+    </div>
+
+    <a href="{% url 'AdminOrderlist' %}"
+       class="btn btn-outline-success">
+        <i class="bi bi-arrow-left"></i>
+        Back to Orders
+    </a>
+
+</div>
+
+
+<div class="card border-0 shadow-sm">
+
+    <div class="card-header bg-success text-white py-3">
+
+        <h5 class="mb-0">
+            <i class="bi bi-receipt"></i>
+            Order #{{ order.id }}
+        </h5>
+
+    </div>
+
+
+    <div class="card-body">
+
+        <div class="row g-4">
+
+
+            <!-- PRODUCT IMAGE -->
+
+           <div class="col-md-4 text-center">
+
+    {% if order.image %}
+
+        {% load static %}
+
+<img src="{% static 'product_images/' %}{{ order.image }}"
+     class="img-fluid rounded"
+     style="width: 280px; height: 280px; object-fit: cover;"
+     alt="{{ order.product_name }}">
+
+    {% else %}
+
+        <div class="border rounded p-5 text-muted">
+            <i class="bi bi-image fs-1"></i>
+
+            <p class="mt-2 mb-0">
+                No Image
+            </p>
+        </div>
+
+    {% endif %}
+
+</div>
+
+
+            <!-- ORDER INFORMATION -->
+
+            <div class="col-md-8">
+
+                <table class="table table-bordered align-middle">
+
+                    <tr>
+                        <th width="35%">
+                            Order ID
+                        </th>
+
+                        <td>
+                            #{{ order.id }}
+                        </td>
+                    </tr>
+
+
+                    <tr>
+                        <th>
+                            Customer Email
+                        </th>
+
+                        <td>
+                            {{ order.user_email }}
+                        </td>
+                    </tr>
+
+
+                    <tr>
+                        <th>
+                            Product
+                        </th>
+
+                        <td>
+                            {{ order.product_name }}
+                        </td>
+                    </tr>
+
+
+                    <tr>
+                        <th>
+                            Product ID
+                        </th>
+
+                        <td>
+                            {{ order.product_id }}
+                        </td>
+                    </tr>
+
+
+                    <tr>
+                        <th>
+                            Quantity
+                        </th>
+
+                        <td>
+                            {{ order.quantity }}
+                        </td>
+                    </tr>
+
+
+                    <tr>
+                        <th>
+                            Price
+                        </th>
+
+                        <td>
+                            ₹{{ order.price }}
+                        </td>
+                    </tr>
+
+
+                    <tr>
+                        <th>
+                            Total
+                        </th>
+
+                        <td class="fw-bold text-success">
+                            ₹{{ order.total }}
+                        </td>
+                    </tr>
+
+
+                    <tr>
+                        <th>
+                            Order Date
+                        </th>
+
+                        <td>
+                            {{ order.created_at|date:"d M Y, h:i A" }}
+                        </td>
+                    </tr>
+
+
+                    <tr>
+                        <th>
+                            Status
+                        </th>
+
+                        <td>
+
+                            {% if order.status == "Pending" %}
+
+                                <span class="badge bg-warning text-dark">
+                                    {{ order.status }}
+                                </span>
+
+                            {% elif order.status == "Completed" %}
+
+                                <span class="badge bg-success">
+                                    {{ order.status }}
+                                </span>
+
+                            {% elif order.status == "Cancelled" %}
+
+                                <span class="badge bg-danger">
+                                    {{ order.status }}
+                                </span>
+
+                            {% else %}
+
+                                <span class="badge bg-secondary">
+                                    {{ order.status }}
+                                </span>
+
+                            {% endif %}
+
+                        </td>
+                    </tr>
+
+
+                    <!-- CANCELLATION REASON -->
+
+                    <tr>
+                        <th>
+                            Cancellation Reason
+                        </th>
+
+                        <td>
+
+                            {% if order.status|lower == "cancelled" %}
+
+                                {% if order.cancel_reason %}
+
+                                    <span class="text-danger fw-semibold">
+                                        {{ order.cancel_reason }}
+                                    </span>
+
+                                {% else %}
+
+                                    <span class="text-muted">
+                                        No cancellation reason provided.
+                                    </span>
+
+                                {% endif %}
+
+                            {% else %}
+
+                                <span class="text-muted">
+                                    —
+                                </span>
+
+                            {% endif %}
+
+                        </td>
+                    </tr>
+
+                </table>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+</div>
+
+{% endblock %}

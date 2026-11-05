@@ -1,0 +1,1726 @@
+{% extends "store/base.html" %}
+{% load static %}
+
+{% block title %}Seasonal Collection | GreenNest{% endblock %}
+
+{% block content %}
+
+<style>
+
+/* =========================================================
+   GREENNEST SEASONAL COLLECTION
+   PREMIUM CUSTOMER ATTRACTING DESIGN
+========================================================= */
+
+.seasonal-page{
+    background:#faf9f5;
+    color:#26372f;
+    overflow:hidden;
+}
+
+*{
+    box-sizing:border-box;
+}
+
+
+/* =========================================================
+   HERO SECTION
+========================================================= */
+
+.season-hero{
+    min-height:620px;
+    position:relative;
+
+    display:flex;
+    align-items:center;
+
+    background:
+        linear-gradient(
+            90deg,
+            rgba(4,42,31,.97) 0%,
+            rgba(5,55,40,.88) 38%,
+            rgba(5,55,40,.45) 68%,
+            rgba(5,55,40,.10) 100%
+        ),
+        url("https://images.unsplash.com/photo-1497250681960-ef046c08a56e?auto=format&fit=crop&w=2000&q=90")
+        center/cover;
+}
+
+.season-hero-inner{
+    width:100%;
+    max-width:1350px;
+
+    margin:auto;
+    padding:90px 50px;
+
+    color:#fff;
+}
+
+.hero-badge{
+    display:inline-flex;
+    align-items:center;
+    gap:9px;
+
+    padding:10px 19px;
+
+    border:1px solid rgba(255,255,255,.28);
+
+    border-radius:50px;
+
+    background:rgba(255,255,255,.09);
+
+    color:#e5d29f;
+
+    font-size:11px;
+    font-weight:800;
+
+    letter-spacing:2px;
+    text-transform:uppercase;
+
+    backdrop-filter:blur(8px);
+
+    margin-bottom:25px;
+}
+
+.season-hero h1{
+    max-width:760px;
+
+    margin:0;
+
+    font-family:Georgia,serif;
+
+    font-size:clamp(50px,7vw,88px);
+
+    line-height:1.02;
+
+    letter-spacing:-2px;
+}
+
+.season-hero h1 span{
+    color:#d7bb78;
+}
+
+.season-hero-text{
+    max-width:620px;
+
+    margin:25px 0 32px;
+
+    color:#dce9e1;
+
+    font-size:16px;
+
+    line-height:1.9;
+}
+
+.hero-buttons{
+    display:flex;
+
+    gap:13px;
+
+    flex-wrap:wrap;
+}
+
+.hero-btn{
+    display:inline-flex;
+
+    align-items:center;
+    justify-content:center;
+
+    padding:14px 27px;
+
+    border-radius:30px;
+
+    text-decoration:none;
+
+    font-size:12px;
+
+    font-weight:800;
+
+    transition:.3s;
+}
+
+.hero-btn-primary{
+    background:#c8a96b;
+    color:#fff;
+}
+
+.hero-btn-primary:hover{
+    background:#fff;
+    color:#0b3d2e;
+
+    transform:translateY(-3px);
+}
+
+.hero-btn-outline{
+    color:#fff;
+
+    border:1px solid rgba(255,255,255,.45);
+
+    background:rgba(255,255,255,.05);
+}
+
+.hero-btn-outline:hover{
+    background:#fff;
+    color:#0b3d2e;
+}
+
+
+/* =========================================================
+   HERO FLOATING CARD
+========================================================= */
+
+.hero-mini-card{
+    position:absolute;
+
+    right:7%;
+    bottom:55px;
+
+    width:245px;
+
+    padding:18px;
+
+    border-radius:20px;
+
+    background:rgba(255,255,255,.94);
+
+    box-shadow:0 20px 50px rgba(0,0,0,.18);
+
+    color:#0b3d2e;
+}
+
+.hero-mini-card small{
+    display:block;
+
+    color:#c8a96b;
+
+    font-size:9px;
+
+    font-weight:800;
+
+    letter-spacing:2px;
+
+    text-transform:uppercase;
+
+    margin-bottom:6px;
+}
+
+.hero-mini-card strong{
+    display:block;
+
+    font-family:Georgia,serif;
+
+    font-size:19px;
+
+    margin-bottom:5px;
+}
+
+.hero-mini-card p{
+    margin:0;
+
+    color:#718078;
+
+    font-size:10px;
+
+    line-height:1.6;
+}
+
+
+/* =========================================================
+   OFFER BAR
+========================================================= */
+
+.offer-bar{
+    background:#c8a96b;
+
+    color:#fff;
+
+    padding:14px 20px;
+
+    text-align:center;
+
+    font-size:12px;
+
+    font-weight:700;
+
+    letter-spacing:.5px;
+}
+
+.offer-bar span{
+    margin-left:8px;
+
+    font-weight:400;
+
+    opacity:.9;
+}
+
+
+/* =========================================================
+   INTRO
+========================================================= */
+
+.season-intro{
+    max-width:950px;
+
+    margin:auto;
+
+    padding:90px 25px 65px;
+
+    text-align:center;
+}
+
+.eyebrow{
+    display:block;
+
+    color:#c8a96b;
+
+    font-size:10px;
+
+    font-weight:800;
+
+    letter-spacing:3px;
+
+    text-transform:uppercase;
+
+    margin-bottom:12px;
+}
+
+.season-intro h2{
+    margin:0 0 18px;
+
+    color:#0b3d2e;
+
+    font-family:Georgia,serif;
+
+    font-size:clamp(34px,4vw,52px);
+
+    line-height:1.15;
+}
+
+.season-intro p{
+    max-width:720px;
+
+    margin:auto;
+
+    color:#718078;
+
+    font-size:14px;
+
+    line-height:1.9;
+}
+
+
+/* =========================================================
+   SEASON CARDS
+========================================================= */
+
+.season-section{
+    max-width:1300px;
+
+    margin:auto;
+
+    padding:0 25px 95px;
+}
+
+.section-heading{
+    text-align:center;
+
+    margin-bottom:45px;
+}
+
+.section-heading h3{
+    margin:8px 0 12px;
+
+    color:#0b3d2e;
+
+    font-family:Georgia,serif;
+
+    font-size:40px;
+}
+
+.section-heading p{
+    max-width:650px;
+
+    margin:auto;
+
+    color:#718078;
+
+    font-size:13px;
+
+    line-height:1.7;
+}
+
+.season-grid{
+    display:grid;
+
+    grid-template-columns:repeat(4,1fr);
+
+    gap:20px;
+}
+
+.season-box{
+    min-height:510px;
+
+    position:relative;
+
+    overflow:hidden;
+
+    border-radius:25px;
+
+    text-decoration:none;
+
+    background:#0b3d2e;
+
+    box-shadow:0 12px 35px rgba(11,61,46,.10);
+
+    transition:.4s;
+}
+
+.season-box:hover{
+    transform:translateY(-10px);
+
+    box-shadow:0 25px 55px rgba(11,61,46,.20);
+}
+
+.season-box img{
+    position:absolute;
+
+    inset:0;
+
+    width:100%;
+    height:100%;
+
+    object-fit:cover;
+
+    transition:.6s;
+}
+
+.season-box:hover img{
+    transform:scale(1.08);
+}
+
+.season-box:after{
+    content:"";
+
+    position:absolute;
+
+    inset:0;
+
+    background:
+        linear-gradient(
+            to top,
+            rgba(3,27,20,.98) 0%,
+            rgba(3,27,20,.72) 35%,
+            rgba(3,27,20,.15) 75%,
+            transparent 100%
+        );
+}
+
+.season-box-content{
+    position:absolute;
+
+    z-index:2;
+
+    left:0;
+    right:0;
+    bottom:0;
+
+    padding:28px 24px;
+
+    color:#fff;
+}
+
+.season-number{
+    color:#d9bd7b;
+
+    font-size:9px;
+
+    font-weight:800;
+
+    letter-spacing:2px;
+
+    text-transform:uppercase;
+}
+
+.season-box h4{
+    margin:8px 0 9px;
+
+    font-family:Georgia,serif;
+
+    color:#fff;
+
+    font-size:31px;
+}
+
+.season-box p{
+    margin:0 0 18px;
+
+    color:#dce7e1;
+
+    font-size:11px;
+
+    line-height:1.7;
+}
+
+.season-tags{
+    display:flex;
+
+    flex-wrap:wrap;
+
+    gap:6px;
+
+    margin-bottom:20px;
+}
+
+.season-tag{
+    padding:6px 9px;
+
+    border-radius:20px;
+
+    background:rgba(255,255,255,.10);
+
+    border:1px solid rgba(255,255,255,.16);
+
+    color:#f4f7f5;
+
+    font-size:8px;
+}
+
+.explore-link{
+    color:#fff;
+
+    font-size:11px;
+
+    font-weight:800;
+
+    transition:.3s;
+}
+
+.season-box:hover .explore-link{
+    color:#d8bd83;
+}
+
+
+/* =========================================================
+   FEATURED SECTION
+========================================================= */
+
+.featured-section{
+    background:#f0f6f2;
+
+    padding:90px 25px;
+}
+
+.featured-inner{
+    max-width:1250px;
+
+    margin:auto;
+}
+
+.featured-heading{
+    text-align:center;
+
+    margin-bottom:45px;
+}
+
+.featured-heading h2{
+    color:#0b3d2e;
+
+    font-family:Georgia,serif;
+
+    font-size:42px;
+
+    margin:8px 0 12px;
+}
+
+.featured-heading p{
+    max-width:650px;
+
+    margin:auto;
+
+    color:#718078;
+
+    font-size:13px;
+
+    line-height:1.7;
+}
+
+.featured-grid{
+    display:grid;
+
+    grid-template-columns:repeat(4,1fr);
+
+    gap:20px;
+}
+
+.product-card{
+    background:#fff;
+
+    border-radius:20px;
+
+    overflow:hidden;
+
+    border:1px solid #e2ebe5;
+
+    transition:.35s;
+}
+
+.product-card:hover{
+    transform:translateY(-8px);
+
+    box-shadow:0 18px 40px rgba(11,61,46,.12);
+}
+
+.product-image{
+    height:255px;
+
+    overflow:hidden;
+
+    position:relative;
+}
+
+.product-image img{
+    width:100%;
+    height:100%;
+
+    object-fit:cover;
+
+    transition:.5s;
+}
+
+.product-card:hover img{
+    transform:scale(1.06);
+}
+
+.product-badge{
+    position:absolute;
+
+    top:13px;
+    left:13px;
+
+    padding:7px 10px;
+
+    border-radius:20px;
+
+    background:#fff;
+
+    color:#0b3d2e;
+
+    font-size:8px;
+
+    font-weight:800;
+
+    letter-spacing:1px;
+
+    text-transform:uppercase;
+
+    box-shadow:0 5px 15px rgba(0,0,0,.08);
+}
+
+.product-info{
+    padding:20px;
+}
+
+.product-info small{
+    color:#c8a96b;
+
+    font-size:9px;
+
+    font-weight:800;
+
+    letter-spacing:1.5px;
+
+    text-transform:uppercase;
+}
+
+.product-info h4{
+    margin:7px 0;
+
+    color:#0b3d2e;
+
+    font-family:Georgia,serif;
+
+    font-size:20px;
+}
+
+.product-info p{
+    color:#718078;
+
+    font-size:11px;
+
+    line-height:1.6;
+
+    margin:0;
+}
+
+
+/* =========================================================
+   DISCOVER SECTION
+========================================================= */
+
+.discover-section{
+    max-width:1250px;
+
+    margin:90px auto;
+
+    padding:0 25px;
+}
+
+.discover-box{
+    display:grid;
+
+    grid-template-columns:1fr 1fr;
+
+    overflow:hidden;
+
+    min-height:460px;
+
+    border-radius:28px;
+
+    background:#0b3d2e;
+}
+
+.discover-image{
+    min-height:460px;
+
+    background:
+        url("https://images.unsplash.com/photo-1501004318641-b39e6451bec6?auto=format&fit=crop&w=1000&q=90")
+        center/cover;
+}
+
+.discover-content{
+    display:flex;
+
+    flex-direction:column;
+
+    justify-content:center;
+
+    padding:55px;
+}
+
+.discover-content small{
+    color:#c8a96b;
+
+    font-size:10px;
+
+    font-weight:800;
+
+    letter-spacing:3px;
+
+    text-transform:uppercase;
+}
+
+.discover-content h2{
+    margin:10px 0 17px;
+
+    color:#fff;
+
+    font-family:Georgia,serif;
+
+    font-size:43px;
+
+    line-height:1.15;
+}
+
+.discover-content p{
+    color:#d7e4dd;
+
+    font-size:13px;
+
+    line-height:1.85;
+
+    margin-bottom:25px;
+}
+
+.discover-list{
+    display:grid;
+
+    grid-template-columns:1fr 1fr;
+
+    gap:12px;
+
+    margin-bottom:28px;
+}
+
+.discover-item{
+    color:#eef5f1;
+
+    font-size:11px;
+}
+
+.discover-item span{
+    color:#d8bd83;
+
+    margin-right:5px;
+}
+
+
+/* =========================================================
+   BENEFITS
+========================================================= */
+
+.benefits{
+    padding:0 25px 90px;
+}
+
+.benefits-inner{
+    max-width:1200px;
+
+    margin:auto;
+}
+
+.benefit-grid{
+    display:grid;
+
+    grid-template-columns:repeat(4,1fr);
+
+    gap:16px;
+}
+
+.benefit{
+    padding:28px 18px;
+
+    text-align:center;
+
+    background:#fff;
+
+    border:1px solid #e2ebe5;
+
+    border-radius:18px;
+
+    transition:.3s;
+}
+
+.benefit:hover{
+    transform:translateY(-5px);
+
+    box-shadow:0 14px 30px rgba(11,61,46,.08);
+}
+
+.benefit-icon{
+    width:55px;
+    height:55px;
+
+    display:flex;
+
+    align-items:center;
+    justify-content:center;
+
+    margin:0 auto 14px;
+
+    border-radius:50%;
+
+    background:#e9f4ed;
+
+    font-size:23px;
+}
+
+.benefit h5{
+    margin:0 0 8px;
+
+    color:#0b3d2e;
+
+    font-family:Georgia,serif;
+
+    font-size:17px;
+}
+
+.benefit p{
+    margin:0;
+
+    color:#718078;
+
+    font-size:10px;
+
+    line-height:1.7;
+}
+
+
+/* =========================================================
+   FINAL CTA
+========================================================= */
+
+.final-cta{
+    max-width:1250px;
+
+    margin:0 auto 90px;
+
+    padding:90px 25px;
+
+    text-align:center;
+
+    border-radius:30px;
+
+    background:
+        linear-gradient(
+            rgba(5,48,35,.93),
+            rgba(5,48,35,.93)
+        ),
+        url("https://images.unsplash.com/photo-1497250681960-ef046c08a56e?auto=format&fit=crop&w=1800&q=90")
+        center/cover;
+}
+
+.final-cta small{
+    color:#d7bb78;
+
+    font-size:10px;
+
+    font-weight:800;
+
+    letter-spacing:3px;
+
+    text-transform:uppercase;
+}
+
+.final-cta h2{
+    color:#fff;
+
+    font-family:Georgia,serif;
+
+    font-size:clamp(35px,5vw,52px);
+
+    margin:12px 0 15px;
+}
+
+.final-cta p{
+    max-width:650px;
+
+    margin:0 auto 28px;
+
+    color:#dce9e1;
+
+    font-size:13px;
+
+    line-height:1.8;
+}
+
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media(max-width:1100px){
+
+    .hero-mini-card{
+        right:4%;
+    }
+
+    .season-grid,
+    .featured-grid{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+    .benefit-grid{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+}
+
+
+@media(max-width:850px){
+
+    .season-hero{
+        min-height:600px;
+    }
+
+    .season-hero-inner{
+        padding:80px 30px;
+    }
+
+    .hero-mini-card{
+        display:none;
+    }
+
+    .discover-box{
+        grid-template-columns:1fr;
+    }
+
+    .discover-image{
+        min-height:350px;
+    }
+
+}
+
+
+@media(max-width:600px){
+
+    .season-hero{
+        min-height:620px;
+
+        background:
+            linear-gradient(
+                rgba(4,42,31,.80),
+                rgba(4,42,31,.95)
+            ),
+            url("https://images.unsplash.com/photo-1497250681960-ef046c08a56e?auto=format&fit=crop&w=1200&q=90")
+            center/cover;
+    }
+
+    .season-hero-inner{
+        padding:70px 20px;
+    }
+
+    .season-hero h1{
+        font-size:48px;
+        letter-spacing:-1px;
+    }
+
+    .season-hero-text{
+        font-size:13px;
+    }
+
+    .hero-buttons{
+        flex-direction:column;
+        align-items:flex-start;
+    }
+
+    .hero-btn{
+        width:100%;
+        max-width:260px;
+    }
+
+    .season-intro{
+        padding:65px 20px 50px;
+    }
+
+    .season-intro h2{
+        font-size:34px;
+    }
+
+    .season-section{
+        padding-left:15px;
+        padding-right:15px;
+    }
+
+    .section-heading h3{
+        font-size:34px;
+    }
+
+    .season-grid,
+    .featured-grid{
+        grid-template-columns:1fr;
+    }
+
+    .season-box{
+        min-height:500px;
+    }
+
+    .featured-section{
+        padding:65px 15px;
+    }
+
+    .featured-heading h2{
+        font-size:34px;
+    }
+
+    .discover-section{
+        padding:0 15px;
+        margin:65px auto;
+    }
+
+    .discover-image{
+        min-height:280px;
+    }
+
+    .discover-content{
+        padding:40px 25px;
+    }
+
+    .discover-content h2{
+        font-size:34px;
+    }
+
+    .benefits{
+        padding:0 15px 65px;
+    }
+
+    .benefit-grid{
+        grid-template-columns:1fr 1fr;
+        gap:10px;
+    }
+
+    .benefit{
+        padding:22px 12px;
+    }
+
+    .final-cta{
+        margin:0 15px 60px;
+        padding:65px 20px;
+    }
+
+}
+
+</style>
+
+
+<div class="seasonal-page">
+
+
+<!-- =====================================================
+     HERO
+===================================================== -->
+
+<section class="season-hero">
+
+    <div class="season-hero-inner">
+
+        <span class="hero-badge">
+            🌿 GreenNest Seasonal Collection
+        </span>
+
+        <h1>
+            Bring The Beauty
+            Of <span>Every Season</span>
+            Home.
+        </h1>
+
+        <p class="season-hero-text">
+            Discover handpicked plants, beautiful blooms and
+            nature-inspired décor curated to make every season
+            feel special inside your home.
+        </p>
+
+        <div class="hero-buttons">
+
+            <a href="#seasons" class="hero-btn hero-btn-primary">
+                Explore Collections →
+            </a>
+
+            <a href="{% url 'plant' %}" class="hero-btn hero-btn-outline">
+                Shop Plants
+            </a>
+
+        </div>
+
+    </div>
+
+
+    <div class="hero-mini-card">
+
+        <small>
+            GreenNest Pick
+        </small>
+
+        <strong>
+            A Season For Every Home
+        </strong>
+
+        <p>
+            Fresh greens in spring, bright blooms in summer,
+            warm tones in autumn and cosy plants in winter.
+        </p>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     OFFER BAR
+===================================================== -->
+
+<div class="offer-bar">
+
+    🌿 Seasonal Collection Is Here
+
+    <span>
+        Refresh your space with nature-inspired favourites.
+    </span>
+
+</div>
+
+
+<!-- =====================================================
+     INTRO
+===================================================== -->
+
+<section class="season-intro">
+
+    <span class="eyebrow">
+        Curated For You
+    </span>
+
+    <h2>
+        Change Your Space With The Seasons
+    </h2>
+
+    <p>
+        Your home deserves a little refresh throughout the year.
+        Explore our seasonal collections and discover plants,
+        flowers and décor selected to bring the right mood to
+        every corner of your home.
+    </p>
+
+</section>
+
+
+<!-- =====================================================
+     FOUR SEASON COLLECTIONS
+===================================================== -->
+
+<section class="season-section" id="seasons">
+
+    <div class="section-heading">
+
+        <span class="eyebrow">
+            Shop By Season
+        </span>
+
+        <h3>
+            Find Your Perfect Season
+        </h3>
+
+        <p>
+            Choose a season and explore its specially curated
+            collection of plants, flowers and home décor.
+        </p>
+
+    </div>
+
+
+    <div class="season-grid">
+
+
+        <!-- SPRING -->
+
+        <a href="{% url 'spring' %}" class="season-box">
+
+            <img
+                src="https://images.unsplash.com/photo-1490750967868-88aa4486c946?auto=format&fit=crop&w=900&q=90"
+                alt="Spring collection"
+            >
+
+            <div class="season-box-content">
+
+                <span class="season-number">
+                    01 / Spring
+                </span>
+
+                <h4>
+                    Fresh Spring
+                </h4>
+
+                <p>
+                    Fresh colours, cheerful blooms and beautiful
+                    greenery for a brand-new beginning.
+                </p>
+
+                <div class="season-tags">
+
+                    <span class="season-tag">Gerbera</span>
+                    <span class="season-tag">Peace Lily</span>
+                    <span class="season-tag">Anthurium</span>
+
+                </div>
+
+                <span class="explore-link">
+                    Explore Spring →
+                </span>
+
+            </div>
+
+        </a>
+
+
+        <!-- SUMMER -->
+
+        <a href="{% url 'summer' %}" class="season-box">
+
+            <img
+                src="https://images.unsplash.com/photo-1497250681960-ef046c08a56e?auto=format&fit=crop&w=900&q=90"
+                alt="Summer collection"
+            >
+
+            <div class="season-box-content">
+
+                <span class="season-number">
+                    02 / Summer
+                </span>
+
+                <h4>
+                    Sunny Summer
+                </h4>
+
+                <p>
+                    Bring refreshing greenery and vibrant flowers
+                    into your sunny spaces.
+                </p>
+
+                <div class="season-tags">
+
+                    <span class="season-tag">Aloe Vera</span>
+                    <span class="season-tag">Snake Plant</span>
+                    <span class="season-tag">Hibiscus</span>
+
+                </div>
+
+                <span class="explore-link">
+                    Explore Summer →
+                </span>
+
+            </div>
+
+        </a>
+
+
+        <!-- AUTUMN -->
+
+        <a href="{% url 'autumn' %}" class="season-box">
+
+            <img
+                src="https://images.unsplash.com/photo-1509423350716-97f9360b4e09?auto=format&fit=crop&w=900&q=90"
+                alt="Autumn collection"
+            >
+
+            <div class="season-box-content">
+
+                <span class="season-number">
+                    03 / Autumn
+                </span>
+
+                <h4>
+                    Warm Autumn
+                </h4>
+
+                <p>
+                    Earthy tones, elegant foliage and warm décor
+                    for a cosy home atmosphere.
+                </p>
+
+                <div class="season-tags">
+
+                    <span class="season-tag">Croton</span>
+                    <span class="season-tag">Rubber Plant</span>
+                    <span class="season-tag">Jade Plant</span>
+
+                </div>
+
+                <span class="explore-link">
+                    Explore Autumn →
+                </span>
+
+            </div>
+
+        </a>
+
+
+        <!-- WINTER -->
+
+        <a href="{% url 'winter' %}" class="season-box">
+
+            <img
+                src="https://images.unsplash.com/photo-1485955900006-10f4d324d411?auto=format&fit=crop&w=900&q=90"
+                alt="Winter collection"
+            >
+
+            <div class="season-box-content">
+
+                <span class="season-number">
+                    04 / Winter
+                </span>
+
+                <h4>
+                    Cozy Winter
+                </h4>
+
+                <p>
+                    Make your interiors warm and beautiful with
+                    easy-care indoor greenery.
+                </p>
+
+                <div class="season-tags">
+
+                    <span class="season-tag">Poinsettia</span>
+                    <span class="season-tag">ZZ Plant</span>
+                    <span class="season-tag">Snake Plant</span>
+
+                </div>
+
+                <span class="explore-link">
+                    Explore Winter →
+                </span>
+
+            </div>
+
+        </a>
+
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     FEATURED PRODUCTS
+===================================================== -->
+
+<section class="featured-section">
+
+    <div class="featured-inner">
+
+        <div class="featured-heading">
+
+            <span class="eyebrow">
+                Seasonal Favourites
+            </span>
+
+            <h2>
+                Customer Loved Greens
+            </h2>
+
+            <p>
+                Beautiful plants that can instantly add freshness,
+                colour and personality to your home.
+            </p>
+
+        </div>
+
+
+        <div class="featured-grid">
+
+
+            <!-- PRODUCT 1 -->
+
+            <div class="product-card">
+
+                <div class="product-image">
+
+                    <span class="product-badge">
+                        Best Seller
+                    </span>
+
+                    <img
+                        src="https://images.unsplash.com/photo-1501004318641-b39e6451bec6?auto=format&fit=crop&w=800&q=90"
+                        alt="Peace Lily"
+                    >
+
+                </div>
+
+                <div class="product-info">
+
+                    <small>
+                        Indoor Favourite
+                    </small>
+
+                    <h4>
+                        Peace Lily
+                    </h4>
+
+                    <p>
+                        Elegant greenery with beautiful white blooms
+                        for calm indoor spaces.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <!-- PRODUCT 2 -->
+
+            <div class="product-card">
+
+                <div class="product-image">
+
+                    <span class="product-badge">
+                        Easy Care
+                    </span>
+
+                    <img
+                        src="https://images.unsplash.com/photo-1593691509543-c55fb32e5cee?auto=format&fit=crop&w=800&q=90"
+                        alt="Snake Plant"
+                    >
+
+                </div>
+
+                <div class="product-info">
+
+                    <small>
+                        Low Maintenance
+                    </small>
+
+                    <h4>
+                        Snake Plant
+                    </h4>
+
+                    <p>
+                        A stylish and easy-care plant for modern
+                        homes and offices.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <!-- PRODUCT 3 -->
+
+            <div class="product-card">
+
+                <div class="product-image">
+
+                    <span class="product-badge">
+                        Trending
+                    </span>
+
+                    <img
+                        src="https://images.unsplash.com/photo-1459411621453-7b03977f4bfc?auto=format&fit=crop&w=800&q=90"
+                        alt="Jade Plant"
+                    >
+
+                </div>
+
+                <div class="product-info">
+
+                    <small>
+                        Green Favourite
+                    </small>
+
+                    <h4>
+                        Jade Plant
+                    </h4>
+
+                    <p>
+                        Compact greenery that adds a natural touch
+                        to desks, shelves and windows.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <!-- PRODUCT 4 -->
+
+            <div class="product-card">
+
+                <div class="product-image">
+
+                    <span class="product-badge">
+                        New
+                    </span>
+
+                    <img
+                        src="https://images.unsplash.com/photo-1545241047-6083a3684587?auto=format&fit=crop&w=800&q=90"
+                        alt="Decorative Plant"
+                    >
+
+                </div>
+
+                <div class="product-info">
+
+                    <small>
+                        Home Styling
+                    </small>
+
+                    <h4>
+                        Green Decor Plant
+                    </h4>
+
+                    <p>
+                        A beautiful natural accent for creating
+                        a fresh and premium interior.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     DISCOVER SECTION
+===================================================== -->
+
+<section class="discover-section">
+
+    <div class="discover-box">
+
+
+        <div class="discover-image"></div>
+
+
+        <div class="discover-content">
+
+            <small>
+                Style Your Home
+            </small>
+
+            <h2>
+                Your Home.
+                Your Season.
+                Your GreenNest.
+            </h2>
+
+            <p>
+                Whether you love colourful flowers, tropical
+                greenery or minimalist indoor plants, create a
+                space that reflects your personality.
+            </p>
+
+            <div class="discover-list">
+
+                <div class="discover-item">
+                    <span>✓</span>
+                    Indoor Greenery
+                </div>
+
+                <div class="discover-item">
+                    <span>✓</span>
+                    Flowering Plants
+                </div>
+
+                <div class="discover-item">
+                    <span>✓</span>
+                    Stylish Planters
+                </div>
+
+                <div class="discover-item">
+                    <span>✓</span>
+                    Home Décor
+                </div>
+
+            </div>
+
+            <a href="{% url 'homedecore' %}"
+               class="hero-btn hero-btn-primary">
+
+                Explore Home Décor →
+
+            </a>
+
+        </div>
+
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     BENEFITS
+===================================================== -->
+
+<section class="benefits">
+
+    <div class="benefits-inner">
+
+        <div class="benefit-grid">
+
+
+            <div class="benefit">
+
+                <div class="benefit-icon">
+                    🌱
+                </div>
+
+                <h5>
+                    Carefully Curated
+                </h5>
+
+                <p>
+                    Seasonal favourites selected for
+                    beautiful homes.
+                </p>
+
+            </div>
+
+
+            <div class="benefit">
+
+                <div class="benefit-icon">
+                    🪴
+                </div>
+
+                <h5>
+                    Beautiful Styling
+                </h5>
+
+                <p>
+                    Plants and décor that complement
+                    your space.
+                </p>
+
+            </div>
+
+
+            <div class="benefit">
+
+                <div class="benefit-icon">
+                    💚
+                </div>
+
+                <h5>
+                    Easy Plant Care
+                </h5>
+
+                <p>
+                    Find beginner-friendly greenery
+                    for your lifestyle.
+                </p>
+
+            </div>
+
+
+            <div class="benefit">
+
+                <div class="benefit-icon">
+                    🎁
+                </div>
+
+                <h5>
+                    Perfect For Gifting
+                </h5>
+
+                <p>
+                    Thoughtful green gifts for every
+                    special occasion.
+                </p>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     FINAL CTA
+===================================================== -->
+
+<section class="final-cta">
+
+    <small>
+        Make Your Space Bloom
+    </small>
+
+    <h2>
+        Which Season Will You Choose?
+    </h2>
+
+    <p>
+        Explore our seasonal collections and bring a little
+        more nature, colour and warmth into your everyday life.
+    </p>
+
+    <a href="{% url 'plant' %}"
+       class="hero-btn hero-btn-primary">
+
+        Start Shopping →
+
+    </a>
+
+</section>
+
+
+</div>
+
+{% endblock %}

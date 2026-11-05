@@ -1,0 +1,570 @@
+{% extends "store/User/usermaster.html" %}
+
+{% block title %}
+My Ratings | GreenNest
+{% endblock %}
+
+{% block page_heading %}
+My Ratings
+{% endblock %}
+
+{% block content %}
+
+<style>
+
+/* =====================================================
+   MY RATINGS PAGE
+===================================================== */
+
+.gn-rating-page {
+    width: 100%;
+}
+
+
+/* =====================================================
+   HEADER CARD
+===================================================== */
+
+.gn-rating-intro {
+    background: linear-gradient(
+        135deg,
+        #123d2c,
+        #205d41
+    );
+
+    border-radius: 18px;
+
+    padding: 25px 28px;
+
+    color: white;
+
+    margin-bottom: 24px;
+
+    box-shadow:
+        0 10px 25px rgba(13,51,37,0.10);
+}
+
+
+.gn-rating-intro h2 {
+
+    font-family:
+        'DM Serif Display',
+        serif;
+
+    margin: 0 0 6px;
+
+    font-size: 25px;
+}
+
+
+.gn-rating-intro p {
+
+    margin: 0;
+
+    color:
+        rgba(255,255,255,0.70);
+
+    font-size: 12px;
+}
+
+
+/* =====================================================
+   RATING CARD
+===================================================== */
+
+.gn-rating-card {
+
+    background: white;
+
+    border: 1px solid #e3e9e5;
+
+    border-radius: 17px;
+
+    padding: 22px;
+
+    margin-bottom: 17px;
+
+    transition: 0.25s ease;
+
+    box-shadow:
+        0 5px 18px rgba(0,0,0,0.035);
+}
+
+
+.gn-rating-card:hover {
+
+    transform:
+        translateY(-2px);
+
+    box-shadow:
+        0 10px 25px rgba(13,51,37,0.08);
+}
+
+
+/* =====================================================
+   PRODUCT ICON
+===================================================== */
+
+.gn-rating-product-icon {
+
+    width: 48px;
+
+    height: 48px;
+
+    min-width: 48px;
+
+    border-radius: 14px;
+
+    background: #edf5ef;
+
+    color: #205d41;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    font-size: 21px;
+}
+
+
+/* =====================================================
+   PRODUCT ID
+===================================================== */
+
+.gn-product-id {
+
+    color: #89958e;
+
+    font-size: 10px;
+
+    margin-top: 3px;
+}
+
+
+/* =====================================================
+   STARS
+===================================================== */
+
+.gn-stars {
+
+    color: #d2b06a;
+
+    font-size: 17px;
+
+    letter-spacing: 2px;
+
+    white-space: nowrap;
+}
+
+
+.gn-rating-number {
+
+    color: #205d41;
+
+    font-size: 11px;
+
+    font-weight: 700;
+
+    margin-left: 7px;
+}
+
+
+/* =====================================================
+   REVIEW
+===================================================== */
+
+.gn-review-box {
+
+    background: #f7f9f7;
+
+    border-left:
+        3px solid #d2b06a;
+
+    border-radius: 9px;
+
+    padding: 13px 15px;
+
+    margin-top: 17px;
+
+    color: #52645a;
+
+    font-size: 12px;
+
+    line-height: 1.7;
+}
+
+
+.gn-review-box i {
+
+    color: #205d41;
+
+    margin-right: 5px;
+}
+
+
+/* =====================================================
+   DATE
+===================================================== */
+
+.gn-rating-date {
+
+    color: #89958e;
+
+    font-size: 10px;
+
+    margin-top: 13px;
+}
+
+
+/* =====================================================
+   EMPTY STATE
+===================================================== */
+
+.gn-empty-rating {
+
+    background: white;
+
+    border:
+        1px solid #e3e9e5;
+
+    border-radius: 18px;
+
+    text-align: center;
+
+    padding: 65px 25px;
+
+    box-shadow:
+        0 5px 18px rgba(0,0,0,0.035);
+}
+
+
+.gn-empty-icon {
+
+    width: 70px;
+
+    height: 70px;
+
+    margin: 0 auto 17px;
+
+    border-radius: 20px;
+
+    background: #edf5ef;
+
+    color: #d2b06a;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    font-size: 30px;
+}
+
+
+.gn-empty-rating h3 {
+
+    font-family:
+        'DM Serif Display',
+        serif;
+
+    color: #0d3325;
+
+    font-size: 23px;
+
+    margin-bottom: 7px;
+}
+
+
+.gn-empty-rating p {
+
+    color: #89958e;
+
+    font-size: 12px;
+
+    margin-bottom: 20px;
+}
+
+
+.gn-shop-btn {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 8px;
+
+    padding: 10px 18px;
+
+    border-radius: 10px;
+
+    background: #205d41;
+
+    color: white;
+
+    text-decoration: none;
+
+    font-size: 11px;
+
+    font-weight: 700;
+
+    transition: 0.25s ease;
+}
+
+
+.gn-shop-btn:hover {
+
+    background: #0d3325;
+
+    color: white;
+
+    transform:
+        translateY(-2px);
+}
+
+
+/* =====================================================
+   RESPONSIVE
+===================================================== */
+
+@media (max-width: 767px) {
+
+    .gn-rating-intro {
+
+        padding: 21px;
+    }
+
+    .gn-rating-card {
+
+        padding: 17px;
+    }
+
+    .gn-stars {
+
+        font-size: 15px;
+    }
+
+}
+
+</style>
+
+
+<div class="gn-rating-page">
+
+
+    <!-- =================================================
+         INTRO
+    ================================================= -->
+
+    <div class="gn-rating-intro">
+
+        <h2>
+
+            <i class="bi bi-star-fill"></i>
+
+            My Ratings
+
+        </h2>
+
+        <p>
+
+            View all the products you have reviewed on GreenNest.
+
+        </p>
+
+    </div>
+
+
+    <!-- =================================================
+         RATINGS
+    ================================================= -->
+
+    {% if ratings %}
+
+        {% for rating in ratings %}
+
+            <div class="gn-rating-card">
+
+
+                <div class="d-flex justify-content-between align-items-start gap-3">
+
+
+                    <!-- PRODUCT -->
+
+                    <div class="d-flex align-items-center gap-3">
+
+
+                        <div class="gn-rating-product-icon">
+
+                            <i class="bi bi-flower1"></i>
+
+                        </div>
+
+
+                        <div>
+
+                            <div class="fw-bold"
+                                 style="font-size:14px;color:#173d2b;">
+
+                                Product #{{ rating.product_id }}
+
+                            </div>
+
+                            <div class="gn-product-id">
+
+                                Review ID #{{ rating.id }}
+
+                            </div>
+
+                        </div>
+
+
+                    </div>
+
+
+                    <!-- RATING -->
+
+                    <div class="text-end">
+
+
+                        <div class="gn-stars">
+
+                            {% if rating.rating >= 1 %}
+                                ★
+                            {% else %}
+                                ☆
+                            {% endif %}
+
+                            {% if rating.rating >= 2 %}
+                                ★
+                            {% else %}
+                                ☆
+                            {% endif %}
+
+                            {% if rating.rating >= 3 %}
+                                ★
+                            {% else %}
+                                ☆
+                            {% endif %}
+
+                            {% if rating.rating >= 4 %}
+                                ★
+                            {% else %}
+                                ☆
+                            {% endif %}
+
+                            {% if rating.rating >= 5 %}
+                                ★
+                            {% else %}
+                                ☆
+                            {% endif %}
+
+                        </div>
+
+
+                        <span class="gn-rating-number">
+
+                            {{ rating.rating }}/5
+
+                        </span>
+
+
+                    </div>
+
+
+                </div>
+
+
+                <!-- =================================================
+                     REVIEW TEXT
+                ================================================= -->
+
+                {% if rating.review_text %}
+
+                    <div class="gn-review-box">
+
+                        <i class="bi bi-quote"></i>
+
+                        {{ rating.review_text }}
+
+                    </div>
+
+                {% endif %}
+
+
+                <!-- =================================================
+                     DATE
+                ================================================= -->
+
+                {% if rating.created_at %}
+
+                    <div class="gn-rating-date">
+
+                        <i class="bi bi-calendar3"></i>
+
+                        {{ rating.created_at }}
+
+                    </div>
+
+                {% endif %}
+
+
+            </div>
+
+        {% endfor %}
+
+
+    {% else %}
+
+
+        <!-- =================================================
+             EMPTY
+        ================================================= -->
+
+        <div class="gn-empty-rating">
+
+
+            <div class="gn-empty-icon">
+
+                <i class="bi bi-star"></i>
+
+            </div>
+
+
+            <h3>
+
+                No Ratings Yet
+
+            </h3>
+
+
+            <p>
+
+                You haven't reviewed any product yet.
+
+                Explore our plants and share your experience.
+
+            </p>
+
+
+            <a href="{% url 'plant' %}"
+               class="gn-shop-btn">
+
+                <i class="bi bi-flower1"></i>
+
+                Explore Plants
+
+            </a>
+
+
+        </div>
+
+
+    {% endif %}
+
+
+</div>
+
+{% endblock %}

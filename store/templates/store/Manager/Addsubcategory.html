@@ -1,0 +1,244 @@
+{% extends "store/Manager/managermaster.html" %}
+{% load static %}
+
+{% block title %}
+Add Subcategory | GreenNest Manager
+{% endblock %}
+
+{% block page_heading %}
+Add Subcategory
+{% endblock %}
+
+{% block content %}
+
+<style>
+    .subcategory-wrapper {
+        max-width: 900px;
+        margin: 0 auto;
+    }
+
+    .subcategory-card {
+        background: #ffffff;
+        border-radius: 18px;
+        padding: 35px;
+        box-shadow: 0 8px 30px rgba(0,0,0,0.08);
+    }
+
+    .form-title {
+        font-size: 24px;
+        font-weight: 700;
+        color: #234d32;
+        margin-bottom: 25px;
+    }
+
+    .form-label {
+        font-weight: 600;
+        color: #344e41;
+        margin-bottom: 8px;
+    }
+
+    .form-control,
+    .form-select {
+        min-height: 48px;
+        border-radius: 10px;
+        border: 1px solid #d8e2dc;
+    }
+
+    .form-control:focus,
+    .form-select:focus {
+        border-color: #52796f;
+        box-shadow: 0 0 0 0.2rem rgba(82,121,111,0.12);
+    }
+
+    textarea.form-control {
+        min-height: 120px;
+        resize: none;
+    }
+
+    .btn-add {
+        background: #2d6a4f;
+        color: white;
+        border: none;
+        padding: 12px 28px;
+        border-radius: 10px;
+        font-weight: 600;
+    }
+
+    .btn-add:hover {
+        background: #1b4332;
+        color: white;
+    }
+
+    .btn-cancel {
+        background: #f1f3f2;
+        color: #344e41;
+        padding: 12px 28px;
+        border-radius: 10px;
+        font-weight: 600;
+        text-decoration: none;
+        margin-left: 8px;
+    }
+
+    .btn-cancel:hover {
+        background: #e2e6e4;
+        color: #1b4332;
+    }
+
+    .message-box {
+        border-radius: 10px;
+        margin-bottom: 20px;
+    }
+</style>
+
+
+<div class="subcategory-wrapper">
+
+    <div class="subcategory-card">
+
+        <div class="form-title">
+            <i class="bi bi-diagram-3 me-2"></i>
+            Add New Subcategory
+        </div>
+
+
+        <!-- Messages -->
+        {% if messages %}
+
+            {% for message in messages %}
+
+                <div class="alert alert-{{ message.tags }} alert-dismissible fade show message-box">
+
+                    {{ message }}
+
+                    <button type="button"
+                            class="btn-close"
+                            data-bs-dismiss="alert">
+                    </button>
+
+                </div>
+
+            {% endfor %}
+
+        {% endif %}
+
+
+        <form method="POST">
+
+            {% csrf_token %}
+
+
+            <!-- CATEGORY -->
+
+            <div class="mb-4">
+
+                <label class="form-label">
+                    Select Category
+                </label>
+
+                <select name="category_id"
+                        class="form-select"
+                        required>
+
+                    <option value="">
+                        -- Select Category --
+                    </option>
+
+                    {% for category in categories %}
+
+                        <option value="{{ category.0 }}">
+                            {{ category.1 }}
+                        </option>
+
+                    {% endfor %}
+
+                </select>
+
+            </div>
+
+
+            <!-- SUBCATEGORY NAME -->
+
+            <div class="mb-4">
+
+                <label class="form-label">
+                    Subcategory Name
+                </label>
+
+                <input type="text"
+                       name="subcategory_name"
+                       class="form-control"
+                       placeholder="Enter subcategory name"
+                       required>
+
+            </div>
+
+
+            <!-- STATUS -->
+
+            <div class="mb-4">
+
+                <label class="form-label">
+                    Status
+                </label>
+
+                <select name="status"
+                        class="form-select">
+
+                    <option value="Active">
+                        Active
+                    </option>
+
+                    <option value="Inactive">
+                        Inactive
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <!-- DESCRIPTION -->
+
+            <div class="mb-4">
+
+                <label class="form-label">
+                    Description
+                </label>
+
+                <textarea name="description"
+                          class="form-control"
+                          placeholder="Enter subcategory description"></textarea>
+
+            </div>
+
+
+            <!-- BUTTONS -->
+
+            <div class="mt-4">
+
+                <button type="submit"
+                        class="btn-add">
+
+                    <i class="bi bi-plus-circle me-2"></i>
+                    Add Subcategory
+
+                </button>
+
+
+                <a href="{% url 'Subcategorylist' %}"
+                   class="btn-cancel">
+
+                    <i class="bi bi-arrow-left me-2"></i>
+                    View Subcategories
+
+                </a>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+{% endblock %}

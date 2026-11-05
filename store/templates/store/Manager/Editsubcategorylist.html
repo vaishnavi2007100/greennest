@@ -1,0 +1,279 @@
+{% extends "store/Manager/managermaster.html" %}
+{% load static %}
+
+{% block title %}
+Edit Subcategory | GreenNest Manager
+{% endblock %}
+
+{% block page_heading %}
+Edit Subcategory
+{% endblock %}
+
+{% block content %}
+
+<style>
+    .edit-subcategory-wrapper {
+        max-width: 900px;
+        margin: 0 auto;
+    }
+
+    .edit-card {
+        background: #ffffff;
+        border-radius: 18px;
+        padding: 35px;
+        box-shadow: 0 8px 30px rgba(0,0,0,0.08);
+    }
+
+    .form-title {
+        font-size: 24px;
+        font-weight: 700;
+        color: #234d32;
+        margin-bottom: 25px;
+    }
+
+    .form-label {
+        font-weight: 600;
+        color: #344e41;
+        margin-bottom: 8px;
+    }
+
+    .form-control,
+    .form-select {
+        min-height: 48px;
+        border-radius: 10px;
+        border: 1px solid #d8e2dc;
+    }
+
+    .form-control:focus,
+    .form-select:focus {
+        border-color: #52796f;
+        box-shadow: 0 0 0 0.2rem rgba(82,121,111,0.12);
+    }
+
+    textarea.form-control {
+        min-height: 120px;
+        resize: none;
+    }
+
+    .btn-update {
+        background: #2d6a4f;
+        color: white;
+        border: none;
+        padding: 12px 28px;
+        border-radius: 10px;
+        font-weight: 600;
+    }
+
+    .btn-update:hover {
+        background: #1b4332;
+        color: white;
+    }
+
+    .btn-cancel {
+        background: #f1f3f2;
+        color: #344e41;
+        padding: 12px 28px;
+        border-radius: 10px;
+        font-weight: 600;
+        text-decoration: none;
+        margin-left: 8px;
+    }
+
+    .btn-cancel:hover {
+        background: #e2e6e4;
+        color: #1b4332;
+    }
+</style>
+
+
+<div class="edit-subcategory-wrapper">
+
+    <div class="edit-card">
+
+        <div class="form-title">
+
+            <i class="bi bi-pencil-square me-2"></i>
+
+            Edit Subcategory
+
+        </div>
+
+
+        {% if messages %}
+
+            {% for message in messages %}
+
+                <div class="alert alert-{{ message.tags }} alert-dismissible fade show">
+
+                    {{ message }}
+
+                    <button type="button"
+                            class="btn-close"
+                            data-bs-dismiss="alert">
+                    </button>
+
+                </div>
+
+            {% endfor %}
+
+        {% endif %}
+
+
+        {% if subcategory %}
+
+            <form method="POST">
+
+                {% csrf_token %}
+
+
+                <!-- CATEGORY -->
+
+                <div class="mb-4">
+
+                    <label class="form-label">
+                        Select Category
+                    </label>
+
+                    <select name="category_id"
+                            class="form-select"
+                            required>
+
+                        <option value="">
+                            -- Select Category --
+                        </option>
+
+
+                        {% for category in categories %}
+
+                            <option value="{{ category.0 }}"
+                                {% if category.0 == subcategory.1 %}
+                                    selected
+                                {% endif %}>
+
+                                {{ category.1 }}
+
+                            </option>
+
+                        {% endfor %}
+
+                    </select>
+
+                </div>
+
+
+                <!-- SUBCATEGORY NAME -->
+
+                <div class="mb-4">
+
+                    <label class="form-label">
+                        Subcategory Name
+                    </label>
+
+                    <input type="text"
+                           name="subcategory_name"
+                           class="form-control"
+                           value="{{ subcategory.2 }}"
+                           placeholder="Enter subcategory name"
+                           required>
+
+                </div>
+
+
+                <!-- STATUS -->
+
+                <div class="mb-4">
+
+                    <label class="form-label">
+                        Status
+                    </label>
+
+                    <select name="status"
+                            class="form-select">
+
+                        <option value="Active"
+                            {% if subcategory.4 == "Active" %}
+                                selected
+                            {% endif %}>
+
+                            Active
+
+                        </option>
+
+                        <option value="Inactive"
+                            {% if subcategory.4 == "Inactive" %}
+                                selected
+                            {% endif %}>
+
+                            Inactive
+
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <!-- DESCRIPTION -->
+
+                <div class="mb-4">
+
+                    <label class="form-label">
+                        Description
+                    </label>
+
+                    <textarea name="description"
+                              class="form-control"
+                              placeholder="Enter description">{{ subcategory.3 }}</textarea>
+
+                </div>
+
+
+                <!-- BUTTONS -->
+
+                <div class="mt-4">
+
+                    <button type="submit"
+                            class="btn-update">
+
+                        <i class="bi bi-check-circle me-2"></i>
+
+                        Update Subcategory
+
+                    </button>
+
+
+                    <a href="{% url 'Subcategorylist' %}"
+                       class="btn-cancel">
+
+                        <i class="bi bi-arrow-left me-2"></i>
+
+                        Back to List
+
+                    </a>
+
+                </div>
+
+            </form>
+
+        {% else %}
+
+            <div class="alert alert-warning">
+
+                Subcategory not found.
+
+            </div>
+
+            <a href="{% url 'Subcategorylist' %}"
+               class="btn-cancel">
+
+                Back to List
+
+            </a>
+
+        {% endif %}
+
+    </div>
+
+</div>
+
+{% endblock %}

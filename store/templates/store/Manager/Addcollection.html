@@ -1,0 +1,273 @@
+{% extends "store/Manager/ManagerMaster.html" %}
+
+{% block title %}
+Add Collection | GreenNest
+{% endblock %}
+
+{% block page_heading %}
+Add Collection
+{% endblock %}
+
+{% block content %}
+
+<style>
+
+.collection-card {
+    max-width: 850px;
+    margin: auto;
+    background: white;
+    border-radius: 20px;
+    padding: 35px;
+    box-shadow: 0 10px 35px rgba(20,60,40,0.08);
+    border: 1px solid #e8efe9;
+}
+
+.collection-header {
+    margin-bottom: 30px;
+}
+
+.collection-header h2 {
+    font-family: 'DM Serif Display', serif;
+    color: #173d2b;
+    margin-bottom: 6px;
+}
+
+.collection-header p {
+    color: #89958e;
+    font-size: 13px;
+}
+
+.form-label {
+    color: #173d2b;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.form-control,
+.form-select {
+    border: 1px solid #dce7df;
+    border-radius: 10px;
+    padding: 12px 14px;
+    font-size: 13px;
+}
+
+.form-control:focus,
+.form-select:focus {
+    border-color: #8baa95;
+    box-shadow: 0 0 0 0.2rem rgba(23,61,43,0.08);
+}
+
+textarea.form-control {
+    min-height: 120px;
+    resize: vertical;
+}
+
+.collection-btn {
+    background: #173d2b;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    padding: 12px 25px;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.collection-btn:hover {
+    background: #286044;
+    color: white;
+}
+
+.cancel-btn {
+    background: #f1f4f2;
+    color: #173d2b;
+    border: none;
+    border-radius: 10px;
+    padding: 12px 25px;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.cancel-btn:hover {
+    background: #e5ebe7;
+}
+
+.info-box {
+    background: #f4f8f5;
+    border-left: 4px solid #c8a96b;
+    padding: 14px 16px;
+    border-radius: 8px;
+    margin-bottom: 25px;
+}
+
+.info-box p {
+    margin: 0;
+    color: #637169;
+    font-size: 12px;
+}
+
+</style>
+
+
+<div class="collection-card">
+
+    <div class="collection-header">
+
+        <h2>
+            Add Collection
+        </h2>
+
+        <p>
+            Create a new GreenNest collection.
+        </p>
+
+    </div>
+
+
+    <!-- INFO -->
+
+    <div class="info-box">
+
+        <p>
+            Parent Collection ko select karne par ye collection
+            uske under child collection ke roop mein save hoga.
+        </p>
+
+    </div>
+
+
+    <!-- FORM -->
+
+    <form method="POST">
+
+        {% csrf_token %}
+
+
+        <!-- COLLECTION NAME -->
+
+        <div class="mb-4">
+
+            <label class="form-label">
+                Collection Name
+            </label>
+
+            <input
+                type="text"
+                name="collection_name"
+                class="form-control"
+                placeholder="Enter collection name"
+                required
+            >
+
+        </div>
+
+
+        <!-- PARENT COLLECTION -->
+
+        <div class="mb-4">
+
+            <label class="form-label">
+                Parent Collection
+            </label>
+
+            <select
+                name="parent_id"
+                class="form-select"
+            >
+
+                <option value="">
+                    -- No Parent Collection --
+                </option>
+
+
+                {% for parent in parents %}
+
+                <option value="{{ parent.id }}">
+
+                    {{ parent.collection_name }}
+
+                </option>
+
+                {% endfor %}
+
+            </select>
+
+        </div>
+
+
+        <!-- DESCRIPTION -->
+
+        <div class="mb-4">
+
+            <label class="form-label">
+                Description
+            </label>
+
+            <textarea
+                name="description"
+                class="form-control"
+                placeholder="Enter collection description"
+            ></textarea>
+
+        </div>
+
+
+        <!-- STATUS -->
+
+        <div class="mb-4">
+
+            <label class="form-label">
+                Status
+            </label>
+
+            <select
+                name="status"
+                class="form-select"
+            >
+
+                <option value="Active">
+                    Active
+                </option>
+
+                <option value="Inactive">
+                    Inactive
+                </option>
+
+            </select>
+
+        </div>
+
+
+        <!-- BUTTONS -->
+
+        <div class="d-flex gap-2">
+
+            <button
+                type="submit"
+                class="collection-btn"
+            >
+
+                <i class="bi bi-check-circle me-1"></i>
+
+                Save Collection
+
+            </button>
+
+
+            <a
+                href="{% url 'Collectionlist' %}"
+                class="cancel-btn"
+            >
+
+                <i class="bi bi-x-circle me-1"></i>
+
+                Cancel
+
+            </a>
+
+        </div>
+
+    </form>
+
+</div>
+
+{% endblock %}

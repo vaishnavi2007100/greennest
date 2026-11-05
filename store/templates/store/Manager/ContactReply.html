@@ -1,0 +1,581 @@
+{% extends "store/Manager/ManagerMaster.html" %}
+
+{% block title %}
+Contact Reply | GreenNest Manager
+{% endblock %}
+
+{% block page_heading %}
+Contact Reply
+{% endblock %}
+
+{% block content %}
+
+<style>
+
+/* =========================================================
+   CONTACT REPLY PAGE
+========================================================= */
+
+.reply-wrapper {
+    width: 100%;
+}
+
+/* Header */
+
+.reply-top {
+    margin-bottom: 24px;
+}
+
+.reply-top h3 {
+    margin: 0;
+    color: #123d2b;
+    font-weight: 700;
+}
+
+.reply-top p {
+    margin: 6px 0 0;
+    color: #7b857f;
+    font-size: 14px;
+}
+
+/* Main layout */
+
+.reply-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 22px;
+}
+
+/* Cards */
+
+.reply-card {
+    background: #ffffff;
+    border: 1px solid #e3ebe6;
+    border-radius: 18px;
+    padding: 25px;
+    box-shadow: 0 10px 30px rgba(18, 61, 43, 0.07);
+}
+
+/* Card heading */
+
+.reply-card-title {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 22px;
+    padding-bottom: 14px;
+    border-bottom: 1px solid #edf1ee;
+}
+
+.reply-card-title i {
+    width: 38px;
+    height: 38px;
+    border-radius: 10px;
+    background: #e7f1eb;
+    color: #123d2b;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+}
+
+.reply-card-title h4 {
+    margin: 0;
+    color: #26382e;
+    font-size: 18px;
+    font-weight: 700;
+}
+
+/* Details */
+
+.detail-row {
+    margin-bottom: 17px;
+}
+
+.detail-label {
+    display: block;
+    color: #7b857f;
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
+    margin-bottom: 5px;
+}
+
+.detail-value {
+    color: #26382e;
+    font-size: 15px;
+    font-weight: 600;
+    word-break: break-word;
+}
+
+/* Message */
+
+.message-box {
+    background: #f8fbf9;
+    border: 1px solid #e5eee8;
+    border-radius: 12px;
+    padding: 16px;
+    color: #4f5d55;
+    line-height: 1.7;
+    min-height: 130px;
+    white-space: pre-wrap;
+}
+
+/* Status */
+
+.reply-status {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 12px;
+    border-radius: 20px;
+    background: #fff4dc;
+    color: #9a6900;
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.reply-status.replied {
+    background: #e5f5eb;
+    color: #237044;
+}
+
+/* Form */
+
+.form-label {
+    color: #31483b;
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 8px;
+}
+
+.reply-textarea {
+    width: 100%;
+    min-height: 190px;
+    resize: vertical;
+    border: 1px solid #dce6df;
+    border-radius: 12px;
+    padding: 14px 15px;
+    font-size: 14px;
+    color: #35463d;
+    outline: none;
+    transition: 0.2s;
+}
+
+.reply-textarea:focus {
+    border-color: #286044;
+    box-shadow: 0 0 0 3px rgba(40, 96, 68, 0.10);
+}
+
+.reply-textarea::placeholder {
+    color: #a2aaa5;
+}
+
+/* Buttons */
+
+.reply-buttons {
+    display: flex;
+    gap: 12px;
+    margin-top: 18px;
+}
+
+.reply-btn {
+    border: none;
+    border-radius: 9px;
+    padding: 10px 18px;
+    font-size: 14px;
+    font-weight: 600;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.send-btn {
+    background: #123d2b;
+    color: #ffffff;
+}
+
+.send-btn:hover {
+    background: #286044;
+    color: #ffffff;
+    transform: translateY(-1px);
+}
+
+.back-btn {
+    background: #eef3ef;
+    color: #385447;
+}
+
+.back-btn:hover {
+    background: #dfe9e2;
+    color: #263f32;
+}
+
+/* Existing response */
+
+.existing-response {
+    margin-top: 22px;
+}
+
+.existing-response-title {
+    color: #31483b;
+    font-size: 14px;
+    font-weight: 700;
+    margin-bottom: 8px;
+}
+
+.response-box {
+    background: #eaf5ed;
+    border: 1px solid #d5e9db;
+    border-radius: 12px;
+    padding: 15px;
+    color: #3e5b48;
+    line-height: 1.6;
+    white-space: pre-wrap;
+}
+
+/* Responsive */
+
+@media (max-width: 900px) {
+
+    .reply-grid {
+        grid-template-columns: 1fr;
+    }
+
+}
+
+@media (max-width: 576px) {
+
+    .reply-card {
+        padding: 18px;
+    }
+
+    .reply-buttons {
+        flex-direction: column;
+    }
+
+    .reply-btn {
+        width: 100%;
+    }
+
+}
+
+</style>
+
+
+<div class="reply-wrapper">
+
+    <!-- =====================================================
+         HEADER
+    ====================================================== -->
+
+    <div class="reply-top">
+
+        <h3>
+            <i class="bi bi-reply-fill me-2"></i>
+            View / Reply Contact Message
+        </h3>
+
+        <p>
+            View the user's message and send a response.
+        </p>
+
+    </div>
+
+
+    <!-- =====================================================
+         GRID
+    ====================================================== -->
+
+    <div class="reply-grid">
+
+
+        <!-- =================================================
+             LEFT - MESSAGE DETAILS
+        ================================================== -->
+
+        <div class="reply-card">
+
+            <div class="reply-card-title">
+
+                <i class="bi bi-person-lines-fill"></i>
+
+                <h4>
+                    Contact Details
+                </h4>
+
+            </div>
+
+
+            <!-- Name -->
+
+            <div class="detail-row">
+
+                <span class="detail-label">
+                    Name
+                </span>
+
+                <div class="detail-value">
+                    {{ contact.name }}
+                </div>
+
+            </div>
+
+
+            <!-- Email -->
+
+            <div class="detail-row">
+
+                <span class="detail-label">
+                    Email
+                </span>
+
+                <div class="detail-value">
+                    {{ contact.email }}
+                </div>
+
+            </div>
+
+
+            <!-- Phone -->
+
+            <div class="detail-row">
+
+                <span class="detail-label">
+                    Phone
+                </span>
+
+                <div class="detail-value">
+
+                    {% if contact.phone %}
+                        {{ contact.phone }}
+                    {% else %}
+                        <span class="text-muted">
+                            Not Available
+                        </span>
+                    {% endif %}
+
+                </div>
+
+            </div>
+
+
+            <!-- Subject -->
+
+            <div class="detail-row">
+
+                <span class="detail-label">
+                    Subject
+                </span>
+
+                <div class="detail-value">
+
+                    {% if contact.subject %}
+                        {{ contact.subject }}
+                    {% else %}
+                        No Subject
+                    {% endif %}
+
+                </div>
+
+            </div>
+
+
+            <!-- Date -->
+
+            <div class="detail-row">
+
+                <span class="detail-label">
+                    Received Date
+                </span>
+
+                <div class="detail-value">
+
+                    {% if contact.created_at %}
+                        {{ contact.created_at|date:"d M Y, h:i A" }}
+                    {% else %}
+                        -
+                    {% endif %}
+
+                </div>
+
+            </div>
+
+
+            <!-- Status -->
+
+            <div class="detail-row">
+
+                <span class="detail-label">
+                    Status
+                </span>
+
+                <div>
+
+                    {% if contact.status == "Replied" or contact.status == "replied" %}
+
+                        <span class="reply-status replied">
+
+                            <i class="bi bi-check-circle"></i>
+
+                            Replied
+
+                        </span>
+
+                    {% else %}
+
+                        <span class="reply-status">
+
+                            <i class="bi bi-clock"></i>
+
+                            Pending
+
+                        </span>
+
+                    {% endif %}
+
+                </div>
+
+            </div>
+
+
+            <!-- User Message -->
+
+            <div class="detail-row">
+
+                <span class="detail-label">
+                    User Message
+                </span>
+
+                <div class="message-box">
+
+                    {% if contact.message %}
+
+                        {{ contact.message }}
+
+                    {% else %}
+
+                        No message available.
+
+                    {% endif %}
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+
+        <!-- =================================================
+             RIGHT - REPLY FORM
+        ================================================== -->
+
+        <div class="reply-card">
+
+            <div class="reply-card-title">
+
+                <i class="bi bi-chat-left-text"></i>
+
+                <h4>
+                    Manager Reply
+                </h4>
+
+            </div>
+
+
+            <form method="POST">
+
+                {% csrf_token %}
+
+
+                <div>
+
+                    <label class="form-label">
+                        Your Response
+                    </label>
+
+                    <textarea
+                        name="response"
+                        class="reply-textarea"
+                        placeholder="Write your response to the user..."
+                        required>{% if contact.response %}{{ contact.response }}{% endif %}</textarea>
+
+                </div>
+
+
+                <!-- Buttons -->
+
+                <div class="reply-buttons">
+
+                    <button
+                        type="submit"
+                        class="reply-btn send-btn">
+
+                        {% if contact.response %}
+
+                            <i class="bi bi-arrow-repeat"></i>
+                            Update Reply
+
+                        {% else %}
+
+                            <i class="bi bi-send-fill"></i>
+                            Send Reply
+
+                        {% endif %}
+
+                    </button>
+
+
+                    <a
+                        href="{% url 'ContactMessages' %}"
+                        class="reply-btn back-btn">
+
+                        <i class="bi bi-arrow-left"></i>
+                        Back to Messages
+
+                    </a>
+
+                </div>
+
+
+            </form>
+
+
+            <!-- Existing Response -->
+
+            {% if contact.response %}
+
+            <div class="existing-response">
+
+                <div class="existing-response-title">
+
+                    <i class="bi bi-check-circle me-1"></i>
+                    Existing Response
+
+                </div>
+
+                <div class="response-box">
+
+                    {{ contact.response }}
+
+                </div>
+
+            </div>
+
+            {% endif %}
+
+
+        </div>
+
+
+    </div>
+
+</div>
+
+{% endblock %}

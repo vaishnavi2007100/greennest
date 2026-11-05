@@ -1,0 +1,1882 @@
+{% extends "store/base.html" %}
+{% load static %}
+
+{% block title %}Flower Plants | GreenNest{% endblock %}
+
+{% block content %}
+
+<style>
+
+/* =========================================================
+   GREENNEST FLOWER PAGE
+   SAME THEME AS WEBSITE
+========================================================= */
+
+.flower-page {
+    --fg-dark: #0b3d2e;
+    --fg-deep: #073527;
+    --fg-green: #1d6848;
+    --fg-green-2: #2d805c;
+    --fg-light: #e9f4ed;
+    --fg-soft: #f5faf7;
+    --fg-gold: #c8a96b;
+    --fg-gold-light: #ead9b5;
+    --fg-rose: #c87988;
+    --fg-text: #263a31;
+    --fg-muted: #718078;
+    --fg-border: #e0ebe5;
+
+    background: #fbfcfa;
+    color: var(--fg-text);
+}
+
+
+/* =========================================================
+   HERO
+========================================================= */
+
+.flower-hero {
+    position: relative;
+    min-height: 650px;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+
+    background:
+        linear-gradient(
+            90deg,
+            rgba(5, 42, 31, .96) 0%,
+            rgba(7, 53, 39, .91) 32%,
+            rgba(11, 61, 46, .68) 58%,
+            rgba(11, 61, 46, .16) 100%
+        ),
+        url("{% static 'images/plant-center.jpg' %}")
+        center center / cover no-repeat;
+}
+
+
+/* decorative circles */
+
+.flower-hero::before {
+    content: "";
+    position: absolute;
+
+    width: 520px;
+    height: 520px;
+
+    right: -180px;
+    top: -180px;
+
+    border: 1px solid rgba(255,255,255,.14);
+    border-radius: 50%;
+
+    box-shadow:
+        0 0 0 60px rgba(255,255,255,.025),
+        0 0 0 120px rgba(255,255,255,.015);
+}
+
+.flower-hero::after {
+    content: "";
+
+    position: absolute;
+
+    width: 250px;
+    height: 250px;
+
+    left: -130px;
+    bottom: -130px;
+
+    border: 1px solid rgba(200,169,107,.25);
+    border-radius: 50%;
+}
+
+
+/* =========================================================
+   HERO CONTAINER
+========================================================= */
+
+.flower-hero-inner {
+    position: relative;
+    z-index: 5;
+    width: 100%;
+}
+
+.flower-hero-content {
+    max-width: 720px;
+    padding: 85px 0;
+    color: white;
+}
+
+
+/* =========================================================
+   EYEBROW
+========================================================= */
+
+.flower-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+
+    padding: 9px 16px;
+
+    border: 1px solid rgba(255,255,255,.20);
+    border-radius: 50px;
+
+    background: rgba(255,255,255,.08);
+
+    color: #e9f3ed;
+
+    font-size: 10px;
+    font-weight: 800;
+
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+
+    backdrop-filter: blur(10px);
+}
+
+.flower-eyebrow-dot {
+    width: 8px;
+    height: 8px;
+
+    border-radius: 50%;
+
+    background: var(--fg-gold);
+
+    box-shadow:
+        0 0 0 5px rgba(200,169,107,.12),
+        0 0 15px rgba(200,169,107,.35);
+}
+
+
+/* =========================================================
+   HERO TITLE
+========================================================= */
+
+.flower-hero h1 {
+    margin: 25px 0 20px;
+
+    color: white;
+
+    font-family: Georgia, "Times New Roman", serif;
+
+    font-size: clamp(48px, 6.2vw, 82px);
+
+    font-weight: 400;
+
+    line-height: 1.02;
+
+    letter-spacing: -3px;
+}
+
+.flower-hero h1 span {
+    color: #dceee3;
+}
+
+.flower-hero h1 strong {
+    display: inline-block;
+
+    color: #d6b879;
+
+    font-family: Arial, sans-serif;
+
+    font-size: .84em;
+
+    font-weight: 800;
+
+    letter-spacing: -2px;
+}
+
+
+/* =========================================================
+   HERO DESCRIPTION
+========================================================= */
+
+.flower-hero-description {
+    max-width: 590px;
+
+    margin: 0;
+
+    color: rgba(255,255,255,.76);
+
+    font-size: 15px;
+
+    line-height: 1.9;
+}
+
+
+/* =========================================================
+   HERO BUTTONS
+========================================================= */
+
+.flower-hero-actions {
+    display: flex;
+    align-items: center;
+
+    gap: 13px;
+
+    margin-top: 32px;
+
+    flex-wrap: wrap;
+}
+
+.flower-primary-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+
+    padding: 14px 24px;
+
+    border-radius: 50px;
+
+    background: white;
+
+    color: var(--fg-dark);
+
+    text-decoration: none;
+
+    font-size: 12px;
+    font-weight: 800;
+
+    box-shadow:
+        0 10px 30px rgba(0,0,0,.15);
+
+    transition: all .3s ease;
+}
+
+.flower-primary-btn:hover {
+    background: var(--fg-gold-light);
+    color: var(--fg-dark);
+
+    transform: translateY(-4px);
+
+    box-shadow:
+        0 15px 35px rgba(0,0,0,.20);
+}
+
+
+.flower-secondary-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 13px 23px;
+
+    border: 1px solid rgba(255,255,255,.32);
+
+    border-radius: 50px;
+
+    background: rgba(255,255,255,.06);
+
+    color: white;
+
+    text-decoration: none;
+
+    font-size: 12px;
+    font-weight: 700;
+
+    backdrop-filter: blur(8px);
+
+    transition: all .3s ease;
+}
+
+.flower-secondary-btn:hover {
+    background: white;
+    color: var(--fg-dark);
+
+    transform: translateY(-4px);
+}
+
+
+/* =========================================================
+   HERO MINI STATS
+========================================================= */
+
+.flower-hero-stats {
+    display: flex;
+
+    gap: 35px;
+
+    margin-top: 42px;
+
+    flex-wrap: wrap;
+}
+
+.flower-stat {
+    display: flex;
+    align-items: center;
+    gap: 11px;
+}
+
+.flower-stat-icon {
+    width: 39px;
+    height: 39px;
+
+    display: grid;
+    place-items: center;
+
+    border-radius: 12px;
+
+    background: rgba(255,255,255,.09);
+
+    color: var(--fg-gold);
+
+    border: 1px solid rgba(255,255,255,.12);
+}
+
+.flower-stat-icon svg {
+    width: 18px;
+    height: 18px;
+}
+
+.flower-stat-text strong {
+    display: block;
+
+    color: white;
+
+    font-size: 13px;
+    font-weight: 800;
+}
+
+.flower-stat-text span {
+    display: block;
+
+    margin-top: 2px;
+
+    color: rgba(255,255,255,.54);
+
+    font-size: 9px;
+}
+
+
+/* =========================================================
+   FLOATING HERO CARD
+========================================================= */
+
+.flower-floating-card {
+    position: absolute;
+
+    z-index: 6;
+
+    right: 7%;
+    bottom: 55px;
+
+    width: 245px;
+
+    padding: 20px;
+
+    border: 1px solid rgba(255,255,255,.20);
+
+    border-radius: 22px;
+
+    background: rgba(255,255,255,.10);
+
+    backdrop-filter: blur(18px);
+
+    box-shadow:
+        0 20px 50px rgba(0,0,0,.20);
+
+    animation: flowerFloat 4s ease-in-out infinite;
+}
+
+@keyframes flowerFloat {
+
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-10px);
+    }
+}
+
+.flower-floating-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    margin-bottom: 14px;
+}
+
+.flower-floating-label {
+    color: rgba(255,255,255,.58);
+
+    font-size: 9px;
+
+    letter-spacing: 1.5px;
+
+    text-transform: uppercase;
+}
+
+.flower-floating-badge {
+    padding: 5px 9px;
+
+    border-radius: 50px;
+
+    background: rgba(200,169,107,.18);
+
+    color: #e9d39e;
+
+    font-size: 8px;
+
+    font-weight: 800;
+}
+
+.flower-floating-card h4 {
+    margin: 0 0 7px;
+
+    color: white;
+
+    font-family: Georgia, serif;
+
+    font-size: 22px;
+
+    font-weight: 400;
+}
+
+.flower-floating-card p {
+    margin: 0;
+
+    color: rgba(255,255,255,.58);
+
+    font-size: 10px;
+
+    line-height: 1.7;
+}
+
+.flower-floating-line {
+    height: 1px;
+
+    margin: 15px 0;
+
+    background: rgba(255,255,255,.12);
+}
+
+.flower-floating-bottom {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.flower-floating-price {
+    color: white;
+
+    font-size: 17px;
+    font-weight: 800;
+}
+
+.flower-floating-rating {
+    color: #d6b879;
+
+    font-size: 10px;
+}
+
+
+/* =========================================================
+   COLLECTION SECTION
+========================================================= */
+
+.flower-section {
+    padding: 95px 0;
+}
+
+
+/* =========================================================
+   SECTION HEADING
+========================================================= */
+
+.flower-intro {
+    max-width: 760px;
+
+    margin: 0 auto 60px;
+
+    text-align: center;
+}
+
+.flower-intro-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+
+    color: var(--fg-green);
+
+    font-size: 10px;
+
+    font-weight: 800;
+
+    letter-spacing: 2.5px;
+
+    text-transform: uppercase;
+}
+
+.flower-intro-label::before,
+.flower-intro-label::after {
+    content: "";
+
+    width: 24px;
+    height: 1px;
+
+    background: var(--fg-gold);
+}
+
+.flower-intro h2 {
+    margin: 14px 0 15px;
+
+    color: var(--fg-dark);
+
+    font-family: Georgia, serif;
+
+    font-size: clamp(35px, 4vw, 51px);
+
+    font-weight: 400;
+
+    line-height: 1.15;
+
+    letter-spacing: -1px;
+}
+
+.flower-intro h2 strong {
+    color: var(--fg-green);
+
+    font-weight: 600;
+}
+
+.flower-intro p {
+    max-width: 650px;
+
+    margin: auto;
+
+    color: var(--fg-muted);
+
+    font-size: 14px;
+
+    line-height: 1.9;
+}
+
+
+/* =========================================================
+   PRODUCT CARD
+========================================================= */
+
+.flower-card {
+    position: relative;
+
+    height: 100%;
+
+    overflow: hidden;
+
+    border: 1px solid var(--fg-border);
+
+    border-radius: 22px;
+
+    background: white;
+
+    box-shadow:
+        0 8px 30px rgba(11,61,46,.055);
+
+    transition:
+        transform .35s ease,
+        box-shadow .35s ease,
+        border-color .35s ease;
+}
+
+.flower-card:hover {
+    transform: translateY(-10px);
+
+    border-color: #bdd6c7;
+
+    box-shadow:
+        0 22px 55px rgba(11,61,46,.13);
+}
+
+
+/* =========================================================
+   PRODUCT IMAGE
+========================================================= */
+
+.flower-image-wrap {
+    position: relative;
+
+    height: 295px;
+
+    overflow: hidden;
+
+    background: #edf4ef;
+}
+
+.flower-image {
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+
+    transition:
+        transform .65s ease,
+        filter .4s ease;
+}
+
+.flower-card:hover .flower-image {
+    transform: scale(1.08);
+}
+
+
+/* =========================================================
+   BADGE
+========================================================= */
+
+.flower-badge {
+    position: absolute;
+
+    top: 15px;
+    left: 15px;
+
+    padding: 7px 12px;
+
+    border-radius: 50px;
+
+    background: rgba(255,255,255,.95);
+
+    color: var(--fg-green);
+
+    font-size: 9px;
+
+    font-weight: 800;
+
+    letter-spacing: .6px;
+
+    box-shadow:
+        0 6px 18px rgba(0,0,0,.08);
+}
+
+
+/* =========================================================
+   WISHLIST
+========================================================= */
+
+.flower-wishlist {
+    position: absolute;
+
+    top: 14px;
+    right: 14px;
+
+    width: 41px;
+    height: 41px;
+
+    display: grid;
+    place-items: center;
+
+    border-radius: 50%;
+
+    background: rgba(255,255,255,.96);
+
+    color: var(--fg-green);
+
+    text-decoration: none;
+
+    box-shadow:
+        0 6px 18px rgba(0,0,0,.08);
+
+    transition: all .3s ease;
+}
+
+.flower-wishlist:hover {
+    background: var(--fg-dark);
+
+    color: white;
+
+    transform: scale(1.08);
+}
+
+.flower-wishlist svg {
+    width: 18px;
+    height: 18px;
+}
+
+
+/* =========================================================
+   PRODUCT INFO
+========================================================= */
+
+.flower-info {
+    padding: 23px;
+}
+
+.flower-category {
+    display: block;
+
+    margin-bottom: 7px;
+
+    color: #8a9b92;
+
+    font-size: 9px;
+
+    font-weight: 800;
+
+    letter-spacing: 1.5px;
+
+    text-transform: uppercase;
+}
+
+.flower-info h3 {
+    margin: 0 0 9px;
+
+    color: var(--fg-dark);
+
+    font-size: 20px;
+
+    font-weight: 800;
+}
+
+.flower-info p {
+    min-height: 44px;
+
+    margin: 0 0 16px;
+
+    color: var(--fg-muted);
+
+    font-size: 13px;
+
+    line-height: 1.7;
+}
+
+
+/* =========================================================
+   RATING
+========================================================= */
+
+.flower-rating {
+    display: flex;
+    align-items: center;
+
+    gap: 7px;
+
+    margin-bottom: 15px;
+}
+
+.flower-stars {
+    color: var(--fg-gold);
+
+    font-size: 13px;
+
+    letter-spacing: 1px;
+}
+
+.flower-rating-count {
+    color: #8b9992;
+
+    font-size: 10px;
+}
+
+
+/* =========================================================
+   PRICE
+========================================================= */
+
+.flower-price-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.flower-price {
+    color: var(--fg-green);
+
+    font-size: 22px;
+
+    font-weight: 800;
+}
+
+.flower-old-price {
+    margin-left: 6px;
+
+    color: #a5b0aa;
+
+    font-size: 11px;
+
+    text-decoration: line-through;
+}
+
+
+/* =========================================================
+   VIEW PRODUCT BUTTON
+========================================================= */
+
+.flower-view-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 100%;
+
+    margin-top: 12px;
+
+    padding: 11px 12px;
+
+    border: 1px solid var(--fg-dark);
+
+    border-radius: 12px;
+
+    background: white;
+
+    color: var(--fg-dark);
+
+    text-decoration: none;
+
+    font-size: 12px;
+
+    font-weight: 800;
+
+    transition: all .3s ease;
+}
+
+.flower-view-btn:hover {
+    background: var(--fg-dark);
+
+    color: white;
+
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 8px 20px rgba(11,61,46,.12);
+}
+
+
+/* =========================================================
+   CART BUTTON
+========================================================= */
+
+.flower-cart-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    gap: 8px;
+
+    width: 100%;
+
+    margin-top: 10px;
+
+    padding: 12px;
+
+    border-radius: 12px;
+
+    background: var(--fg-dark);
+
+    color: white;
+
+    text-decoration: none;
+
+    font-size: 12px;
+
+    font-weight: 800;
+
+    transition: all .3s ease;
+}
+
+.flower-cart-btn:hover {
+    background: var(--fg-green-2);
+
+    color: white;
+
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 8px 20px rgba(29,104,72,.18);
+}
+
+.flower-cart-btn svg {
+    width: 16px;
+    height: 16px;
+}
+
+
+/* =========================================================
+   FEATURE STRIP
+========================================================= */
+
+.flower-features {
+    margin-top: 75px;
+
+    padding: 30px 20px;
+
+    border: 1px solid var(--fg-border);
+
+    border-radius: 24px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #f5faf7,
+            #edf6f0
+        );
+
+    box-shadow:
+        0 10px 35px rgba(11,61,46,.045);
+}
+
+.flower-feature {
+    display: flex;
+    align-items: center;
+
+    gap: 13px;
+
+    padding: 10px 18px;
+}
+
+.flower-feature-icon {
+    width: 46px;
+    height: 46px;
+
+    flex-shrink: 0;
+
+    display: grid;
+    place-items: center;
+
+    border-radius: 14px;
+
+    background: white;
+
+    color: var(--fg-green);
+
+    border: 1px solid #dcebe2;
+
+    box-shadow:
+        0 6px 15px rgba(11,61,46,.06);
+}
+
+.flower-feature-icon svg {
+    width: 20px;
+    height: 20px;
+}
+
+.flower-feature h5 {
+    margin: 0 0 3px;
+
+    color: var(--fg-dark);
+
+    font-size: 13px;
+
+    font-weight: 800;
+}
+
+.flower-feature p {
+    margin: 0;
+
+    color: var(--fg-muted);
+
+    font-size: 10px;
+}
+
+
+/* =========================================================
+   CTA
+========================================================= */
+
+.flower-cta {
+    position: relative;
+
+    overflow: hidden;
+
+    margin-top: 85px;
+
+    padding: 72px 35px;
+
+    border-radius: 30px;
+
+    text-align: center;
+
+    background:
+        linear-gradient(
+            135deg,
+            #073527,
+            #145b40,
+            #0b3d2e
+        );
+
+    box-shadow:
+        0 20px 55px rgba(7,53,39,.16);
+}
+
+.flower-cta::before {
+    content: "";
+
+    position: absolute;
+
+    width: 360px;
+    height: 360px;
+
+    top: -220px;
+    left: -120px;
+
+    border: 1px solid rgba(200,169,107,.22);
+
+    border-radius: 50%;
+}
+
+.flower-cta::after {
+    content: "";
+
+    position: absolute;
+
+    width: 250px;
+    height: 250px;
+
+    right: -130px;
+    bottom: -170px;
+
+    border: 1px solid rgba(255,255,255,.10);
+
+    border-radius: 50%;
+}
+
+.flower-cta-content {
+    position: relative;
+
+    z-index: 3;
+}
+
+.flower-cta-label {
+    color: #d6c18e;
+
+    font-size: 9px;
+
+    font-weight: 800;
+
+    letter-spacing: 2.5px;
+
+    text-transform: uppercase;
+}
+
+.flower-cta h2 {
+    margin: 12px 0 12px;
+
+    color: white;
+
+    font-family: Georgia, serif;
+
+    font-size: 44px;
+
+    font-weight: 400;
+}
+
+.flower-cta p {
+    max-width: 570px;
+
+    margin: 0 auto 27px;
+
+    color: rgba(255,255,255,.68);
+
+    font-size: 13px;
+
+    line-height: 1.8;
+}
+
+.flower-cta-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 14px 26px;
+
+    border-radius: 50px;
+
+    background: white;
+
+    color: var(--fg-dark);
+
+    text-decoration: none;
+
+    font-size: 12px;
+
+    font-weight: 800;
+
+    transition: all .3s ease;
+}
+
+.flower-cta-btn:hover {
+    background: var(--fg-gold-light);
+
+    color: var(--fg-dark);
+
+    transform: translateY(-4px);
+}
+
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media (max-width: 1199px) {
+
+    .flower-floating-card {
+        right: 3%;
+    }
+
+}
+
+
+@media (max-width: 991px) {
+
+    .flower-hero {
+        min-height: 590px;
+    }
+
+    .flower-floating-card {
+        display: none;
+    }
+
+    .flower-image-wrap {
+        height: 275px;
+    }
+
+}
+
+
+@media (max-width: 767px) {
+
+    .flower-hero {
+
+        min-height: 610px;
+
+        background:
+            linear-gradient(
+                90deg,
+                rgba(5,42,31,.94),
+                rgba(7,53,39,.72)
+            ),
+            url("{% static 'images/plant-center.jpg' %}")
+            center / cover no-repeat;
+    }
+
+    .flower-hero-content {
+        padding: 65px 15px;
+    }
+
+    .flower-hero h1 {
+        font-size: 48px;
+
+        letter-spacing: -1.5px;
+    }
+
+    .flower-hero-description {
+        font-size: 14px;
+    }
+
+    .flower-hero-stats {
+        gap: 18px;
+        margin-top: 30px;
+    }
+
+    .flower-stat {
+        gap: 8px;
+    }
+
+    .flower-stat-icon {
+        width: 35px;
+        height: 35px;
+    }
+
+    .flower-section {
+        padding: 70px 0;
+    }
+
+    .flower-intro {
+        margin-bottom: 40px;
+    }
+
+    .flower-intro h2 {
+        font-size: 37px;
+    }
+
+    .flower-image-wrap {
+        height: 285px;
+    }
+
+    .flower-features {
+        padding: 20px 10px;
+    }
+
+    .flower-feature {
+        padding: 12px 5px;
+    }
+
+    .flower-cta {
+        margin-top: 60px;
+        padding: 55px 20px;
+    }
+
+    .flower-cta h2 {
+        font-size: 35px;
+    }
+
+}
+
+
+@media (max-width: 400px) {
+
+    .flower-hero h1 {
+        font-size: 41px;
+    }
+
+    .flower-hero-actions {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .flower-primary-btn,
+    .flower-secondary-btn {
+        width: 100%;
+    }
+
+}
+
+
+/* =========================================================
+   SMOOTH SELECTION
+========================================================= */
+
+.flower-page ::selection {
+    background: var(--fg-green);
+    color: white;
+}
+
+</style>
+
+
+<div class="flower-page">
+
+
+    <!-- =====================================================
+         PREMIUM HERO
+    ====================================================== -->
+
+    <section class="flower-hero">
+
+        <div class="container flower-hero-inner">
+
+            <div class="flower-hero-content">
+
+                <div class="flower-eyebrow">
+
+                    <span class="flower-eyebrow-dot"></span>
+
+                    GreenNest Bloom Collection
+
+                </div>
+
+
+                <h1>
+
+                    Let your home
+
+                    <br>
+
+                    <span>grow with</span>
+                    <strong>colour.</strong>
+
+                </h1>
+
+
+                <p class="flower-hero-description">
+
+                    Bring your space to life with beautiful flowering
+                    plants, carefully selected to add natural colour,
+                    freshness and a touch of elegance to every corner.
+
+                </p>
+
+
+                <div class="flower-hero-actions">
+
+                    <a
+                        href="#flowerCollection"
+                        class="flower-primary-btn"
+                    >
+
+                        Explore Flowers
+
+                        <span>→</span>
+
+                    </a>
+
+
+                    <a
+                        href="{% url 'plant' %}"
+                        class="flower-secondary-btn"
+                    >
+
+                        View All Plants
+
+                    </a>
+
+                </div>
+
+
+                <!-- HERO STATS -->
+
+                <div class="flower-hero-stats">
+
+
+                    <div class="flower-stat">
+
+                        <div class="flower-stat-icon">
+
+                            <svg
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                stroke="currentColor"
+                                stroke-width="1.7"
+                            >
+
+                                <path d="M12 21V9"/>
+
+                                <path
+                                    d="M12 12C8 12 5 10 5 6c4 0 7 2 7 6"
+                                />
+
+                                <path
+                                    d="M12 16c4 0 7-2 7-6-4 0-7 2-7 6"
+                                />
+
+                            </svg>
+
+                        </div>
+
+
+                        <div class="flower-stat-text">
+
+                            <strong>Fresh Blooms</strong>
+
+                            <span>Carefully selected</span>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="flower-stat">
+
+                        <div class="flower-stat-icon">
+
+                            <svg
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                stroke="currentColor"
+                                stroke-width="1.7"
+                            >
+
+                                <path d="M3 7h12v10H3z"/>
+
+                                <path d="M15 10h4l3 3v4h-7z"/>
+
+                                <circle cx="7" cy="19" r="2"/>
+
+                                <circle cx="18" cy="19" r="2"/>
+
+                            </svg>
+
+                        </div>
+
+
+                        <div class="flower-stat-text">
+
+                            <strong>Safe Delivery</strong>
+
+                            <span>Packed with care</span>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="flower-stat">
+
+                        <div class="flower-stat-icon">
+
+                            <svg
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                stroke="currentColor"
+                                stroke-width="1.7"
+                            >
+
+                                <path
+                                    d="M12 2v20M2 12h20"
+                                />
+
+                                <circle
+                                    cx="12"
+                                    cy="12"
+                                    r="8"
+                                />
+
+                            </svg>
+
+                        </div>
+
+
+                        <div class="flower-stat-text">
+
+                            <strong>Plant Support</strong>
+
+                            <span>Care guidance</span>
+
+                        </div>
+
+                    </div>
+
+
+                </div>
+
+            </div>
+
+
+            <!-- =================================================
+                 FLOATING PRODUCT CARD
+            ================================================== -->
+
+            <div class="flower-floating-card">
+
+                <div class="flower-floating-top">
+
+                    <span class="flower-floating-label">
+                        Featured Bloom
+                    </span>
+
+                    <span class="flower-floating-badge">
+                        Popular
+                    </span>
+
+                </div>
+
+
+                <h4>
+                    Garden Rose
+                </h4>
+
+
+                <p>
+                    A timeless flowering beauty that
+                    brings warmth and colour to your space.
+                </p>
+
+
+                <div class="flower-floating-line"></div>
+
+
+                <div class="flower-floating-bottom">
+
+                    <span class="flower-floating-price">
+                        ₹499
+                    </span>
+
+                    <span class="flower-floating-rating">
+                        ★ 4.8
+                    </span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =====================================================
+         COLLECTION
+    ====================================================== -->
+
+    <section
+        class="flower-section"
+        id="flowerCollection"
+    >
+
+        <div class="container">
+
+
+            <!-- INTRO -->
+
+            <div class="flower-intro">
+
+                <div class="flower-intro-label">
+                    Beautiful Blooms
+                </div>
+
+
+                <h2>
+
+                    Flowers that make
+
+                    <br>
+
+                    <strong>every corner special.</strong>
+
+                </h2>
+
+
+                <p>
+
+                    Discover our carefully selected collection of
+                    flowering plants designed to bring natural beauty,
+                    freshness and personality into your home.
+
+                </p>
+
+            </div>
+
+
+
+            <!-- =================================================
+                 PRODUCTS
+            ================================================== -->
+
+            <div class="row g-4">
+
+                {% for product in flower_products %}
+
+                <div class="col-xl-3 col-lg-4 col-md-6">
+
+                    <div class="flower-card">
+
+                        <div class="flower-image-wrap">
+
+                            <img
+                                src="{{ product.image_url }}"
+                                class="flower-image"
+                                alt="{{ product.name }}"
+                            >
+
+                            <span class="flower-badge">
+                                Flower Plant
+                            </span>
+
+                            <a
+                                href="{% url 'AddToWishlist' product.id %}"
+                                class="flower-wishlist"
+                                aria-label="Add {{ product.name }} to wishlist"
+                            >
+
+                                <svg
+                                    viewBox="0 0 24 24"
+                                    fill="none"
+                                    stroke="currentColor"
+                                    stroke-width="1.7"
+                                >
+
+                                    <path
+                                        d="M20.8 8.7c0 5.5-8.8 10.2-8.8 10.2S3.2 14.2 3.2 8.7A4.7 4.7 0 0 1 12 6.4a4.7 4.7 0 0 1 8.8 2.3z"
+                                    />
+
+                                </svg>
+
+                            </a>
+
+                        </div>
+
+
+                        <div class="flower-info">
+
+                            <span class="flower-category">
+                                {{ product.category }}
+                            </span>
+
+
+                            <h3>
+                                {{ product.name }}
+                            </h3>
+
+
+                            <p>
+                                {{ product.description|truncatechars:100 }}
+                            </p>
+
+
+                            <div class="flower-rating">
+
+                                <span class="flower-stars">
+                                    ★★★★★
+                                </span>
+
+                                <span class="flower-rating-count">
+                                    {{ product.rating }}
+                                </span>
+
+                            </div>
+
+
+                            <div class="flower-price-row">
+
+                                <div>
+
+                                    <span class="flower-price">
+                                        ₹{{ product.price }}
+                                    </span>
+
+                                    {% if product.old_price %}
+
+                                    <span class="flower-old-price">
+                                        ₹{{ product.old_price }}
+                                    </span>
+
+                                    {% endif %}
+
+                                </div>
+
+                            </div>
+
+
+                            <!-- VIEW PRODUCT -->
+
+                            <a
+                                href="{% url 'product_details' product.id %}"
+                                class="flower-view-btn"
+                            >
+
+                                <i class="bi bi-eye me-1"></i>
+
+                                View Product
+
+                            </a>
+
+
+                            <!-- ADD TO CART -->
+
+                            <a
+                                href="{% url 'AddToCart' product.id %}"
+                                class="flower-cart-btn"
+                            >
+
+                                <i class="bi bi-cart-plus"></i>
+
+                                Add to Cart
+
+                            </a>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                {% empty %}
+
+                <div class="col-12">
+
+                    <div class="text-center py-5">
+
+                        <h4>
+                            No Flower Plants Available
+                        </h4>
+
+                        <p>
+                            Flower plants will appear here when available.
+                        </p>
+
+                    </div>
+
+                </div>
+
+                {% endfor %}
+
+            </div>
+
+
+
+            <!-- =================================================
+                 FEATURES
+            ================================================== -->
+
+            <div class="flower-features">
+
+                <div class="row g-3">
+
+
+                    <div class="col-lg-4 col-md-6">
+
+                        <div class="flower-feature">
+
+                            <div class="flower-feature-icon">
+
+                                <svg
+                                    viewBox="0 0 24 24"
+                                    fill="none"
+                                    stroke="currentColor"
+                                    stroke-width="1.7"
+                                >
+
+                                    <path d="M12 21V9"/>
+
+                                    <path
+                                        d="M12 12C8 12 5 10 5 6c4 0 7 2 7 6"
+                                    />
+
+                                    <path
+                                        d="M12 16c4 0 7-2 7-6-4 0-7 2-7 6"
+                                    />
+
+                                </svg>
+
+                            </div>
+
+
+                            <div>
+
+                                <h5>
+                                    Healthy Plants
+                                </h5>
+
+                                <p>
+                                    Carefully selected blooms
+                                </p>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <div class="col-lg-4 col-md-6">
+
+                        <div class="flower-feature">
+
+                            <div class="flower-feature-icon">
+
+                                <svg
+                                    viewBox="0 0 24 24"
+                                    fill="none"
+                                    stroke="currentColor"
+                                    stroke-width="1.7"
+                                >
+
+                                    <path d="M3 7h12v10H3z"/>
+
+                                    <path d="M15 10h4l3 3v4h-7z"/>
+
+                                    <circle cx="7" cy="19" r="2"/>
+
+                                    <circle cx="18" cy="19" r="2"/>
+
+                                </svg>
+
+                            </div>
+
+
+                            <div>
+
+                                <h5>
+                                    Safe Delivery
+                                </h5>
+
+                                <p>
+                                    Packed with extra care
+                                </p>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <div class="col-lg-4 col-md-6">
+
+                        <div class="flower-feature">
+
+                            <div class="flower-feature-icon">
+
+                                <svg
+                                    viewBox="0 0 24 24"
+                                    fill="none"
+                                    stroke="currentColor"
+                                    stroke-width="1.7"
+                                >
+
+                                    <path
+                                        d="M20 12a8 8 0 1 1-2.34-5.66"
+                                    />
+
+                                    <path d="M20 4v6h-6"/>
+
+                                </svg>
+
+                            </div>
+
+
+                            <div>
+
+                                <h5>
+                                    Plant Care Support
+                                </h5>
+
+                                <p>
+                                    Helpful care guidance
+                                </p>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                </div>
+
+            </div>
+
+
+
+            <!-- =================================================
+                 CTA
+            ================================================== -->
+
+            <div class="flower-cta">
+
+                <div class="flower-cta-content">
+
+                    <div class="flower-cta-label">
+                        GreenNest Collection
+                    </div>
+
+
+                    <h2>
+                        Make your space bloom.
+                    </h2>
+
+
+                    <p>
+
+                        Find a beautiful flowering plant and
+                        turn an ordinary corner into a refreshing
+                        little garden.
+
+                    </p>
+
+
+                    <a
+                        href="{% url 'plant' %}"
+                        class="flower-cta-btn"
+                    >
+
+                        Explore All Plants →
+
+                    </a>
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+    </section>
+
+</div>
+
+{% endblock %}

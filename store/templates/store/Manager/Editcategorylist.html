@@ -1,0 +1,339 @@
+{% extends "store/Manager/ManagerMaster.html" %}
+
+{% block title %}
+Edit Category | GreenNest
+{% endblock %}
+
+{% block page_heading %}
+Edit Category
+{% endblock %}
+
+{% block content %}
+
+<style>
+
+/* =========================================================
+   EDIT CATEGORY PAGE
+========================================================= */
+
+.edit-category-page {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.edit-category-card {
+    background: white;
+    padding: 35px;
+    border-radius: 18px;
+    box-shadow: 0 8px 30px rgba(20,60,40,0.08);
+}
+
+
+/* =========================================================
+   TITLE
+========================================================= */
+
+.edit-category-title {
+    margin-bottom: 25px;
+}
+
+.edit-category-title h2 {
+    color: #173d2b;
+    font-size: 24px;
+    font-weight: 700;
+    margin-bottom: 5px;
+}
+
+.edit-category-title p {
+    color: #87918b;
+    font-size: 12px;
+}
+
+
+/* =========================================================
+   FORM
+========================================================= */
+
+.form-label {
+    color: #173d2b;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.form-control,
+.form-select {
+    border: 1px solid #dce6df;
+    border-radius: 9px;
+    padding: 11px 13px;
+    font-size: 13px;
+}
+
+.form-control:focus,
+.form-select:focus {
+    border-color: #173d2b;
+    box-shadow: 0 0 0 3px rgba(23,61,43,0.08);
+}
+
+
+/* =========================================================
+   BUTTONS
+========================================================= */
+
+.update-btn {
+    background: #173d2b;
+    color: white;
+    border: none;
+    padding: 11px 22px;
+    border-radius: 9px;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.update-btn:hover {
+    background: #245b40;
+    color: white;
+}
+
+.cancel-btn {
+    background: #eef2ef;
+    color: #526158;
+    padding: 11px 22px;
+    border-radius: 9px;
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.cancel-btn:hover {
+    background: #e1e8e3;
+    color: #173d2b;
+}
+
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media (max-width: 768px) {
+
+    .edit-category-card {
+        padding: 25px 20px;
+    }
+
+}
+
+</style>
+
+
+<div class="edit-category-page">
+
+    <div class="edit-category-card">
+
+
+        <!-- =================================================
+             TITLE
+        ================================================== -->
+
+        <div class="edit-category-title">
+
+            <h2>
+
+                <i class="bi bi-pencil-square me-2"></i>
+
+                Edit Category
+
+            </h2>
+
+            <p>
+                Update category information
+            </p>
+
+        </div>
+
+
+        <!-- =================================================
+             FORM
+        ================================================== -->
+
+        <form method="POST">
+
+            {% csrf_token %}
+
+
+            <!-- =================================================
+                 CATEGORY NAME
+            ================================================== -->
+
+            <div class="mb-3">
+
+                <label class="form-label">
+                    Category Name
+                </label>
+
+                <input
+                    type="text"
+                    name="category_name"
+                    class="form-control"
+                    value="{{ category.category_name }}"
+                    required
+                >
+
+            </div>
+
+
+            <!-- =================================================
+                 CATEGORY TYPE
+            ================================================== -->
+
+            <div class="mb-3">
+
+                <label class="form-label">
+                    Category Type
+                </label>
+
+                <select
+                    name="category_type"
+                    class="form-select"
+                    required
+                >
+
+                    <option value="">
+                        Select category type
+                    </option>
+
+                    <option
+                        value="plant"
+                        {% if category.category_type == "plant" %}
+                            selected
+                        {% endif %}
+                    >
+                        Plants
+                    </option>
+
+                    <option
+                        value="pot"
+                        {% if category.category_type == "pot" %}
+                            selected
+                        {% endif %}
+                    >
+                        Decorative Pots
+                    </option>
+
+                    <option
+                        value="accessory"
+                        {% if category.category_type == "accessory" %}
+                            selected
+                        {% endif %}
+                    >
+                        Plant Accessories
+                    </option>
+
+                    <option
+                        value="decor"
+                        {% if category.category_type == "decor" %}
+                            selected
+                        {% endif %}
+                    >
+                        Home Decor
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <!-- =================================================
+                 DESCRIPTION
+            ================================================== -->
+
+            <div class="mb-3">
+
+                <label class="form-label">
+                    Description
+                </label>
+
+                <textarea
+                    name="description"
+                    class="form-control"
+                    rows="4"
+                >{{ category.description }}</textarea>
+
+            </div>
+
+
+            <!-- =================================================
+                 STATUS
+            ================================================== -->
+
+            <div class="mb-4">
+
+                <label class="form-label">
+                    Status
+                </label>
+
+                <select
+                    name="status"
+                    class="form-select"
+                >
+
+                    <option
+                        value="Active"
+                        {% if category.status == "Active" %}
+                            selected
+                        {% endif %}
+                    >
+                        Active
+                    </option>
+
+                    <option
+                        value="Inactive"
+                        {% if category.status == "Inactive" %}
+                            selected
+                        {% endif %}
+                    >
+                        Inactive
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <!-- =================================================
+                 BUTTONS
+            ================================================== -->
+
+            <div class="d-flex gap-2">
+
+                <button
+                    type="submit"
+                    class="update-btn"
+                >
+
+                    <i class="bi bi-check-circle me-1"></i>
+
+                    Update Category
+
+                </button>
+
+
+                <a
+                    href="{% url 'Categorylist' %}"
+                    class="cancel-btn"
+                >
+
+                    <i class="bi bi-arrow-left me-1"></i>
+
+                    Back
+
+                </a>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+{% endblock %}

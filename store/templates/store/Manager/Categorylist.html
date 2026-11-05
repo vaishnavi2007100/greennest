@@ -1,0 +1,315 @@
+{% extends "store/Manager/ManagerMaster.html" %}
+
+{% block title %}
+Category List | GreenNest
+{% endblock %}
+
+{% block page_heading %}
+Category List
+{% endblock %}
+
+{% block content %}
+
+<style>
+
+.category-page {
+    width: 100%;
+}
+
+.category-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+}
+
+.category-header h2 {
+    margin: 0;
+    color: #173d2b;
+    font-size: 25px;
+    font-weight: 700;
+}
+
+.add-category-btn {
+    background: #173d2b;
+    color: white;
+    padding: 11px 18px;
+    border-radius: 9px;
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.add-category-btn:hover {
+    background: #245b40;
+    color: white;
+}
+
+
+/* TABLE CARD */
+
+.category-card {
+    background: white;
+    border-radius: 15px;
+    padding: 25px;
+    box-shadow: 0 8px 25px rgba(20,60,40,0.08);
+    overflow-x: auto;
+}
+
+
+/* TABLE */
+
+.category-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.category-table th {
+    background: #173d2b;
+    color: white;
+    padding: 14px;
+    font-size: 12px;
+    text-align: left;
+}
+
+.category-table td {
+    padding: 14px;
+    border-bottom: 1px solid #e8eee9;
+    color: #526158;
+    font-size: 12px;
+}
+
+.category-table tr:hover {
+    background: #f7faf7;
+}
+
+
+/* STATUS */
+
+.status-active {
+    background: #e4f5e9;
+    color: #218545;
+    padding: 5px 10px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 600;
+}
+
+.status-inactive {
+    background: #fde8e8;
+    color: #c0392b;
+    padding: 5px 10px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 600;
+}
+
+
+/* ACTION BUTTONS */
+
+.edit-btn {
+    background: #fff4d6;
+    color: #9a6c00;
+    padding: 7px 11px;
+    border-radius: 7px;
+    text-decoration: none;
+    margin-right: 5px;
+}
+
+.delete-btn {
+    background: #fde7e7;
+    color: #c0392b;
+    padding: 7px 11px;
+    border-radius: 7px;
+    text-decoration: none;
+}
+
+.edit-btn:hover,
+.delete-btn:hover {
+    opacity: 0.8;
+}
+
+
+/* EMPTY */
+
+.empty-category {
+    text-align: center;
+    padding: 50px;
+    color: #89958d;
+}
+
+.empty-category i {
+    font-size: 45px;
+    margin-bottom: 15px;
+    display: block;
+}
+
+</style>
+
+
+<div class="category-page">
+
+    <!-- HEADER -->
+
+    <div class="category-header">
+
+        <h2>
+            <i class="bi bi-grid-fill me-2"></i>
+            Categories
+        </h2>
+
+        <a href="{% url 'Addcategory' %}"
+           class="add-category-btn">
+
+            <i class="bi bi-plus-circle me-1"></i>
+            Add Category
+
+        </a>
+
+    </div>
+
+
+    <!-- TABLE CARD -->
+
+    <div class="category-card">
+
+        <table class="category-table">
+
+            <thead>
+
+                <tr>
+
+                    <th>ID</th>
+
+                    <th>Category Name</th>
+
+                    <th>Category Type</th>
+
+                    <th>Description</th>
+
+                    <th>Status</th>
+
+                    <th>Action</th>
+
+                </tr>
+
+            </thead>
+
+
+            <tbody>
+
+                {% for category in categories %}
+
+                <tr>
+
+                    <!-- ID -->
+
+                    <td>
+                        {{ category.id }}
+                    </td>
+
+
+                    <!-- CATEGORY NAME -->
+
+                    <td>
+                        <strong>
+                            {{ category.category_name }}
+                        </strong>
+                    </td>
+
+
+                    <!-- CATEGORY TYPE -->
+
+                    <td>
+                        {{ category.category_type|default:"-" }}
+                    </td>
+
+
+                    <!-- DESCRIPTION -->
+
+                    <td>
+                        {{ category.description|default:"-" }}
+                    </td>
+
+
+                    <!-- STATUS -->
+
+                    <td>
+
+                        {% if category.status == "Active" %}
+
+                            <span class="status-active">
+                                Active
+                            </span>
+
+                        {% else %}
+
+                            <span class="status-inactive">
+                                {{ category.status }}
+                            </span>
+
+                        {% endif %}
+
+                    </td>
+
+
+                    <!-- ACTION -->
+
+                    <td>
+
+                        <a href="{% url 'Editcategorylist' category.id %}"
+                           class="edit-btn">
+
+                            <i class="bi bi-pencil"></i>
+
+                        </a>
+
+
+                        <a href="{% url 'Deletecategory' category.id %}"
+                           class="delete-btn"
+                           onclick="return confirm('Are you sure you want to delete this category?');">
+
+                            <i class="bi bi-trash"></i>
+
+                        </a>
+
+                    </td>
+
+                </tr>
+
+
+                {% empty %}
+
+                <tr>
+
+                    <td colspan="6">
+
+                        <div class="empty-category">
+
+                            <i class="bi bi-folder-x"></i>
+
+                            <h5>
+                                No Categories Found
+                            </h5>
+
+                            <p>
+                                Please add a category first.
+                            </p>
+
+                        </div>
+
+                    </td>
+
+                </tr>
+
+                {% endfor %}
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</div>
+
+{% endblock %}

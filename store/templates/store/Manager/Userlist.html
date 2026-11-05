@@ -1,0 +1,771 @@
+
+{% extends "store/Manager/ManagerMaster.html" %}
+
+{% block title %}
+User List | GreenNest Manager
+{% endblock %}
+
+{% block page_heading %}
+User List
+{% endblock %}
+
+{% block content %}
+
+<style>
+
+/* =====================================================
+   USER LIST PAGE
+===================================================== */
+
+.user-list-page {
+    width: 100%;
+}
+
+
+/* =====================================================
+   HEADER
+===================================================== */
+
+.user-list-header {
+    margin-bottom: 25px;
+}
+
+.user-list-header h3 {
+    color: #173d2b;
+    font-weight: 700;
+    margin-bottom: 5px;
+}
+
+.user-list-header p {
+    color: #8a958e;
+    font-size: 13px;
+}
+
+
+/* =====================================================
+   TABLE CARD
+===================================================== */
+
+.user-table-card {
+    background: #ffffff;
+
+    border: 1px solid #e5ece6;
+
+    border-radius: 18px;
+
+    overflow: hidden;
+
+    box-shadow:
+        0 10px 30px
+        rgba(25, 70, 45, 0.06);
+}
+
+
+/* =====================================================
+   TABLE
+===================================================== */
+
+.user-table {
+    margin-bottom: 0;
+    min-width: 1150px;
+}
+
+.user-table thead th {
+
+    background: #edf5ef;
+
+    color: #173d2b;
+
+    font-size: 12px;
+
+    font-weight: 700;
+
+    padding: 15px 14px;
+
+    white-space: nowrap;
+
+    border-bottom:
+        1px solid #dce8df;
+}
+
+
+.user-table tbody td {
+
+    color: #44524a;
+
+    font-size: 13px;
+
+    padding: 16px 14px;
+
+    vertical-align: middle;
+
+    border-color: #edf1ee;
+}
+
+
+/* =====================================================
+   USER NAME
+===================================================== */
+
+.user-name {
+
+    color: #173d2b;
+
+    font-weight: 700;
+
+    white-space: nowrap;
+}
+
+
+/* =====================================================
+   EMAIL
+===================================================== */
+
+.user-email {
+
+    color: #286044;
+
+    font-size: 13px;
+}
+
+
+/* =====================================================
+   PHONE
+===================================================== */
+
+.user-phone {
+
+    color: #286044;
+
+    font-weight: 600;
+
+    white-space: nowrap;
+}
+
+
+/* =====================================================
+   ADDRESS
+===================================================== */
+
+.user-address {
+
+    max-width: 230px;
+
+    min-width: 180px;
+
+    white-space: normal;
+
+    line-height: 1.5;
+
+    color: #59665f;
+}
+
+
+/* =====================================================
+   USER NUMBER
+===================================================== */
+
+.user-number {
+
+    width: 45px;
+
+    color: #7d8982;
+
+    font-weight: 600;
+}
+
+
+/* =====================================================
+   VIEW BUTTON
+===================================================== */
+
+.user-view-btn {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 6px;
+
+    background: #173d2b;
+
+    color: #ffffff;
+
+    border: none;
+
+    border-radius: 8px;
+
+    padding: 8px 13px;
+
+    font-size: 12px;
+
+    font-weight: 600;
+
+    text-decoration: none;
+
+    transition: 0.3s ease;
+
+    white-space: nowrap;
+}
+
+
+.user-view-btn:hover {
+
+    background: #286044;
+
+    color: #ffffff;
+
+    transform: translateY(-1px);
+}
+
+
+/* =====================================================
+   BLOCK BUTTON
+===================================================== */
+
+.user-block-btn {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 6px;
+
+    background: #b84a4a;
+
+    color: #ffffff;
+
+    border: none;
+
+    border-radius: 8px;
+
+    padding: 8px 13px;
+
+    font-size: 12px;
+
+    font-weight: 600;
+
+    text-decoration: none;
+
+    transition: 0.3s ease;
+
+    white-space: nowrap;
+}
+
+
+.user-block-btn:hover {
+
+    background: #963939;
+
+    color: #ffffff;
+
+    transform: translateY(-1px);
+}
+
+
+/* =====================================================
+   UNBLOCK BUTTON
+===================================================== */
+
+.user-unblock-btn {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 6px;
+
+    background: #286044;
+
+    color: #ffffff;
+
+    border: none;
+
+    border-radius: 8px;
+
+    padding: 8px 13px;
+
+    font-size: 12px;
+
+    font-weight: 600;
+
+    text-decoration: none;
+
+    transition: 0.3s ease;
+
+    white-space: nowrap;
+}
+
+
+.user-unblock-btn:hover {
+
+    background: #173d2b;
+
+    color: #ffffff;
+
+    transform: translateY(-1px);
+}
+
+
+/* =====================================================
+   STATUS
+===================================================== */
+
+.user-status {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 5px;
+
+    border-radius: 20px;
+
+    padding: 5px 10px;
+
+    font-size: 11px;
+
+    font-weight: 700;
+
+    white-space: nowrap;
+}
+
+
+.user-status-active {
+
+    background: #e5f4ea;
+
+    color: #286044;
+}
+
+
+.user-status-blocked {
+
+    background: #f9e5e5;
+
+    color: #a33d3d;
+}
+
+
+/* =====================================================
+   EMPTY DATA
+===================================================== */
+
+.empty-value {
+
+    color: #a3aaa6;
+
+    font-style: italic;
+
+    font-size: 12px;
+}
+
+
+/* =====================================================
+   EMPTY TABLE
+===================================================== */
+
+.no-users {
+
+    text-align: center;
+
+    padding: 45px 20px !important;
+
+    color: #8a958e;
+}
+
+
+/* =====================================================
+   RESPONSIVE
+===================================================== */
+
+@media (max-width: 768px) {
+
+    .user-table-card {
+        border-radius: 14px;
+    }
+
+}
+
+</style>
+
+
+<!-- =====================================================
+     USER LIST PAGE
+===================================================== -->
+
+<div class="user-list-page">
+
+
+    <!-- =================================================
+         HEADER
+    ================================================== -->
+
+    <div class="user-list-header">
+
+        <h3>
+            User List
+        </h3>
+
+        <p>
+            Manage all registered users.
+        </p>
+
+    </div>
+
+
+
+    <!-- =================================================
+         TABLE CARD
+    ================================================== -->
+
+    <div class="user-table-card">
+
+
+        <div class="table-responsive">
+
+
+            <table class="table table-hover user-table">
+
+
+                <!-- =================================================
+                     TABLE HEADER
+                ================================================== -->
+
+                <thead>
+
+                    <tr>
+
+                        <th>#</th>
+
+                        <th>
+                            <i class="bi bi-person"></i>
+                            Name
+                        </th>
+
+                        <th>
+                            <i class="bi bi-envelope"></i>
+                            Email
+                        </th>
+
+                        <th>
+                            <i class="bi bi-phone"></i>
+                            Phone
+                        </th>
+
+                        <th>
+                            <i class="bi bi-geo-alt"></i>
+                            Address
+                        </th>
+
+                        <th>
+                            <i class="bi bi-building"></i>
+                            City
+                        </th>
+
+                        <th>
+                            <i class="bi bi-map"></i>
+                            State
+                        </th>
+
+                        <th>
+                            <i class="bi bi-mailbox"></i>
+                            Pincode
+                        </th>
+
+                        <th>
+                            Status
+                        </th>
+
+                        <th>
+                            Action
+                        </th>
+
+                    </tr>
+
+                </thead>
+
+
+
+                <!-- =================================================
+                     TABLE BODY
+                ================================================== -->
+
+                <tbody>
+
+
+                    {% for user in users %}
+
+
+                    <tr>
+
+
+                        <!-- NUMBER -->
+
+                        <td class="user-number">
+
+                            {{ forloop.counter }}
+
+                        </td>
+
+
+
+                        <!-- NAME -->
+
+                        <td>
+
+                            <span class="user-name">
+
+                                {{ user.name }}
+
+                            </span>
+
+                        </td>
+
+
+
+                        <!-- EMAIL -->
+
+                        <td>
+
+                            <span class="user-email">
+
+                                {{ user.email }}
+
+                            </span>
+
+                        </td>
+
+
+
+                        <!-- PHONE -->
+
+                        <td>
+
+                            {% if user.phone %}
+
+                                <span class="user-phone">
+
+                                    {{ user.phone }}
+
+                                </span>
+
+                            {% else %}
+
+                                <span class="empty-value">
+                                    Not Available
+                                </span>
+
+                            {% endif %}
+
+                        </td>
+
+
+
+                        <!-- ADDRESS -->
+
+                        <td>
+
+                            {% if user.address %}
+
+                                <div class="user-address">
+
+                                    {{ user.address }}
+
+                                </div>
+
+                            {% else %}
+
+                                <span class="empty-value">
+                                    Not Available
+                                </span>
+
+                            {% endif %}
+
+                        </td>
+
+
+
+                        <!-- CITY -->
+
+                        <td>
+
+                            {% if user.city %}
+
+                                {{ user.city }}
+
+                            {% else %}
+
+                                <span class="empty-value">
+                                    Not Available
+                                </span>
+
+                            {% endif %}
+
+                        </td>
+
+
+
+                        <!-- STATE -->
+
+                        <td>
+
+                            {% if user.state %}
+
+                                {{ user.state }}
+
+                            {% else %}
+
+                                <span class="empty-value">
+                                    Not Available
+                                </span>
+
+                            {% endif %}
+
+                        </td>
+
+
+
+                        <!-- PINCODE -->
+
+                        <td>
+
+                            {% if user.pincode %}
+
+                                {{ user.pincode }}
+
+                            {% else %}
+
+                                <span class="empty-value">
+                                    Not Available
+                                </span>
+
+                            {% endif %}
+
+                        </td>
+
+
+
+                        <!-- STATUS -->
+
+                        <td>
+
+                            {% if user.status == "Blocked" %}
+
+                                <span class="user-status user-status-blocked">
+
+                                    <i class="bi bi-x-circle"></i>
+
+                                    Blocked
+
+                                </span>
+
+                            {% else %}
+
+                                <span class="user-status user-status-active">
+
+                                    <i class="bi bi-check-circle"></i>
+
+                                    Active
+
+                                </span>
+
+                            {% endif %}
+
+                        </td>
+
+
+
+                        <!-- ACTION -->
+
+                        <td>
+
+                            <div style="display:flex; gap:6px; align-items:center;">
+
+                                <a href="{% url 'Userdetail' user.id %}"
+                                   class="user-view-btn">
+
+                                    <i class="bi bi-eye"></i>
+
+                                    View
+
+                                </a>
+
+
+                                {% if user.status == "Blocked" %}
+
+                                    <a href="{% url 'UnblockUser' user.id %}"
+                                       class="user-unblock-btn">
+
+                                        <i class="bi bi-unlock"></i>
+
+                                        Unblock
+
+                                    </a>
+
+                                {% else %}
+
+                                    <a href="{% url 'BlockUser' user.id %}"
+                                       class="user-block-btn">
+
+                                        <i class="bi bi-lock"></i>
+
+                                        Block
+
+                                    </a>
+
+                                {% endif %}
+
+                            </div>
+
+                        </td>
+
+
+                    </tr>
+
+
+                    {% empty %}
+
+
+                    <tr>
+
+                        <td colspan="10"
+                            class="no-users">
+
+                            <i class="bi bi-people"
+                               style="font-size: 28px;">
+                            </i>
+
+                            <div class="mt-2">
+                                No Users Found
+                            </div>
+
+                        </td>
+
+                    </tr>
+
+
+                    {% endfor %}
+
+
+                </tbody>
+
+
+            </table>
+
+
+        </div>
+
+
+    </div>
+
+
+</div>
+
+{% endblock %}

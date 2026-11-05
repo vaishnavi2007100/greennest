@@ -1,0 +1,552 @@
+{% extends "store/Vender/VenderMaster.html" %}
+
+{% block title %}
+Vendor Dashboard | GreenNest
+{% endblock %}
+
+{% block page_heading %}
+Vendor Dashboard
+{% endblock %}
+
+{% block content %}
+
+<style>
+
+.vendor-dashboard {
+    max-width: 1200px;
+    margin: auto;
+}
+
+
+/* =========================================
+   WELCOME
+========================================= */
+
+.vendor-welcome {
+
+    padding: 35px;
+
+    border-radius: 25px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #123b29,
+            #285f43
+        );
+
+    color: white;
+
+    margin-bottom: 25px;
+
+    box-shadow:
+        0 15px 35px rgba(18,59,41,0.16);
+}
+
+
+.vendor-welcome h2 {
+
+    margin: 0 0 8px;
+
+    font-size: 28px;
+
+    font-weight: 700;
+}
+
+
+.vendor-welcome p {
+
+    margin: 0;
+
+    color: rgba(255,255,255,0.70);
+
+    font-size: 14px;
+}
+
+
+/* =========================================
+   STAT CARDS
+========================================= */
+
+.vendor-stat {
+
+    background: white;
+
+    border: 1px solid #e7eee9;
+
+    border-radius: 20px;
+
+    padding: 24px;
+
+    transition: 0.3s ease;
+
+    height: 100%;
+}
+
+
+.vendor-stat:hover {
+
+    transform: translateY(-5px);
+
+    box-shadow:
+        0 15px 30px rgba(23,61,43,0.08);
+}
+
+
+.vendor-stat-icon {
+
+    width: 50px;
+
+    height: 50px;
+
+    border-radius: 14px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    background: #edf5ef;
+
+    color: #173d2b;
+
+    font-size: 21px;
+
+    margin-bottom: 18px;
+}
+
+
+.vendor-stat h3 {
+
+    margin: 0;
+
+    color: #173d2b;
+
+    font-size: 25px;
+
+    font-weight: 700;
+}
+
+
+.vendor-stat p {
+
+    margin: 5px 0 0;
+
+    color: #89938d;
+
+    font-size: 13px;
+}
+
+
+/* =========================================
+   QUICK ACTION
+========================================= */
+
+.quick-card {
+
+    background: white;
+
+    border: 1px solid #e7eee9;
+
+    border-radius: 22px;
+
+    padding: 25px;
+
+    height: 100%;
+}
+
+
+.quick-card h4 {
+
+    color: #173d2b;
+
+    font-size: 18px;
+
+    margin-bottom: 20px;
+
+    font-weight: 700;
+}
+
+
+.quick-link {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 13px;
+
+    padding: 14px;
+
+    border-radius: 13px;
+
+    background: #fafcfb;
+
+    color: #173d2b;
+
+    text-decoration: none;
+
+    margin-bottom: 10px;
+
+    border: 1px solid #edf1ee;
+
+    transition: 0.3s ease;
+}
+
+
+.quick-link:hover {
+
+    background: #173d2b;
+
+    color: white;
+
+    transform: translateX(4px);
+}
+
+
+.quick-link i {
+
+    font-size: 18px;
+}
+
+
+/* =========================================
+   INFO
+========================================= */
+
+.vendor-info {
+
+    background:
+        linear-gradient(
+            135deg,
+            #f6faf7,
+            #eef6f0
+        );
+
+    border: 1px solid #dfebe1;
+
+    border-radius: 22px;
+
+    padding: 25px;
+}
+
+
+.vendor-info h4 {
+
+    margin: 0 0 10px;
+
+    color: #173d2b;
+
+    font-size: 18px;
+}
+
+
+.vendor-info p {
+
+    margin: 0;
+
+    color: #758179;
+
+    font-size: 13px;
+
+    line-height: 1.7;
+}
+
+
+/* =========================================
+   MOBILE
+========================================= */
+
+@media (max-width: 768px) {
+
+    .vendor-welcome {
+
+        padding: 25px;
+
+    }
+
+
+    .vendor-welcome h2 {
+
+        font-size: 23px;
+
+    }
+
+}
+
+</style>
+
+
+<div class="vendor-dashboard">
+
+
+    <!-- =========================================
+         WELCOME
+    ========================================== -->
+
+    <div class="vendor-welcome">
+
+        <h2>
+            Welcome, GreenNest Vendor
+        </h2>
+
+        <p>
+            Manage your products, orders and vendor account
+            from one simple dashboard.
+        </p>
+
+    </div>
+
+
+    <!-- =========================================
+         STAT CARDS
+    ========================================== -->
+
+    <div class="row g-4 mb-4">
+
+
+        <!-- =====================================
+             TOTAL PRODUCTS
+        ====================================== -->
+
+        <div class="col-lg-3 col-md-6">
+
+            <div class="vendor-stat">
+
+                <div class="vendor-stat-icon">
+
+                    <i class="bi bi-box-seam"></i>
+
+                </div>
+
+                <h3>
+
+                    {{ total_products }}
+
+                </h3>
+
+                <p>
+
+                    Total Products
+
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <!-- =====================================
+             TOTAL ORDERS
+        ====================================== -->
+
+        <div class="col-lg-3 col-md-6">
+
+            <div class="vendor-stat">
+
+                <div class="vendor-stat-icon">
+
+                    <i class="bi bi-cart-check"></i>
+
+                </div>
+
+                <h3>
+
+                    {{ total_orders }}
+
+                </h3>
+
+                <p>
+
+                    Total Orders
+
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <!-- =====================================
+             TOTAL SALES
+        ====================================== -->
+
+        <div class="col-lg-3 col-md-6">
+
+            <div class="vendor-stat">
+
+                <div class="vendor-stat-icon">
+
+                    <i class="bi bi-currency-rupee"></i>
+
+                </div>
+
+                <h3>
+
+                    ₹{{ total_sales }}
+
+                </h3>
+
+                <p>
+
+                    Total Sales
+
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <!-- =====================================
+             CUSTOMER REVIEWS
+        ====================================== -->
+
+        <div class="col-lg-3 col-md-6">
+
+            <div class="vendor-stat">
+
+                <div class="vendor-stat-icon">
+
+                    <i class="bi bi-star"></i>
+
+                </div>
+
+                <h3>
+
+                    {{ total_reviews }}
+
+                </h3>
+
+                <p>
+
+                    Customer Reviews
+
+                </p>
+
+            </div>
+
+        </div>
+
+
+    </div>
+
+
+    <!-- =========================================
+         QUICK ACTIONS + ACCOUNT
+    ========================================== -->
+
+    <div class="row g-4">
+
+
+        <!-- =====================================
+             QUICK ACTIONS
+        ====================================== -->
+
+        <div class="col-lg-6">
+
+            <div class="quick-card">
+
+                <h4>
+
+                    Quick Actions
+
+                </h4>
+
+
+                <!-- ADD PRODUCT -->
+
+                <a
+                    href="{% url 'AddProduct' %}"
+                    class="quick-link"
+                >
+
+                    <i class="bi bi-plus-circle"></i>
+
+                    Add New Product
+
+                </a>
+
+
+                <!-- MANAGE PRODUCTS -->
+
+                <a
+                    href="{% url 'vproducts' %}"
+                    class="quick-link"
+                >
+
+                    <i class="bi bi-box-seam"></i>
+
+                    Manage Products
+
+                </a>
+
+
+                <!-- ORDERS -->
+
+                <a
+                    href="#"
+                    class="quick-link"
+                >
+
+                    <i class="bi bi-cart-check"></i>
+
+                    View Orders
+
+                </a>
+
+
+                <!-- PROFILE -->
+
+                <a
+                    href="{% url 'vviewprofile' %}"
+                    class="quick-link"
+                >
+
+                    <i class="bi bi-person-circle"></i>
+
+                    View My Profile
+
+                </a>
+
+            </div>
+
+        </div>
+
+
+        <!-- =====================================
+             VENDOR ACCOUNT
+        ====================================== -->
+
+        <div class="col-lg-6">
+
+            <div class="vendor-info">
+
+                <h4>
+
+                    Vendor Account
+
+                </h4>
+
+                <p>
+
+                    Your GreenNest vendor account allows
+                    you to manage plants, products, orders
+                    and sales. Keep your profile information
+                    and password secure.
+
+                </p>
+
+            </div>
+
+        </div>
+
+
+    </div>
+
+
+</div>
+
+
+{% endblock %}

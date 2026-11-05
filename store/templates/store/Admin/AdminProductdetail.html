@@ -1,0 +1,144 @@
+{% extends "store/Admin/AdminMaster.html" %}
+{% load static %}
+
+{% block title %}Product Detail | GreenNest Admin{% endblock %}
+
+{% block page_heading %}Product Detail{% endblock %}
+
+{% block content %}
+
+<style>
+    .detail-card {
+        background: white;
+        border-radius: 20px;
+        padding: 30px;
+        box-shadow: 0 8px 30px rgba(18,55,42,.08);
+    }
+
+    .detail-image {
+        width: 100%;
+        max-width: 420px;
+        height: 420px;
+        object-fit: cover;
+        border-radius: 18px;
+        border: 1px solid #ddd;
+    }
+
+    .info-row {
+        padding: 14px 0;
+        border-bottom: 1px solid #eee;
+    }
+
+    .info-label {
+        font-weight: 600;
+        color: #12372a;
+    }
+</style>
+
+<div class="detail-card">
+
+    <div class="row g-5">
+
+        <div class="col-lg-5 text-center">
+
+            {% if product.image %}
+
+                <img
+                    src="{% static 'product_images/' %}{{ product.image }}"
+                    class="detail-image"
+                    alt="{{ product.name }}"
+                >
+
+            {% else %}
+
+                <div class="p-5 text-muted">
+                    No Product Image
+                </div>
+
+            {% endif %}
+
+        </div>
+
+        <div class="col-lg-7">
+
+            <h2 class="fw-bold">
+                {{ product.name }}
+            </h2>
+
+            <p class="text-muted">
+                Product ID: #{{ product.id }}
+            </p>
+
+            <div class="info-row">
+                <span class="info-label">Vendor:</span>
+                {{ product.vendor_email }}
+            </div>
+
+            <div class="info-row">
+                <span class="info-label">Category:</span>
+                {{ product.category }}
+            </div>
+
+            <div class="info-row">
+                <span class="info-label">Subcategory:</span>
+                {{ product.subcategory }}
+            </div>
+
+            <div class="info-row">
+                <span class="info-label">Price:</span>
+                ₹{{ product.price }}
+            </div>
+
+            <div class="info-row">
+                <span class="info-label">Old Price:</span>
+                ₹{{ product.old_price }}
+            </div>
+
+            <div class="info-row">
+                <span class="info-label">Stock:</span>
+                {{ product.stock }}
+            </div>
+
+            <div class="info-row">
+                <span class="info-label">Status:</span>
+                {{ product.status }}
+            </div>
+
+            <div class="info-row">
+
+                <span class="info-label">
+                    Description:
+                </span>
+
+                <p class="mt-2 mb-0">
+                    {{ product.description }}
+                </p>
+
+            </div>
+
+            <div class="mt-4">
+
+                <a
+                    href="{% url 'AdminEditProduct' product.id %}"
+                    class="btn btn-success px-4"
+                >
+                    <i class="bi bi-pencil me-2"></i>
+                    Edit Product
+                </a>
+
+                <a
+                    href="{% url 'AdminProductlist' %}"
+                    class="btn btn-outline-secondary px-4"
+                >
+                    Back
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

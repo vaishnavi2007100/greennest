@@ -1,0 +1,735 @@
+{% extends "store/base.html" %}
+{% load static %}
+
+{% block title %}Indoor Plants | GreenNest{% endblock %}
+
+{% block extra_css %}
+
+<style>
+
+    /* =========================
+       INDOOR PLANTS PAGE
+    ========================= */
+
+    .indoor-hero {
+        min-height: 430px;
+        position: relative;
+        display: flex;
+        align-items: center;
+        overflow: hidden;
+
+        background:
+            linear-gradient(
+                90deg,
+                rgba(8, 47, 35, 0.95),
+                rgba(8, 47, 35, 0.72),
+                rgba(8, 47, 35, 0.25)
+            ),
+            url("{% static 'images/plant-center.jpg' %}");
+
+        background-size: cover;
+        background-position: center;
+    }
+
+    .indoor-hero-content {
+        max-width: 650px;
+        color: white;
+    }
+
+    .small-title {
+        display: inline-block;
+        color: #b9dfce;
+        font-size: 14px;
+        font-weight: 700;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        margin-bottom: 15px;
+    }
+
+    .indoor-hero h1 {
+        font-family: 'Playfair Display', serif;
+        font-size: clamp(42px, 6vw, 70px);
+        font-weight: 700;
+        line-height: 1.05;
+        margin-bottom: 20px;
+    }
+
+    .indoor-hero p {
+        font-size: 17px;
+        line-height: 1.8;
+        color: #e6f2ed;
+        max-width: 560px;
+    }
+
+    .hero-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+
+        margin-top: 15px;
+        padding: 13px 25px;
+
+        border-radius: 50px;
+        background: white;
+        color: #145c45;
+
+        text-decoration: none;
+        font-weight: 700;
+
+        transition: all .3s ease;
+    }
+
+    .hero-btn:hover {
+        background: #d9f0e6;
+        color: #104d3b;
+        transform: translateY(-3px);
+    }
+
+
+    /* =========================
+       INTRO
+    ========================= */
+
+    .intro-section {
+        padding: 85px 0 45px;
+    }
+
+    .section-label {
+        color: #2b8064;
+        font-size: 13px;
+        font-weight: 700;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+    }
+
+    .section-title {
+        font-family: 'Playfair Display', serif;
+        color: #183b30;
+        font-size: 42px;
+        font-weight: 700;
+        margin-top: 10px;
+    }
+
+    .section-text {
+        color: #6b7c75;
+        line-height: 1.8;
+        max-width: 650px;
+        margin: 15px auto 0;
+    }
+
+
+    /* =========================
+       FILTER BAR
+    ========================= */
+
+    .filter-box {
+        margin: 35px 0;
+        padding: 18px 22px;
+
+        background: #f5faf7;
+        border-radius: 15px;
+
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 15px;
+    }
+
+    .filter-title {
+        font-weight: 700;
+        color: #23483b;
+    }
+
+    .plant-count {
+        color: #789087;
+        font-size: 14px;
+    }
+
+
+    /* =========================
+       PRODUCT CARDS
+    ========================= */
+
+    .plant-card {
+        border: none;
+        border-radius: 18px;
+        overflow: hidden;
+        background: white;
+
+        box-shadow: 0 8px 30px rgba(20, 80, 55, .08);
+
+        transition: all .35s ease;
+        height: 100%;
+    }
+
+    .plant-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 18px 45px rgba(20, 80, 55, .16);
+    }
+
+    .plant-image {
+        height: 280px;
+        width: 100%;
+        object-fit: cover;
+
+        transition: transform .5s ease;
+    }
+
+    .plant-card:hover .plant-image {
+        transform: scale(1.06);
+    }
+
+    .plant-image-box {
+        position: relative;
+        overflow: hidden;
+    }
+
+
+    .heart-btn {
+        position: absolute;
+        top: 15px;
+        right: 15px;
+
+        width: 40px;
+        height: 40px;
+
+        border: none;
+        border-radius: 50%;
+
+        background: white;
+        color: #3c6557;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        font-size: 17px;
+
+        transition: all .3s ease;
+    }
+
+    .heart-btn:hover {
+        background: #e9f5ef;
+        color: #197253;
+        transform: scale(1.1);
+    }
+
+    .plant-info {
+        padding: 22px;
+    }
+
+    .plant-category {
+        font-size: 12px;
+        color: #6d9a88;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+    }
+
+    .plant-name {
+        color: #203f34;
+        font-size: 21px;
+        font-weight: 700;
+        margin: 7px 0;
+    }
+
+    .plant-description {
+        color: #7b8983;
+        font-size: 14px;
+        line-height: 1.6;
+    }
+
+    .rating {
+        color: #e3a93a;
+        font-size: 13px;
+        margin: 12px 0;
+    }
+
+    .price {
+        color: #145c45;
+        font-size: 21px;
+        font-weight: 800;
+    }
+
+    .old-price {
+        color: #a4aaa7;
+        font-size: 13px;
+        text-decoration: line-through;
+        margin-left: 7px;
+    }
+
+    .buy-btn {
+        width: 100%;
+        border: none;
+        border-radius: 10px;
+
+        padding: 11px;
+
+        background: #165d47;
+        color: white;
+
+        font-weight: 600;
+
+        transition: all .3s ease;
+    }
+
+    .buy-btn:hover {
+        background: #0e4635;
+        transform: translateY(-2px);
+    }
+
+
+    /* =========================
+       BENEFITS
+    ========================= */
+
+    .benefit-section {
+        margin-top: 90px;
+        padding: 70px 0;
+
+        background: #f4faf7;
+    }
+
+    .benefit-card {
+        background: white;
+        border-radius: 16px;
+        padding: 28px;
+
+        height: 100%;
+
+        box-shadow: 0 8px 25px rgba(20, 80, 55, .06);
+    }
+
+    .benefit-icon {
+        width: 52px;
+        height: 52px;
+
+        border-radius: 14px;
+
+        background: #e4f3eb;
+        color: #17664d;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        font-size: 23px;
+        margin-bottom: 18px;
+    }
+
+    .benefit-card h5 {
+        color: #23483b;
+        font-weight: 700;
+    }
+
+    .benefit-card p {
+        color: #75857e;
+        font-size: 14px;
+        line-height: 1.7;
+    }
+
+
+    @media(max-width: 768px) {
+
+        .indoor-hero {
+            min-height: 500px;
+        }
+
+        .section-title {
+            font-size: 34px;
+        }
+
+        .plant-image {
+            height: 250px;
+        }
+
+    }
+
+</style>
+
+{% endblock %}
+
+
+{% block content %}
+
+<!-- =========================
+     HERO
+========================= -->
+
+<section class="indoor-hero">
+
+    <div class="container">
+
+        <div class="indoor-hero-content">
+
+            <span class="small-title">
+                GreenNest Collection
+            </span>
+
+            <h1>
+                Bring Nature<br>
+                Inside Your Home
+            </h1>
+
+            <p>
+                Discover beautiful indoor plants that transform
+                your home into a fresh, peaceful and naturally
+                beautiful space.
+            </p>
+
+            <a href="#plants" class="hero-btn">
+                Explore Indoor Plants
+                <i class="bi bi-arrow-right"></i>
+            </a>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================
+     INTRO
+========================= -->
+
+<section class="intro-section" id="plants">
+
+    <div class="container">
+
+        <div class="text-center">
+
+            <div class="section-label">
+                Our Collection
+            </div>
+
+            <h2 class="section-title">
+                Indoor Plants
+            </h2>
+
+            <p class="section-text">
+                From elegant Snake Plants to beautiful Peace Lilies,
+                find the perfect green companion for every corner
+                of your home.
+            </p>
+
+        </div>
+
+
+        <!-- FILTER -->
+
+        <div class="filter-box">
+
+            <div>
+                <div class="filter-title">
+                    Indoor Plants
+                </div>
+
+                <div class="plant-count">
+                    Beautiful plants for your indoor spaces
+                </div>
+            </div>
+
+            <div>
+                <span class="badge rounded-pill text-bg-light px-3 py-2">
+                    Best Sellers
+                </span>
+            </div>
+
+        </div>
+
+
+<!-- =========================
+     PRODUCTS
+========================= -->
+
+<div class="row g-4">
+
+    {% if indoor_products %}
+
+        {% for product in indoor_products %}
+
+            <div class="col-lg-3 col-md-6">
+
+                <div class="plant-card">
+
+                    <!-- PRODUCT IMAGE -->
+
+                    <div class="plant-image-box">
+
+                        {% if product.image_url %}
+
+                            <img
+                                src="{{ product.image_url }}"
+                                class="plant-image"
+                                alt="{{ product.name }}"
+                            >
+
+                        {% else %}
+
+                            <img
+                                src="{% static 'images/plant-center.jpg' %}"
+                                class="plant-image"
+                                alt="{{ product.name }}"
+                            >
+
+                        {% endif %}
+
+
+                        <!-- PRODUCT BADGE -->
+
+                        <span class="plant-badge">
+                            Indoor Plant
+                        </span>
+
+
+                        <!-- WISHLIST -->
+
+                        <a
+                            href="{% url 'AddToWishlist' product.id %}"
+                            class="heart-btn"
+                            style="text-decoration:none;"
+                        >
+
+                            <i class="bi bi-heart"></i>
+
+                        </a>
+
+                    </div>
+
+
+                    <!-- PRODUCT INFORMATION -->
+
+                    <div class="plant-info">
+
+                        <!-- CATEGORY -->
+
+                        <div class="plant-category">
+
+                            {{ product.category }}
+
+                        </div>
+
+
+                        <!-- NAME -->
+
+                        <div class="plant-name">
+
+                            {{ product.name }}
+
+                        </div>
+
+
+                        <!-- DESCRIPTION -->
+
+                        {% if product.description %}
+
+                            <div class="plant-description">
+
+                                {{ product.description|truncatechars:90 }}
+
+                            </div>
+
+                        {% endif %}
+
+
+                        <!-- RATING -->
+
+                        <div class="rating">
+
+                            ★★★★★
+
+                            <span class="text-muted">
+                                {{ product.rating }}
+                            </span>
+
+                        </div>
+
+
+                        <!-- PRICE -->
+
+                        <div class="mb-3">
+
+                            <span class="price">
+
+                                ₹{{ product.price }}
+
+                            </span>
+
+
+                            {% if product.old_price %}
+
+                                <span class="old-price">
+
+                                    ₹{{ product.old_price }}
+
+                                </span>
+
+                            {% endif %}
+
+                        </div>
+
+
+                        <!-- ADD TO CART -->
+
+                        <a
+                            href="{% url 'AddToCart' product.id %}"
+                            class="buy-btn d-block text-center text-decoration-none"
+                        >
+
+                            Add to Cart
+
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        {% endfor %}
+
+
+    {% else %}
+
+        <!-- NO PRODUCTS -->
+
+        <div class="col-12">
+
+            <div
+                class="text-center py-5"
+                style="
+                    background:#f5faf7;
+                    border-radius:18px;
+                "
+            >
+
+                <i
+                    class="bi bi-flower1"
+                    style="
+                        font-size:50px;
+                        color:#6d9a88;
+                    "
+                ></i>
+
+                <h4
+                    style="
+                        color:#23483b;
+                        margin-top:15px;
+                    "
+                >
+                    No Indoor Plants Available
+                </h4>
+
+                <p style="color:#75857e;">
+                    Indoor plants will appear here
+                    when products are added.
+                </p>
+
+            </div>
+
+        </div>
+
+    {% endif %}
+
+</div>
+
+</section>
+
+
+<!-- =========================
+     WHY INDOOR PLANTS
+========================= -->
+
+<section class="benefit-section">
+
+    <div class="container">
+
+        <div class="text-center mb-5">
+
+            <div class="section-label">
+                Why Indoor Plants?
+            </div>
+
+            <h2 class="section-title">
+                A Little Green Goes A Long Way
+            </h2>
+
+        </div>
+
+
+        <div class="row g-4">
+
+            <div class="col-md-4">
+
+                <div class="benefit-card">
+
+                    <div class="benefit-icon">
+                        <i class="bi bi-house-heart"></i>
+                    </div>
+
+                    <h5>
+                        Beautiful Interiors
+                    </h5>
+
+                    <p>
+                        Add natural beauty and elegance to
+                        your living room, bedroom or workspace.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="col-md-4">
+
+                <div class="benefit-card">
+
+                    <div class="benefit-icon">
+                        <i class="bi bi-stars"></i>
+                    </div>
+
+                    <h5>
+                        Fresh & Green
+                    </h5>
+
+                    <p>
+                        Create a refreshing atmosphere with
+                        beautiful greenery around your home.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="col-md-4">
+
+                <div class="benefit-card">
+
+                    <div class="benefit-icon">
+                        <i class="bi bi-heart"></i>
+                    </div>
+
+                    <h5>
+                        Easy To Care
+                    </h5>
+
+                    <p>
+                        Choose beginner-friendly plants that
+                        are perfect for busy plant lovers.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+{% endblock %}

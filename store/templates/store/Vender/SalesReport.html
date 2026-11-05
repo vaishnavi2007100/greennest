@@ -1,0 +1,341 @@
+{% extends "store/Vender/VenderMaster.html" %}
+
+{% block title %}
+Sales Report | GreenNest Vendor
+{% endblock %}
+
+{% block page_heading %}
+Sales Report
+{% endblock %}
+
+{% block content %}
+
+<style>
+
+    .sales-card {
+        border: none;
+        border-radius: 15px;
+        transition: 0.3s;
+    }
+
+    .sales-card:hover {
+        transform: translateY(-3px);
+    }
+
+    .sales-icon {
+        width: 50px;
+        height: 50px;
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 22px;
+        background: #eaf6ee;
+        color: #198754;
+    }
+
+    .sales-table {
+        vertical-align: middle;
+    }
+
+    .product-name {
+        font-weight: 600;
+        color: #173d2b;
+    }
+
+    .amount {
+        font-weight: 700;
+        color: #198754;
+    }
+
+    .status-badge {
+        padding: 6px 12px;
+        border-radius: 20px;
+        font-size: 12px;
+        font-weight: 600;
+    }
+
+    .report-card {
+        border: none;
+        border-radius: 15px;
+    }
+
+</style>
+
+
+<div class="container-fluid">
+
+
+    <!-- ============================= -->
+    <!-- SUMMARY CARDS -->
+    <!-- ============================= -->
+
+    <div class="row g-4 mb-4">
+
+        <!-- Total Orders -->
+        <div class="col-lg-4 col-md-6">
+
+            <div class="card sales-card shadow-sm h-100">
+
+                <div class="card-body">
+
+                    <div class="d-flex align-items-center">
+
+                        <div class="sales-icon me-3">
+                            <i class="bi bi-cart-check"></i>
+                        </div>
+
+                        <div>
+
+                            <p class="text-muted mb-1">
+                                Total Orders
+                            </p>
+
+                            <h3 class="mb-0">
+                                {{ total_orders }}
+                            </h3>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- Products Sold -->
+        <div class="col-lg-4 col-md-6">
+
+            <div class="card sales-card shadow-sm h-100">
+
+                <div class="card-body">
+
+                    <div class="d-flex align-items-center">
+
+                        <div class="sales-icon me-3">
+                            <i class="bi bi-box-seam"></i>
+                        </div>
+
+                        <div>
+
+                            <p class="text-muted mb-1">
+                                Products Sold
+                            </p>
+
+                            <h3 class="mb-0">
+                                {{ products_sold }}
+                            </h3>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- Total Sales -->
+        <div class="col-lg-4 col-md-6">
+
+            <div class="card sales-card shadow-sm h-100">
+
+                <div class="card-body">
+
+                    <div class="d-flex align-items-center">
+
+                        <div class="sales-icon me-3">
+                            <i class="bi bi-currency-rupee"></i>
+                        </div>
+
+                        <div>
+
+                            <p class="text-muted mb-1">
+                                Total Sales
+                            </p>
+
+                            <h3 class="mb-0">
+                                ₹{{ total_sales|floatformat:2 }}
+                            </h3>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- ============================= -->
+    <!-- SALES TABLE -->
+    <!-- ============================= -->
+
+    <div class="card report-card shadow-sm">
+
+        <div class="card-header bg-success text-white">
+
+            <h5 class="mb-0">
+
+                <i class="bi bi-bar-chart-line me-2"></i>
+
+                Sales Details
+
+            </h5>
+
+        </div>
+
+
+        <div class="card-body p-0">
+
+            {% if sales %}
+
+            <div class="table-responsive">
+
+                <table class="table table-hover mb-0 sales-table">
+
+                    <thead class="table-light">
+
+                        <tr>
+
+                            <th>#</th>
+
+                            <th>Customer</th>
+
+                            <th>Product</th>
+
+                            <th>Price</th>
+
+                            <th>Quantity</th>
+
+                            <th>Total</th>
+
+                            <th>Status</th>
+
+                            <th>Date</th>
+
+                        </tr>
+
+                    </thead>
+
+
+                    <tbody>
+
+                        {% for sale in sales %}
+
+                        <tr>
+
+                            <td>
+                                {{ forloop.counter }}
+                            </td>
+
+                            <td>
+                                {{ sale.1 }}
+                            </td>
+
+                            <td>
+
+                                <span class="product-name">
+                                    {{ sale.3 }}
+                                </span>
+
+                            </td>
+
+                            <td>
+                                ₹{{ sale.4|floatformat:2 }}
+                            </td>
+
+                            <td>
+                                {{ sale.5 }}
+                            </td>
+
+                            <td>
+
+                                <span class="amount">
+                                    ₹{{ sale.6|floatformat:2 }}
+                                </span>
+
+                            </td>
+
+                            <td>
+
+                                {% if sale.7 == "Completed" %}
+
+                                    <span class="badge bg-success status-badge">
+                                        Completed
+                                    </span>
+
+                                {% elif sale.7 == "Pending" %}
+
+                                    <span class="badge bg-warning text-dark status-badge">
+                                        Pending
+                                    </span>
+
+                                {% elif sale.7 == "Cancelled" %}
+
+                                    <span class="badge bg-danger status-badge">
+                                        Cancelled
+                                    </span>
+
+                                {% else %}
+
+                                    <span class="badge bg-secondary status-badge">
+                                        {{ sale.7 }}
+                                    </span>
+
+                                {% endif %}
+
+                            </td>
+
+                            <td>
+                                {{ sale.8|date:"d M Y, h:i A" }}
+                            </td>
+
+                        </tr>
+
+                        {% endfor %}
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+            {% else %}
+
+            <!-- NO SALES -->
+
+            <div class="text-center py-5">
+
+                <i class="bi bi-bar-chart"
+                   style="font-size: 55px; color: #198754;">
+                </i>
+
+                <h5 class="mt-3">
+                    No Sales Found
+                </h5>
+
+                <p class="text-muted mb-0">
+                    Your product sales will appear here.
+                </p>
+
+            </div>
+
+            {% endif %}
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

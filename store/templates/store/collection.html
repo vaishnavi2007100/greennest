@@ -1,0 +1,1353 @@
+{% extends "store/base.html" %}
+
+{% load static %}
+
+{% block title %}
+Collection | GreenNest
+{% endblock %}
+
+{% block content %}
+
+<style>
+
+/* =========================================================
+   COLLECTION PAGE
+========================================================= */
+
+.collection-page{
+    background:#faf9f5;
+    min-height:100vh;
+}
+
+
+/* =========================================================
+   HERO
+========================================================= */
+
+.collection-hero{
+    position:relative;
+    min-height:360px;
+    display:flex;
+    align-items:center;
+    overflow:hidden;
+    background:
+        linear-gradient(
+            90deg,
+            rgba(7,53,39,.96),
+            rgba(18,61,43,.90)
+        ),
+        url("{% static 'images/plant1.jpg' %}");
+    background-size:cover;
+    background-position:center;
+}
+
+.collection-hero-content{
+    position:relative;
+    z-index:2;
+    width:100%;
+    padding:70px 0;
+}
+
+.collection-hero-content h1{
+    font-family:'DM Serif Display',serif;
+    color:#fff;
+    font-size:52px;
+    line-height:1.1;
+    margin-bottom:18px;
+}
+
+.collection-hero-content p{
+    max-width:650px;
+    color:rgba(255,255,255,.85);
+    font-size:17px;
+    line-height:1.8;
+    margin-bottom:0;
+}
+
+
+/* =========================================================
+   INTRO
+========================================================= */
+
+.collection-intro{
+    padding:65px 0 30px;
+}
+
+.collection-intro-title{
+    font-family:'DM Serif Display',serif;
+    color:#123d2b;
+    font-size:38px;
+    margin-bottom:14px;
+}
+
+.collection-intro-text{
+    max-width:760px;
+    margin:auto;
+    color:#666;
+    line-height:1.8;
+    font-size:16px;
+}
+
+
+/* =========================================================
+   COLLECTION CARDS
+========================================================= */
+
+.collections-section{
+    padding:30px 0 55px;
+}
+
+.collection-card{
+    height:100%;
+    background:#fff;
+    border:1px solid rgba(18,61,43,.08);
+    border-radius:16px;
+    padding:26px;
+    box-shadow:0 10px 28px rgba(18,61,43,.06);
+    transition:.35s ease;
+}
+
+.collection-card:hover{
+    transform:translateY(-5px);
+    box-shadow:0 18px 38px rgba(18,61,43,.12);
+}
+
+.collection-card h4{
+    font-family:'DM Serif Display',serif;
+    color:#123d2b;
+    font-size:24px;
+    margin-bottom:10px;
+}
+
+.collection-card p{
+    color:#777;
+    font-size:14px;
+    line-height:1.7;
+    margin-bottom:18px;
+}
+
+.collection-card-btn{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    padding:10px 18px;
+    border-radius:30px;
+    background:#123d2b;
+    color:#fff;
+    text-decoration:none;
+    font-size:13px;
+    transition:.3s ease;
+}
+
+.collection-card-btn:hover{
+    background:#c8a96b;
+    color:#fff;
+}
+
+
+/* =========================================================
+   PRODUCTS SECTION
+========================================================= */
+
+.products-section{
+    padding:35px 0 70px;
+}
+
+.products-heading{
+    text-align:center;
+    margin-bottom:32px;
+}
+
+.products-heading h2{
+    font-family:'DM Serif Display',serif;
+    color:#123d2b;
+    font-size:38px;
+    margin-bottom:8px;
+}
+
+.products-heading p{
+    color:#777;
+    margin:0;
+    font-size:14px;
+}
+
+
+/* =========================================================
+   SMALL PRODUCT CARD
+========================================================= */
+
+.collection-product-card{
+    position:relative;
+    height:100%;
+    background:#fff;
+    border-radius:17px;
+    overflow:hidden;
+    border:1px solid rgba(18,61,43,.08);
+    box-shadow:0 7px 20px rgba(18,61,43,.07);
+
+    display:flex;
+    flex-direction:column;
+
+    transition:
+        transform .3s ease,
+        box-shadow .3s ease;
+}
+
+.collection-product-card:hover{
+    transform:translateY(-4px);
+    box-shadow:0 13px 28px rgba(18,61,43,.12);
+}
+
+
+/* =========================================================
+   SMALL PRODUCT IMAGE
+========================================================= */
+
+.collection-product-image{
+    position:relative;
+    width:100%;
+    height:210px;
+    overflow:hidden;
+    background:#f2f5f0;
+}
+
+.collection-product-image > a:first-child{
+    display:block;
+    width:100%;
+    height:100%;
+}
+
+.collection-product-image img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    display:block;
+
+    transition:transform .45s ease;
+}
+
+.collection-product-card:hover
+.collection-product-image img{
+    transform:scale(1.035);
+}
+
+
+/* =========================================================
+   WISHLIST
+========================================================= */
+
+.collection-wishlist-btn{
+    position:absolute;
+    top:12px;
+    right:12px;
+
+    width:40px;
+    height:40px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    background:rgba(255,255,255,.97);
+    color:#123d2b;
+
+    border:1px solid rgba(18,61,43,.08);
+    border-radius:50%;
+
+    text-decoration:none;
+    font-size:17px;
+
+    z-index:6;
+
+    box-shadow:0 5px 13px rgba(0,0,0,.10);
+
+    transition:
+        background .3s ease,
+        color .3s ease,
+        transform .3s ease;
+}
+
+.collection-wishlist-btn:hover{
+    background:#123d2b;
+    color:#fff;
+    transform:scale(1.05);
+}
+
+.collection-wishlist-btn i{
+    line-height:1;
+}
+
+
+/* =========================================================
+   PRODUCT BODY - COMPACT
+========================================================= */
+
+.collection-product-body{
+    padding:13px 14px 14px;
+
+    display:flex;
+    flex-direction:column;
+
+    flex:1;
+}
+
+
+/* =========================================================
+   CATEGORY
+========================================================= */
+
+.collection-product-category{
+    color:#bd8940;
+
+    font-size:10px;
+    font-weight:700;
+
+    text-transform:uppercase;
+    letter-spacing:.75px;
+
+    margin-bottom:5px;
+}
+
+
+/* =========================================================
+   PRODUCT NAME
+========================================================= */
+
+.collection-product-name{
+    min-height:27px;
+    margin-bottom:4px;
+}
+
+.collection-product-name a{
+    color:#123d2b;
+    text-decoration:none;
+
+    font-family:'DM Serif Display',serif;
+
+    font-size:18px;
+    font-weight:400;
+
+    line-height:1.25;
+
+    transition:.25s ease;
+}
+
+.collection-product-name a:hover{
+    color:#c8a96b;
+}
+
+
+/* =========================================================
+   DESCRIPTION
+========================================================= */
+
+.collection-product-description{
+    color:#888;
+
+    font-size:12px;
+    line-height:1.45;
+
+    min-height:35px;
+
+    margin-bottom:6px;
+
+    display:-webkit-box;
+    -webkit-box-orient:vertical;
+    -webkit-line-clamp:2;
+
+    overflow:hidden;
+}
+
+
+/* =========================================================
+   RATING
+========================================================= */
+
+.collection-product-rating{
+    display:flex;
+    align-items:center;
+
+    gap:6px;
+
+    margin-bottom:7px;
+}
+
+.collection-product-stars{
+    display:flex;
+    align-items:center;
+    gap:1px;
+}
+
+.collection-product-stars i{
+    color:#d59d3f;
+    font-size:11px;
+}
+
+.collection-product-rating-number{
+    color:#777;
+    font-size:11px;
+}
+
+
+/* =========================================================
+   PRICE
+========================================================= */
+
+.collection-product-price-area{
+    display:flex;
+    align-items:flex-start;
+    justify-content:space-between;
+
+    margin-bottom:3px;
+}
+
+.collection-product-price{
+    color:#123d2b;
+
+    font-size:18px;
+    font-weight:800;
+
+    line-height:1.1;
+}
+
+.collection-product-old-price{
+    display:block;
+
+    color:#999;
+
+    font-size:10px;
+
+    text-decoration:line-through;
+
+    margin-top:3px;
+}
+
+
+/* =========================================================
+   ACTIONS
+========================================================= */
+
+.collection-product-actions{
+    display:flex;
+    align-items:center;
+
+    gap:8px;
+
+    margin-top:6px;
+}
+
+
+/* =========================================================
+   ROUND VIEW BUTTON
+========================================================= */
+
+.collection-view-btn{
+    width:39px;
+    height:39px;
+
+    flex:0 0 39px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    border-radius:50%;
+
+    background:#fff;
+    color:#123d2b;
+
+    border:1px solid rgba(18,61,43,.14);
+
+    text-decoration:none;
+
+    font-size:15px;
+
+    transition:
+        background .3s ease,
+        color .3s ease,
+        transform .3s ease,
+        box-shadow .3s ease;
+}
+
+.collection-view-btn:hover{
+    background:#123d2b;
+    color:#fff;
+
+    transform:translateY(-2px);
+
+    box-shadow:0 6px 13px rgba(18,61,43,.15);
+}
+
+
+/* =========================================================
+   ADD BUTTON
+========================================================= */
+
+.collection-cart-btn{
+    flex:1;
+
+    height:39px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    gap:6px;
+
+    border-radius:23px;
+
+    background:#14543e;
+    color:#fff;
+
+    text-decoration:none;
+
+    font-size:11px;
+    font-weight:700;
+
+    transition:
+        background .3s ease,
+        transform .3s ease,
+        box-shadow .3s ease;
+}
+
+.collection-cart-btn:hover{
+    background:#1d6848;
+    color:#fff;
+
+    transform:translateY(-2px);
+
+    box-shadow:0 6px 14px rgba(18,61,43,.17);
+}
+
+.collection-cart-btn.disabled{
+    background:#aaa;
+    color:#fff;
+
+    cursor:not-allowed;
+    pointer-events:none;
+}
+
+
+/* =========================================================
+   EMPTY
+========================================================= */
+
+.collection-empty{
+    background:#fff;
+
+    border:1px solid rgba(18,61,43,.08);
+    border-radius:16px;
+
+    padding:55px 25px;
+
+    text-align:center;
+
+    box-shadow:0 10px 28px rgba(18,61,43,.06);
+}
+
+.collection-empty i{
+    font-size:48px;
+    color:#c8a96b;
+    margin-bottom:15px;
+}
+
+.collection-empty h4{
+    color:#123d2b;
+
+    font-family:'DM Serif Display',serif;
+
+    font-size:28px;
+}
+
+.collection-empty p{
+    color:#777;
+    margin-bottom:0;
+}
+
+
+/* =========================================================
+   STATS
+========================================================= */
+
+.collection-stats{
+    padding:25px 0 70px;
+}
+
+.collection-stat{
+    text-align:center;
+    padding:25px 15px;
+}
+
+.collection-stat i{
+    font-size:30px;
+    color:#c8a96b;
+    margin-bottom:12px;
+}
+
+.collection-stat h3{
+    color:#123d2b;
+
+    font-family:'DM Serif Display',serif;
+
+    font-size:30px;
+
+    margin-bottom:5px;
+}
+
+.collection-stat p{
+    color:#777;
+
+    margin:0;
+
+    font-size:13px;
+}
+
+
+/* =========================================================
+   CARE BANNER
+========================================================= */
+
+.collection-care-banner{
+    padding:60px 0;
+}
+
+.collection-care-box{
+    background:
+        linear-gradient(
+            135deg,
+            #123d2b,
+            #1d6848
+        );
+
+    border-radius:20px;
+
+    padding:50px;
+
+    color:#fff;
+
+    position:relative;
+    overflow:hidden;
+}
+
+.collection-care-box h2{
+    font-family:'DM Serif Display',serif;
+
+    font-size:36px;
+
+    margin-bottom:12px;
+}
+
+.collection-care-box p{
+    color:rgba(255,255,255,.82);
+
+    max-width:650px;
+
+    line-height:1.8;
+
+    margin-bottom:0;
+}
+
+
+/* =========================================================
+   FINAL CTA
+========================================================= */
+
+.collection-final-cta{
+    padding:25px 0 80px;
+    text-align:center;
+}
+
+.collection-final-cta h2{
+    font-family:'DM Serif Display',serif;
+
+    color:#123d2b;
+
+    font-size:36px;
+
+    margin-bottom:12px;
+}
+
+.collection-final-cta p{
+    color:#777;
+    margin-bottom:24px;
+}
+
+.collection-final-btn{
+    display:inline-flex;
+
+    align-items:center;
+
+    gap:8px;
+
+    padding:12px 25px;
+
+    background:#123d2b;
+    color:#fff;
+
+    border-radius:30px;
+
+    text-decoration:none;
+
+    font-size:14px;
+    font-weight:700;
+
+    transition:.3s ease;
+}
+
+.collection-final-btn:hover{
+    background:#c8a96b;
+    color:#fff;
+
+    transform:translateY(-2px);
+}
+
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media(max-width:991px){
+
+    .collection-hero-content h1{
+        font-size:44px;
+    }
+
+    .collection-product-image{
+        height:205px;
+    }
+
+}
+
+
+@media(max-width:767px){
+
+    .collection-hero{
+        min-height:300px;
+    }
+
+    .collection-hero-content{
+        padding:55px 20px;
+    }
+
+    .collection-hero-content h1{
+        font-size:38px;
+    }
+
+    .collection-hero-content p{
+        font-size:15px;
+    }
+
+    .collection-intro{
+        padding:50px 15px 20px;
+    }
+
+    .collection-intro-title{
+        font-size:32px;
+    }
+
+    .products-section{
+        padding:30px 15px 60px;
+    }
+
+    .products-heading h2{
+        font-size:34px;
+    }
+
+    .collection-product-image{
+        height:210px;
+    }
+
+    .collection-product-body{
+        padding:12px 13px 13px;
+    }
+
+    .collection-product-name a{
+        font-size:18px;
+    }
+
+    .collection-care-box{
+        padding:35px 25px;
+    }
+
+    .collection-care-box h2{
+        font-size:30px;
+    }
+
+}
+
+</style>
+
+
+
+<div class="collection-page">
+
+
+<!-- =====================================================
+     HERO
+====================================================== -->
+
+<section class="collection-hero">
+
+    <div class="container">
+
+        <div class="collection-hero-content">
+
+            <h1>
+                Our Plant Collections
+            </h1>
+
+            <p>
+                Discover carefully selected plants for every space,
+                lifestyle and experience level. Bring nature home
+                with GreenNest.
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     INTRO
+====================================================== -->
+
+<section class="collection-intro">
+
+    <div class="container text-center">
+
+        <div class="collection-intro-title">
+            Find Your Perfect Green Companion
+        </div>
+
+        <div class="collection-intro-text">
+            Explore our curated collections featuring beautiful
+            indoor plants, outdoor plants, flowering plants and
+            easy-care green companions for your home.
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     COLLECTION CATEGORIES
+====================================================== -->
+
+<section class="collections-section"
+         id="categories">
+
+    <div class="container">
+
+        <div class="row g-4">
+
+            {% for collection in main_collections %}
+
+                {% if collection.collection_name|lower != "new arrivals" %}
+
+                    <div class="col-lg-4 col-md-6">
+
+                        <div class="collection-card">
+
+                            <h4>
+                                {{ collection.collection_name }}
+                            </h4>
+
+                            {% if collection.description %}
+
+                                <p>
+                                    {{ collection.description|truncatechars:120 }}
+                                </p>
+
+                            {% else %}
+
+                                <p>
+                                    Explore beautiful plants from our
+                                    {{ collection.collection_name }}
+                                    collection.
+                                </p>
+
+                            {% endif %}
+
+                            <a href="{% url 'collection' %}?collection_id={{ collection.id }}#categories"
+                               class="collection-card-btn">
+
+                                Explore Collection
+
+                                <i class="bi bi-arrow-right"></i>
+
+                            </a>
+
+                        </div>
+
+                    </div>
+
+                {% endif %}
+
+            {% empty %}
+
+                <div class="col-12">
+
+                    <div class="collection-empty">
+
+                        <i class="bi bi-flower1"></i>
+
+                        <h4>
+                            No Collections Available
+                        </h4>
+
+                        <p>
+                            Our plant collections will appear here soon.
+                        </p>
+
+                    </div>
+
+                </div>
+
+            {% endfor %}
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     PRODUCTS
+====================================================== -->
+
+<section class="products-section">
+
+    <div class="container">
+
+        <div class="products-heading">
+
+            <h2>
+
+                {% if selected_collection_name %}
+
+                    {{ selected_collection_name }}
+
+                {% else %}
+
+                    Explore Our Plants
+
+                {% endif %}
+
+            </h2>
+
+            <p>
+                Choose your favourite plant and bring nature home.
+            </p>
+
+        </div>
+
+
+        {% if products %}
+
+            <div class="row g-4">
+
+                {% for product in products %}
+
+                    <div class="col-xl-3 col-lg-4 col-md-6">
+
+                        <div class="collection-product-card">
+
+
+                            <!-- =================================================
+                                 PRODUCT IMAGE
+                            ================================================== -->
+
+                            <div class="collection-product-image">
+
+                                <a href="{% url 'product_details' product.id %}">
+
+                                    {% if product.image %}
+
+                                        <img src="{% static 'product_images/' %}{{ product.image }}"
+                                             alt="{{ product.name }}">
+
+                                    {% else %}
+
+                                        <img src="{% static 'images/plant1.jpg' %}"
+                                             alt="{{ product.name }}">
+
+                                    {% endif %}
+
+                                </a>
+
+
+                                <!-- WISHLIST -->
+
+                                <a href="{% url 'AddToWishlist' product.id %}"
+                                   class="collection-wishlist-btn"
+                                   title="Add to Wishlist"
+                                   aria-label="Add {{ product.name }} to Wishlist">
+
+                                    <i class="bi bi-heart"></i>
+
+                                </a>
+
+                            </div>
+
+
+                            <!-- =================================================
+                                 PRODUCT BODY
+                            ================================================== -->
+
+                            <div class="collection-product-body">
+
+
+                                <!-- CATEGORY -->
+
+                                {% if product.category %}
+
+                                    <div class="collection-product-category">
+
+                                        {{ product.category }}
+
+                                    </div>
+
+                                {% endif %}
+
+
+                                <!-- PRODUCT NAME -->
+
+                                <div class="collection-product-name">
+
+                                    <a href="{% url 'product_details' product.id %}">
+
+                                        {{ product.name }}
+
+                                    </a>
+
+                                </div>
+
+
+                                <!-- DESCRIPTION -->
+
+                                {% if product.description %}
+
+                                    <div class="collection-product-description">
+
+                                        {{ product.description|truncatechars:75 }}
+
+                                    </div>
+
+                                {% else %}
+
+                                    <div class="collection-product-description">
+
+                                        Beautiful green companion
+                                        for your home.
+
+                                    </div>
+
+                                {% endif %}
+
+
+                                <!-- RATING -->
+
+                                <div class="collection-product-rating">
+
+                                    <div class="collection-product-stars">
+
+                                        <i class="bi bi-star-fill"></i>
+                                        <i class="bi bi-star-fill"></i>
+                                        <i class="bi bi-star-fill"></i>
+                                        <i class="bi bi-star-fill"></i>
+                                        <i class="bi bi-star-fill"></i>
+
+                                    </div>
+
+                                    <span class="collection-product-rating-number">
+                                        {% if product.rating %}
+                                            {{ product.rating }}
+                                        {% else %}
+                                            4.8
+                                        {% endif %}
+                                    </span>
+
+                                </div>
+
+
+                                <!-- PRICE -->
+
+                                <div class="collection-product-price-area">
+
+                                    <div>
+
+                                        <span class="collection-product-price">
+
+                                            ₹{{ product.price }}
+
+                                        </span>
+
+                                        {% if product.old_price %}
+
+                                            <span class="collection-product-old-price">
+
+                                                ₹{{ product.old_price }}
+
+                                            </span>
+
+                                        {% endif %}
+
+                                    </div>
+
+                                </div>
+
+
+                                <!-- ACTION BUTTONS -->
+
+                                <div class="collection-product-actions">
+
+
+                                    <!-- VIEW -->
+
+                                    <a href="{% url 'product_details' product.id %}"
+                                       class="collection-view-btn"
+                                       title="View Product">
+
+                                        <i class="bi bi-eye"></i>
+
+                                    </a>
+
+
+                                    <!-- ADD TO CART -->
+
+                                    {% if product.stock and product.stock > 0 %}
+
+                                        <a href="{% url 'AddToCart' product.id %}"
+                                           class="collection-cart-btn">
+
+                                            <i class="bi bi-cart-plus"></i>
+
+                                            Add
+
+                                        </a>
+
+                                    {% else %}
+
+                                        <a href="javascript:void(0);"
+                                           class="collection-cart-btn disabled">
+
+                                            <i class="bi bi-cart-x"></i>
+
+                                            Out of Stock
+
+                                        </a>
+
+                                    {% endif %}
+
+                                </div>
+
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                {% endfor %}
+
+            </div>
+
+
+        {% else %}
+
+
+            <!-- NO PRODUCTS -->
+
+            <div class="collection-empty">
+
+                <i class="bi bi-flower1"></i>
+
+                <h4>
+                    No Products Available
+                </h4>
+
+                {% if selected_collection_name %}
+
+                    <p>
+
+                        No products have been added to
+                        <strong>{{ selected_collection_name }}</strong>
+                        yet.
+
+                    </p>
+
+                {% else %}
+
+                    <p>
+                        No active products are available right now.
+                    </p>
+
+                {% endif %}
+
+            </div>
+
+        {% endif %}
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     STATS
+====================================================== -->
+
+<section class="collection-stats">
+
+    <div class="container">
+
+        <div class="row g-4">
+
+
+            <div class="col-md-3 col-6">
+
+                <div class="collection-stat">
+
+                    <i class="bi bi-flower1"></i>
+
+                    <h3>
+                        100+
+                    </h3>
+
+                    <p>
+                        Plant Varieties
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="col-md-3 col-6">
+
+                <div class="collection-stat">
+
+                    <i class="bi bi-house-heart"></i>
+
+                    <h3>
+                        50+
+                    </h3>
+
+                    <p>
+                        Home Collections
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="col-md-3 col-6">
+
+                <div class="collection-stat">
+
+                    <i class="bi bi-emoji-smile"></i>
+
+                    <h3>
+                        1000+
+                    </h3>
+
+                    <p>
+                        Happy Customers
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="col-md-3 col-6">
+
+                <div class="collection-stat">
+
+                    <i class="bi bi-heart"></i>
+
+                    <h3>
+                        100%
+                    </h3>
+
+                    <p>
+                        Green Love
+                    </p>
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     CARE BANNER
+====================================================== -->
+
+<section class="collection-care-banner">
+
+    <div class="container">
+
+        <div class="collection-care-box">
+
+            <h2>
+                Not Sure Which Plant To Choose?
+            </h2>
+
+            <p>
+                Whether you're a beginner or an experienced plant
+                parent, GreenNest has a plant collection for every
+                home and lifestyle.
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     FINAL CTA
+====================================================== -->
+
+<section class="collection-final-cta">
+
+    <div class="container">
+
+        <h2>
+            Bring Nature Home
+        </h2>
+
+        <p>
+            Explore more plants and find your perfect green companion.
+        </p>
+
+        <a href="{% url 'plant' %}"
+           class="collection-final-btn">
+
+            Explore Plants
+
+            <i class="bi bi-arrow-right"></i>
+
+        </a>
+
+    </div>
+
+</section>
+
+
+</div>
+
+{% endblock %}

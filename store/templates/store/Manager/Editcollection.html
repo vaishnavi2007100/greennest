@@ -1,0 +1,560 @@
+{% extends "store/Manager/ManagerMaster.html" %}
+
+{% block title %}
+Edit Collection | GreenNest
+{% endblock %}
+
+{% block page_heading %}
+Edit Collection
+{% endblock %}
+
+{% block content %}
+
+<style>
+
+/* =========================================================
+   EDIT COLLECTION
+========================================================= */
+
+.edit-collection-card {
+
+    max-width: 850px;
+
+    margin: auto;
+
+    background: white;
+
+    border-radius: 20px;
+
+    padding: 35px;
+
+    border: 1px solid #e6eee8;
+
+    box-shadow:
+        0 10px 35px
+        rgba(20,60,40,0.08);
+}
+
+
+/* =========================================================
+   HEADER
+========================================================= */
+
+.edit-collection-header {
+
+    margin-bottom: 30px;
+}
+
+.edit-collection-header h2 {
+
+    margin: 0 0 7px;
+
+    font-family:
+        'DM Serif Display',
+        serif;
+
+    color: #173d2b;
+
+    font-size: 28px;
+}
+
+.edit-collection-header p {
+
+    margin: 0;
+
+    color: #8a948e;
+
+    font-size: 12px;
+}
+
+
+/* =========================================================
+   INFO BOX
+========================================================= */
+
+.edit-info-box {
+
+    display: flex;
+
+    align-items: flex-start;
+
+    gap: 12px;
+
+    background: #f4f8f5;
+
+    border-left: 4px solid #c8a96b;
+
+    padding: 15px 17px;
+
+    border-radius: 9px;
+
+    margin-bottom: 28px;
+}
+
+.edit-info-box i {
+
+    color: #c8a96b;
+
+    font-size: 18px;
+}
+
+.edit-info-box p {
+
+    margin: 0;
+
+    color: #647169;
+
+    font-size: 12px;
+
+    line-height: 1.6;
+}
+
+
+/* =========================================================
+   LABEL
+========================================================= */
+
+.form-label {
+
+    color: #173d2b;
+
+    font-size: 13px;
+
+    font-weight: 700;
+
+    margin-bottom: 8px;
+}
+
+
+/* =========================================================
+   INPUT
+========================================================= */
+
+.form-control,
+.form-select {
+
+    width: 100%;
+
+    border: 1px solid #dce7df;
+
+    border-radius: 10px;
+
+    padding: 12px 14px;
+
+    font-family:
+        'Montserrat',
+        sans-serif;
+
+    font-size: 13px;
+
+    color: #394b41;
+
+    background: white;
+}
+
+.form-control:focus,
+.form-select:focus {
+
+    border-color: #8baa95;
+
+    box-shadow:
+        0 0 0 0.2rem
+        rgba(23,61,43,0.08);
+
+    outline: none;
+}
+
+textarea.form-control {
+
+    min-height: 120px;
+
+    resize: vertical;
+}
+
+
+/* =========================================================
+   CURRENT COLLECTION
+========================================================= */
+
+.current-collection {
+
+    background: #f8faf8;
+
+    border: 1px solid #e5ece7;
+
+    border-radius: 10px;
+
+    padding: 12px 15px;
+
+    margin-bottom: 25px;
+}
+
+.current-collection span {
+
+    display: block;
+
+    color: #89958e;
+
+    font-size: 10px;
+
+    text-transform: uppercase;
+
+    letter-spacing: .7px;
+
+    font-weight: 700;
+
+    margin-bottom: 4px;
+}
+
+.current-collection strong {
+
+    color: #173d2b;
+
+    font-size: 14px;
+}
+
+
+/* =========================================================
+   BUTTONS
+========================================================= */
+
+.form-actions {
+
+    display: flex;
+
+    gap: 10px;
+
+    margin-top: 28px;
+}
+
+.update-btn {
+
+    background: #173d2b;
+
+    color: white;
+
+    border: none;
+
+    border-radius: 10px;
+
+    padding: 12px 24px;
+
+    font-size: 13px;
+
+    font-weight: 700;
+
+    transition: .3s ease;
+}
+
+.update-btn:hover {
+
+    background: #286044;
+
+    color: white;
+}
+
+.cancel-btn {
+
+    background: #f0f4f1;
+
+    color: #173d2b;
+
+    border: none;
+
+    border-radius: 10px;
+
+    padding: 12px 24px;
+
+    font-size: 13px;
+
+    font-weight: 700;
+
+    text-decoration: none;
+
+    transition: .3s ease;
+}
+
+.cancel-btn:hover {
+
+    background: #e3ebe5;
+
+    color: #173d2b;
+}
+
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media(max-width: 576px) {
+
+    .edit-collection-card {
+
+        padding: 22px;
+    }
+
+    .form-actions {
+
+        flex-direction: column;
+    }
+
+    .update-btn,
+    .cancel-btn {
+
+        text-align: center;
+
+        width: 100%;
+    }
+
+}
+
+</style>
+
+
+<div class="edit-collection-card">
+
+
+    <!-- =================================================
+         HEADER
+    ================================================== -->
+
+    <div class="edit-collection-header">
+
+        <h2>
+            Edit Collection
+        </h2>
+
+        <p>
+            Update the collection information below.
+        </p>
+
+    </div>
+
+
+    <!-- =================================================
+         CURRENT COLLECTION
+    ================================================== -->
+
+    <div class="current-collection">
+
+        <span>
+            Editing Collection
+        </span>
+
+        <strong>
+            {{ collection.collection_name }}
+        </strong>
+
+    </div>
+
+
+    <!-- =================================================
+         INFO
+    ================================================== -->
+
+    <div class="edit-info-box">
+
+        <i class="bi bi-info-circle-fill"></i>
+
+        <p>
+            You can change the collection name, parent collection,
+            description and status. Seasonal collections such as
+            Spring, Summer, Autumn and Winter can remain under
+            Seasonal Collection.
+        </p>
+
+    </div>
+
+
+    <!-- =================================================
+         FORM
+    ================================================== -->
+
+    <form method="POST">
+
+        {% csrf_token %}
+
+
+        <!-- =================================================
+             COLLECTION NAME
+        ================================================== -->
+
+        <div class="mb-4">
+
+            <label class="form-label">
+
+                Collection Name
+
+            </label>
+
+            <input
+                type="text"
+                name="collection_name"
+                class="form-control"
+                value="{{ collection.collection_name }}"
+                placeholder="Enter collection name"
+                required
+            >
+
+        </div>
+
+
+        <!-- =================================================
+             PARENT COLLECTION
+        ================================================== -->
+
+        <div class="mb-4">
+
+            <label class="form-label">
+
+                Parent Collection
+
+            </label>
+
+            <select
+                name="parent_id"
+                class="form-select"
+            >
+
+
+                <!-- NO PARENT -->
+
+                <option value="">
+
+                    -- No Parent Collection --
+
+                </option>
+
+
+                {% for parent in parents %}
+
+                    <option
+                        value="{{ parent.id }}"
+
+                        {% if collection.parent_id == parent.id %}
+                            selected
+                        {% endif %}
+                    >
+
+                        {{ parent.collection_name }}
+
+                    </option>
+
+                {% endfor %}
+
+
+            </select>
+
+        </div>
+
+
+        <!-- =================================================
+             DESCRIPTION
+        ================================================== -->
+
+        <div class="mb-4">
+
+            <label class="form-label">
+
+                Description
+
+            </label>
+
+            <textarea
+                name="description"
+                class="form-control"
+                placeholder="Enter collection description"
+            >{{ collection.description }}</textarea>
+
+        </div>
+
+
+        <!-- =================================================
+             STATUS
+        ================================================== -->
+
+        <div class="mb-4">
+
+            <label class="form-label">
+
+                Status
+
+            </label>
+
+            <select
+                name="status"
+                class="form-select"
+            >
+
+                <option
+                    value="Active"
+                    {% if collection.status == "Active" %}
+                        selected
+                    {% endif %}
+                >
+
+                    Active
+
+                </option>
+
+
+                <option
+                    value="Inactive"
+                    {% if collection.status == "Inactive" %}
+                        selected
+                    {% endif %}
+                >
+
+                    Inactive
+
+                </option>
+
+            </select>
+
+        </div>
+
+
+        <!-- =================================================
+             BUTTONS
+        ================================================== -->
+
+        <div class="form-actions">
+
+
+            <!-- UPDATE -->
+
+            <button
+                type="submit"
+                class="update-btn"
+            >
+
+                <i class="bi bi-check-circle me-1"></i>
+
+                Update Collection
+
+            </button>
+
+
+            <!-- CANCEL -->
+
+            <a
+                href="{% url 'Collectionlist' %}"
+                class="cancel-btn"
+            >
+
+                <i class="bi bi-arrow-left me-1"></i>
+
+                Back to Collection
+
+            </a>
+
+
+        </div>
+
+
+    </form>
+
+
+</div>
+
+{% endblock %}
